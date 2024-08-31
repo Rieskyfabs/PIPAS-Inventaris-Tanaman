@@ -283,7 +283,7 @@
       
 
       @auth
-        @if (Auth::user()->role=='admin')
+        @if (Auth::user()->role=='user')
           <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('dashboard') }}">
               <i class="bi bi-grid"></i>

@@ -27,43 +27,42 @@
 </head>
 
     <body>
+      <!-- navigation -->
+      <header class="navigation bg-tertiary">
+          <nav class="navbar">
+              <div class="container nav-wrapper">
+                  <a href="#" class="logo"><span><i class="fa-solid fa-seedling"></i> DAMASU</span></a>
+                  <div class="menu-wrapper">
+                    <ul class="menu">
+                        <li class="{{request()->is('#') ? 'active' : ''}} menu-item"><a href="#" class="menu-link">Home</a></li>
+                        <li class="{{request()->is('#about') ? 'active' : ''}} menu-item"><a href="#about" class="menu-link">About P5</a></li>
+                        <li class="{{request()->is('#galeri') ? 'active' : ''}} menu-item"><a href="#galeri" class="menu-link">Galeri</a></li>
+                        <li class="{{request()->is('#team') ? 'active' : ''}} menu-item"><a href="#team" class="menu-link">Our Team</a></li>
+                        <!-- <li class="menu-item"><a href="#contact-form" class="menu-link">Contact</a></li> -->
+                    </ul>
+                    @if (Route::has('login'))
+                        <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
+                            @auth
+                                @if (Auth::user()->role == 'admin')
+                                  <a href="{{ route('admin/dashboard') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Admin Dashboard</a>
+                                @else
+                                  <a href="{{ route('dashboard') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> User Dashboard</a>
+                                @endif
+                                {{-- <a href="{{ route('logout') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Logout</a> --}}
+                            @else
+                                <a href="{{ route('login') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
 
-        <!-- navigation -->
-        <header class="navigation bg-tertiary">
-            <nav class="navbar">
-                <div class="container nav-wrapper">
-                    <a href="#" class="logo"><span><i class="fa-solid fa-seedling"></i> DAMASU</span></a>
-                    <div class="menu-wrapper">
-                      <ul class="menu">
-                          <li class="{{request()->is('#') ? 'active' : ''}} menu-item"><a href="#" class="menu-link">Home</a></li>
-                          <li class="{{request()->is('#about') ? 'active' : ''}} menu-item"><a href="#about" class="menu-link">About P5</a></li>
-                          <li class="{{request()->is('#galeri') ? 'active' : ''}} menu-item"><a href="#galeri" class="menu-link">Galeri</a></li>
-                          <li class="{{request()->is('#team') ? 'active' : ''}} menu-item"><a href="#team" class="menu-link">Our Team</a></li>
-                          <!-- <li class="menu-item"><a href="#contact-form" class="menu-link">Contact</a></li> -->
-                      </ul>
-                      @if (Route::has('login'))
-                          <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-                              @auth
-                                  @if (Auth::user()->role == 'admin')
-                                    <a href="{{ route('admin/dashboard') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Admin Dashboard</a>
-                                  @else
-                                    <a href="{{ route('dashboard') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> User Dashboard</a>
-                                  @endif
-                                  {{-- <a href="{{ route('logout') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Logout</a> --}}
-                              @else
-                                  <a href="{{ route('login') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
-
-                                  {{-- @if (Route::has('register'))
-                                      <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                                  @endif --}}
-                              @endauth
-                          </div>
-                      @endif
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <!-- /navigation -->
+                                {{-- @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                                @endif --}}
+                            @endauth
+                        </div>
+                    @endif
+                  </div>
+              </div>
+          </nav>
+      </header>
+      <!-- /navigation -->
 
         <main>
           <!-- Hero, Home Page Section -->

@@ -10,7 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="/assets/img/favicon.png" rel="icon">
+  <link href="/images/wikrama-logo.png" rel="icon">
   <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -39,7 +39,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <img src="/assets/img/logo.png" alt="">
+        <img src="/images/wikrama-logo.png" alt="">
         <span class="d-none d-lg-block">DAMASU P5</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -283,7 +283,7 @@
       @auth
         @if (Auth::user()->role=='user')
           <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('dashboard') }}">
+            <a class="nav-link collapsed" href="{{ route('admin/dashboard') }}">
               <i class="bi bi-grid"></i>
               <span>Dashboard</span>
             </a>
@@ -292,7 +292,7 @@
         @else
 
           <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('dashboard') }}">
+            <a class="nav-link collapsed" href="{{ route('admin/dashboard') }}">
               <i class="bi bi-grid"></i>
               <span>Dashboard</span>
             </a>
