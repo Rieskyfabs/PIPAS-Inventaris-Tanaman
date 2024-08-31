@@ -35,5 +35,11 @@ Route::middleware(['auth', 'user-access:user'])->group(function (){
 
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'adminDashboard'])->name('admin/dashboard');
+    Route::get('/admin/materi', [HomeController::class, 'showMateri'])->name('materi');
+    Route::get('/admin/kebersihan', [HomeController::class, 'showKebersihan'])->name('kebersihan');
+    Route::get('/admin/tanaman', [HomeController::class, 'showTanaman'])->name('tanaman');
+    Route::get('/admin/pemilahan-sampah', [HomeController::class, 'showPemilahanSampah'])->name('pemilahan-sampah');
+    Route::get('/admin/observasi', [HomeController::class, 'showObservasi'])->name('observasi');
+    Route::get('/admin/portfolio', [HomeController::class, 'showPortfolio'])->name('portfolio');
 });
 
