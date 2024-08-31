@@ -2,19 +2,17 @@
 
 @section('title', 'Dashboard')
 
-@section('contents-user')
+@section('contents')
   <div>
     <main id="main" class="main">
 
-      <div class="pagetitle">
-        <h1>User Dashboard</h1>
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Dashboard</li>
-          </ol>
-        </nav>
-      </div>
+      <x-breadcrumbs 
+        title="User Dashboard" 
+        :items="[
+            ['route' => 'home', 'label' => 'Home'],
+            ['label' => 'Dashboard']
+        ]" 
+      />
 
       <section class="section">
         <div class="row">

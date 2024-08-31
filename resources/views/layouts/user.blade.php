@@ -44,20 +44,12 @@
 
   <main>
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <div>@yield('contents-user')</div>
+      <div>@yield('contents')</div>
     </div>
   </main>
 
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>P5 Gaya Hidup Berkelanjutan</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-
-      Designed by <a href="#">DAMASU TEAM</a>
-    </div>
-  </footer>
+    <x-footer />
   <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
