@@ -39,12 +39,13 @@
             
 
             <x-profile-dropdown 
-                profileImage="/assets/img/profile-img.jpg" 
+                profileImage="{{ Auth::user()->profile_image ?? asset('/assets/img/default-profile-pic.jpg') }}" 
                 username="{{ Auth::user()->username }}" 
                 role="{{ Auth::user()->role }}"
                 profileUrl="users-profile.html" 
                 helpUrl="pages-faq.html" 
             />
+
 
         </ul>
     </nav>
