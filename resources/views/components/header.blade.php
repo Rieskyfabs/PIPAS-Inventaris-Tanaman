@@ -23,15 +23,20 @@
             </li>
             <!-- End Search Icon -->
 
-            <x-notification-dropdown 
-                :notificationCount="4" 
-                :notifications="[
-                    ['icon' => 'bi-exclamation-circle', 'iconColor' => 'text-warning', 'title' => 'Lorem Ipsum', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '30 min. ago'],
-                    ['icon' => 'bi-x-circle', 'iconColor' => 'text-danger', 'title' => 'Atque rerum nesciunt', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '1 hr. ago'],
-                    ['icon' => 'bi-check-circle', 'iconColor' => 'text-success', 'title' => 'Sit rerum fuga', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '2 hrs. ago'],
-                    ['icon' => 'bi-info-circle', 'iconColor' => 'text-primary', 'title' => 'Dicta reprehenderit', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '4 hrs. ago']
-                ]" 
-            />
+            @auth
+                @if (Auth::user()->role == 'admin')
+                    <x-notification-dropdown 
+                        :notificationCount="4" 
+                        :notifications="[
+                            ['icon' => 'bi-exclamation-circle', 'iconColor' => 'text-warning', 'title' => 'Lorem Ipsum', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '30 min. ago'],
+                            ['icon' => 'bi-x-circle', 'iconColor' => 'text-danger', 'title' => 'Atque rerum nesciunt', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '1 hr. ago'],
+                            ['icon' => 'bi-check-circle', 'iconColor' => 'text-success', 'title' => 'Sit rerum fuga', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '2 hrs. ago'],
+                            ['icon' => 'bi-info-circle', 'iconColor' => 'text-primary', 'title' => 'Dicta reprehenderit', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '4 hrs. ago']
+                        ]" 
+                    />
+                @endif
+            @endauth
+            
 
             <x-profile-dropdown 
                 profileImage="/assets/img/profile-img.jpg" 

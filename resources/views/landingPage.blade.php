@@ -8,7 +8,7 @@
 	<meta name="description" content="This is meta description">
 	<meta name="author" content="Themefisher">
 	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
-	<link rel="icon" href="images/favicon.png" type="image/x-icon">
+	<link href="/images/wikrama-logo.png" rel="icon">
 
 
     <!-- Icons -->
@@ -73,10 +73,20 @@
                       <p class="subHeading">Bakar semangatmu dengan mengikuti <span>P5 Gaya Hidup Berkelanjutan</span>  yang diadakan di sekolah sebagai ajang bagi dirimu untuk meningkatkan nilai dan sikap bagi para siswa.</p>
                       <div class="box-wrapper">
                           <div class="box">
-                              <a href="#" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login Sekarang</a>   
+                            @if (Route::has('login'))
+                                @auth
+                                    @if (Auth::user()->role == 'admin')
+                                    <a href="{{ route('admin/dashboard') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Admin Dashboard</a>
+                                    @else
+                                    <a href="{{ route('dashboard') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> User Dashboard</a>
+                                    @endif
+                                @else
+                                    <a href="{{ route('login') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                                @endauth
+                            @endif 
                           </div>
                           <div class="box">
-                              <a href="#" class="btn-about"><i class="fas fa-info-circle"></i> Tentang P5</a>
+                              <a href="#about" class="btn-about"><i class="fas fa-info-circle"></i> Tentang P5</a>
                           </div>
                       </div>
                   </div>
@@ -306,11 +316,14 @@
             </div>
         </footer>
         <!-- END Footer -->
+        
         <!-- # JS Plugins -->
         <script src="{{ asset('front/plugins/jquery/jquery.min.js')}}"></script>
         <script src="{{ asset('front/plugins/bootstrap/bootstrap.min.js')}}"></script>
 
         <!-- Main Script -->
         <script src="{{ asset('js/appScript.js') }}"></script>
+
+        @include('sweetalert::alert')
     </body>
 </html>

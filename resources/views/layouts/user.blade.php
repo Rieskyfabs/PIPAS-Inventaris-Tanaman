@@ -10,7 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="/assets/img/favicon.png" rel="icon">
+  <link href="/images/wikrama-logo.png" rel="icon">
   <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -67,6 +67,8 @@
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
 
+  @include('sweetalert::alert')
+  
 </body>
 
 </html>

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
@@ -26,20 +26,34 @@ class AuthController extends Controller
 
     public function loginAction(Request $request)
     {
-        Validator::make($request->all(), [
+        // Validasi input
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required'
-        ])->validate();
+        ]);
 
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed')
-            ]);
+        // Jika validasi gagal
+        if ($validator->fails()) {
+            Alert::warning('Validasi Gagal', 'Mohon periksa kembali email dan password Anda.');
+            return back()->withErrors($validator)->withInput();
         }
 
+        // Autentikasi pengguna
+        $credentials = $request->only('email', 'password');
+        if (!Auth::attempt($credentials)) {
+            Log::warning('Login attempt failed for email: ' . $request->input('email'));
+            Alert::warning('Login Gagal', 'Nampaknya anda memasukkan email atau password yang salah.');
+            return back()->withInput();
+        }
+
+        // Regenerasi session untuk keamanan
         $request->session()->regenerate();
 
-        if (auth()->user()->role == 'admin') {
+        // Setel pesan sukses
+        Alert::success('Login Berhasil!', 'Selamat datang di dashboard anda.');
+
+        // Redirect berdasarkan peran pengguna
+        if (auth()->user()->role === 'admin') {
             return redirect()->route('admin/dashboard');
         } else {
             return redirect()->route('dashboard');
@@ -50,7 +64,8 @@ class AuthController extends Controller
         Auth::guard('web')->logout();
 
         $request->Session()->invalidate();
+        Alert::info('Anda Logout', 'Terimakasih telah berkunjung!, datang lagi yaa!');
 
-        return redirect('/login');
+        return redirect()->route('home');
     }
 }

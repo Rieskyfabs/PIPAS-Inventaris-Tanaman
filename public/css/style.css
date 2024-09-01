@@ -1318,171 +1318,225 @@ section {
 
 /* END OF DEKSTOP VERSION */
 
-/* MOBILE VERSION */
-@media screen and (max-width: 767px) {
+/* Responsive CSS for Mobile Devices */
+@media (max-width: 768px) {
   .navbar .nav-wrapper {
-    padding: 0 50px;
-    
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
   }
 
-  .nav-wrapper .menu-wrapper .menu {
-    /* flex-direction: row;
-    gap: 20px; */
+  .nav-wrapper .menu-wrapper {
     display: none;
-    /* Reduce gap and stack vertically for mobile */
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
   }
 
-  .menu-wrapper .menu .menu-link {
-    display: block;
-    font-size: 14px;
-    /* Smaller font size for mobile */
+  .navbar.active .menu-wrapper {
+    display: flex;
   }
 
-  .menu-wrapper .btn-login {
-    padding: 10px 40px;
-    
-    /* Smaller button padding for mobile */
+  .menu-wrapper .menu {
+    flex-direction: column;
+    gap: 20px;
   }
 
-  .home .home-wrapper {
-    flex-direction: row;
-    padding: 0 200px;
+  .home-wrapper {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
   }
 
   .home-wrapper .heading {
-    font-size: 4rem;
-    /* Smaller heading for mobile */
-    text-align: center;
-    /* Center-align text */
+    font-size: 2.5rem;
+    margin-top: 5rem;
   }
 
   .home-wrapper .subHeading {
     font-size: 1rem;
-    /* Smaller subheading */
-    text-align: center;
+    margin: 20px 0;
   }
 
   .home-wrapper .box-wrapper {
-    flex-direction: row;
-    margin-bottom: 1rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
   .content-right .img-wrapper {
     left: 0;
-    margin: auto;
-    /* Center image container */
-    width: 100%;
-    /* Full width for mobile */
+    margin-top: 2rem;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-wrapper .heading {
+    font-size: 4rem;
+  }
+
+  .home-wrapper .subHeading {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .box-wrapper .box a {
+    margin-top: 1rem;
+    font-size: 1rem;
   }
 
   .content-right .img-wrapper img {
-    margin: 1rem 0;
-    width: 100%;
-    /* Full width for images */
+    margin-top: 2rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* To center the entire content-left section */
+  .about-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .content-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .img-wrapper img {
+    max-width: 100%;
     height: auto;
-    /* Maintain aspect ratio */
   }
 
   .about-wrapper .heading {
-    font-size: 2rem;
-    margin-top: 3rem;
-    text-align: center;
+    font-size: 3rem;
+    font-family: var(--heading-font);
+    font-weight: 700;
+    color: var(--second-color);
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); */
+
+  }
+
+  .about-wrapper .heading span {
+    color: var(--main-color);
+    /* text-shadow: 2px 2px 4px rgba(0, 202, 40, 0.859); */
+
   }
 
   .about-wrapper .subHeading {
-    font-size: 1rem;
-    text-align: center;
+    font-size: 2rem;
+    font-weight: 300;
+    margin: 30px 0;
+    color: var(--second-color);
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); */
   }
 
-  .about-wrapper .content-left,
-  .about-wrapper .content-right {
-    flex: 0 0 100%;
-    text-align: center;
-    padding: 0 15px;
-    /* Padding for mobile */
+  .about-wrapper .content-left .img-wrapper {
+    position: relative;
+    left: 10px;
+    top: -80px
   }
 
-  .about-wrapper .content-right .card-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .galeri-wrapper .heading-galeri {
+    font-size: 3rem;
+    font-family: var(--heading-font);
+    font-weight: 700;
+    color: #000000;
   }
 
-  .galeri-wrapper {
-    margin-top: 3rem;
-    padding: 0 15px;
-    /* Padding for mobile */
-  }
-
-  .galeri-wrapper .heading-galeri,
   .galeri-wrapper .heading-galeri span {
-    font-size: 24px;
-    text-align: center;
+    font-size: 3rem;
+    font-family: var(--heading-font);
+    font-weight: 700;
+    color: var(--main-color);
   }
 
   .galeri-wrapper .subHeading-galeri {
-    font-size: 0.9rem;
-    text-align: center;
+    font-size: 2rem;
+
   }
 
-  .galeri-wrapper .row2 {
-    padding: 20px 0;
+  .team-wrapper .heading-team {
+    font-size: 3rem;
+    font-family: var(--heading-font);
+    font-weight: 700;
+    color: #000000;
+    margin: 10px 0;
   }
 
-  .galeri-wrapper .row2 .card-galeri {
-    gap: 15px;
-  }
-
-  .galeri-wrapper .row2 .card-galeri .card {
-    max-width: 100%;
-    margin-bottom: 15px;
-  }
-
-  .galeri-wrapper .row2 .card-galeri .card img {
-    height: 10rem;
-  }
-
-  .team .team-wrapper {
-    margin-top: 4rem;
-    margin-bottom: 80px;
-    padding: 15px;
-  }
-
-  .team-wrapper .heading-team,
   .team-wrapper .heading-team span {
-    font-size: 24px;
-    text-align: center;
+    font-size: 3rem;
+    font-family: var(--heading-font);
+    font-weight: 700;
+    color: var(--main-color);
   }
 
   .team-wrapper .subHeading-team {
+    font-size: 2rem;
+
+  }
+
+  .highlighted-cta .highlighted-cta-wrapper {
+    display: none !important;
+    background-color: #F2B8A0;
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .highlighted-cta-wrapper {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    max-height: 400px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    /* Optional: if you want the card content to have a white background */
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .contact-form-wrapper .content-left .heading {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .contact-form-wrapper .content-left .subHeading {
     font-size: 14px;
     text-align: center;
   }
 
-  .team-wrapper .row2 .card-team .card {
-    max-width: 100%;
-    margin-bottom: 15px;
+  .form-group input {
+    display: none;
   }
 
-  .highlighted-cta-wrapper {
-    flex-direction: column;
-    padding: 15px;
-    align-items: center;
+  .btn-submit {
+    display: none;
   }
 
-  .highlighted-cta .highlighted-cta-wrapper {
-    max-width: 100%;
-    height: auto;
+  .form-group {
+    display: none;
   }
 
-  .highlighted-cta-wrapper .content-left .heading {
-    margin-top: 20px;
-    font-size: 1.5rem;
+  .contact-form-wrapper .content-left .contact-form-box-wrapper .box-contact-form .social-media-buttons {
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .contact-form-wrapper .btn-contact,
+  .contact-form-wrapper .btn-email {
     text-align: center;
+    font-size: 20px;
   }
 
-  .highlighted-cta-wrapper .content-right .img-wrapper img {
-    width: 100%;
-    margin-bottom: 15px;
-  }
-} 
-
+}

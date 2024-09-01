@@ -8,7 +8,7 @@
 	<meta name="description" content="This is meta description">
 	<meta name="author" content="Themefisher">
 	<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
-	<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+	<link href="/images/wikrama-logo.png" rel="icon">
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -23,6 +23,9 @@
 
 	<!-- #Main Style Sheet -->
 	<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+
+  <!-- SweetAlert2 CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -77,6 +80,8 @@
 
     <!-- Main Script -->
     <script src="{{ asset('js/LoginScript.js') }}"></script>
+
+    @include('sweetalert::alert')
 
   </body>
 

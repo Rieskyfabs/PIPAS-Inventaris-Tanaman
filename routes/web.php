@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StudentController;
+use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +38,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function (){
 
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'adminDashboard'])->name('admin/dashboard');
+    Route::get('/admin/students', [StudentController::class, 'index'])->name('students');
     Route::get('/admin/materi', [HomeController::class, 'showMateri'])->name('materi');
     Route::get('/admin/kebersihan', [HomeController::class, 'showKebersihan'])->name('kebersihan');
     Route::get('/admin/tanaman', [HomeController::class, 'showTanaman'])->name('tanaman');

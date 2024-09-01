@@ -24,6 +24,13 @@
                 <li class="nav-heading">Pages</li>
 
                 <li class="nav-item">
+                    <a class="nav-link {{ Request::is('admin/students') ? '' : 'collapsed' }}" href="{{ route('students') }}">
+                        <i class="bi bi-people-fill"></i>
+                        <span>Students</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/materi') ? '' : 'collapsed' }}" href="{{ route('materi') }}">
                         <i class="bi bi-journals"></i>
                         <span>Materi</span>

@@ -28,27 +28,27 @@
 
   <!-- Template Main CSS File -->
   <link href="/assets/css/style.css" rel="stylesheet">
-
+    
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-    <x-header />
+  <x-header />
   <!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-    <x-sidebar />
+  <x-sidebar />
   <!-- End Sidebar-->
 
   <main>
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <div>@yield('contents')</div>
-    </div>
+      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div>@yield('contents')</div>
+      </div>
   </main>
 
   <!-- ======= Footer ======= -->
-    <x-footer />
+  <x-footer />
   <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -65,6 +65,8 @@
 
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
+
+  @include('sweetalert::alert')
 
 </body>
 
