@@ -23,22 +23,52 @@
 
                 <li class="nav-heading">Pages</li>
 
+                 <!-- Plants -->
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('admin/students') ? '' : 'collapsed' }}" href="{{ route('students') }}">
+                    <a class="nav-link {{ Request::is('admin/plants') ? '' : 'collapsed' }}" href="{{ route('plants') }}">
+                        <i class="bi bi-flower3"></i>
+                        <span>Tanaman</span>
+                    </a>
+                </li>
+                <!-- End Plants Page Nav -->
+
+                <!-- Categories -->
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('admin/categories') ? '' : 'collapsed' }}" href="{{ route('categories') }}">
+                        <i class="bi bi-tags-fill"></i>
+                        <span>Kategori</span>
+                    </a>
+                </li>
+                <!-- End Categories Page Nav -->
+
+                <!-- Benefits -->
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('admin/benefits') ? '' : 'collapsed' }}" href="{{ route('benefits') }}">
+                        <i class="bi bi-heart-fill"></i>
+                        <span>Manfaat</span>
+                    </a>
+                </li>
+                <!-- End Benefits Page Nav -->
+
+                <!-- Users -->
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('admin/users') ? '' : 'collapsed' }}" href="{{ route('users') }}">
                         <i class="bi bi-people-fill"></i>
-                        <span>Students</span>
+                        <span>Pengguna</span>
                     </a>
                 </li>
+                <!-- End Users Page Nav -->
 
+                <!-- Borrowing -->
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('admin/materi') ? '' : 'collapsed' }}" href="{{ route('materi') }}">
-                        <i class="bi bi-journals"></i>
-                        <span>Materi</span>
+                    <a class="nav-link {{ Request::is('admin/borrowing') ? '' : 'collapsed' }}" href="{{ route('borrowing') }}">
+                        <i class="bi bi-arrow-left-right"></i>
+                        <span>Peminjaman</span>
                     </a>
                 </li>
-                <!-- End Materi Page Nav -->
+                <!-- End Borrowing Page Nav -->
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/kebersihan*') ? '' : 'collapsed' }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
                         <i class="bi bi-person-heart"></i><span>Kebersihan</span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
@@ -54,40 +84,9 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End Kebersihan Nav -->
 
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('admin/tanaman') ? '' : 'collapsed' }}" href="{{ route('tanaman') }}">
-                        <i class="bi bi-flower3"></i>
-                        <span>Tanaman</span>
-                    </a>
-                </li>
-                <!-- End Tanaman Page Nav -->
-
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('admin/pemilahan-sampah') ? '' : 'collapsed' }}" href="{{ route('pemilahan-sampah') }}">
-                        <i class="bi bi-recycle"></i>
-                        <span>Pemilahan Sampah</span>
-                    </a>
-                </li>
-                <!-- End Pemilahan Sampah Page Nav -->
-
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('admin/observasi') ? '' : 'collapsed' }}" href="{{ route('observasi') }}">
-                        <i class="bi bi-clipboard2-data-fill"></i>
-                        <span>Observasi</span>
-                    </a>
-                </li>
-                <!-- End Observasi Page Nav -->
-
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('admin/portfolio') ? '' : 'collapsed' }}" href="{{ route('portfolio') }}">
-                        <i class="bi bi-question-circle-fill"></i>
-                        <span>Portfolio</span>
-                    </a>
-                </li>
-                <!-- End Portfolio Page Nav -->
             @endif
         @endauth
 
