@@ -35,9 +35,10 @@
                   <div class="menu-wrapper">
                     <ul class="menu">
                         <li class="{{request()->is('#') ? 'active' : ''}} menu-item"><a href="#" class="menu-link">Home</a></li>
-                        <li class="{{request()->is('#about') ? 'active' : ''}} menu-item"><a href="#about" class="menu-link">About P5</a></li>
+                        <li class="{{request()->is('#about') ? 'active' : ''}} menu-item"><a href="#about" class="menu-link">Tentang P5</a></li>
                         <li class="{{request()->is('#galeri') ? 'active' : ''}} menu-item"><a href="#galeri" class="menu-link">Galeri</a></li>
                         <li class="{{request()->is('#team') ? 'active' : ''}} menu-item"><a href="#team" class="menu-link">Our Team</a></li>
+                        <li class="{{request()->is('#contact-form') ? 'active' : ''}} menu-item"><a href="#contact-form" class="menu-link">Contact</a></li>
                         <!-- <li class="menu-item"><a href="#contact-form" class="menu-link">Contact</a></li> -->
                     </ul>
                     @if (Route::has('login'))

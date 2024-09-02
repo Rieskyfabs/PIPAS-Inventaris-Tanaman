@@ -8,6 +8,8 @@
   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
     <li class="dropdown-header">
       <h6>{{ $username }}</h6>
+      <span>{{ $email }}</span>
+      <br><hr>
       <span>{{ $role }}</span>
     </li>
     <li>
