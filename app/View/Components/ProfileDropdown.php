@@ -8,6 +8,7 @@ class ProfileDropdown extends Component
 {
     public $profileImage;
     public $username;
+    public $email;
     public $role;
     public $profileUrl;
     public $helpUrl;
@@ -17,15 +18,17 @@ class ProfileDropdown extends Component
      *
      * @param  string  $profileImage
      * @param  string  $username
+     * @param  string  $email
      * @param  string  $role
      * @param  string  $profileUrl
      * @param  string  $helpUrl
      * @return void
      */
-    public function __construct($profileImage, $username, $role, $profileUrl, $helpUrl)
+    public function __construct($profileImage, $username, $email ,$role, $profileUrl, $helpUrl)
     {
         $this->profileImage = $profileImage;
         $this->username = $username;
+        $this->email = $email;
         $this->role = $role;
         $this->profileUrl = $profileUrl;
         $this->helpUrl = $helpUrl;

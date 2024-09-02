@@ -2,7 +2,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <x-logo-sidebar 
-        logoSrc="/images/wikrama-logo.png" 
+        logoSrc="{{ asset('images/wikrama-logo.png')}} " 
         logoText="DAMASU P5" 
     />
     <!-- End Logo -->
@@ -41,8 +41,10 @@
             <x-profile-dropdown 
                 profileImage="{{ Auth::user()->profile_image ?? asset('/assets/img/default-profile-pic.jpg') }}" 
                 username="{{ Auth::user()->username }}" 
+                email="{{ Auth::user()->email }}" 
                 role="{{ Auth::user()->role }}"
                 profileUrl="users-profile.html" 
+                
                 helpUrl="pages-faq.html" 
             />
 
