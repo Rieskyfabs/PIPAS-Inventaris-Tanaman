@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -34,7 +35,9 @@ class UserController extends Controller
             'role' => $request->role,
         ]);
 
-        return redirect()->route('users')->with('success', 'User added successfully.');
+        Alert::success('User Ditambahkan', 'Berhasil menambahkan data User');
+
+        return redirect()->route('users');
     }
 
     public function edit($id)
@@ -61,7 +64,8 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->save();
 
-        return redirect()->route('users')->with('success', 'User updated successfully.');
+        Alert::success('Edit Data User', 'Berhasil mengUpdate data User');
+        return redirect()->route('users');
     }
 
     public function destroy($id)
@@ -69,6 +73,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('users')->with('success', 'User deleted successfully.');
+        Alert::success('Hapus Data User', 'Berhasil mengHapus data User');
+        return redirect()->route('users');
     }
 }

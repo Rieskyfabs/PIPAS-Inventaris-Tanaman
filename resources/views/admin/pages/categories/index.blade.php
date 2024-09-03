@@ -16,26 +16,36 @@
 
       <section class="section">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Card</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores neque ratione labore tenetur quis eveniet quidem earum id expedita, veniam obcaecati accusamus ex ipsa nesciunt temporibus ipsam, nemo voluptates atque   .</p>
+                <h5 class="card-title">Kategori</h5>
+                <p></p>
+
+                <!-- Table with stripped rows -->
+                <table class="table datatable">
+                    <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Nama Kategori</th>
+                          <th>Deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($categories as $category)
+                            <tr>
+                              <td>{{ $category->id }}</td>
+                              <td>{{ $category->name }}</td>
+                              <td>{{ $category->description }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+
               </div>
             </div>
-
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta perspiciatis, dolorum molestiae amet beatae ullam quos delectus aspernatur, autem voluptatum, optio enim perferendis illum magnam esse maxime possimus qui minus?.</p>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
