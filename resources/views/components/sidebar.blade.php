@@ -38,9 +38,14 @@
                                 <i class="bi bi-circle"></i><span>{{ __('Categories') }}</span>
                             </a>
                         </li>
-                         <li>
+                        <li>
                             <a class="{{ Request::is('admin/inventaris/benefits') ? 'active' : '' }}" href="{{ route('benefits') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('Benefits') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{{ Request::is('admin/inventaris/locations') ? 'active' : '' }}" href="{{ route('locations') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Locations') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -54,7 +59,7 @@
                     </a>
                     <ul id="users-nav" class="nav-content collapse {{ Request::is('admin/users*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <li>
-                            <a class="nav-link {{ Request::is('admin/users/users') ? 'active' : '' }}" href="{{ route('users') }}">
+                            <a class="nav-link {{ Request::is('admin/users') ? 'active' : '' }}" href="{{ route('users') }}">
                                 <i class="bi bi-circle"></i>
                                 <span>{{ __('Users') }}</span>
                             </a>

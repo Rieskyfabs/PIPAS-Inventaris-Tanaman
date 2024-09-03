@@ -20,7 +20,7 @@
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Data Tanaman</h5>
+                <h5 class="card-title">{{__('Plants Data')}}</h5>
                 <p></p>
 
                 <!-- Table with stripped rows -->
@@ -35,7 +35,7 @@
                           <th>Lokasi Tanaman</th>
                           <th>Jumlah</th>
                           <th>Status</th>
-                          <th>Barcode</th>
+                          <th>QR Code</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +46,7 @@
                               <td>{{ $plant->type }}</td>
                               <td>{{ $plant->category_id }}</td>
                               <td>{{ $plant->benefit_id }}</td>
-                              <td>{{ $plant->location }}</td>
+                              <td>{{ $plant->location_id }}</td>
                               <td>{{ $plant->quantity }}</td>
                               <td>{{ $plant->status }}</td>
                               <td>{{ $plant->barcode }}</td>

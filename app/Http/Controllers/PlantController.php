@@ -27,7 +27,7 @@ class PlantController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'scientific_name' => 'required|string|max:255',
-            'barcode' => 'required|string|unique:plants,barcode',
+            'qr_code' => 'required|string|unique:plants,qr_code',
             'category_id' => 'required|exists:categories,id',
             'type' => 'required|in:Herbal,Vegetable',
             'location' => 'required|string|max:255',
@@ -60,7 +60,7 @@ class PlantController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'scientific_name' => 'required|string|max:255',
-            'barcode' => 'required|string|unique:plants,barcode,' . $id,
+            'qr_code' => 'required|string|unique:plants,qr_code,' . $id,
             'category_id' => 'required|exists:categories,id',
             'type' => 'required|in:Herbal,Vegetable',
             'location' => 'required|string|max:255',

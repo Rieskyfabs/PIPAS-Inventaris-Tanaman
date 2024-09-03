@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
 
         // Mengisi tabel plants dengan 10 data dummy
         Plant::factory()->count(10)->create();
+        
 
     }
 }
