@@ -9,10 +9,6 @@ class Plant extends Model
 {
     use HasFactory;
 
-    protected $table = 'plants';
-
-    protected $primaryKey = 'plant_id';
-
     protected $fillable = [
         'name',
         'scientific_name',
@@ -22,18 +18,25 @@ class Plant extends Model
         'location',
         'quantity',
         'benefit_id',
+        'status',
+        'seeding_date',
+        'harvest_date',
     ];
 
-    // Relasi dengan Category
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    // Relasi dengan Benefit
     public function benefit()
     {
         return $this->belongsTo(Benefit::class);
     }
+
+    public function setTypeAttribute($value)
+    {
+        $this->attributes['type'] = ucfirst(strtolower($value)); // Memastikan format yang konsisten
+    }
 }
+
 

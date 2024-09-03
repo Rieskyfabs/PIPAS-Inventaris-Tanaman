@@ -48,37 +48,29 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/users', [UserController::class, 'index'])->name('users');
 
     // Tanaman
-    Route::get('/admin/plants', [PlantController::class, 'index'])->name('plants');
-    Route::get('/admin/plants/create', [PlantController::class, 'create'])->name('plants.create');
-    Route::post('/admin/plants', [PlantController::class, 'store'])->name('plants.store');
-    Route::get('/admin/plants/{id}', [PlantController::class, 'show'])->name('plants.show');
-    Route::get('/admin/plants/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
-    Route::put('/admin/plants/{id}', [PlantController::class, 'update'])->name('plants.update');
-    Route::delete('/admin/plants/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
+    Route::get('/admin/inventaris/plants', [PlantController::class, 'index'])->name('plants');
+    Route::get('/admin/inventaris/plants/create', [PlantController::class, 'create'])->name('plants.create');
+    Route::post('/admin/inventaris/plants', [PlantController::class, 'store'])->name('plants.store');
+    Route::get('/admin/inventaris/plants/{id}', [PlantController::class, 'show'])->name('plants.show');
+    Route::get('/admin/inventaris/plants/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
+    Route::put('/admin/inventaris/plants/{id}', [PlantController::class, 'update'])->name('plants.update');
+    Route::delete('/admin/inventaris/plants/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
 
     // Kategori
-    Route::get('/admin/categories', [CategoryController::class, 'index'])->name('categories');
-    Route::get('/admin/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-    Route::post('/admin/categories', [CategoryController::class, 'store'])->name('categories.store');
-    Route::get('/admin/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-    Route::put('/admin/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
-    Route::delete('/admin/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    Route::get('/admin/inventaris/categories', [CategoryController::class, 'index'])->name('categories');
+    Route::get('/admin/inventaris/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+    Route::post('/admin/inventaris/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/admin/inventaris/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('/admin/inventaris/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('/admin/inventaris/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
     // Manfaat
-    Route::get('/admin/benefits', [BenefitController::class, 'index'])->name('benefits');
-    Route::get('/admin/benefits/create', [BenefitController::class, 'create'])->name('benefits.create');
-    Route::post('/admin/benefits', [BenefitController::class, 'store'])->name('benefits.store');
-    Route::get('/admin/benefits/{id}/edit', [BenefitController::class, 'edit'])->name('benefits.edit');
-    Route::put('/admin/benefits/{id}', [BenefitController::class, 'update'])->name('benefits.update');
-    Route::delete('/admin/benefits/{id}', [BenefitController::class, 'destroy'])->name('benefits.destroy');
+    Route::get('/admin/inventaris/benefits', [BenefitController::class, 'index'])->name('benefits');
+    Route::get('/admin/inventaris/benefits/create', [BenefitController::class, 'create'])->name('benefits.create');
+    Route::post('/admin/inventaris/benefits', [BenefitController::class, 'store'])->name('benefits.store');
+    Route::get('/admin/inventaris/benefits/{id}/edit', [BenefitController::class, 'edit'])->name('benefits.edit');
+    Route::put('/admin/inventaris/benefits/{id}', [BenefitController::class, 'update'])->name('benefits.update');
+    Route::delete('/admin/inventaris/benefits/{id}', [BenefitController::class, 'destroy'])->name('benefits.destroy');
 
-    // Peminjaman tanaman
-    Route::get('/admin/borrowing', [BorrowingController::class, 'index'])->name('borrowing');
-    Route::get('/admin/borrowing/create', [BorrowingController::class, 'create'])->name('borrowing.create');
-    Route::post('/admin/borrowing', [BorrowingController::class, 'store'])->name('borrowing.store');
-    Route::get('/admin/borrowing/{id}', [BorrowingController::class, 'show'])->name('borrowing.show');
-    Route::get('/admin/borrowing/{id}/edit', [BorrowingController::class, 'edit'])->name('borrowing.edit');
-    Route::put('/admin/borrowing/{id}', [BorrowingController::class, 'update'])->name('borrowing.update');
-    Route::delete('/admin/borrowing/{id}', [BorrowingController::class, 'destroy'])->name('borrowing.destroy');
 });
 

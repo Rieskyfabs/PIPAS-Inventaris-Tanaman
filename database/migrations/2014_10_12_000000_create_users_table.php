@@ -18,7 +18,7 @@ return new class extends Migration
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('role', ['user', 'super user', 'admin', 'super admin', 'master'])
+            $table->enum('role', ['user', 'admin'])
                 ->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

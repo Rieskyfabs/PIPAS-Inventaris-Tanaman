@@ -5,7 +5,6 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Plant;
-use App\Models\Borrowing;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,7 +18,5 @@ class DatabaseSeeder extends Seeder
         // Mengisi tabel plants dengan 10 data dummy
         Plant::factory()->count(10)->create();
 
-        // Mengisi tabel borrowings dengan 10 data dummy
-        Borrowing::factory()->count(10)->create();
     }
 }

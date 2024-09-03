@@ -42,7 +42,7 @@
               <h1>Login</h1>
               @if (session()->has('error'))
                 <div class="alert alert-danger">
-                    {{ session('error') }}
+                  {{ session('error') }}
                 </div>
               @endif
               <p class="subHeading">Pastikan Data Email / Nama dan <br> Password Harus Benar</p>
@@ -51,7 +51,7 @@
                   <div class="input-group">
                     <label for="email">Email</label>
                     @error('email') <span class="text-danger">{{ $message }}</span> @enderror
-                    <input type="text" id="email" name="email" placeholder="emailkamu@example.com" required>   
+                    <input type="text" id="email" name="email" placeholder="emailanda@example.com" required>   
                   </div>
                   <div class="input-group password-group">
                       <label for="password">Password</label>
