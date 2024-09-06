@@ -6,6 +6,42 @@
 	border-bottom: 1px solid #d9d9d9;
 }
 
+/* Border untuk Search dan Entries per page */
+.datatable-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 10px;
+	border: 1px solid #d9d9d9;
+	/* Menambahkan border */
+	border-radius: 5px;
+	/* Opsional, memberikan sudut melengkung */
+	background-color: #f9f9f9;
+	/* Opsional, menambahkan warna latar */
+	margin-bottom: 10px;
+}
+
+.datatable-selector select,
+/* Border untuk dropdown Entries per page */
+.datatable-input input {
+	/* Border untuk input Search */
+	border: 1px solid #d9d9d9;	
+	/* Menambahkan border pada elemen input dan select */
+	padding: 6px 12px;
+	border-radius: 4px;
+	/* Opsional, menambahkan sudut melengkung */
+	background-color: #fff;
+	/* Warna latar belakang putih */
+}
+
+.datatable-selector select:focus,
+.datatable-input input:focus {
+	outline: none;
+	/* Menghilangkan outline default */
+	border-color: #88D66C;
+	/* Mengubah warna border saat fokus */
+}
+
 .datatable-top,
 .datatable-bottom {
 	padding: 8px 10px;
@@ -31,6 +67,7 @@
 
 .datatable-input {
 	padding: 6px 12px;
+	float: right;
 }
 
 .datatable-info {
@@ -87,8 +124,8 @@
 .datatable-pagination .datatable-disabled button,
 .datatable-pagination .datatable-disabled button:focus,
 .datatable-pagination .datatable-disabled button:hover {
-    pointer-events: none;
-    cursor: default;
+	pointer-events: none;
+	cursor: default;
 }
 
 .datatable-pagination .datatable-disabled a,
@@ -111,29 +148,24 @@
 	max-width: 100%;
 	width: 100%;
 	border-spacing: 0;
-	border-collapse: separate;
+	border-collapse: collapse;
+	/* Ubah separate menjadi collapse */
 }
 
-.datatable-table > tbody > tr > td,
-.datatable-table > tbody > tr > th,
-.datatable-table > tfoot > tr > td,
-.datatable-table > tfoot > tr > th,
-.datatable-table > thead > tr > td,
-.datatable-table > thead > tr > th {
-	vertical-align: top;
+.datatable-table>thead>tr>th {
+	vertical-align: bottom;
+	text-align: left;
+	border: 1px solid #d9d9d9;
+	/* Menambahkan border di semua sisi */
 	padding: 8px 10px;
+	background-color: #f9f9f9;
+	/* Warna latar belakang opsional */
 }
 
-.datatable-table > thead > tr > th {
-	vertical-align: bottom;
-	text-align: left;
-	border-bottom: 1px solid #d9d9d9;
-}
-
-.datatable-table > tfoot > tr > th {
-	vertical-align: bottom;
-	text-align: left;
-	border-top: 1px solid #d9d9d9;
+.datatable-table>tbody>tr>td {
+	border: 1px solid #d9d9d9;
+	/* Tambahkan border untuk td agar sesuai dengan th */
+	padding: 8px 10px;
 }
 
 .datatable-table th {
@@ -196,17 +228,17 @@
 }
 
 .datatable-filter::before {
-    content: "";
-    position: absolute;
-    right: 4px;
-    opacity: 0.2;
-    width: 0;
-    height: 0;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
+	content: "";
+	position: absolute;
+	right: 4px;
+	opacity: 0.2;
+	width: 0;
+	height: 0;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
 	border-radius: 50%;
-    border-top: 10px solid #000;
-    top: 25%;
+	border-top: 10px solid #000;
+	top: 25%;
 }
 
 .datatable-filter-active .datatable-filter::before {

@@ -21,7 +21,7 @@ class PlantFactory extends Factory
         return [
             'name' => $this->faker->word,
             'scientific_name' => $this->faker->word,
-            'type' => $this->faker->randomElement(['Herbal', 'Vegetable']), // Hanya Herbal atau Vegetable
+            'type' => $this->faker->randomElement(['Herbal', 'Sayuran']), // Hanya Herbal atau Vegetable
             'qr_code' => $this->faker->unique()->numerify('##########'),
             'category_id' => Category::factory(),
             'location_id' => Location::factory(),

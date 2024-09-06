@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('scientific_name');
-            $table->enum('type', ['Herbal', 'Vegetable']); // Tipe tanaman dibatasi
+            $table->enum('type', ['Herbal', 'Sayuran']); // Tipe tanaman dibatasi
             $table->string('qr_code')->unique();
             $table->foreignId('category_id')->constrained('categories'); // FK ke categories
             $table->integer('quantity')->default(0);

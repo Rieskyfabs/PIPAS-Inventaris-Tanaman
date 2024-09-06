@@ -830,6 +830,11 @@ h6 {
   background: #e0f8e9;
 }
 
+.dashboard .location-card .card-icon {
+  color: #FF204E;
+  background: #ffecdf;
+}
+
 .dashboard .customers-card .card-icon {
   color: #ff771d;
   background: #ffecdf;
@@ -1175,6 +1180,66 @@ h6 {
 
 .contact .php-email-form button[type=submit]:hover {
   background: #5969f3;
+}
+
+/*--------------------------------------------------------------
+# Add Button
+--------------------------------------------------------------*/
+
+/* From Uiverse.io by SpatexDEV */
+.add-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.btn-add-item {
+  border: none;
+  display: row;
+  padding: 0.75rem 1.5rem;
+  background-color: #88D66C;
+  color: #ffffff;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  vertical-align: middle;
+  align-items: end;
+  border-radius: 0.5rem;
+  user-select: none;
+  gap: 0.75rem;
+  box-shadow:
+    0 4px 6px -1px #488aec31,
+    0 2px 4px -1px #488aec17;
+  transition: all 0.6s ease;
+}
+
+.btn-add-item:hover {
+  background-color: #73BBA3;
+  color: #fff;
+  box-shadow:
+    0 10px 15px -3px #488aec4f,
+    0 4px 6px -2px #488aec17;
+}
+
+.btn-add-item:focus,
+.btn-add-item:active {
+  opacity: 0.85;
+  box-shadow: none;
+  background-color: #3269b7;
+}
+
+.btn-add-item svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-add-item:hover svg {
+  transform: rotate(15deg);
 }
 
 @keyframes animate-loading {

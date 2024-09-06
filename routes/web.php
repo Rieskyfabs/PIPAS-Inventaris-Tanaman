@@ -46,7 +46,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'adminDashboard'])->name('admin/dashboard');
 
     // Daftar pengguna
-    Route::get('/admin/users', [UserController::class, 'index'])->name('users');
+    Route::get('/admin/users/usersList', [UserController::class, 'index'])->name('users');
 
     // Tanaman
     Route::get('/admin/inventaris/plants', [PlantController::class, 'index'])->name('plants');

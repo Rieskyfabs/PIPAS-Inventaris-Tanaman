@@ -5,20 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Plant;
 use App\Models\Category;
 use App\Models\Benefit;
+use App\Models\Location;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class PlantController extends Controller
 {
+
     public function index()
     {
-        $plants = Plant::with(['category', 'benefit'])->get();
+        $plants = Plant::with(['category', 'benefit', 'location'])->get();
         return view('admin.pages.plants.index', compact('plants'));
     }
+
 
     public function create()
     {
         $categories = Category::all();
         $benefits = Benefit::all();
+        $location = Location::all();
         return view('admin.pages.plants.create', compact('categories', 'benefits'));
     }
 

@@ -7,10 +7,10 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="Pengguna" 
+        title="{{ __('Users')}}" 
         :items="[
-            ['route' => 'home', 'label' => 'Home'],
-            ['label' => 'Pengguna']
+          ['route' => 'home', 'label' => 'Home'],
+          ['label' => 'Users']
         ]" 
       />
 
@@ -20,16 +20,16 @@
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Data Pengguna</h5>
+                <h5 class="card-title">{{ __('Users Data') }}</h5>
                 <p></p>
 
                 <!-- Table with stripped rows -->
                 <table class="table datatable">
                     <thead>
                         <tr>
-                          <th>Username</th>
-                          <th>Email</th>
-                          <th>Role</th>
+                          <th>{{__('Username')}}</th>
+                          <th>{{__('Email')}}</th>
+                          <th>{{__('Role')}}</th>
                         </tr>
                     </thead>
                     <tbody>

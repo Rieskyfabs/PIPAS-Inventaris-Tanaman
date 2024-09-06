@@ -21,11 +21,11 @@ class PlantSeeder extends Seeder
         $categoryIds = Category::pluck('id')->toArray();
         $locationIds = Location::pluck('id')->toArray(); // Mendapatkan semua ID dari tabel categories
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 20) as $index) {
             Plant::create([
                 'name' => "Plant $index",
                 'scientific_name' => "Scientific Name $index",
-                'type' => ['Fruit', 'Flower', 'Succulent'][array_rand(['Fruit', 'Flower', 'Succulent'])],
+                'type' => ['Sayuran', 'Herbal'][array_rand(['Sayuran', 'Herbal'])],
                 'qr_code' => mt_rand(1000000000, 9999999999),
                 'category_id' => $categoryIds[array_rand($categoryIds)],
                 'location_id' => $locationIds[array_rand($locationIds)],

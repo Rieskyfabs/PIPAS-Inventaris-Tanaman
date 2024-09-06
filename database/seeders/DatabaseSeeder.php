@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
 
         // Mengisi tabel plants dengan 10 data dummy
-        Plant::factory()->count(10)->create();
+        Plant::factory()->count(20)->create();
         
 
     }
