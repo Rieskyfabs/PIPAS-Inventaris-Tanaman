@@ -11,7 +11,14 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.pages.users.index', compact('users'));
+        // Menghitung pengguna aktif
+        $activeUsersCount = User::where('status', 'active')->count();
+
+        // Menghitung pengguna tidak aktif
+        $inactiveUsersCount = User::where('status', 'inactive')->count();
+
+
+        return view('admin.pages.users.index', compact('users', 'activeUsersCount', 'inactiveUsersCount'));
     }
 
     public function create()

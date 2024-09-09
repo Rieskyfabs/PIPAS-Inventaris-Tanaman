@@ -18,7 +18,7 @@
         <div class="row">
           <!-- Total Users Card -->
             <x-card
-              type="revenue"
+              type="plants"
               title="Total Pengguna"
               period="Hari ini"
               icon="bi bi-people"
@@ -32,11 +32,11 @@
             
             <!-- Total Users Active Card -->
             <x-card
-              type="plants"
+              type="revenue"
               title="Total Pengguna Aktif"
               period="Hari ini"
               icon="bi bi-person-check"
-              value="{{$users->count()}}"
+              value="{{$activeUsersCount}}"
               changePercent="12"
               changeType="increase"
               :filter="true"
@@ -50,7 +50,7 @@
               title="Total Pengguna Tidak Aktif"
               period="Hari ini"
               icon="bi bi-person-dash"
-              value="{{$users->count()}}"
+              value="{{$inactiveUsersCount}}"
               changePercent="12"
               changeType="increase"
               :filter="true"
@@ -65,8 +65,10 @@
                 <h5 class="card-title">{{ __('Users Data') }}</h5>
                 <div class="add-btn-container">
                   <a href="{{ route('plants.create') }}" class="btn-add-item">
-                    <i class="bi bi-person-add"></i>
-                    {{ __('Add Plant') }}
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                    </svg>
+                    {{ __('Add Users') }}
                   </a>
                 </div>
               <div class="table-responsive">
