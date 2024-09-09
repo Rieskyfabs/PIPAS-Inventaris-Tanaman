@@ -65,7 +65,7 @@
 
           </div>
 
-          <!-- Recent Sales -->
+          <!-- Recent Plants -->
           <div class="col-12">
               <div class="card recent-sales overflow-auto">
 
@@ -88,52 +88,42 @@
                   <table class="table table-borderless datatable">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">{{__('Nama Tanaman')}}</th>
+                        <th scope="col">{{__('Tipe Tanaman')}}</th>
+                        <th scope="col">{{__('Kategori Tanaman')}}</th>
+                        <th scope="col">{{__('Lokasi Tanaman')}}</th>
+                        <th scope="col">{{__('Status')}}</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row"><a href="#">#2457</a></th>
-                        <td>Brandon Jacob</td>
-                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                        <td>$64</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>Bridie Kessler</td>
-                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                        <td>$47</td>
-                        <td><span class="badge bg-warning">Pending</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2049</a></th>
-                        <td>Ashleigh Langosh</td>
-                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                        <td>$147</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Angus Grady</td>
-                        <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                        <td>$67</td>
-                        <td><span class="badge bg-danger">Rejected</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Raheem Lehner</td>
-                        <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                        <td>$165</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
+                      @foreach ($plants as $plant)
+                        <tr>
+                          <th scope="row"><a href="#">{{$plant->name}}</a></th>
+                          <td>
+                              @if ($plant->type === 'Sayuran')
+                                  <i class="fa fa-carrot" aria-hidden="true"></i> {{ $plant->type }}
+                              @elseif ($plant->type === 'Herbal')
+                                  <i class="fa fa-leaf" aria-hidden="true"></i> {{ $plant->type }}
+                              @else
+                                  {{ $plant->type }}
+                              @endif
+                          </td>
+                          <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
+                          <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
+                          <td>
+                            <span class="badge 
+                                @if ($plant->status === 'sehat') badge-soft-green <i class='bi bi-check-circle me-1'></i>
+                                @elseif ($plant->status === 'baik') badge-soft-primary <i class='bi bi-star me-1'></i>
+                                @elseif ($plant->status === 'layu') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
+                                @elseif ($plant->status === 'sakit') badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
+                                @else bg-secondary @endif">
+                                {{ $plant->status }}
+                            </span>
+                          </td>
+                        </tr>
+                      @endforeach
                     </tbody>
                   </table>
-
                 </div>
 
               </div>

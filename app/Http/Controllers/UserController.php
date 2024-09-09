@@ -76,4 +76,10 @@ class UserController extends Controller
         Alert::success('Hapus Data User', 'Berhasil mengHapus data User');
         return redirect()->route('users');
     }
+
+    public function show($id)
+    {
+        $users = User::with(['category', 'benefit'])->findOrFail($id);
+        return view('admin.pages.plants.show', compact('plant'));
+    }
 }

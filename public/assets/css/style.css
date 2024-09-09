@@ -1068,6 +1068,7 @@ h6 {
   max-width: 120px;
 }
 
+
 /*--------------------------------------------------------------
 # F.A.Q Page
 --------------------------------------------------------------*/
@@ -1310,4 +1311,96 @@ h6 {
   text-align: center;
   font-size: 13px;
   color: #012970;
+}
+
+/*--------------------------------------------------------------
+# Users Page
+--------------------------------------------------------------*/
+
+.users-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.35em 0.75em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+/* Badge for active (green) */
+.badge-soft-green {
+  background-color: #e0f9e0;
+  color: #28a745;
+}
+
+/* Badge for warning */
+.badge-soft-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* Badge for primary */
+.badge-soft-primary {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+/* Badge for danger */
+.badge-soft-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Badge for info */
+.badge-soft-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+/* Badge for inactive (gray) */
+.badge-soft-gray {
+  background-color: #e2e3e5;
+  color: #6c757d;
+}
+
+/* Badge for unknown or other statuses (secondary) */
+.badge-soft-secondary {
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.icon-button {
+  border: none;
+  background: none;
+  color: #6c757d;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.icon-button:hover {
+  color: #007bff;
+  /* Warna biru saat hover */
+  transform: scale(1.2);
+  /* Memperbesar ikon saat hover */
+}
+
+.icon-button i {
+  font-size: 1.3 rem;
 }

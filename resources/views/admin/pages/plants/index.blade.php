@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Plants Data')
+@section('title', 'Data Tanaman')
 
 @section('contents')
   <div>
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="Tanaman" 
+        title="{{ __('Plants')}}" 
         :items="[
           ['route' => 'home', 'label' => 'Home'],
-          ['label' => 'Tanaman']
+          ['label' => 'Data Tanaman']
         ]" 
       />
 
@@ -46,26 +46,22 @@
                         
                         <div class="table-responsive">
                             <!-- Table with stripped rows -->
-                            <table class="table table-bordered table-striped table-hover datatable">
+                            <table class="table table-bordered table-hover datatable">
                                 <thead>
                                     <tr>
-                                        <th>Nama Tanaman</th>
-                                        {{-- <th>Nama Ilmiah</th> --}}
-                                        <th>Tipe Tanaman</th>
-                                        <th>Kategori</th>
-                                        {{-- <th>Manfaat</th> --}}
-                                        <th>Lokasi Tanaman</th>
-                                        <th>Jumlah</th>
-                                        <th>Status</th>
-                                        <th>QR Code</th>
-                                        <th>Aksi</th>
+                                        <th>{{__('Nama Tanaman')}}</th>
+                                        <th>{{__('Tipe Tanaman')}}</th>
+                                        <th>{{__('Kategori Tanaman')}}</th>
+                                        <th>{{__('Lokasi Tanaman')}}</th>
+                                        <th>{{__('Status')}}</th>
+                                        <th>{{__('QR Code')}}</th>
+                                        <th>{{__('Action')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($plants as $plant)
                                         <tr>
                                             <td>{{ $plant->name }}</td>
-                                            {{-- <td>{{ $plant->scientific_name }}</td> --}}
                                             <td>
                                                 @if ($plant->type === 'Sayuran')
                                                     <i class="fa fa-carrot" aria-hidden="true"></i> {{ $plant->type }}
@@ -75,30 +71,33 @@
                                                     {{ $plant->type }}
                                                 @endif
                                             </td>
-
                                             <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                                            {{-- <td>{{ $plant->benefit->name ?? 'Manfaat tidak ditemukan' }}</td> --}}
                                             <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
-                                            <td>{{ $plant->quantity }}</td>
                                             <td>
                                                 <span class="badge 
-                                                    @if ($plant->status === 'sehat') bg-success <i class='bi bi-check-circle me-1'></i>
-                                                    @elseif ($plant->status === 'baik') bg-primary <i class='bi bi-star me-1'></i>
-                                                    @elseif ($plant->status === 'layu') bg-warning <i class='bi bi-exclamation-triangle me-1'></i>
-                                                    @elseif ($plant->status === 'sakit') bg-danger <i class='bi bi-exclamation-octagon me-1'></i>
+                                                    @if ($plant->status === 'sehat') badge-soft-green <i class='bi bi-check-circle me-1'></i>
+                                                    @elseif ($plant->status === 'baik') badge-soft-primary <i class='bi bi-star me-1'></i>
+                                                    @elseif ($plant->status === 'layu') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
+                                                    @elseif ($plant->status === 'sakit') badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
                                                     @else bg-secondary @endif">
                                                     {{ $plant->status }}
                                                 </span>
                                             </td>
-
                                             <td>{{ $plant->qr_code }}</td>
                                             <td>
-                                                <form action="{{ route('plants.destroy', $plant->id) }}" method="POST">
-                                                    <a href="{{ route('plants.show', $plant->id) }}" class="btn btn-warning"><i class="bi bi-eye"></i></a>
-                                                    <a href="{{ route('plants.edit', $plant->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                                                <form action="{{ route('plants.destroy', $plant->id) }}" method="POST" class="action-buttons">
+                                                <a href="{{ route('plants.show', $plant->id) }}" class="icon-button"><i class="bi bi-eye"></i></a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                                    <button type="submit" class="icon-button"><i class="bi bi-trash"></i></button>
+                                                <div class="dropdown">
+                                                    <button class="icon-button dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="bi bi-three-dots"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <li><a class="dropdown-item" href="{{ route('plants.edit', $plant->id) }}">Edit</a></li>
+                                                    </ul>
+                                                </div>
                                                 </form>
                                             </td>
                                         </tr>

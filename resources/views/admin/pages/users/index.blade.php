@@ -21,29 +21,71 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">{{ __('Users Data') }}</h5>
-                <p></p>
-
+                <div class="add-btn-container">
+                  <a href="{{ route('plants.create') }}" class="btn-add-item">
+                    <i class="bi bi-person-add"></i>
+                    {{ __('Add Plant') }}
+                  </a>
+                </div>
+              <div class="table-responsive">
                 <!-- Table with stripped rows -->
                 <table class="table datatable">
-                    <thead>
+                  <thead>
+                      <tr>
+                        <th>{{__('Username')}}</th>
+                        <th>{{__('Role')}}</th>
+                        <th>{{__('Status')}}</th>
+                        <th>{{__('Action')}}</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @foreach ($users as $user)
                         <tr>
-                          <th>{{__('Username')}}</th>
-                          <th>{{__('Email')}}</th>
-                          <th>{{__('Role')}}</th>
+                          <td>
+                            <div class="d-flex justify-content-start align-items-center user-name">
+                              <div class="avatar-wrapper"><div class="avatar avatar-sm me-4">
+                                <img src="{{ $user->profile_image ? asset($user->profile_image) : asset('/assets/img/default-profile-pic.jpg') }}" alt="Profile Image" class="users-image">
+                              </div>
+                            </div>
+                            <div class="d-flex flex-column">
+                              <a href="app-user-view-account.html" class="text-heading text-truncate">
+                                <span class="fw-medium">{{ $user->username }}</span>
+                              </a><small>{{ $user->email }}</small>
+                            </div>
+                          </td>
+                          <td>{{ $user->role }}</td>
+                          <td>
+                              @if($user->status == 'active')
+                                  <span class="badge badge-soft-green">Active</span>
+                              @elseif($user->status == 'inactive')
+                                  <span class="badge badge-soft-gray">Inactive</span>
+                              @else
+                                  <span class="badge badge-soft-secondary">Unknown</span>
+                              @endif
+                          </td>
+                          <td>
+                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="action-buttons">
+                              <a href="{{ route('users.show', $user->id) }}" class="icon-button"><i class="bi bi-eye"></i></a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="icon-button"><i class="bi bi-trash"></i></button>
+                              <div class="dropdown">
+                                <button class="icon-button dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="{{ route('users.edit', $user->id) }}">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Suspend User</a></li>
+                                </ul>
+                              </div>
+                            </form>
+                          </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
-                            <tr>
-                              <td>{{ $user->username }}</td>
-                              <td>{{ $user->email }}</td>
-                              <td>{{ $user->role }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+                      @endforeach
+                  </tbody>
                 </table>
                 <!-- End Table with stripped rows -->
-
+                </div>
               </div>
             </div>
           </div>
