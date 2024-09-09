@@ -15,6 +15,14 @@ class UserSeeder extends Seeder
     public function run()
     {
         // Membuat 10 pengguna dengan factory
-        User::factory(2)->create();
+        // User::factory(2)->create();
+
+        // Membuat admin
+        User::factory()->admin()->create();
+
+        // Membuat user
+        User::factory()->normalUser()->count(10)->create();
+
+
     }
 }

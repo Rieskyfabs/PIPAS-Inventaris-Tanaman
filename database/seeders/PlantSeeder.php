@@ -15,24 +15,18 @@ class PlantSeeder extends Seeder
         // Membuat data dummy untuk benefits dan categories terlebih dahulu
         Benefit::factory()->count(5)->create();
         Category::factory()->count(5)->create();
-        Location::factory()->count(5)->create();
 
-        $benefitIds = Benefit::pluck('id')->toArray(); // Mendapatkan semua ID dari tabel benefits
+        // Mendapatkan semua ID dari tabel yang diperlukan
+        $benefitIds = Benefit::pluck('id')->toArray();
         $categoryIds = Category::pluck('id')->toArray();
-        $locationIds = Location::pluck('id')->toArray(); // Mendapatkan semua ID dari tabel categories
 
-        foreach (range(1, 20) as $index) {
-            Plant::create([
-                'name' => "Plant $index",
-                'scientific_name' => "Scientific Name $index",
-                'type' => ['Sayuran', 'Herbal'][array_rand(['Sayuran', 'Herbal'])],
-                'qr_code' => mt_rand(1000000000, 9999999999),
-                'category_id' => $categoryIds[array_rand($categoryIds)],
-                'location_id' => $locationIds[array_rand($locationIds)],
-                'quantity' => rand(1, 100),
+        // Menggunakan factory untuk membuat 20 data tanaman
+        Plant::factory()->count(20)->create()->each(function ($plant) use ($benefitIds, $categoryIds) {
+            // Set nilai benefit_id dan category_id secara acak setelah plant dibuat
+            $plant->update([
                 'benefit_id' => $benefitIds[array_rand($benefitIds)],
+                'category_id' => $categoryIds[array_rand($categoryIds)],
             ]);
-        }
+        });
     }
 }
-
