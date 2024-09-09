@@ -37,8 +37,8 @@
               period="Hari ini"
               icon="bi bi-person-check"
               value="{{$activeUsersCount}}"
-              changePercent="12"
-              changeType="increase"
+              changePercent="8"
+              changeType="decrease"
               :filter="true"
               :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
             />

@@ -9,7 +9,9 @@ class CategorySeeder extends Seeder
 {
     public function run()
     {
-        Category::create(['name' => 'Herbal']);
-        Category::create(['name' => 'Sayuran']);
+        Category::create(['name' => 'Tanaman Pangan']);
+        Category::create(['name' => 'Tanaman Rempah']);
+        Category::create(['name' => 'Tanaman Industri']);
+        Category::create(['name' => 'Tanaman Umbi Umbian']);
     }
 }

@@ -11,14 +11,45 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 8px 10px;
+	/* padding: 8px 10px; */
 	border: 1px solid #d9d9d9;
 	/* Menambahkan border */
 	border-radius: 5px;
+	height: 70px;
+	text-wrap: nowrap;
 	/* Opsional, memberikan sudut melengkung */
 	background-color: #f9f9f9;
 	/* Opsional, menambahkan warna latar */
-	margin-bottom: 10px;
+	margin-bottom: 15px;
+}
+
+.datatable-search {
+	display: flex !important;
+	/* Pastikan Flexbox aktif */
+	justify-content: flex-end !important;
+	/* Paksa elemen pencarian ke kanan */
+	width: 100%;
+	/* Pastikan elemen pencarian menggunakan lebar penuh */
+}
+
+.datatable-input {
+	border: 1px solid #d9d9d9;
+	border-radius: 5px;
+	padding: 8px 12px;
+	background-color: #fff;
+	width: 300px;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	/* Tambahkan transisi halus */
+}
+
+/* Efek transisi saat input mendapatkan fokus */
+.datatable-input:focus {
+	border-color: #007bff;
+	/* Ubah warna border saat fokus */
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+	/* Tambahkan bayangan saat fokus */
+	outline: none;
+	/* Hapus outline default untuk fokus */
 }
 
 .datatable-selector select,
@@ -28,7 +59,7 @@
 	border: 1px solid #d9d9d9;	
 	/* Menambahkan border pada elemen input dan select */
 	padding: 6px 12px;
-	border-radius: 4px;
+	border-radius: 6px;
 	/* Opsional, menambahkan sudut melengkung */
 	background-color: #fff;
 	/* Warna latar belakang putih */
@@ -158,6 +189,7 @@
 	border: 1px solid #d9d9d9;
 	/* Menambahkan border di semua sisi */
 	padding: 8px 10px;
+	height: 60px;
 	background-color: #f9f9f9;
 	/* Warna latar belakang opsional */
 }

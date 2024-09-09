@@ -302,6 +302,7 @@
       ]
     });
   })
+  
 
   /**
    * Autoresize echart charts
