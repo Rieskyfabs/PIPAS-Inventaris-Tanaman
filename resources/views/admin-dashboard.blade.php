@@ -27,7 +27,7 @@
               title="Total Tanaman"
               period="Hari ini"
               icon="ri-plant-fill"
-              value="145"
+              value="{{$plants->count()}}"
               changePercent="12"
               changeType="increase"
               :filter="true"
@@ -49,7 +49,7 @@
             />
             <!-- End Location Card -->
 
-            <!-- PlantType Card -->
+            <!-- Total Users Card -->
             <x-card
               type="revenue"
               title="Total Pengguna"
@@ -61,7 +61,7 @@
               :filter="true"
               :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
             />
-            <!-- End Plant Card -->
+            <!-- End Total Users Card -->
 
           </div>
 

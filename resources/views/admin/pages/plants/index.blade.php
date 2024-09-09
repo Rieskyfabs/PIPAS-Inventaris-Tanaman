@@ -55,7 +55,7 @@
                                         <th>{{__('Lokasi Tanaman')}}</th>
                                         <th>{{__('Status')}}</th>
                                         <th>{{__('QR Code')}}</th>
-                                        <th>{{__('Action')}}</th>
+                                        <th>{{__('Actions')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -14,8 +14,50 @@
         ]" 
       />
 
-      <section class="section">
+      <section class="section dashboard">
         <div class="row">
+          <!-- Total Users Card -->
+            <x-card
+              type="revenue"
+              title="Total Pengguna"
+              period="Hari ini"
+              icon="bi bi-people"
+              value="{{$users->count()}}"
+              changePercent="12"
+              changeType="increase"
+              :filter="true"
+              :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+            />
+            <!-- End Total Users Card -->
+            
+            <!-- Total Users Active Card -->
+            <x-card
+              type="plants"
+              title="Total Pengguna Aktif"
+              period="Hari ini"
+              icon="bi bi-person-check"
+              value="{{$users->count()}}"
+              changePercent="12"
+              changeType="increase"
+              :filter="true"
+              :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+            />
+            <!-- End Total Users Active Card -->
+
+            <!-- Total Users Inactive Card -->
+            <x-card
+              type="location"
+              title="Total Pengguna Tidak Aktif"
+              period="Hari ini"
+              icon="bi bi-person-dash"
+              value="{{$users->count()}}"
+              changePercent="12"
+              changeType="increase"
+              :filter="true"
+              :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+            />
+            <!-- End Total Users Inactive Card -->
+
           <div class="col-lg-12">
 
             <div class="card">
