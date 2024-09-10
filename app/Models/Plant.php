@@ -13,11 +13,11 @@ class Plant extends Model
         'name',
         'scientific_name',
         'type',
-        'barcode',
+        'qr_code',
         'category_id',
-        'location',
         'quantity',
         'benefit_id',
+        'location_id',
         'status',
         'seeding_date',
         'harvest_date',
@@ -25,12 +25,17 @@ class Plant extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function benefit()
     {
-        return $this->belongsTo(Benefit::class);
+        return $this->belongsTo(Benefit::class, 'benefit_id', 'id');
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class, 'location_id', 'id');
     }
 
     public function setTypeAttribute($value)

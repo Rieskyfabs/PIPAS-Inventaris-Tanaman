@@ -6,6 +6,7 @@ use App\Http\Controllers\BenefitController;
 use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PlantController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +46,13 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'adminDashboard'])->name('admin/dashboard');
 
     // Daftar pengguna
-    Route::get('/admin/users', [UserController::class, 'index'])->name('users');
+    Route::get('/admin/users/usersList', [UserController::class, 'index'])->name('users');
+    Route::get('/admin/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/admin/users/plants', [UserController::class, 'store'])->name('users.store');
+    Route::get('/admin/users/{id}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
     // Tanaman
     Route::get('/admin/inventaris/plants', [PlantController::class, 'index'])->name('plants');
@@ -71,6 +78,14 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/inventaris/benefits/{id}/edit', [BenefitController::class, 'edit'])->name('benefits.edit');
     Route::put('/admin/inventaris/benefits/{id}', [BenefitController::class, 'update'])->name('benefits.update');
     Route::delete('/admin/inventaris/benefits/{id}', [BenefitController::class, 'destroy'])->name('benefits.destroy');
+
+    // Locations
+    Route::get('/admin/inventaris/locations', [LocationController::class, 'index'])->name('locations');
+    Route::get('/admin/inventaris/locations/create', [LocationController::class, 'create'])->name('locations.create');
+    Route::post('/admin/inventaris/locations', [LocationController::class, 'store'])->name('locations.store');
+    Route::get('/admin/inventaris/locations/{id}/edit', [LocationController::class, 'edit'])->name('locations.edit');
+    Route::put('/admin/inventaris/locations/{id}', [LocationController::class, 'update'])->name('locations.update');
+    Route::delete('/admin/inventaris/locations/{id}', [LocationController::class, 'destroy'])->name('locations.destroy');
 
 });
 

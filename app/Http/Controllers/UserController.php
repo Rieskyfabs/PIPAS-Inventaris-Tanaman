@@ -11,7 +11,12 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.pages.users.index', compact('users'));
+
+        $activeUsersCount = User::where('status', 'active')->count();
+
+        $inactiveUsersCount = User::where('status', 'inactive')->count();
+
+        return view('admin.pages.users.index', compact('users', 'activeUsersCount', 'inactiveUsersCount'));
     }
 
     public function create()
@@ -76,4 +81,12 @@ class UserController extends Controller
         Alert::success('Hapus Data User', 'Berhasil mengHapus data User');
         return redirect()->route('users');
     }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('admin.pages.users.show', compact('user'));
+    }
+
 }

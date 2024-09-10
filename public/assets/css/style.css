@@ -14,7 +14,7 @@
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   background: #f6f9ff;
   color: #444444;
 }
@@ -35,7 +35,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Nunito", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 /*--------------------------------------------------------------
@@ -830,6 +830,11 @@ h6 {
   background: #e0f8e9;
 }
 
+.dashboard .location-card .card-icon {
+  color: #FF204E;
+  background: #ffecdf;
+}
+
 .dashboard .customers-card .card-icon {
   color: #ff771d;
   background: #ffecdf;
@@ -1063,6 +1068,7 @@ h6 {
   max-width: 120px;
 }
 
+
 /*--------------------------------------------------------------
 # F.A.Q Page
 --------------------------------------------------------------*/
@@ -1177,6 +1183,66 @@ h6 {
   background: #5969f3;
 }
 
+/*--------------------------------------------------------------
+# Add Button
+--------------------------------------------------------------*/
+
+/* From Uiverse.io by SpatexDEV */
+.add-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.btn-add-item {
+  border: none;
+  display: row;
+  padding: 0.75rem 1.5rem;
+  background-color: #88D66C;
+  color: #ffffff;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  vertical-align: middle;
+  align-items: end;
+  border-radius: 0.5rem;
+  user-select: none;
+  gap: 0.75rem;
+  box-shadow:
+    0 4px 6px -1px #488aec31,
+    0 2px 4px -1px #488aec17;
+  transition: all 0.6s ease;
+}
+
+.btn-add-item:hover {
+  background-color: #73BBA3;
+  color: #fff;
+  box-shadow:
+    0 10px 15px -3px #488aec4f,
+    0 4px 6px -2px #488aec17;
+}
+
+.btn-add-item:focus,
+.btn-add-item:active {
+  opacity: 0.85;
+  box-shadow: none;
+  background-color: #3269b7;
+}
+
+.btn-add-item svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-add-item:hover svg {
+  transform: rotate(15deg);
+}
+
 @keyframes animate-loading {
   0% {
     transform: rotate(0deg);
@@ -1245,4 +1311,141 @@ h6 {
   text-align: center;
   font-size: 13px;
   color: #012970;
+}
+
+/*--------------------------------------------------------------
+# Users Page
+--------------------------------------------------------------*/
+
+.users-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.35em 0.75em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+/* Badge for active (green) */
+.badge-soft-green {
+  background-color: #e0f9e0;
+  color: #28a745;
+}
+
+/* Badge for warning */
+.badge-soft-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* Badge for primary */
+.badge-soft-primary {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+/* Badge for danger */
+.badge-soft-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Badge for info */
+.badge-soft-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+/* Badge for inactive (gray) */
+.badge-soft-gray {
+  background-color: #e2e3e5;
+  color: #6c757d;
+}
+
+/* Badge for unknown or other statuses (secondary) */
+.badge-soft-secondary {
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.icon-button {
+  border: none;
+  background: none;
+  color: #6c757d;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  transform-origin: center;
+  /* Menyelaraskan pusat pembesaran pada ikon */
+}
+
+.icon-button:hover {
+  color: #007bff;
+  /* Warna biru saat hover */
+  transform: translateY(-4px) scale(1);
+  /* Menggeser ikon ke atas dan sedikit membesar */
+}
+
+.icon-button i {
+  font-size: 1.3 rem;
+}
+
+.role-label {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.role-label.admin {
+  background-color: #a3d5a1;
+  /* Warna hijau pastel lembut untuk admin */
+  color: #2d572c;
+  /* Warna teks hijau yang lebih gelap */
+}
+
+.role-label.moderator {
+  background-color: #f7d794;
+  /* Warna kuning pastel lembut untuk moderator */
+  color: #996c00;
+  /* Warna teks coklat kekuningan */
+}
+
+.role-label.user {
+  background-color: #a1c6e7;
+  /* Warna biru pastel lembut untuk user */
+  color: #2a4d69;
+  /* Warna teks biru yang lebih gelap */
+}
+
+.role-label.guest {
+  background-color: #d3d3d3;
+  /* Abu-abu lembut untuk guest */
+  color: #595959;
+  /* Warna teks abu-abu lebih gelap */
+}
+
+.role-label i {
+  margin-right: 7px;
+  /* Jarak antara ikon dan teks */
 }

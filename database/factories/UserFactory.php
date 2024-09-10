@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -21,11 +22,48 @@ class UserFactory extends Factory
             'username' => $this->faker->unique()->userName(), // Username yang unik
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => bcrypt('password'),
+            'password' => Hash::make('password'), // Hashing password
             'remember_token' => Str::random(10),
             'role' => $this->faker->randomElement(['user', 'admin']), // Role acak
+            'status' => $this->faker->randomElement(['active', 'inactive']), // Status acak
         ];
     }
+
+    /**
+     * State for admin user.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function admin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'username' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('password'), // Password tetap
+                'role' => 'admin',
+                'status' => 'active', // Admin biasanya aktif
+            ];
+        });
+    }
+
+    /**
+     * State for normal user.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function normalUser()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'username' => $this->faker->unique()->userName(),
+                'email' => $this->faker->unique()->safeEmail(),
+                'role' => 'user',
+                'status' => $this->faker->randomElement(['active', 'inactive']),
+            ];
+        });
+    }
+
 
     /**
      * Indicate that the model's email address should be unverified.

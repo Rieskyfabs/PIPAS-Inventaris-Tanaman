@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Plant;
 use App\Models\Benefit;
 use App\Models\Category;
+use App\Models\Location;
 
 class PlantSeeder extends Seeder
 {
@@ -15,21 +16,17 @@ class PlantSeeder extends Seeder
         Benefit::factory()->count(5)->create();
         Category::factory()->count(5)->create();
 
-        $benefitIds = Benefit::pluck('id')->toArray(); // Mendapatkan semua ID dari tabel benefits
-        $categoryIds = Category::pluck('id')->toArray(); // Mendapatkan semua ID dari tabel categories
+        // Mendapatkan semua ID dari tabel yang diperlukan
+        $benefitIds = Benefit::pluck('id')->toArray();
+        $categoryIds = Category::pluck('id')->toArray();
 
-        foreach (range(1, 10) as $index) {
-            Plant::create([
-                'name' => "Plant $index",
-                'scientific_name' => "Scientific Name $index",
-                'type' => ['Fruit', 'Flower', 'Succulent'][array_rand(['Fruit', 'Flower', 'Succulent'])],
-                'barcode' => mt_rand(1000000000, 9999999999),
-                'category_id' => $categoryIds[array_rand($categoryIds)],
-                'location' => "Location $index",
-                'quantity' => rand(1, 100),
+        // Menggunakan factory untuk membuat 20 data tanaman
+        Plant::factory()->count(20)->create()->each(function ($plant) use ($benefitIds, $categoryIds) {
+            // Set nilai benefit_id dan category_id secara acak setelah plant dibuat
+            $plant->update([
                 'benefit_id' => $benefitIds[array_rand($benefitIds)],
+                'category_id' => $categoryIds[array_rand($categoryIds)],
             ]);
-        }
+        });
     }
 }
-

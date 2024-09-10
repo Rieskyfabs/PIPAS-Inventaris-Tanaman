@@ -6,6 +6,73 @@
 	border-bottom: 1px solid #d9d9d9;
 }
 
+/* Border untuk Search dan Entries per page */
+.datatable-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	/* padding: 8px 10px; */
+	border: 1px solid #d9d9d9;
+	/* Menambahkan border */
+	border-radius: 5px;
+	height: 70px;
+	text-wrap: nowrap;
+	/* Opsional, memberikan sudut melengkung */
+	background-color: #f9f9f9;
+	/* Opsional, menambahkan warna latar */
+	margin-bottom: 15px;
+}
+
+.datatable-search {
+	display: flex !important;
+	/* Pastikan Flexbox aktif */
+	justify-content: flex-end !important;
+	/* Paksa elemen pencarian ke kanan */
+	width: 100%;
+	/* Pastikan elemen pencarian menggunakan lebar penuh */
+}
+
+.datatable-input {
+	border: 1px solid #d9d9d9;
+	border-radius: 5px;
+	padding: 8px 12px;
+	background-color: #fff;
+	width: 300px;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	/* Tambahkan transisi halus */
+}
+
+/* Efek transisi saat input mendapatkan fokus */
+.datatable-input:focus {
+	border-color: #007bff;
+	/* Ubah warna border saat fokus */
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+	/* Tambahkan bayangan saat fokus */
+	outline: none;
+	/* Hapus outline default untuk fokus */
+}
+
+.datatable-selector select,
+/* Border untuk dropdown Entries per page */
+.datatable-input input {
+	/* Border untuk input Search */
+	border: 1px solid #d9d9d9;	
+	/* Menambahkan border pada elemen input dan select */
+	padding: 6px 12px;
+	border-radius: 6px;
+	/* Opsional, menambahkan sudut melengkung */
+	background-color: #fff;
+	/* Warna latar belakang putih */
+}
+
+.datatable-selector select:focus,
+.datatable-input input:focus {
+	outline: none;
+	/* Menghilangkan outline default */
+	border-color: #88D66C;
+	/* Mengubah warna border saat fokus */
+}
+
 .datatable-top,
 .datatable-bottom {
 	padding: 8px 10px;
@@ -31,6 +98,7 @@
 
 .datatable-input {
 	padding: 6px 12px;
+	float: right;
 }
 
 .datatable-info {
@@ -57,16 +125,25 @@
 	border: 1px solid transparent;
 	float: left;
 	margin-left: 2px;
-	padding: 6px 12px;
+	padding: 6px 15px;
 	position: relative;
 	text-decoration: none;
 	color: #333;
-    cursor: pointer;
+	cursor: pointer;
+	background-color: #e6f4ea;
+	/* Warna hijau muda yang halus */
+	border-radius: 4px;
+	/* Membuat sudut sedikit bulat */
+	transition: all 0.3s ease;
+	/* Transisi halus untuk semua perubahan */
 }
 
 .datatable-pagination a:hover,
 .datatable-pagination button:hover {
-	background-color: #d9d9d9;
+	background-color: #b2d8b5;
+	/* Hijau lebih tua saat hover */
+	border-color: #4CAF50;
+	/* Warna border menjadi hijau saat hover */
 }
 
 .datatable-pagination .datatable-active a,
@@ -75,8 +152,16 @@
 .datatable-pagination .datatable-active button,
 .datatable-pagination .datatable-active button:focus,
 .datatable-pagination .datatable-active button:hover {
-	background-color: #d9d9d9;
+	background-color: #4CAF50;
+	/* Hijau lebih kuat untuk halaman aktif */
+	color: white;
+	border-color: #45a049;
 	cursor: default;
+}
+
+.datatable-pagination .datatable-active {
+	pointer-events: none;
+	/* Nonaktifkan interaksi pada tombol aktif */
 }
 
 .datatable-pagination .datatable-ellipsis a,
@@ -87,8 +172,8 @@
 .datatable-pagination .datatable-disabled button,
 .datatable-pagination .datatable-disabled button:focus,
 .datatable-pagination .datatable-disabled button:hover {
-    pointer-events: none;
-    cursor: default;
+	pointer-events: none;
+	cursor: default;
 }
 
 .datatable-pagination .datatable-disabled a,
@@ -111,29 +196,25 @@
 	max-width: 100%;
 	width: 100%;
 	border-spacing: 0;
-	border-collapse: separate;
+	border-collapse: collapse;
+	/* Ubah separate menjadi collapse */
 }
 
-.datatable-table > tbody > tr > td,
-.datatable-table > tbody > tr > th,
-.datatable-table > tfoot > tr > td,
-.datatable-table > tfoot > tr > th,
-.datatable-table > thead > tr > td,
-.datatable-table > thead > tr > th {
-	vertical-align: top;
+.datatable-table>thead>tr>th {
+	vertical-align: bottom;
+	text-align: left;
+	border: 1px solid #d9d9d9;
+	/* Menambahkan border di semua sisi */
 	padding: 8px 10px;
+	height: 60px;
+	background-color: #f9f9f9;
+	/* Warna latar belakang opsional */
 }
 
-.datatable-table > thead > tr > th {
-	vertical-align: bottom;
-	text-align: left;
-	border-bottom: 1px solid #d9d9d9;
-}
-
-.datatable-table > tfoot > tr > th {
-	vertical-align: bottom;
-	text-align: left;
-	border-top: 1px solid #d9d9d9;
+.datatable-table>tbody>tr>td {
+	border: 1px solid #d9d9d9;
+	/* Tambahkan border untuk td agar sesuai dengan th */
+	padding: 8px 10px;
 }
 
 .datatable-table th {
@@ -196,17 +277,17 @@
 }
 
 .datatable-filter::before {
-    content: "";
-    position: absolute;
-    right: 4px;
-    opacity: 0.2;
-    width: 0;
-    height: 0;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
+	content: "";
+	position: absolute;
+	right: 4px;
+	opacity: 0.2;
+	width: 0;
+	height: 0;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
 	border-radius: 50%;
-    border-top: 10px solid #000;
-    top: 25%;
+	border-top: 10px solid #000;
+	top: 25%;
 }
 
 .datatable-filter-active .datatable-filter::before {

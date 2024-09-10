@@ -5,20 +5,41 @@ namespace App\Http\Controllers;
 use App\Models\Plant;
 use App\Models\Category;
 use App\Models\Benefit;
+use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class PlantController extends Controller
 {
     public function index()
     {
-        $plants = Plant::with(['category', 'benefit'])->get();
-        return view('admin.pages.plants.index', compact('plants'));
+        $plants = Plant::with(['category', 'benefit', 'location'])->get();
+
+        $totalQuantity = $plants->sum('quantity');
+
+        $countByStatus = $plants->groupBy('status')->mapWithKeys(function ($group, $status) {
+            return [$status => $group->count()];
+        });
+
+        // Mengubah data untuk chart
+        $chartData = [
+            'series' => $countByStatus->values()->toArray(),
+            'labels' => $countByStatus->keys()->toArray()
+        ];
+
+        return view('admin.pages.plants.index', compact('plants', 'totalQuantity', 'countByStatus', 'chartData'));
     }
+
 
     public function create()
     {
         $categories = Category::all();
         $benefits = Benefit::all();
+        $location = Location::all();
+
         return view('admin.pages.plants.create', compact('categories', 'benefits'));
     }
 
@@ -27,7 +48,7 @@ class PlantController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'scientific_name' => 'required|string|max:255',
-            'barcode' => 'required|string|unique:plants,barcode',
+            'qr_code' => 'required|string|unique:plants,qr_code',
             'category_id' => 'required|exists:categories,id',
             'type' => 'required|in:Herbal,Vegetable',
             'location' => 'required|string|max:255',
@@ -60,7 +81,7 @@ class PlantController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'scientific_name' => 'required|string|max:255',
-            'barcode' => 'required|string|unique:plants,barcode,' . $id,
+            'qr_code' => 'required|string|unique:plants,qr_code,' . $id,
             'category_id' => 'required|exists:categories,id',
             'type' => 'required|in:Herbal,Vegetable',
             'location' => 'required|string|max:255',
@@ -85,14 +106,25 @@ class PlantController extends Controller
     public function destroy($id)
     {
         $plant = Plant::findOrFail($id);
-        $plant->delete();
 
-        return redirect()->route('plants')->with('success', 'Plant deleted successfully.');
+        // Hapus file QR code jika ada
+        if ($plant->qr_code) {
+            Storage::disk('public')->delete($plant->qr_code);
+        }
+
+        // Hapus record tanaman dari database
+        $plant->delete();
+        Alert::success('Hapus Data Tanaman', 'Berhasil mengHapus data Tanaman');
+
+        return redirect()->route('plants')->with('success', 'Plant deleted successfully');
     }
 
     public function show($id)
     {
-        $plant = Plant::with(['category', 'benefit'])->findOrFail($id);
+        // Cari data tanaman berdasarkan ID
+        $plant = Plant::with('category', 'benefit', 'location')->findOrFail($id);
+
+        // Return view dengan data tanaman
         return view('admin.pages.plants.show', compact('plant'));
     }
 }

@@ -43,13 +43,23 @@ body {
   overflow: hidden;
 }
 
-/* Back button styles */
+.image-container {
+  position: relative;
+  /* Ensure positioning works with absolute children */
+  flex: 1;
+  background-image: url('/images/P5-SideImage.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  /* Adjust to match the height of the container or image */
+}
+
 .back-button {
   position: absolute;
-  top: 170px;
-  /* Adjusted to be above the login container */
-  left: 450px;
-  width: auto;
+  top: 20px;
+  /* Set top and left within the image */
+  left: 20px;
   padding: 10px 20px;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 5px;
@@ -63,15 +73,6 @@ body {
 .back-button:hover {
   background-color: rgba(255, 255, 255, 1);
   color: #000;
-}
-
-.image-container {
-  flex: 1;
-  background-image: url('/images/P5-SideImage.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: auto;
 }
 
 .login-form {
@@ -137,22 +138,33 @@ body {
 .button-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .login-button {
   background-color: #4CAF50;
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 12px 25px;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
   width: 60%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .login-button:hover {
   background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.login-button:active {
+  background-color: #3e8e41;
+  transform: translateY(0);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 .button-underline {

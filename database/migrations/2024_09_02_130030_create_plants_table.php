@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('scientific_name');
-            $table->enum('type', ['Herbal', 'Vegetable']); // Tipe tanaman dibatasi
-            $table->string('barcode')->unique();
+            $table->enum('type', ['Herbal', 'Sayuran']); // Tipe tanaman dibatasi
+            $table->string('qr_code')->nullable();
             $table->foreignId('category_id')->constrained('categories'); // FK ke categories
-            $table->string('location');
             $table->integer('quantity')->default(0);
             $table->foreignId('benefit_id')->constrained('benefits'); // FK ke benefits
-            $table->string('status'); // Menambahkan kolom status
+            $table->foreignId('location_id')->constrained('locations'); // FK ke locations
+            $table->enum('status', ['sehat', 'baik', 'layu', 'sakit']);; // Menambahkan kolom status
             $table->date('seeding_date')->nullable(); // Menambahkan kolom tanggal pembibitan
             $table->date('harvest_date')->nullable(); // Menambahkan kolom tanggal panen
             $table->timestamps();

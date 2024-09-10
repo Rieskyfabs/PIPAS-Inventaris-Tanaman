@@ -7,10 +7,10 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="Kategori" 
+        title="Locations" 
         :items="[
           ['route' => 'home', 'label' => 'Home'],
-          ['label' => 'Kategori']
+          ['label' => 'Locations']
         ]" 
       />
 
@@ -20,7 +20,7 @@
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Kategori</h5>
+                <h5 class="card-title">{{__('Locations Data')}}</h5>
                 <p></p>
 
                 <!-- Table with stripped rows -->
@@ -28,16 +28,14 @@
                     <thead>
                         <tr>
                           <th>ID</th>
-                          <th>Nama Kategori</th>
-                          <th>Deskripsi</th>
+                          <th>Locations</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $category)
+                        @foreach ($locations as $location)
                             <tr>
-                              <td>{{ $category->id }}</td>
-                              <td>{{ $category->name }}</td>
-                              <td>{{ $category->description ?: '-' }}</td>
+                              <td>{{ $location->id }}</td>
+                              <td>{{ $location->name }}</td>
                             </tr>
                         @endforeach
                     </tbody>

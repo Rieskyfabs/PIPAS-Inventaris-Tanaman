@@ -285,6 +285,7 @@
   datatables.forEach(datatable => {
     new simpleDatatables.DataTable(datatable, {
       perPageSelect: [5, 10, 15, ["All", -1]],
+      scrollable: true,
       columns: [{
           select: 2,
           sortSequence: ["desc", "asc"]
@@ -301,6 +302,7 @@
       ]
     });
   })
+  
 
   /**
    * Autoresize echart charts

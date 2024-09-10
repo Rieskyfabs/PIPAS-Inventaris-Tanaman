@@ -35,7 +35,7 @@
                   <div class="menu-wrapper">
                     <ul class="menu">
                         <li class="{{request()->is('#') ? 'active' : ''}} menu-item"><a href="#" class="menu-link">Home</a></li>
-                        <li class="{{request()->is('#about') ? 'active' : ''}} menu-item"><a href="#about" class="menu-link">Tentang P5</a></li>
+                        <li class="{{request()->is('#about') ? 'active' : ''}} menu-item"><a href="#about" class="menu-link">Tentang PIPAS</a></li>
                         <li class="{{request()->is('#galeri') ? 'active' : ''}} menu-item"><a href="#galeri" class="menu-link">Galeri</a></li>
                         <li class="{{request()->is('#team') ? 'active' : ''}} menu-item"><a href="#team" class="menu-link">Our Team</a></li>
                         <li class="{{request()->is('#contact-form') ? 'active' : ''}} menu-item"><a href="#contact-form" class="menu-link">Contact</a></li>
@@ -49,13 +49,8 @@
                                 @else
                                   <a href="{{ route('dashboard') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> User Dashboard</a>
                                 @endif
-                                {{-- <a href="{{ route('logout') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Logout</a> --}}
                             @else
                                 <a href="{{ route('login') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
-
-                                {{-- @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                                @endif --}}
                             @endauth
                         </div>
                     @endif
@@ -70,8 +65,8 @@
           <section class="home" id="home">
               <div class="container home-wrapper">
                   <div class="content-left">
-                      <h1 class="heading">Tingkatkan <span>Kemampuan</span> mu Dengan <span>P5</span></h1>
-                      <p class="subHeading">Bakar semangatmu dengan mengikuti <span>P5 Gaya Hidup Berkelanjutan</span>  yang diadakan di sekolah sebagai ajang bagi dirimu untuk meningkatkan nilai dan sikap bagi para siswa.</p>
+                      <h1 class="heading">Tingkatkan <span>Kemampuan</span> mu Dengan <span>PIPAS</span></h1>
+                      <p class="subHeading">Bakar semangatmu dengan mengikuti <span>Pendidikan Ilmu Pengetahuan Alam dan Sosial</span>  yang diadakan di sekolah sebagai ajang bagi dirimu untuk meningkatkan nilai dan sikap bagi para siswa.</p>
                       <div class="box-wrapper">
                           <div class="box">
                             @if (Route::has('login'))
@@ -84,10 +79,10 @@
                                 @else
                                     <a href="{{ route('login') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
                                 @endauth
-                            @endif 
+                            @endif
                           </div>
                           <div class="box">
-                              <a href="#about" class="btn-about"><i class="fas fa-info-circle"></i> Tentang P5</a>
+                              <a href="#about" class="btn-about"><i class="fas fa-info-circle"></i> Tentang PIPAS</a>
                           </div>
                       </div>
                   </div>
@@ -95,7 +90,7 @@
                       <div class="img-wrapper">
                           <img src="{{ asset('/images/Hero-tanaman-IMG.png') }}" alt="">
                       </div>
-                  </div>      
+                  </div>
               </div>
           </section>
           <!-- Hero, Home Page Section -->
@@ -109,9 +104,9 @@
                           </div>
                       </div>
                       <div class="content-right">
-                          <h1 class="heading">Tentang <span>P5</span></h1>
-                          <p class="subHeading"><span>P5</span> merupakan karakter dan kemampuan yang dibangun <br> dalam keseharian dan dalam diri setiap individu peserta <br>didik melalui budaya satuan pendidikan, dan <br>pembelajaran intrakurikuler.</p>
-                          
+                          <h1 class="heading">Tentang <span>PIPAS</span></h1>
+                          <p class="subHeading"><span>Kegiatan PIPAS</span> merupakan karakter dan kemampuan yang dibangun <br> dalam keseharian dan dalam diri setiap individu peserta <br>didik melalui budaya satuan pendidikan, dan <br>pembelajaran intrakurikuler.</p>
+
                           <div class="card-container">
                               <div class="card">
                                   <div class="icon">
@@ -151,8 +146,8 @@
               <section class="galeri" id="galeri">
                   <div class="container galeri-wrapper">
                       <div class="row1">
-                          <h1 class="heading-galeri">Galeri <span>P5</span></h1>
-                          <p class="subHeading-galeri">Berbagai kegiatan P5 untuk mengembangkan keterampilan dan karakter siswa, mulai dari urban farming hingga pengelolaan sampah.</p>
+                          <h1 class="heading-galeri">Galeri <span>PIPAS</span></h1>
+                          <p class="subHeading-galeri">Berbagai kegiatan PIPAS untuk mengembangkan keterampilan dan karakter siswa, mulai dari urban farming hingga pengelolaan sampah.</p>
                       </div>
                       <div class="row2">
                           <div class="card-galeri">
@@ -174,13 +169,13 @@
                                   <div class="card-text">
                                       <h3>Tanam & Panen Sayuran</h3>
                                       <p>Kritis</p>
-                                  </div>  
+                                  </div>
                               </div>
                           </div>
                       </div>
                       <div class="row3">
                           <h1 class="heading-galeri">Tidak Hanya Itu</h1>
-                          <p class="subHeading-galeri">P5 Gaya Hidup Berkelanjutan juga membuat pengalaman lingkungan hidup yang keren dan berorientasi pada masa depan untuk kehidupan bumi pada masa depan. Berpikir kritis, inovasi, kerja sama, pemecahan masalah, kepedulian, berani, pola hidup, dan rajin.</p>
+                          <p class="subHeading-galeri">dalam kegiatan PIPAS juga membuat pengalaman lingkungan hidup yang keren dan berorientasi pada masa depan untuk kehidupan bumi pada masa depan. Berpikir kritis, inovasi, kerja sama, pemecahan masalah, kepedulian, berani, pola hidup, dan rajin.</p>
                       </div>
                   </div>
               </section>
@@ -231,7 +226,7 @@
                                           <a href="https://facebook.com/rieskyfabs" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                                           <a href="https://linkedin.com/in/rieskyfabs" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
                                       </div>
-                                  </div>  
+                                  </div>
                               </div>
                           </div>
                       </div>
@@ -244,10 +239,10 @@
                   <div class="container highlighted-cta-wrapper">
                       <div class="content-left">
                           <h2 class="heading">"<span>Aku Ada</span> Lingkunganku <span>Bahagia</span>."</h2>
-                          <p class="subHeading">Ayo Bergabung & Berkontribusi dengan P5, Dan Menjadi Pelajar Yang Berani, Jujur & Disiplin.</p>
+                          <p class="subHeading">Ayo Bergabung & Berkontribusi dengan tim PIPAS, Dan Menjadi Pelajar Yang Berani, Jujur & Disiplin.</p>
                           <div class="cta-box-wrapper">
                               <div class="box-cta">
-                                  <a href="{{route('login')}}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login Sekarang</a>   
+                                  <a href="{{route('login')}}" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login Sekarang</a>
                               </div>
                           </div>
                       </div>
@@ -265,7 +260,7 @@
                   <div class="container contact-form-wrapper">
                       <div class="content-left">
                           <h2 class="heading">Hubungi Tim Kami!</h2>
-                          <p class="subHeading">Memiliki Pertanyaan Seputar Website Ini Atau Tentang P5? Hubungi Kami Dibawah!</p>
+                          <p class="subHeading">Memiliki Pertanyaan Seputar Website Ini Atau Tentang PIPAS? Hubungi Kami Dibawah!</p>
                           <a href="https://wa.me/6281310346123" class="btn-contact"><i class="fa-solid fa-phone-volume"></i> +62 813-1034-6123 (Whatsapp)</a>
                           <a href="mailto:kikirizkiromadhoniyah@smkwikrama.sch.id" class="btn-email"><i class="fa-solid fa-envelope"></i> kikirizkiromadhoniyah@smkwikrama.sch.id</a>
                           <div class="contact-form-box-wrapper">
@@ -317,7 +312,7 @@
             </div>
         </footer>
         <!-- END Footer -->
-        
+
         <!-- # JS Plugins -->
         <script src="{{ asset('front/plugins/jquery/jquery.min.js')}}"></script>
         <script src="{{ asset('front/plugins/bootstrap/bootstrap.min.js')}}"></script>
