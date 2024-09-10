@@ -1391,14 +1391,16 @@ h6 {
   font-size: 1.2rem;
   padding: 0.5rem;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  transform-origin: center;
+  /* Menyelaraskan pusat pembesaran pada ikon */
 }
 
 .icon-button:hover {
   color: #007bff;
   /* Warna biru saat hover */
-  transform: scale(1.2);
-  /* Memperbesar ikon saat hover */
+  transform: translateY(-4px) scale(1);
+  /* Menggeser ikon ke atas dan sedikit membesar */
 }
 
 .icon-button i {

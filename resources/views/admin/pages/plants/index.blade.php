@@ -16,69 +16,74 @@
 
     <section class="section dashboard"> 
         <div class="row">
-            <!-- Total Plants Card -->
+            <!-- Summary Card -->
             <x-card
-            type="plants"
-            title="Total Tanaman"
-            period="Hari ini"
-            icon="ri-plant-fill"
-            value="{{ $totalQuantity }}"
-            changePercent="12" 
-            changeType="increase"
-            :filter="true"
-            :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+                type="plants"
+                title="Total Tanaman"
+                period="Hari ini"
+                icon="ri-plant-fill"
+                value="{{ $totalQuantity }}"
+                changePercent="12" 
+                changeType="increase"
+                :filter="true"
+                :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
             />
-            <!-- End Total Plants Card -->
+            <x-card
+                type="revenue"
+                title="Tanaman Masuk"
+                period="Hari ini"
+                icon="ri-plant-fill"
+                value="24"
+                changePercent="12" 
+                changeType="increase"
+                :filter="true"
+                :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+            />
+            <x-card
+                type="location"
+                title="Tanaman Keluar"
+                period="Hari ini"
+                icon="ri-plant-fill"
+                value="12"
+                changePercent="12" 
+                changeType="increase"
+                :filter="true"
+                :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+            />
+            <!-- End Summary Card -->
+            
+            <!-- Right side columns -->
+            <div class="row-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{__('Total Tanaman Berdasarkan Status')}}</h5>
 
-            <!-- Status Cards -->
-            <x-card
-            type="revenue"
-            title="Tanaman Baik"
-            period="Hari ini"
-            icon="bi bi-check-circle"
-            value="{{ $countByStatus['baik'] ?? 0 }}"
-            changePercent="N/A"
-            changeType="none"
-            :filter="false"
-            :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
-            />
+                        <!-- plantStatus Chart -->
+                        <div id="plantStatus"></div>
+                        
+                        <script>
+                            document.addEventListener("DOMContentLoaded", () => {
+                                const chartData = @json($chartData);
 
-            <x-card
-            type="users"
-            title="Tanaman Layu"
-            period="Hari ini"
-            icon="bi bi-droplet"
-            value="{{ $countByStatus['layu'] ?? 0 }}"
-            changePercent="N/A"
-            changeType="none"
-            :filter="false"
-            :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
-            />
+                                new ApexCharts(document.querySelector("#plantStatus"), {
+                                    series: chartData.series,
+                                    chart: {
+                                        height: 350,
+                                        type: 'pie',
+                                        toolbar: {
+                                            show: true
+                                        }
+                                    },
+                                    labels: chartData.labels
+                                }).render();
+                            });
+                        </script>
+                        <!-- End Pie Chart -->
 
-            <x-card
-            type="location"
-            title="Tanaman Sakit"
-            period="Hari ini"
-            icon="bi bi-thermometer"
-            value="{{ $countByStatus['sakit'] ?? 0 }}"
-            changePercent="N/A"
-            changeType="none"
-            :filter="false"
-            :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
-            />
-
-            <x-card
-            type="plants"
-            title="Tanaman Sehat"
-            period="Hari ini"
-            icon="bi bi-heart"
-            value="{{ $countByStatus['sehat'] ?? 0 }}"
-            changePercent="N/A"
-            changeType="none"
-            :filter="false"
-            :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
-            />
-            <!-- End Status Cards -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Right side columns -->
 
             <div class="col-lg-12">
                 <div class="card">
@@ -113,13 +118,13 @@
                             <table class="table table-bordered table-hover datatable">
                                 <thead>
                                     <tr>
-                                        <th>{{__('Nama Tanaman')}}</th>
-                                        <th>{{__('Tipe Tanaman')}}</th>
-                                        <th>{{__('Kategori Tanaman')}}</th>
-                                        <th>{{__('Lokasi Tanaman')}}</th>
-                                        <th>{{__('Status')}}</th>
-                                        <th>{{__('QR Code')}}</th>
-                                        <th>{{__('Actions')}}</th>
+                                        <th>{{__('NAMA TANAMAN')}}</th>
+                                        <th>{{__('TIPE TANAMAN')}}</th>
+                                        <th>{{__('KATEGORI TANAMAN')}}</th>
+                                        <th>{{__('LOKASI TANAMAN')}}</th>
+                                        <th>{{__('STATUS')}}</th>
+                                        <th>{{__('QR CODE')}}</th>
+                                        <th>{{__('ACTIONS')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -153,7 +158,9 @@
                                                     {{ $plant->status }}
                                                 </span>
                                             </td>
-                                            <td>{{ $plant->qr_code }}</td>
+                                            <td>
+                                                <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->name }}">
+                                            </td>
                                             <td>
                                                 <x-action-buttons
                                                     action="{{ route('plants.destroy', $plant->id) }}"

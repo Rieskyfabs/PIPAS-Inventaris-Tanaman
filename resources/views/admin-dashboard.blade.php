@@ -88,11 +88,11 @@
                   <table class="table table-borderless datatable">
                     <thead>
                       <tr>
-                        <th scope="col">{{__('Nama Tanaman')}}</th>
-                        <th scope="col">{{__('Tipe Tanaman')}}</th>
-                        <th scope="col">{{__('Kategori Tanaman')}}</th>
-                        <th scope="col">{{__('Lokasi Tanaman')}}</th>
-                        <th scope="col">{{__('Status')}}</th>
+                        <th scope="col">{{__('NAMA TANAMAN')}}</th>
+                        <th scope="col">{{__('NAMA TANAMAN')}}</th>
+                        <th scope="col">{{__('KATEGORI TANAMAN')}}</th>
+                        <th scope="col">{{__('LOKASI TANAMAN')}}</th>
+                        <th scope="col">{{__('STATUS')}}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -101,11 +101,17 @@
                           <th scope="row"><a href="#">{{$plant->name}}</a></th>
                           <td>
                               @if ($plant->type === 'Sayuran')
-                                  <i class="fa fa-carrot" aria-hidden="true"></i> {{ $plant->type }}
+                                  <span class="badge badge-soft-green">
+                                      <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
+                                  </span>
                               @elseif ($plant->type === 'Herbal')
-                                  <i class="fa fa-leaf" aria-hidden="true"></i> {{ $plant->type }}
+                                  <span class="badge badge-soft-warning">
+                                      <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
+                                  </span>
                               @else
-                                  {{ $plant->type }}
+                                  <span class="badge badge-soft-gray">
+                                      {{ $plant->type }}
+                                  </span>
                               @endif
                           </td>
                           <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
@@ -213,18 +219,18 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Bar Chart</h5>
+              <h5 class="card-title">Data Tanaman Masuk Perbulan</h5>
 
               <!-- Bar Chart -->
-              <canvas id="barChart" style="max-height: 400px;"></canvas>
+              <canvas id="DataTanaman" style="max-height: 400px;"></canvas>
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
-                  new Chart(document.querySelector('#barChart'), {
+                  new Chart(document.querySelector('#DataTanaman'), {
                     type: 'bar',
                     data: {
                       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                       datasets: [{
-                        label: 'Bar Chart',
+                        label: 'Tanaman',
                         data: [65, 59, 80, 81, 56, 55, 40],
                         backgroundColor: [
                           'rgba(255, 99, 132, 0.2)',
