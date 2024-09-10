@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Plant;
+use App\Models\Location;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,12 +15,24 @@ class HomeController extends Controller
     public function index(){
         return view('dashboard');
     }
-    public function adminDashboard(){
+    public function adminDashboard()
+    {
+        // Hitung total quantity tanaman
+        $totalPlantsQuantity = Plant::sum('quantity');
+
+        // Hitung total lokasi inventaris
+        $totalLocations = Location::count(); // Asumsi ada model Location
+
+        // Hitung total user
+        $totalUsers = User::count(); // Asumsi ada model User
+
+        // Ambil data tanaman dengan pagination
         $plants = Plant::with(['category', 'benefit', 'location'])
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 
-        return view('admin-dashboard', compact('plants'));
-
+        // Kirim data ke view
+        return view('admin-dashboard', compact('plants', 'totalPlantsQuantity', 'totalLocations', 'totalUsers'));
     }
+
 }

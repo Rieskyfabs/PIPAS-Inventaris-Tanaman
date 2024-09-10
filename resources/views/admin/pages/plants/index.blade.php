@@ -14,8 +14,72 @@
         ]" 
       />
 
-    <section class="section"> 
+    <section class="section dashboard"> 
         <div class="row">
+            <!-- Total Plants Card -->
+            <x-card
+            type="plants"
+            title="Total Tanaman"
+            period="Hari ini"
+            icon="ri-plant-fill"
+            value="{{ $totalQuantity }}"
+            changePercent="12" 
+            changeType="increase"
+            :filter="true"
+            :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+            />
+            <!-- End Total Plants Card -->
+
+            <!-- Status Cards -->
+            <x-card
+            type="revenue"
+            title="Tanaman Status Baik"
+            period="Hari ini"
+            icon="bi bi-check-circle"
+            value="{{ $countByStatus['baik'] ?? 0 }}"
+            changePercent="N/A"
+            changeType="none"
+            :filter="false"
+            :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+            />
+
+            <x-card
+            type="users"
+            title="Tanaman Status Layu"
+            period="Hari ini"
+            icon="bi bi-droplet"
+            value="{{ $countByStatus['layu'] ?? 0 }}"
+            changePercent="N/A"
+            changeType="none"
+            :filter="false"
+            :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+            />
+
+            <x-card
+            type="location"
+            title="Tanaman Status Sakit"
+            period="Hari ini"
+            icon="bi bi-thermometer"
+            value="{{ $countByStatus['sakit'] ?? 0 }}"
+            changePercent="N/A"
+            changeType="none"
+            :filter="false"
+            :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+            />
+
+            <x-card
+            type="plants"
+            title="Tanaman Status Sehat"
+            period="Hari ini"
+            icon="bi bi-heart"
+            value="{{ $countByStatus['sehat'] ?? 0 }}"
+            changePercent="N/A"
+            changeType="none"
+            :filter="false"
+            :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+            />
+            <!-- End Status Cards -->
+
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">

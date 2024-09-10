@@ -76,10 +76,10 @@
                 <table class="table datatable">
                   <thead>
                       <tr>
-                        <th>{{__('Username')}}</th>
-                        <th>{{__('Role')}}</th>
-                        <th>{{__('Status')}}</th>
-                        <th>{{__('Action')}}</th>
+                        <th>{{__('USER')}}</th>
+                        <th>{{__('ROLE')}}</th>
+                        <th>{{__('STATUS')}}</th>
+                        <th>{{__('ACTIONS')}}</th>
                       </tr>
                   </thead>
                   <tbody>

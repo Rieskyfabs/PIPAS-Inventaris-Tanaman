@@ -16,9 +16,15 @@ class PlantController extends Controller
     public function index()
     {
         $plants = Plant::with(['category', 'benefit', 'location'])->get();
-        return view('admin.pages.plants.index', compact('plants'));
-    }
 
+        $totalQuantity = $plants->sum('quantity');
+
+        $countByStatus = $plants->groupBy('status')->mapWithKeys(function ($group, $status) {
+            return [$status => $group->count()];
+        });
+
+        return view('admin.pages.plants.index', compact('plants', 'totalQuantity', 'countByStatus'));
+    }
 
     public function create()
     {
