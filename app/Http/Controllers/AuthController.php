@@ -52,7 +52,7 @@ class AuthController extends Controller
         // Periksa status user (misalnya "active" atau "inactive")
         if ($user->status !== 'active') {
             Auth::logout(); // Logout user yang tidak aktif
-            Alert::warning('Tidak Bisa Login', 'Akun Anda nonaktif.');
+            Alert::warning('Tidak Bisa Login', 'Akun Anda tidak aktif, hubungi pembimbing siswa untuk bantuan lebih lanjut.');
             return back()->withInput();
         }
 

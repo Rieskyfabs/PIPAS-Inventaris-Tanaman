@@ -33,7 +33,7 @@
             <!-- Status Cards -->
             <x-card
             type="revenue"
-            title="Tanaman Status Baik"
+            title="Tanaman Baik"
             period="Hari ini"
             icon="bi bi-check-circle"
             value="{{ $countByStatus['baik'] ?? 0 }}"
@@ -45,7 +45,7 @@
 
             <x-card
             type="users"
-            title="Tanaman Status Layu"
+            title="Tanaman Layu"
             period="Hari ini"
             icon="bi bi-droplet"
             value="{{ $countByStatus['layu'] ?? 0 }}"
@@ -57,7 +57,7 @@
 
             <x-card
             type="location"
-            title="Tanaman Status Sakit"
+            title="Tanaman Sakit"
             period="Hari ini"
             icon="bi bi-thermometer"
             value="{{ $countByStatus['sakit'] ?? 0 }}"
@@ -69,7 +69,7 @@
 
             <x-card
             type="plants"
-            title="Tanaman Status Sehat"
+            title="Tanaman Sehat"
             period="Hari ini"
             icon="bi bi-heart"
             value="{{ $countByStatus['sehat'] ?? 0 }}"
@@ -128,11 +128,17 @@
                                             <td>{{ $plant->name }}</td>
                                             <td>
                                                 @if ($plant->type === 'Sayuran')
-                                                    <i class="fa fa-carrot" aria-hidden="true"></i> {{ $plant->type }}
+                                                    <span class="badge badge-soft-green">
+                                                        <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
+                                                    </span>
                                                 @elseif ($plant->type === 'Herbal')
-                                                    <i class="fa fa-leaf" aria-hidden="true"></i> {{ $plant->type }}
+                                                    <span class="badge badge-soft-warning">
+                                                        <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
+                                                    </span>
                                                 @else
-                                                    {{ $plant->type }}
+                                                    <span class="badge badge-soft-gray">
+                                                        {{ $plant->type }}
+                                                    </span>
                                                 @endif
                                             </td>
                                             <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
@@ -149,20 +155,13 @@
                                             </td>
                                             <td>{{ $plant->qr_code }}</td>
                                             <td>
-                                                <form action="{{ route('plants.destroy', $plant->id) }}" method="POST" class="action-buttons">
-                                                <a href="{{ route('plants.show', $plant->id) }}" class="icon-button"><i class="bi bi-eye"></i></a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="icon-button"><i class="bi bi-trash"></i></button>
-                                                <div class="dropdown">
-                                                    <button class="icon-button dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="bi bi-three-dots"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <li><a class="dropdown-item" href="{{ route('plants.edit', $plant->id) }}">Edit</a></li>
-                                                    </ul>
-                                                </div>
-                                                </form>
+                                                <x-action-buttons
+                                                    action="{{ route('plants.destroy', $plant->id) }}"
+                                                    viewData="{{ route('plants.show', $plant->id) }}"
+                                                    method="DELETE"
+                                                    submit="true"
+                                                    :dropdown="[ ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'] ]"
+                                                />
                                             </td>
                                         </tr>
                                     @endforeach

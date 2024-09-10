@@ -97,7 +97,18 @@
                               </a><small>{{ $user->email }}</small>
                             </div>
                           </td>
-                          <td>{{ $user->role }}</td>
+                          <td>
+                            <span class="role-label {{ strtolower($user->role) }}">
+                                @if($user->role === 'admin')
+                                    <i class="fas fa-crown"></i>
+                                @elseif($user->role === 'user')
+                                    <i class="fas fa-user"></i>
+                                @else
+                                    <i class="fas fa-user-tag"></i>
+                                @endif
+                                {{ ucfirst($user->role) }}
+                            </span>
+                          </td>
                           <td>
                               @if($user->status == 'active')
                                   <span class="badge badge-soft-green">Active</span>
@@ -108,21 +119,13 @@
                               @endif
                           </td>
                           <td>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="action-buttons">
-                              <a href="{{ route('users.show', $user->id) }}" class="icon-button"><i class="bi bi-eye"></i></a>
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="icon-button"><i class="bi bi-trash"></i></button>
-                              <div class="dropdown">
-                                <button class="icon-button dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="{{ route('users.edit', $user->id) }}">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Suspend User</a></li>
-                                </ul>
-                              </div>
-                            </form>
+                              <x-action-buttons
+                                  action="{{ route('users.destroy', $user->id) }}"
+                                  viewData="{{ route('users.show', $user->id) }}"
+                                  method="DELETE"
+                                  submit="true"
+                                  :dropdown="[ ['href' => route('users.edit', $user->id), 'label' => 'Edit'], ['href' => '#', 'label' => 'Suspend User'] ]"
+                              />
                           </td>
                         </tr>
                       @endforeach

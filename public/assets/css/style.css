@@ -1404,3 +1404,46 @@ h6 {
 .icon-button i {
   font-size: 1.3 rem;
 }
+
+.role-label {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.role-label.admin {
+  background-color: #a3d5a1;
+  /* Warna hijau pastel lembut untuk admin */
+  color: #2d572c;
+  /* Warna teks hijau yang lebih gelap */
+}
+
+.role-label.moderator {
+  background-color: #f7d794;
+  /* Warna kuning pastel lembut untuk moderator */
+  color: #996c00;
+  /* Warna teks coklat kekuningan */
+}
+
+.role-label.user {
+  background-color: #a1c6e7;
+  /* Warna biru pastel lembut untuk user */
+  color: #2a4d69;
+  /* Warna teks biru yang lebih gelap */
+}
+
+.role-label.guest {
+  background-color: #d3d3d3;
+  /* Abu-abu lembut untuk guest */
+  color: #595959;
+  /* Warna teks abu-abu lebih gelap */
+}
+
+.role-label i {
+  margin-right: 7px;
+  /* Jarak antara ikon dan teks */
+}

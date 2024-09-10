@@ -11,12 +11,10 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        // Menghitung pengguna aktif
+
         $activeUsersCount = User::where('status', 'active')->count();
 
-        // Menghitung pengguna tidak aktif
         $inactiveUsersCount = User::where('status', 'inactive')->count();
-
 
         return view('admin.pages.users.index', compact('users', 'activeUsersCount', 'inactiveUsersCount'));
     }
@@ -86,7 +84,9 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $users = User::findOrFail($id);
-        return view('admin.pages.users.show', compact('users'));
+        $user = User::findOrFail($id);
+
+        return view('admin.pages.users.show', compact('user'));
     }
+
 }
