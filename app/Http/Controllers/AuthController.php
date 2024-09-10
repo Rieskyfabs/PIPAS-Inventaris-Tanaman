@@ -46,6 +46,16 @@ class AuthController extends Controller
             return back()->withInput();
         }
 
+        // Ambil user yang telah diautentikasi
+        $user = auth()->user();
+
+        // Periksa status user (misalnya "active" atau "inactive")
+        if ($user->status !== 'active') {
+            Auth::logout(); // Logout user yang tidak aktif
+            Alert::warning('Tidak Bisa Login', 'Akun Anda nonaktif.');
+            return back()->withInput();
+        }
+
         // Regenerasi session untuk keamanan
         $request->session()->regenerate();
 
@@ -53,12 +63,13 @@ class AuthController extends Controller
         Alert::success('Login Berhasil!', 'Selamat datang di dashboard anda.');
 
         // Redirect berdasarkan peran pengguna
-        if (auth()->user()->role === 'admin') {
+        if ($user->role === 'admin') {
             return redirect()->route('admin/dashboard');
         } else {
             return redirect()->route('dashboard');
         }
     }
+
 
     public function logout(Request $request){
         Auth::guard('web')->logout();

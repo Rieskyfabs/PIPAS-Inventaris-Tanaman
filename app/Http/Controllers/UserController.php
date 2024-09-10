@@ -86,7 +86,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $users = User::with(['category', 'benefit'])->findOrFail($id);
-        return view('admin.pages.plants.show', compact('plant'));
+        $users = User::findOrFail($id);
+        return view('admin.pages.users.show', compact('users'));
     }
 }
