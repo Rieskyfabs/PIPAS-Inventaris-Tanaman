@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\PlantCode;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Location;
 use App\Models\Plant;
@@ -34,57 +35,55 @@ class PlantFactory extends Factory
 
     public function definition()
     {
-        // Pilih nama dan nama ilmiah tanaman secara acak dari daftar
         $plant = $this->faker->randomElement($this->plants);
 
-        // Tentukan tanggal tanam dan panen
         $seedingDate = $this->faker->dateTimeBetween('-1 months', 'now');
-        $harvestDate = Carbon::parse($seedingDate)->addDays(90); // Misal panen setelah 90 hari
+        $harvestDate = Carbon::parse($seedingDate)->addDays(90);
 
-        // Ambil lokasi secara acak, atau fallback ke default jika tidak ada
-        $location = Location::inRandomOrder()->first();
-        if (!$location) {
-            throw new ModelNotFoundException('No location found.');
+        // Pastikan ada data di tabel plant_codes
+        $plantCode = PlantCode::inRandomOrder()->first();
+        if (!$plantCode) {
+            // Buat entri default jika tidak ada plant code
+            $plantCode = PlantCode::create([
+                'plant_code' => 'DEFAULT_CODE',
+                'description' => 'Default Description' // Menambahkan deskripsi default
+            ]);
         }
 
-        // Ambil ID kategori dan benefit yang ada secara acak
+        // Ambil ID dari plant_code
+        $plantCodeId = $plantCode->id;
+
+        $location = Location::inRandomOrder()->first();
         $categoryId = Category::inRandomOrder()->first()->id ?? null;
         $benefitId = Benefit::inRandomOrder()->first()->id ?? null;
 
-        // Buat instance model dan simpan langsung ke database
         $plantModel = Plant::create([
             'name' => $plant['name'],
+            'plant_code_id' => $plantCodeId,
             'scientific_name' => $plant['scientific_name'],
             'type' => $this->faker->randomElement(['Herbal', 'Sayuran']),
             'category_id' => $categoryId,
-            'location_id' => $location->id,
-            'quantity' => $this->faker->numberBetween(1, 40),
+            'location_id' => $location ? $location->id : null,
             'benefit_id' => $benefitId,
             'status' => $this->faker->randomElement(['sehat', 'baik', 'layu', 'sakit']),
             'seeding_date' => $seedingDate,
             'harvest_date' => $harvestDate,
         ]);
 
-        // Generate URL untuk halaman detail tanaman
         $qrCodeUrl = URL::route('plants.show', ['id' => $plantModel->id]);
 
-        // Create QR code instance with custom size
         $qrCode = new QrCode($qrCodeUrl);
-        $qrCode->setSize(50); // Set QR code size to 100x100 pixels
+        $qrCode->setSize(50); // Ukuran QR code bisa disesuaikan
         $writer = new PngWriter();
 
-        // Generate QR code as PNG
         $qrCodeFileName = 'qrcodes/' . $plantModel->id . '.png';
         $qrCodeImage = $writer->write($qrCode)->getString();
 
-        // Save the QR code image to storage
         if (Storage::disk('public')->put($qrCodeFileName, $qrCodeImage)) {
-            // Update QR code path in the database
             $plantModel->update([
                 'qr_code' => $qrCodeFileName,
             ]);
         } else {
-            // Handle error in saving QR code
             throw new \Exception('Failed to store QR code image.');
         }
 

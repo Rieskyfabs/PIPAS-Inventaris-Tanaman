@@ -5,21 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class PlantCode extends Model
 {
     use HasFactory;
 
-    protected $table = 'categories';
-
-    protected $primaryKey = 'category_id';
+    protected $table = 'plant_codes';
 
     protected $fillable = [
-        'name',
-        'description',
-        'status'
+        'plant_code',
+        'description'
     ];
 
-    // Relasi dengan Plant
     public function plants()
     {
         return $this->hasMany(Plant::class);

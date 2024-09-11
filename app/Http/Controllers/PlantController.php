@@ -6,6 +6,7 @@ use App\Models\Plant;
 use App\Models\Category;
 use App\Models\Benefit;
 use App\Models\Location;
+use App\Models\PlantCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -16,22 +17,30 @@ class PlantController extends Controller
 {
     public function index()
     {
-        $plants = Plant::with(['category', 'benefit', 'location'])->get();
+        // Query untuk mendapatkan data perwakilan (satu per plant_code_id) dan menghitung total jumlah per plant_code_id
+        $plants = Plant::selectRaw('MIN(id) as id, plant_code_id, MIN(name) as name, MIN(scientific_name) as scientific_name, MIN(type) as type, MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, MIN(location_id) as location_id, MIN(status) as status, MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity')
+        ->groupBy('plant_code_id')
+        ->with(['plantCode', 'category', 'benefit', 'location'])
+        ->get();
 
-        $totalQuantity = $plants->sum('quantity');
+        // Total quantity dari semua tanaman
+        $totalQuantity = $plants->sum('total_quantity');
 
-        $countByStatus = $plants->groupBy('status')->mapWithKeys(function ($group, $status) {
-            return [$status => $group->count()];
-        });
+        // Query untuk menghitung jumlah tanaman berdasarkan status
+        $countByStatus = Plant::selectRaw('status, COUNT(*) as total_quantity')
+        ->groupBy('status')
+        ->pluck('total_quantity', 'status');  // Mengambil data sebagai key-value pairs (status => total_quantity)
 
-        // Mengubah data untuk chart
+        // Data untuk chart
         $chartData = [
-            'series' => $countByStatus->values()->toArray(),
-            'labels' => $countByStatus->keys()->toArray()
+            'series' => $countByStatus->values()->toArray(),  // Nilai-nilai untuk chart (jumlah tanaman)
+            'labels' => $countByStatus->keys()->toArray()     // Status (misal: Sehat, Sakit, dll.)
         ];
 
         return view('admin.pages.plants.index', compact('plants', 'totalQuantity', 'countByStatus', 'chartData'));
     }
+
+
 
 
     public function create()
@@ -39,6 +48,7 @@ class PlantController extends Controller
         $categories = Category::all();
         $benefits = Benefit::all();
         $location = Location::all();
+        $plantCode = PlantCode::all();
 
         return view('admin.pages.plants.create', compact('categories', 'benefits'));
     }
@@ -54,8 +64,8 @@ class PlantController extends Controller
             'location' => 'required|string|max:255',
             'quantity' => 'required|integer|min:0',
             'benefit_id' => 'required|exists:benefits,id',
-            'status' => 'required|string|max:50', // validasi untuk status
-            'seeding_date' => 'required|date', // validasi untuk tanggal pembibitan
+            'status' => 'required|string|max:50',
+            'seeding_date' => 'required|date',
         ]);
 
         // Tambahkan logika untuk menghitung estimasi tanggal panen

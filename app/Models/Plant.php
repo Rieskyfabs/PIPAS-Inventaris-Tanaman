@@ -13,9 +13,10 @@ class Plant extends Model
         'name',
         'scientific_name',
         'type',
+        'plant_code_id',
         'qr_code',
         'category_id',
-        'quantity',
+        // 'quantity',
         'benefit_id',
         'location_id',
         'status',
@@ -36,6 +37,11 @@ class Plant extends Model
     public function location()
     {
         return $this->belongsTo(Location::class, 'location_id', 'id');
+    }
+
+    public function plantCode()
+    {
+        return $this->belongsTo(PlantCode::class, 'plant_code_id', 'id');
     }
 
     public function setTypeAttribute($value)

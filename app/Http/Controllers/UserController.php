@@ -8,14 +8,42 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
+
+    public function randomColor()
+    {
+        // Batasan nilai warna agar warna lebih terang
+        $min = 0xCC;
+        $r = mt_rand($min, 0xFF);
+        $g = mt_rand($min, 0xFF);
+        $b = mt_rand($min, 0xFF);
+
+        // Buat warna hex
+        $randomColor = sprintf('#%02X%02X%02X', $r, $g, $b);
+
+        // Hitung kecerahan warna
+        $luminance = (0.299 * $r + 0.587 * $g + 0.114 * $b);
+
+        // Jika kecerahan rendah, warna teks jadi putih, jika tinggi warna teks jadi hitam
+        $textColor = ($luminance > 186) ? '#000000' : '#FFFFFF';
+
+        return ['background' => $randomColor, 'text' => $textColor];
+    }
+
     public function index()
     {
+        // Ambil semua user
         $users = User::all();
 
+        // Hitung jumlah user yang aktif dan tidak aktif
         $activeUsersCount = User::where('status', 'active')->count();
-
         $inactiveUsersCount = User::where('status', 'inactive')->count();
 
+        // Iterasi setiap user untuk menambahkan warna acak
+        foreach ($users as $user) {
+            $user->colors = $this->randomColor(); // Panggil fungsi randomColor untuk setiap user
+        }
+
+        // Kirim data user ke view
         return view('admin.pages.users.index', compact('users', 'activeUsersCount', 'inactiveUsersCount'));
     }
 

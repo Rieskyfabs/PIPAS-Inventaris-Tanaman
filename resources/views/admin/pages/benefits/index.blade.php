@@ -20,22 +20,24 @@
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Manfaat</h5>
+                <h5 class="card-title">{{__('Manfaat')}}</h5>
                 <p></p>
 
                 <!-- Table with stripped rows -->
                 <table class="table datatable">
                     <thead>
                         <tr>
-                          <th>ID</th>
-                          <th>Deskripsi</th>
+                          <th>{{__('ID')}}</th>
+                          <th>{{__('BENEFITS NAME')}}</th>
+                          <th>{{__('STATUS')}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($benefits as $benefit)
                             <tr>
                               <td>{{ $benefit->id }}</td>
-                              <td>{{ $benefit->description }}</td>
+                              <td>{{ $benefit->name }}</td>
+                              <td>{{ $benefit->status }}</td>
                             </tr>
                         @endforeach
                     </tbody>

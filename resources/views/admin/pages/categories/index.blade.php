@@ -27,9 +27,10 @@
                 <table class="table datatable">
                     <thead>
                         <tr>
-                          <th>ID</th>
-                          <th>Nama Kategori</th>
-                          <th>Deskripsi</th>
+                          <th>{{__('ID')}}</th>
+                          <th>{{__('CATEGORIES NAME')}}</th>
+                          <th>{{__('DESCRIPTIONS')}}</th>
+                          <th>{{__('STATUS')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,7 +38,8 @@
                             <tr>
                               <td>{{ $category->id }}</td>
                               <td>{{ $category->name }}</td>
-                              <td>{{ $category->description ?: '-' }}</td>
+                              <td>{{ $category->description ?? 'No Description' }}</td>
+                              <td>{{ $category->status }}</td>
                             </tr>
                         @endforeach
                     </tbody>

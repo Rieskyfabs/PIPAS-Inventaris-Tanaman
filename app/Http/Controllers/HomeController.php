@@ -18,7 +18,8 @@ class HomeController extends Controller
     public function adminDashboard()
     {
         // Hitung total quantity tanaman
-        $totalPlantsQuantity = Plant::sum('quantity');
+        // $totalPlantsQuantity = Plant::sum('quantity');
+        $totalPlantsQuantity = Plant::count();
 
         // Hitung total lokasi inventaris
         $totalLocations = Location::count(); // Asumsi ada model Location
@@ -27,7 +28,7 @@ class HomeController extends Controller
         $totalUsers = User::count(); // Asumsi ada model User
 
         // Ambil data tanaman dengan pagination
-        $plants = Plant::with(['category', 'benefit', 'location'])
+        $plants = Plant::with(['category', 'benefit', 'location', 'plantCode'])
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 

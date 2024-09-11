@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             CategorySeeder::class,
             BenefitSeeder::class,
+            PlantCodeSeeder::class,
             UserSeeder::class,
         ]);
 

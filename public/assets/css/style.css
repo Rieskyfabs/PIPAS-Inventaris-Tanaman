@@ -1449,3 +1449,17 @@ h6 {
   margin-right: 7px;
   /* Jarak antara ikon dan teks */
 }
+
+.initials-avatar {
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  /* Warna teks tetap putih agar kontras */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  /* Membuat lingkaran */
+  font-weight: bold;
+  font-size: 18px;
+}

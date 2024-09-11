@@ -27,8 +27,9 @@
                 <table class="table datatable">
                     <thead>
                         <tr>
-                          <th>ID</th>
-                          <th>Locations</th>
+                          <th>{{__('ID')}}</th>
+                          <th>{{__('LOCATIONS')}}</th>
+                          <th>{{__('STATUS')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +37,7 @@
                             <tr>
                               <td>{{ $location->id }}</td>
                               <td>{{ $location->name }}</td>
+                              <td>{{ $location->status }}</td>
                             </tr>
                         @endforeach
                     </tbody>

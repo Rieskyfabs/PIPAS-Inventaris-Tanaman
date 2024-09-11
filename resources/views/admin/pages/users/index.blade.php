@@ -73,7 +73,7 @@
                 </div>
               <div class="table-responsive">
                 <!-- Table with stripped rows -->
-                <table class="table datatable">
+                <table class="table table-bordered table-hover datatable">
                   <thead>
                       <tr>
                         <th>{{__('USER')}}</th>
@@ -88,7 +88,13 @@
                           <td>
                             <div class="d-flex justify-content-start align-items-center user-name">
                               <div class="avatar-wrapper"><div class="avatar avatar-sm me-4">
-                                <img src="{{ $user->profile_image ? asset($user->profile_image) : asset('/assets/img/default-profile-pic.jpg') }}" alt="Profile Image" class="users-image">
+                                @if ($user->profile_image)
+                                    <img src="{{ asset($user->profile_image) }}" alt="Profile Image" class="users-image">
+                                @else
+                                    <div class="initials-avatar" style="background-color: {{ $user->colors['background'] }}; color: {{ $user->colors['text'] }};">
+                                      {{ strtoupper(substr($user->username, 0, 2)) }}
+                                    </div>
+                                @endif
                               </div>
                             </div>
                             <div class="d-flex flex-column">
@@ -120,11 +126,11 @@
                           </td>
                           <td>
                               <x-action-buttons
-                                  action="{{ route('users.destroy', $user->id) }}"
-                                  viewData="{{ route('users.show', $user->id) }}"
-                                  method="DELETE"
-                                  submit="true"
-                                  :dropdown="[ ['href' => route('users.edit', $user->id), 'label' => 'Edit'], ['href' => '#', 'label' => 'Suspend User'] ]"
+                                action="{{ route('users.destroy', $user->id) }}"
+                                viewData="{{ route('users.show', $user->id) }}"
+                                method="DELETE"
+                                submit="true"
+                                :dropdown="[ ['href' => route('users.edit', $user->id), 'label' => 'Edit'], ['href' => '#', 'label' => 'Suspend User'] ]"
                               />
                           </td>
                         </tr>
@@ -138,6 +144,7 @@
           </div>
         </div>
       </section>
+      
     </main>
   </div>
 @endsection

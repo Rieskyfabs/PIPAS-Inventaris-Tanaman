@@ -14,7 +14,8 @@ class Benefit extends Model
     protected $primaryKey = 'benefit_id';
 
     protected $fillable = [
-        'description',
+        'name',
+        'status'
     ];
 
     // Relasi dengan Plant

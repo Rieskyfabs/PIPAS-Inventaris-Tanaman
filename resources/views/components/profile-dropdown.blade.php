@@ -1,6 +1,15 @@
 <li class="nav-item dropdown pe-3">
   <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-    <img src="{{ $profileImage }}" alt="Profile" class="rounded-circle">
+    
+    @if ($profileImage)
+      <img src="{{ $profileImage }}" alt="Profile" class="rounded-circle">
+    @else
+      <div class="initials-avatar rounded-circle d-flex align-items-center justify-content-center"
+           style="background-color: {{ $backgroundColor }}; color: {{ $textColor }}; width: 40px; height: 40px;">
+        {{ strtoupper(substr($username, 0, 2)) }}
+      </div>
+    @endif
+
     <span class="d-none d-md-block dropdown-toggle ps-2">{{ $username }}</span>
   </a>
   <!-- End Profile Image Icon -->

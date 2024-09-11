@@ -36,18 +36,15 @@
                     />
                 @endif
             @endauth
-            
-
+        
             <x-profile-dropdown 
                 profileImage="{{ Auth::user()->profile_image ?? asset('/assets/img/default-profile-pic.jpg') }}" 
                 username="{{ Auth::user()->username }}" 
                 email="{{ Auth::user()->email }}" 
                 role="{{ Auth::user()->role }}"
                 profileUrl="users-profile.html" 
-                
                 helpUrl="pages-faq.html" 
             />
-
 
         </ul>
     </nav>
