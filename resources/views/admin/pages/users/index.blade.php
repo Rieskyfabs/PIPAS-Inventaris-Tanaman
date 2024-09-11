@@ -104,15 +104,15 @@
                             </div>
                           </td>
                           <td>
-                            <span class="role-label {{ strtolower($user->role) }}">
-                                @if($user->role === 'admin')
+                            <span class="role-label {{ strtolower($user->role->name) }}">
+                                @if($user->role->name === 'admin')
                                     <i class="fas fa-crown"></i>
-                                @elseif($user->role === 'user')
+                                @elseif($user->role->name === 'user')
                                     <i class="fas fa-user"></i>
                                 @else
                                     <i class="fas fa-user-tag"></i>
                                 @endif
-                                {{ ucfirst($user->role) }}
+                                {{ ucfirst($user->role->name) }}
                             </span>
                           </td>
                           <td>

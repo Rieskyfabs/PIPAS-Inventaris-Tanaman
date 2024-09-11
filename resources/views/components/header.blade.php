@@ -41,7 +41,7 @@
                 profileImage="{{ Auth::user()->profile_image ?? asset('/assets/img/default-profile-pic.jpg') }}" 
                 username="{{ Auth::user()->username }}" 
                 email="{{ Auth::user()->email }}" 
-                role="{{ Auth::user()->role }}"
+                role="{{ Auth::user()->role->name }}"
                 profileUrl="users-profile.html" 
                 helpUrl="pages-faq.html" 
             />

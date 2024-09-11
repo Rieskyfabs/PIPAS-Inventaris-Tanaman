@@ -15,11 +15,14 @@ class UserAccess
      */
     public function handle(Request $request, Closure $next, $userRole): Response
     {
-        if (auth()->user()->role == $userRole){
+        $roleName = auth()->user()->role->name;
+
+        if ($roleName == $userRole) {
             return $next($request);
         }
 
         return response()->view('errors.403', [], 403);
-        
     }
+
+
 }

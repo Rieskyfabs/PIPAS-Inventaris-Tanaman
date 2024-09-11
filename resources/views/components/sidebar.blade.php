@@ -4,7 +4,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         @auth
-            @if (Auth::user()->role == 'user')
+            @if (Auth::user()->role->name == 'user')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('dashboard') ? '' : 'collapsed' }}" href="{{ route('dashboard') }}">
                         <i class="bi bi-grid"></i>
@@ -29,7 +29,7 @@
                     </a>
                     <ul id="plants-nav" class="nav-content collapse {{ Request::is('admin/inventaris*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <li>
-                            <a class="{{ Request::is('admin/inventaris/plants') ? 'active' : '' }}" href="{{ route('plants') }}">
+                            <a class="{{ Request::is('admin/inventaris/plants*') ? 'active' : '' }}" href="{{ route('plants') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('All Plants') }}</span>
                             </a>
                         </li>
@@ -64,6 +64,11 @@
                         <li>
                             <a class="{{ Request::is('admin/users/usersList') ? 'active' : '' }}" href="{{ route('users') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('All Users') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{{ Request::is('admin/users/create') ? 'active' : '' }}" href="{{ route('users.create') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Create New User') }}</span>
                             </a>
                         </li>
                     </ul>

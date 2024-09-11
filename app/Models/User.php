@@ -52,4 +52,9 @@ class User extends Authenticatable
             get: fn ($value) => ["user", "admin"][$value],
         );
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

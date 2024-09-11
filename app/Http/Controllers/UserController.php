@@ -55,17 +55,19 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'username' => 'required|unique:users,username',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,user',
+            'role_id' => 'required|exists:roles,id',
+            'status' => 'required',
         ]);
 
         User::create([
-            'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => $request->role,
+            'role_id' => $request->role_id,
+            'status' => $request->status,
         ]);
 
         Alert::success('User Ditambahkan', 'Berhasil menambahkan data User');
