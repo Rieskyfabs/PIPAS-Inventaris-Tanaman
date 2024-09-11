@@ -58,7 +58,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/inventaris/plants', [PlantController::class, 'index'])->name('plants');
     Route::get('/admin/inventaris/plants/create', [PlantController::class, 'create'])->name('plants.create');
     Route::post('/admin/inventaris/plants', [PlantController::class, 'store'])->name('plants.store');
-    Route::get('/admin/inventaris/plants/{id}', [PlantController::class, 'show'])->name('plants.show');
+    Route::get('/admin/inventaris/plants/{plantCode}', [PlantController::class, 'show'])->name('plants.show');
     Route::get('/admin/inventaris/plants/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
     Route::put('/admin/inventaris/plants/{id}', [PlantController::class, 'update'])->name('plants.update');
     Route::delete('/admin/inventaris/plants/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');

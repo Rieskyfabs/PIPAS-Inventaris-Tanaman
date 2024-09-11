@@ -22,7 +22,7 @@ return new class extends Migration
             // $table->integer('quantity')->default(0);
             $table->foreignId('benefit_id')->constrained('benefits');
             $table->foreignId('location_id')->constrained('locations');
-            $table->enum('status', ['sehat', 'baik', 'layu', 'sakit']);;
+            $table->enum('status', ['sehat', 'baik', 'layu', 'sakit']);
             $table->date('seeding_date')->nullable();
             $table->date('harvest_date')->nullable();
             $table->timestamps();

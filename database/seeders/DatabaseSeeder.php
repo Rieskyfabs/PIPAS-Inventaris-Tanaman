@@ -25,6 +25,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Mengisi tabel plants dengan 20 data dummy
-        Plant::factory()->count(40)->create();
+        Plant::factory()->count(6)->create();
     }
 }

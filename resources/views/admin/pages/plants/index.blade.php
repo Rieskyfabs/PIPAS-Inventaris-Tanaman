@@ -139,8 +139,6 @@
                                             <th>{{__('KATEGORI TANAMAN')}}</th>
                                             <th>{{__('MANFAAT TANAMAN')}}</th>
                                             <th>{{__('JUMLAH')}}</th>
-                                            {{-- <th>{{__('STATUS')}}</th> --}}
-                                            {{-- <th>{{__('QR CODE')}}</th> --}}
                                             <th>{{__('ACTIONS')}}</th>
                                         </tr>
                                     </thead>
@@ -168,24 +166,11 @@
                                                 </td>
                                                 <td>{{ $plant->category ? $plant->category->name : 'Unknown' }}</td>
                                                 <td>{{ $plant->benefit ? $plant->benefit->name : 'Unknown' }}</td>
-                                                {{-- <td>
-                                                    <span class="badge 
-                                                        @if ($plant->status === 'sehat') badge-soft-green <i class='bi bi-check-circle me-1'></i>
-                                                        @elseif ($plant->status === 'baik') badge-soft-primary <i class='bi bi-star me-1'></i>
-                                                        @elseif ($plant->status === 'layu') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
-                                                        @elseif ($plant->status === 'sakit') badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
-                                                        @else bg-secondary @endif">
-                                                        {{ $plant->status }}
-                                                    </span>
-                                                </td> --}}
                                                 <td>{{ $plant->total_quantity }}</td>
-                                                {{-- <td>
-                                                    <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->name }}">
-                                                </td> --}}
                                                 <td>
                                                     <x-action-buttons
                                                         action="{{ route('plants.destroy', $plant->id) }}"
-                                                        viewData="{{ route('plants.show', $plant->plant_code_id) }}"
+                                                        viewData="{{ route('plants.show', $plant->plantCode->plant_code) }}"
                                                         method="DELETE"
                                                         submit="true"
                                                         :dropdown="[ ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'] ]"

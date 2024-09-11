@@ -9,8 +9,6 @@ class PlantCode extends Model
 {
     use HasFactory;
 
-    protected $table = 'plant_codes';
-
     protected $fillable = [
         'plant_code',
         'description'

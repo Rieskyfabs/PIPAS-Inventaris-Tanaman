@@ -18,7 +18,7 @@ class PlantCodeFactory extends Factory
     {
         return [
             'plant_code' => $this->faker->unique()->word,
-            'description' => $this->faker->sentence, // Menambahkan deskripsi
+            'description' => $this->faker->sentence,
         ];
     }
 }

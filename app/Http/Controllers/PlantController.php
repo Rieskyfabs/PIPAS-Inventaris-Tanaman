@@ -134,12 +134,16 @@ class PlantController extends Controller
         return redirect()->route('plants')->with('success', 'Plant deleted successfully');
     }
 
-    public function show($id)
+    public function show($plantCode)
     {
-        // Cari data tanaman berdasarkan ID
-        $plant = Plant::with('category', 'benefit', 'location')->findOrFail($id);
 
-        // Return view dengan data tanaman
-        return view('admin.pages.plants.show', compact('plant'));
+        $plants = Plant::with('category', 'benefit', 'location')
+            ->whereHas('plantCode', function ($query) use ($plantCode) {
+                $query->where('plant_code', $plantCode);
+            })->get();
+
+
+        return view('admin.pages.plants.show', compact('plants'));
     }
+
 }
