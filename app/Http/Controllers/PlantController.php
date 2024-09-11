@@ -18,10 +18,15 @@ class PlantController extends Controller
     public function index()
     {
         // Query untuk mendapatkan data perwakilan (satu per plant_code_id) dan menghitung total jumlah per plant_code_id
-        $plants = Plant::selectRaw('MIN(id) as id, plant_code_id, MIN(name) as name, MIN(scientific_name) as scientific_name, MIN(type) as type, MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, MIN(location_id) as location_id, MIN(status) as status, MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity')
+        $plants = Plant::selectRaw('MIN(id) as id, plant_code_id, MIN(name) as name, MIN(scientific_name) as scientific_name, MIN(type) as type, MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, MIN(location_id) as location_id, MIN(status) as status, MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, MAX(created_at) as created_at')
         ->groupBy('plant_code_id')
-        ->with(['plantCode', 'category', 'benefit', 'location'])
+        ->orderBy('created_at', 'desc') // Mengurutkan berdasarkan created_at terbesar dalam grup
+        ->with(['plantCode', 'category',
+            'benefit',
+            'location'
+        ]) // Relasi yang diperlukan
         ->get();
+
 
         // Total quantity dari semua tanaman
         $totalQuantity = $plants->sum('total_quantity');
