@@ -2,7 +2,7 @@
     @if(isset($viewData))
         <a href="{{ $viewData }}" class="icon-button"><i class="bi bi-eye"></i></a>
     @else
-        <p>View URL is not set.</p>
+        {{-- <p>View URL is not set.</p> --}}
     @endif
     @csrf
     @method($method ?? 'POST')

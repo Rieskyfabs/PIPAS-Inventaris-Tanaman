@@ -17,7 +17,7 @@
 
       <section class="section dashboard">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-8">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Tambahkan User Baru</h5>
@@ -30,6 +30,7 @@
                         </ul>
                     </div>
                 @endif
+                
                 <!-- Advanced Form Elements -->
                   <form action="{{ route('users.store') }}" method="POST">
                     @csrf

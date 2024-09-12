@@ -62,7 +62,7 @@
                     </a>
                     <ul id="users-nav" class="nav-content collapse {{ Request::is('admin/users*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <li>
-                            <a class="{{ Request::is('admin/users/usersList') ? 'active' : '' }}" href="{{ route('users') }}">
+                            <a class="{{ Request::is('admin/users/usersList*') ? 'active' : '' }}" href="{{ route('users') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('All Users') }}</span>
                             </a>
                         </li>

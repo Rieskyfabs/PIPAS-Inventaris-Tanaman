@@ -57,7 +57,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     // Tanaman
     Route::get('/admin/inventaris/plants', [PlantController::class, 'index'])->name('plants');
     Route::get('/admin/inventaris/plants/create', [PlantController::class, 'create'])->name('plants.create');
-    Route::post('/admin/inventaris/plants', [PlantController::class, 'store'])->name('plants.store');
+    Route::post('/admin/inventaris/plants/store', [PlantController::class, 'store'])->name('plants.store');
     Route::get('/admin/inventaris/plants/{plantCode}', [PlantController::class, 'show'])->name('plants.show');
     Route::get('/admin/inventaris/plants/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
     Route::put('/admin/inventaris/plants/{id}', [PlantController::class, 'update'])->name('plants.update');
@@ -67,6 +67,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/inventaris/categories', [CategoryController::class, 'index'])->name('categories');
     Route::get('/admin/inventaris/categories/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::post('/admin/inventaris/categories', [CategoryController::class, 'store'])->name('categories.store');
+    // Route::get('/admin/inventaris/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
     Route::get('/admin/inventaris/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
     Route::put('/admin/inventaris/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/admin/inventaris/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');

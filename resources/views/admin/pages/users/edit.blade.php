@@ -7,7 +7,7 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="{{ __('Add New User')}}" 
+        title="{{ __('Edit User')}}" 
         :items="[
           ['route' => 'home', 'label' => 'Home'],
           ['route' => 'users', 'label' => 'Users'],
@@ -17,10 +17,10 @@
 
       <section class="section dashboard">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-8">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Edit User</h5>
+                <h5 class="card-title">{{__('Edit User')}}</h5>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -60,6 +60,7 @@
                         </select>
                         <label for="userStatus">Status</label>
                     </div>
+                    <hr>
                     <button type="submit" class="btn btn-primary">Update</button>
                   </form>
                 <!-- End General Form Elements -->

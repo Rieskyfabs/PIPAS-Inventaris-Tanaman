@@ -3,7 +3,7 @@
 
     <x-logo-sidebar 
         logoSrc="{{ asset('images/wikrama-logo.png')}} " 
-        logoText="DAMASU PIPAS" 
+        logoText="SIM PIPAS" 
     />
     <!-- End Logo -->
 
