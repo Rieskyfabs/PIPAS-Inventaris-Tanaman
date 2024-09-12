@@ -34,18 +34,36 @@
                             </a>
                         </li>
                         <li>
-                            <a class="{{ Request::is('admin/inventaris/categories') ? 'active' : '' }}" href="{{ route('categories') }}">
+                            <a class="{{ Request::is('admin/inventaris/plants/create') ? 'active' : '' }}" href="{{ route('plants.create') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Create Plants') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('admin/attributes*') ? '' : 'collapsed' }}" data-bs-target="#plantsAttribute-nav" data-bs-toggle="collapse" href="#">
+                        <i class="ri-draft-fill"></i><span>{{ __('Plant Attributes') }}</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="plantsAttribute-nav" class="nav-content collapse {{ Request::is('admin/attributes*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a class="{{ Request::is('admin/attributes/categories') ? 'active' : '' }}" href="{{ route('categories') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('Plants Categories') }}</span>
                             </a>
                         </li>
                         <li>
-                            <a class="{{ Request::is('admin/inventaris/benefits') ? 'active' : '' }}" href="{{ route('benefits') }}">
+                            <a class="{{ Request::is('admin/attributes/benefits') ? 'active' : '' }}" href="{{ route('benefits') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('Plants Benefits') }}</span>
                             </a>
                         </li>
                         <li>
-                            <a class="{{ Request::is('admin/inventaris/locations') ? 'active' : '' }}" href="{{ route('locations') }}">
+                            <a class="{{ Request::is('admin/attributes/locations') ? 'active' : '' }}" href="{{ route('locations') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('Plants Locations') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{{ Request::is('admin/attributes/plant-code') ? 'active' : '' }}" href="{{ route('plantCodes') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Plants Codes') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -53,8 +71,6 @@
 
                 <li class="nav-heading">{{ __('Users') }}</li>
 
-                
-                
                 <!-- Users -->
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/users*') ? '' : 'collapsed' }}" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">

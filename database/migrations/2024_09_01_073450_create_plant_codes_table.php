@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('plant_codes', function (Blueprint $table) {
             $table->id();
             $table->string('plant_code')->unique();
-            $table->text('description');    
+            $table->text('description');
+            $table->enum('status', ['active', 'inactive'])
+                ->default('active');
             $table->timestamps();
         });
     }

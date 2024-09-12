@@ -11,7 +11,8 @@ class PlantCode extends Model
 
     protected $fillable = [
         'plant_code',
-        'description'
+        'description',
+        'status'
     ];
 
     public function plants()

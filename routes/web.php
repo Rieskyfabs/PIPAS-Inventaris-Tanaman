@@ -7,6 +7,7 @@ use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\PlantCodesController;
 use App\Http\Controllers\PlantController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -64,29 +65,44 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::delete('/admin/inventaris/plants/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
 
     // Kategori
-    Route::get('/admin/inventaris/categories', [CategoryController::class, 'index'])->name('categories');
-    Route::get('/admin/inventaris/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-    Route::post('/admin/inventaris/categories', [CategoryController::class, 'store'])->name('categories.store');
-    // Route::get('/admin/inventaris/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
-    Route::get('/admin/inventaris/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-    Route::put('/admin/inventaris/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
-    Route::delete('/admin/inventaris/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    Route::prefix('admin/attributes/categories')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('categories');
+        Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
+        Route::post('/', [CategoryController::class, 'store'])->name('categories.store');
+        Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+        Route::put('/{id}', [CategoryController::class, 'update'])->name('categories.update');
+        Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    });
 
     // Manfaat
-    Route::get('/admin/inventaris/benefits', [BenefitController::class, 'index'])->name('benefits');
-    Route::get('/admin/inventaris/benefits/create', [BenefitController::class, 'create'])->name('benefits.create');
-    Route::post('/admin/inventaris/benefits', [BenefitController::class, 'store'])->name('benefits.store');
-    Route::get('/admin/inventaris/benefits/{id}/edit', [BenefitController::class, 'edit'])->name('benefits.edit');
-    Route::put('/admin/inventaris/benefits/{id}', [BenefitController::class, 'update'])->name('benefits.update');
-    Route::delete('/admin/inventaris/benefits/{id}', [BenefitController::class, 'destroy'])->name('benefits.destroy');
+    Route::prefix('admin/attributes/benefits')->group(function () {
+        Route::get('/', [BenefitController::class, 'index'])->name('benefits');
+        Route::get('/create', [BenefitController::class, 'create'])->name('benefits.create');
+        Route::post('/', [BenefitController::class, 'store'])->name('benefits.store');
+        Route::get('/{id}/edit', [BenefitController::class, 'edit'])->name('benefits.edit');
+        Route::put('/{id}', [BenefitController::class, 'update'])->name('benefits.update');
+        Route::delete('/{id}', [BenefitController::class, 'destroy'])->name('benefits.destroy');
+    });
 
-    // Locations
-    Route::get('/admin/inventaris/locations', [LocationController::class, 'index'])->name('locations');
-    Route::get('/admin/inventaris/locations/create', [LocationController::class, 'create'])->name('locations.create');
-    Route::post('/admin/inventaris/locations', [LocationController::class, 'store'])->name('locations.store');
-    Route::get('/admin/inventaris/locations/{id}/edit', [LocationController::class, 'edit'])->name('locations.edit');
-    Route::put('/admin/inventaris/locations/{id}', [LocationController::class, 'update'])->name('locations.update');
-    Route::delete('/admin/inventaris/locations/{id}', [LocationController::class, 'destroy'])->name('locations.destroy');
+    // Lokasi
+    Route::prefix('admin/attributes/locations')->group(function () {
+        Route::get('/', [LocationController::class, 'index'])->name('locations');
+        Route::get('/create', [LocationController::class, 'create'])->name('locations.create');
+        Route::post('/', [LocationController::class, 'store'])->name('locations.store');
+        Route::get('/{id}/edit', [LocationController::class, 'edit'])->name('locations.edit');
+        Route::put('/{id}', [LocationController::class, 'update'])->name('locations.update');
+        Route::delete('/{id}', [LocationController::class, 'destroy'])->name('locations.destroy');
+    });
+
+    // Lokasi
+    Route::prefix('admin/attributes/plant-code')->group(function () {
+        Route::get('/', [PlantCodesController::class, 'index'])->name('plantCodes');
+        Route::get('/create', [PlantCodesController::class, 'create'])->name('plantCodes.create');
+        Route::post('/', [PlantCodesController::class, 'store'])->name('plantCodes.store');
+        Route::get('/{id}/edit', [PlantCodesController::class, 'edit'])->name('plantCodes.edit');
+        Route::put('/{id}', [PlantCodesController::class, 'update'])->name('plantCodes.update');
+        Route::delete('/{id}', [PlantCodesController::class, 'destroy'])->name('plantCodes.destroy');
+    });
 
 });
 

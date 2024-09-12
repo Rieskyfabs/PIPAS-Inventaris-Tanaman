@@ -10,11 +10,11 @@ class PlantCodeSeeder extends Seeder
     public function run()
     {
         $codes = [
-            ['plant_code' => 'SR', 'description' => 'Sereh'],
-            ['plant_code' => 'TL', 'description' => 'Tomat Lele'],
-            ['plant_code' => 'AL', 'description' => 'Aloe Vera'],
-            ['plant_code' => 'FT', 'description' => 'Fittonia'],
-            ['plant_code' => 'BM', 'description' => 'Bayam']
+            ['plant_code' => 'SR', 'description' => 'Sereh', 'status' => 'active'],
+            ['plant_code' => 'TL', 'description' => 'Tomat Lele', 'status' => 'active'],
+            ['plant_code' => 'AL', 'description' => 'Aloe Vera', 'status' => 'active'],
+            ['plant_code' => 'FT', 'description' => 'Fittonia', 'status' => 'active'],
+            ['plant_code' => 'BM', 'description' => 'Bayam', 'status' => 'active']
         ];
 
         foreach ($codes as $code) {

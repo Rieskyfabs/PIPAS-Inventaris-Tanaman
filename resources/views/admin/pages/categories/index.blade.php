@@ -43,7 +43,6 @@
                         <tr>
                           <th>{{__('ID')}}</th>
                           <th>{{__('CATEGORIES NAME')}}</th>
-                          <th>{{__('DESCRIPTIONS')}}</th>
                           <th>{{__('STATUS')}}</th>
                           <th>{{__('ACTIONS')}}</th>
                         </tr>
@@ -53,7 +52,6 @@
                             <tr>
                               <td>{{ $category->id }}</td>
                               <td>{{ $category->name }}</td>
-                              <td>{{ $category->description ?? 'No Description' }}</td>
                               <td>
                                   @if($category->status == 'active')
                                       <span class="badge badge-soft-green">Active</span>

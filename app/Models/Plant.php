@@ -10,10 +10,10 @@ class Plant extends Model
     use HasFactory;
 
     protected $fillable = [
+        'plant_code_id',
         'name',
         'scientific_name',
         'type',
-        'plant_code_id',
         'qr_code',
         'category_id',
         // 'quantity',
