@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -31,16 +32,13 @@ class UserController extends Controller
 
     public function index()
     {
-        // Ambil semua user
         $users = User::all();
 
-        // Hitung jumlah user yang aktif dan tidak aktif
         $activeUsersCount = User::where('status', 'active')->count();
         $inactiveUsersCount = User::where('status', 'inactive')->count();
 
-        // Iterasi setiap user untuk menambahkan warna acak
         foreach ($users as $user) {
-            $user->colors = $this->randomColor(); // Panggil fungsi randomColor untuk setiap user
+            $user->colors = $this->randomColor();
         }
 
         // Kirim data user ke view
@@ -49,64 +47,95 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('admin.pages.users.create');
+        $roles = Role::all();
+
+        return view('admin.pages.users.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
+        // Validasi input
         $request->validate([
             'username' => 'required|unique:users,username',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'role_id' => 'required|exists:roles,id',
+            'password' => 'required|string|min:8',
+            'role_id' => 'required|exists:roles,id', // Pastikan role_id ada
             'status' => 'required',
         ]);
 
+        // Simpan user ke database
         User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role_id' => $request->role_id,
+            'role_id' => $request->role_id, // Pastikan role_id diinput
             'status' => $request->status,
         ]);
 
+        // Tampilkan pesan sukses
         Alert::success('User Ditambahkan', 'Berhasil menambahkan data User');
 
+        // Redirect ke halaman users
         return redirect()->route('users');
     }
+
 
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('admin.pages.users.edit', compact('user'));
+        $roles = Role::all(); // Ambil semua role untuk dropdown di form
+        return view('admin.pages.users.edit', compact('user', 'roles'));
     }
+
 
     public function update(Request $request, $id)
     {
+        $user = User::findOrFail($id);
+
+        // Validasi input, pengecekan unique diabaikan jika datanya tidak berubah
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:8|confirmed',
-            'role' => 'required|in:admin,user',
+            'username' => 'required|unique:users,username,' . $user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8', // Password tidak wajib diisi
+            'role_id' => 'required|exists:roles,id',
+            'status' => 'required',
         ]);
 
-        $user = User::findOrFail($id);
-        $user->name = $request->name;
+        // Update data user
+        $user->username = $request->username;
         $user->email = $request->email;
-        if ($request->password) {
+
+        // Hanya update password jika ada input
+        if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
         }
-        $user->role = $request->role;
+
+        $user->role_id = $request->role_id;
+        $user->status = $request->status;
         $user->save();
 
+        // Tampilkan pesan sukses
         Alert::success('Edit Data User', 'Berhasil mengUpdate data User');
+
+        // Redirect ke halaman users
         return redirect()->route('users');
     }
+
 
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
+
+        // Simpan pesan ke dalam session untuk konfirmasi penghapusan
+        session()->flash('alert.delete', json_encode([
+            'title' => 'Apakah Anda yakin?',
+            'text' => 'User akan dihapus secara permanen!',
+            'icon' => 'warning',
+            'showCancelButton' => true,
+            'confirmButtonText' => 'Ya, hapus!',
+            'cancelButtonText' => 'Batal'
+        ]));
 
         Alert::success('Hapus Data User', 'Berhasil mengHapus data User');
         return redirect()->route('users');

@@ -126,11 +126,12 @@
                           </td>
                           <td>
                               <x-action-buttons
-                                action="{{ route('users.destroy', $user->id) }}"
-                                viewData="{{ route('users.show', $user->id) }}"
-                                method="DELETE"
-                                submit="true"
-                                :dropdown="[ ['href' => route('users.edit', $user->id), 'label' => 'Edit'], ['href' => '#', 'label' => 'Suspend User'] ]"
+                                  :slot="$user->id"
+                                  action="{{ route('users.destroy', $user->id) }}"
+                                  viewData="{{ route('users.show', $user->id) }}"
+                                  method="DELETE"
+                                  submit="true"
+                                  :dropdown="[ ['href' => route('users.edit', $user->id), 'label' => 'Edit'], ['href' => '#', 'label' => 'Suspend User'] ]"
                               />
                           </td>
                         </tr>

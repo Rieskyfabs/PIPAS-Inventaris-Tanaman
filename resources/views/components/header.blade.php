@@ -24,7 +24,7 @@
             <!-- End Search Icon -->
 
             @auth
-                @if (Auth::user()->role == 'admin')
+                @if (Auth::user()->role->name    == 'admin')
                     <x-notification-dropdown 
                         :notificationCount="4" 
                         :notifications="[

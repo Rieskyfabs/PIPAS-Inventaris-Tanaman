@@ -21,7 +21,15 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Tambahkan User Baru</h5>
-
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <!-- Advanced Form Elements -->
                   <form action="{{ route('users.store') }}" method="POST">
                     @csrf
@@ -29,21 +37,28 @@
                         <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Username" required>
                         <label for="floatingInput">Username</label>
                     </div>
+
                     <div class="form-floating mb-3">
                         <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="name@example.com" required>
                         <label for="floatingEmail">Email address</label>
                     </div>
+
                     <div class="form-floating mb-3">
                         <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
                         <label for="floatingPassword">Password</label>
                     </div>
+
+                    {{-- Dropdown untuk role yang diambil dari database --}}
                     <div class="form-floating mb-3">
-                        <select name="role" class="form-select" id="userRole" required>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
+                        <select name="role_id" class="form-select" id="userRole" required>
+                            <option value="" disabled selected>Silahkan pilih role</option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
                         </select>
                         <label for="userRole">User Role</label>
                     </div>
+
                     <div class="form-floating mb-3">
                         <select name="status" class="form-select" id="userStatus" required>
                             <option value="active">Active</option>
@@ -51,11 +66,10 @@
                         </select>
                         <label for="userStatus">Status</label>
                     </div>
+                    <hr>
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </form>
-
                 <!-- End General Form Elements -->
-
               </div>
             </div>
           </div>

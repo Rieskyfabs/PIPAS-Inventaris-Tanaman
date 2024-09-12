@@ -48,7 +48,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     // Daftar pengguna
     Route::get('/admin/users/usersList', [UserController::class, 'index'])->name('users');
     Route::get('/admin/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/admin/users/plants', [UserController::class, 'store'])->name('users.store');
+    Route::post('/admin/users/plants/store', [UserController::class, 'store'])->name('users.store');
     Route::get('/admin/users/{id}', [UserController::class, 'show'])->name('users.show');
     Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('users.update');

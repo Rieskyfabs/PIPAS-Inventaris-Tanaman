@@ -116,7 +116,7 @@ body {
 
 .input-group {
   margin-bottom: 20px;
-  border-bottom: 2px solid #9B9B9B;
+  border-bottom: 2px solid #8d8d8d;
 }
 
 .input-group label {
@@ -133,6 +133,17 @@ body {
   border-radius: 5px;
   background: none;
   font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  /* Tambahkan transition untuk animasi yang smooth */
+}
+
+.input-group input:focus {
+  outline: none;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #4CAF50;
+  /* Ganti warna border saat diklik */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Tambahkan shadow saat input fokus */
 }
 
 .button-container {

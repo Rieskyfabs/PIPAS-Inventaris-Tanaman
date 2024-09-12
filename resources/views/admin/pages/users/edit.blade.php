@@ -21,7 +21,15 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Edit User</h5>
-
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <!-- Advanced Form Elements -->
                   <form action="{{ route('users.update', $user->id) }}" method="POST">
                     @csrf
@@ -35,11 +43,15 @@
                         <label for="floatingEmail">Email address</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <select name="role" class="form-select" id="userRole" required>
-                            <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                            <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
-                        </select>
-                        <label for="userRole">User Role</label>
+                      <select name="role_id" class="form-select" id="userRole" required>
+                          <option value="" disabled>Silakan pilih role</option>
+                          @foreach($roles as $role)
+                              <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
+                                  {{ $role->name }}
+                              </option>
+                          @endforeach
+                      </select>
+                      <label for="userRole">User Role</label>
                     </div>
                     <div class="form-floating mb-3">
                         <select name="status" class="form-select" id="userStatus" required>
@@ -50,9 +62,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                   </form>
-
                 <!-- End General Form Elements -->
-
               </div>
             </div>
           </div>
