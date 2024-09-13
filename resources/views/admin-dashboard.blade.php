@@ -98,7 +98,7 @@
                     <tbody>
                       @foreach ($plants as $plant)
                         <tr>
-                          <th scope="row"><a href="#">{{$plant->name}}</a></th>
+                          <th scope="row"><a href="#">{{$plant->plantCode->name}}</a></th>
                           <td>
                               @if ($plant->type === 'Sayuran')
                                   <span class="badge badge-soft-green">

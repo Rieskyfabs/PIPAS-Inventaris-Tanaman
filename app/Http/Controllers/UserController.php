@@ -59,16 +59,15 @@ class UserController extends Controller
             'username' => 'required|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
-            'role_id' => 'required|exists:roles,id', // Pastikan role_id ada
+            'role_id' => 'required|exists:roles,id',
             'status' => 'required',
         ]);
 
-        // Simpan user ke database
         User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role_id' => $request->role_id, // Pastikan role_id diinput
+            'role_id' => $request->role_id,
             'status' => $request->status,
         ]);
 
@@ -83,7 +82,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $roles = Role::all(); // Ambil semua role untuk dropdown di form
+        $roles = Role::all();
         return view('admin.pages.users.edit', compact('user', 'roles'));
     }
 
@@ -92,20 +91,17 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        // Validasi input, pengecekan unique diabaikan jika datanya tidak berubah
         $request->validate([
             'username' => 'required|unique:users,username,' . $user->id,
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8', // Password tidak wajib diisi
+            'password' => 'nullable|string|min:8',
             'role_id' => 'required|exists:roles,id',
             'status' => 'required',
         ]);
 
-        // Update data user
         $user->username = $request->username;
         $user->email = $request->email;
 
-        // Hanya update password jika ada input
         if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
         }
@@ -114,10 +110,8 @@ class UserController extends Controller
         $user->status = $request->status;
         $user->save();
 
-        // Tampilkan pesan sukses
         Alert::success('Edit Data User', 'Berhasil mengUpdate data User');
 
-        // Redirect ke halaman users
         return redirect()->route('users');
     }
 

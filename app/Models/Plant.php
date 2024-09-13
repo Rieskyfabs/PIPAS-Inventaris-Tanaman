@@ -11,8 +11,8 @@ class Plant extends Model
 
     protected $fillable = [
         'plant_code_id',
-        'name',
-        'scientific_name',
+        'plant_name_id',
+        'plant_scientific_name_id',
         'type',
         'qr_code',
         'category_id',

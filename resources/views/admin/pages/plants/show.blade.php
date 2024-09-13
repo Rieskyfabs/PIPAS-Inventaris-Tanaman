@@ -22,7 +22,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{__('Plants Data Details')}}</h5>
-                        {{-- <div class="add-btn-container">
+                        <div class="add-btn-container">
                             <a href="{{ route('plants.create') }}" class="btn-add-item">
                                 <svg aria-hidden="true" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <!-- SVG content -->
@@ -30,7 +30,7 @@
                                         stroke-width="2"
                                         stroke="#fffffff"
                                         d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125"
-                                        stroke-linejoin="round"
+                                        stroke-linejoin="round" c
                                         stroke-linecap="round"
                                         ></path>
                                         <path
@@ -44,7 +44,7 @@
                                 </svg>
                                 {{ __('Add Plant') }}
                             </a>
-                        </div> --}}
+                        </div>
                         
                         <div class="table-responsive">
                             <!-- Table with stripped rows -->
@@ -68,8 +68,8 @@
                                     @foreach ($plants as $plant)
                                         <tr>
                                             <td>{{ $plant->plantCode ? $plant->plantCode->plant_code : 'Unknown' }}</td>
-                                            <td>{{ $plant->name }}</td>
-                                            <td>{{ $plant->scientific_name ?? 'Unknown' }}</td>
+                                            <td>{{ $plant->plantCode->name }}</td>
+                                            <td>{{ $plant->plantCode->scientific_name ?? 'Unknown' }}</td>
                                             <td>
                                                 @if ($plant->type === 'Sayuran')
                                                     <span class="badge badge-soft-green">

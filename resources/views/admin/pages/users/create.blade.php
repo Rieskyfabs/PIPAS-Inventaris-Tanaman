@@ -7,7 +7,7 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="{{ __('Add New User')}}" 
+        title="{{ __('Add New User')}}" c
         :items="[
           ['route' => 'home', 'label' => 'Home'],
           ['route' => 'users', 'label' => 'Users'],

@@ -17,70 +17,67 @@ class PlantController extends Controller
 {
     public function index()
     {
-        // Query untuk mendapatkan data perwakilan (satu per plant_code_id) dan menghitung total jumlah per plant_code_id
-        $plants = Plant::selectRaw('MIN(id) as id, plant_code_id, MIN(name) as name, MIN(scientific_name) as scientific_name, MIN(type) as type, MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, MIN(location_id) as location_id, MIN(status) as status, MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, MAX(created_at) as created_at')
+        $plants = Plant::selectRaw('MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, MIN(location_id) as location_id, MIN(status) as status, MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, MAX(created_at) as created_at')
         ->groupBy('plant_code_id')
-        ->orderBy('created_at', 'desc') // Mengurutkan berdasarkan created_at terbesar dalam grup
-        ->with(['plantCode', 'category',
+        ->orderBy('created_at', 'desc')
+        ->with([
+            'plantCode', 
+            'category',
             'benefit',
             'location'
-        ]) // Relasi yang diperlukan
+        ])
         ->get();
 
-
-        // Total quantity dari semua tanaman
         $totalQuantity = $plants->sum('total_quantity');
 
-        // Query untuk menghitung jumlah tanaman berdasarkan status
         $countByStatus = Plant::selectRaw('status, COUNT(*) as total_quantity')
         ->groupBy('status')
-        ->pluck('total_quantity', 'status');  // Mengambil data sebagai key-value pairs (status => total_quantity)
+        ->pluck('total_quantity', 'status');
 
         // Data untuk chart
         $chartData = [
-            'series' => $countByStatus->values()->toArray(),  // Nilai-nilai untuk chart (jumlah tanaman)
-            'labels' => $countByStatus->keys()->toArray()     // Status (misal: Sehat, Sakit, dll.)
+            'series' => $countByStatus->values()->toArray(),
+            'labels' => $countByStatus->keys()->toArray()
         ];
 
         return view('admin.pages.plants.index', compact('plants', 'totalQuantity', 'countByStatus', 'chartData'));
     }
 
-
-
-
     public function create()
     {
         $categories = Category::all();
         $benefits = Benefit::all();
-        $location = Location::all();
-        $plantCode = PlantCode::all();
+        $locations = Location::all();
+        $plantCodes  = PlantCode::all();
 
-        return view('admin.pages.plants.create', compact('categories', 'benefits'));
+        return view('admin.pages.plants.create', compact('categories', 'benefits', 'locations', 'plantCodes'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'scientific_name' => 'required|string|max:255',
-            'qr_code' => 'required|string|unique:plants,qr_code',
+            'plant_name_id' => 'required',
+            'plant_scientific_name_id' => 'required',
+            'qr_code' => 'nullable|string|unique:plants,qr_code',
             'category_id' => 'required|exists:categories,id',
-            'type' => 'required|in:Herbal,Vegetable',
-            'location' => 'required|string|max:255',
-            'quantity' => 'required|integer|min:0',
+            'type' => 'required|in:Herbal,Sayuran',
+            'plant_code_id' => 'required|exists:plant_codes,id',
             'benefit_id' => 'required|exists:benefits,id',
-            'status' => 'required|string|max:50',
+            'location_id' => 'required|exists:locations,id',
+            'status' => 'required|string|in:sehat,baik,layu,sakit',
             'seeding_date' => 'required|date',
         ]);
 
-        // Tambahkan logika untuk menghitung estimasi tanggal panen
         $seedingDate = $request->input('seeding_date');
-        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days')); // Misal estimasi 90 hari dari tanggal pembibitan
+        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days'));
 
-        // Menyimpan data ke dalam database
         Plant::create(array_merge($request->all(), ['harvest_date' => $harvestDate]));
 
-        return redirect()->route('plants')->with('success', 'Plant added successfully.');
+        // Tampilkan pesan sukses
+        Alert::success('Data Tanaman Ditambahkan', 'Berhasil menambahkan data Tanaman');
+
+        // Redirect ke halaman users
+        return redirect()->route('plants');
     }
 
     public function edit($id)
@@ -88,34 +85,39 @@ class PlantController extends Controller
         $plant = Plant::findOrFail($id);
         $categories = Category::all();
         $benefits = Benefit::all();
-        return view('admin.pages.plants.edit', compact('plant', 'categories', 'benefits'));
+        $locations = Location::all();
+        $plantCodes = PlantCode::all();
+
+        return view('admin.pages.plants.edit', compact('plant', 'categories', 'benefits', 'locations', 'plantCodes'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'scientific_name' => 'required|string|max:255',
-            'qr_code' => 'required|string|unique:plants,qr_code,' . $id,
+            'plant_name_id' => 'required|string|max:255',
+            'plant_scientific_name_id' => 'required|string|max:255',
+            'qr_code' => 'nullable|string|unique:plants,qr_code,' . $id,
             'category_id' => 'required|exists:categories,id',
-            'type' => 'required|in:Herbal,Vegetable',
-            'location' => 'required|string|max:255',
-            'quantity' => 'required|integer|min:0',
+            'type' => 'required|in:Herbal,Sayuran',
+            'plant_code_id' => 'required|exists:plant_codes,id',
             'benefit_id' => 'required|exists:benefits,id',
-            'status' => 'required|string|max:50', // validasi untuk status
-            'seeding_date' => 'required|date', // validasi untuk tanggal pembibitan
+            'location_id' => 'required|exists:locations,id',
+            'status' => 'required|string|in:sehat,baik,layu,sakit',
+            'seeding_date' => 'required|date',
         ]);
 
         $plant = Plant::findOrFail($id);
 
-        // Menghitung ulang estimasi tanggal panen jika tanggal pembibitan diperbarui
         $seedingDate = $request->input('seeding_date');
-        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days')); // Misal estimasi 90 hari dari tanggal pembibitan
+        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days'));
 
-        // Memperbarui data di dalam database
         $plant->update(array_merge($request->all(), ['harvest_date' => $harvestDate]));
 
-        return redirect()->route('plants')->with('success', 'Plant updated successfully.');
+        // Tampilkan pesan sukses
+        Alert::success('Data Tanaman DiUpdate', 'Berhasil mengUpdate data Tanaman');
+
+        // Redirect ke halaman users
+        return redirect()->route('plants');
     }
 
     public function destroy($id)

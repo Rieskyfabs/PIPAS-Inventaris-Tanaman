@@ -47,6 +47,11 @@
                     </a>
                     <ul id="plantsAttribute-nav" class="nav-content collapse {{ Request::is('admin/attributes*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <li>
+                            <a class="{{ Request::is('admin/attributes/plant-code') ? 'active' : '' }}" href="{{ route('plantCodes') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Plants Attributes') }}</span>
+                            </a>
+                        </li>
+                        <li>
                             <a class="{{ Request::is('admin/attributes/categories') ? 'active' : '' }}" href="{{ route('categories') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('Plants Categories') }}</span>
                             </a>
@@ -59,11 +64,6 @@
                         <li>
                             <a class="{{ Request::is('admin/attributes/locations') ? 'active' : '' }}" href="{{ route('locations') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('Plants Locations') }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="{{ Request::is('admin/attributes/plant-code') ? 'active' : '' }}" href="{{ route('plantCodes') }}">
-                                <i class="bi bi-circle"></i><span>{{ __('Plants Codes') }}</span>
                             </a>
                         </li>
                     </ul>

@@ -7,10 +7,10 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="Locations" 
+        title="Plant Attributes" 
         :items="[
           ['route' => 'home', 'label' => 'Home'],
-          ['label' => 'Plant Codes']
+          ['label' => 'Plant Attributes']
         ]" 
       />
 
@@ -19,7 +19,7 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                          <h5 class="card-title">{{__('Plant Codes')}}</h5>
+                          <h5 class="card-title">{{__('Plant Attributes')}}</h5>
                           <div class="add-btn-container">
                               <a href="{{ route('plantCodes.create') }}" class="btn-add-item">
                                   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
@@ -29,7 +29,7 @@
                                       <path d="M12 13V7M15 10.0008L9 10M19 10.2C19 14.1764 15.5 17.4 12 21C8.5 17.4 5 14.1764 5 10.2C5 6.22355 8.13401 3 12 3C15.866 3 19 6.22355 19 10.2Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
                                     </g>
                                   </svg>
-                                  {{ __('Add Plant Code') }}
+                                  {{ __('Add Plant Attributes') }}
                               </a>
                           </div>
                           
@@ -40,6 +40,11 @@
                                       <tr>
                                           <th>#</th>
                                           <th>{{__('PLANT CODE')}}</th>
+                                          {{-- <th>{{__('PLANT NAME')}}</th>
+                                          <th>{{__('SCIENTIFIC NAME')}}</th>
+                                          <th>{{__('PLANT TYPE')}}</th> --}}
+                                          {{-- <th>{{__('CATEGORIES')}}</th>
+                                          <th>{{__('BENEFITS')}}</th> --}}
                                           <th>{{__('DESCRIPTION')}}</th>
                                           <th>{{__('STATUS')}}</th>
                                           <th>{{__('ACTIONS')}}</th>
@@ -50,6 +55,11 @@
                                           <tr>
                                               <td>{{ $loop->iteration }}</td>
                                               <td>{{ $code->plant_code }}</td>
+                                              {{-- <td>{{ $code->name }}</td>
+                                              <td>{{ $code->scientific_name }}</td>
+                                              <td>{{ $code->type }}</td> --}}
+                                              {{-- <td>{{ $code->category ? $code->category->name : 'Unknown' }}</td>
+                                              <td>{{ $code->benefit ? $code->benefit->name : 'Unknown' }}</td> --}}
                                               <td>{{ $code->description ?? 'No Description' }}</td>
                                               <td>
                                                   @if($code->status == 'active')

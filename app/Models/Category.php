@@ -24,5 +24,10 @@ class Category extends Model
     {
         return $this->hasMany(Plant::class);
     }
+
+    public function plantCodes()
+    {
+        return $this->hasMany(PlantCode::class);
+    }
 }
 

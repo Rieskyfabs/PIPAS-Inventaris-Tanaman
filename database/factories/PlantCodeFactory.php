@@ -18,6 +18,8 @@ class PlantCodeFactory extends Factory
     {
         return [
             'plant_code' => $this->faker->unique()->word,
+            'name' => $this->faker->word,
+            'scientific' => $this->faker->word,
             'description' => $this->faker->sentence,
         ];
     }

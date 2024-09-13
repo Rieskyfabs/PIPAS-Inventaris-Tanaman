@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('plants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('plant_code_id')->constrained('plant_codes');
-            $table->string('name');
-            $table->string('scientific_name');
+            $table->foreignId('plant_name_id')->constrained('plant_codes');
+            $table->foreignId('plant_scientific_name_id')->constrained('plant_codes');
             $table->enum('type', ['Herbal', 'Sayuran']);
             $table->string('qr_code')->nullable();
             $table->foreignId('category_id')->constrained('categories');

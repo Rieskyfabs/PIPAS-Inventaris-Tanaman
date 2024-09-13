@@ -14,46 +14,38 @@ class PlantFactory extends Factory
 {
     protected $model = Plant::class;
 
-    protected $plants = [
-        ['name' => 'Sereh', 'scientific_name' => 'Curcuma longa'],
-        ['name' => 'Tomat Lele', 'scientific_name' => 'Zingiber officinale'],
-        ['name' => 'Aloe Vera', 'scientific_name' => 'Ocimum basilicum'],
-        ['name' => 'Fittonia', 'scientific_name' => 'Amaranthus spinosus'],
-        ['name' => 'Bayam', 'scientific_name' => 'Brassica rapa'],
-    ];
-
     public function definition()
     {
-        $plant = $this->faker->randomElement($this->plants);
+        // Ambil kode tanaman yang sudah ada di PlantCode
+        $plantCode = PlantCode::inRandomOrder()->first();
 
+        // Pastikan bahwa ada kode tanaman yang diambil
+        if (!$plantCode) {
+            throw new \Exception("No PlantCode available. Please seed the PlantCode table first.");
+        }
+
+        // Tentukan tanggal penanaman dan panen
         $seedingDate = $this->faker->dateTimeBetween('-1 months', 'now');
         $harvestDate = Carbon::parse($seedingDate)->addDays(90);
-
-        // Get or create a default plant code
-        $plantCode = PlantCode::inRandomOrder()->first() ?? PlantCode::create([
-            'plant_code' => 'DEFAULT_CODE',
-            'description' => 'Default Description'
-        ]);
 
         // Get related data
         $location = Location::inRandomOrder()->first();
         $categoryId = Category::inRandomOrder()->first()->id ?? null;
         $benefitId = Benefit::inRandomOrder()->first()->id ?? null;
 
-        // Create plant model without setting the id manually
-        $plantModel = Plant::create([
-            'name' => $plant['name'],
+        // Return data plant yang dibuat berdasarkan kode tanaman dari PlantCodeSeeder
+        return [
             'plant_code_id' => $plantCode->id,
-            'scientific_name' => $plant['scientific_name'],
+            'plant_name_id' => $plantCode->id,  // Ganti jika berbeda
+            'plant_scientific_name_id' => $plantCode->id,  // Ganti jika berbeda
             'type' => $this->faker->randomElement(['Herbal', 'Sayuran']),
+            'qr_code' => $this->faker->optional()->word,
             'category_id' => $categoryId,
             'location_id' => $location ? $location->id : null,
             'benefit_id' => $benefitId,
             'status' => $this->faker->randomElement(['sehat', 'baik', 'layu', 'sakit']),
             'seeding_date' => $seedingDate,
             'harvest_date' => $harvestDate,
-        ]);
-
-        return $plantModel->toArray();
+        ];
     }
 }

@@ -12,7 +12,7 @@ class PlantCodesController extends Controller
      */
     public function index()
     {
-        $plantCodes = PlantCode::all();
+        $plantCodes = PlantCode::with(['category', 'benefit'])->get();
         return view('admin.pages.plantCodes.index', compact('plantCodes'));
     }
 

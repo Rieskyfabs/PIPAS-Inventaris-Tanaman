@@ -147,8 +147,8 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $plant->plantCode ? $plant->plantCode->plant_code : 'Unknown' }}</td>
-                                                <td>{{ $plant->name }}</td>
-                                                <td>{{ $plant->scientific_name ?? 'Unknown' }}</td>
+                                                <td>{{ $plant->plantCode->name }}</td>
+                                                <td>{{ $plant->plantCode->scientific_name ?? 'Unknown' }}</td>
                                                 <td>
                                                     @if ($plant->type === 'Sayuran')
                                                         <span class="badge badge-soft-green">
