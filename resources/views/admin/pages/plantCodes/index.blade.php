@@ -61,12 +61,14 @@
                                                   @endif
                                               </td>
                                               <td>
-                                                  <x-action-buttons
-                                                      action="{{ route('plantCodes.destroy', $code->id) }}"
-                                                      method="DELETE"
-                                                      submit="true"
-                                                      :dropdown="[ ['href' => route('plantCodes.edit', $code->id), 'label' => 'Edit'] ]"
-                                                  />
+                                                <x-action-buttons
+                                                    deleteData="{{ route('plantCodes.destroy', $code->id) }}"
+                                                    method="DELETE"
+                                                    submit="true" {{-- Tombol hapus akan muncul --}}
+                                                    :dropdown="[ 
+                                                        ['href' => route('plantCodes.edit', $code->id), 'label' => 'Edit'], 
+                                                    ]"
+                                                />
                                               </td>
                                           </tr>
                                       @endforeach

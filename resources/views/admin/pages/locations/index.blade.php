@@ -60,11 +60,13 @@
                                               </td>
                                               <td>
                                                   <x-action-buttons
-                                                      action="{{ route('locations.destroy', $location->id) }}"
-                                                      method="DELETE"
-                                                      submit="true"
-                                                      :dropdown="[ ['href' => route('locations.edit', $location->id), 'label' => 'Edit'] ]"
-                                                  />
+                                                        deleteData="{{ route('locations.destroy', $location->id) }}"
+                                                        method="DELETE"
+                                                        submit="true" {{-- Tombol hapus akan muncul --}}
+                                                        :dropdown="[ 
+                                                            ['href' => route('locations.edit', $location->id), 'label' => 'Edit'], 
+                                                        ]"
+                                                    />
                                               </td>
                                           </tr>
                                       @endforeach

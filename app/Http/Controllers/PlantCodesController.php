@@ -14,6 +14,11 @@ class PlantCodesController extends Controller
     public function index()
     {
         $plantCodes = PlantCode::with(['category', 'benefit'])->get();
+
+        $title = 'Delete Plant Attributes!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         return view('admin.pages.plantCodes.index', compact('plantCodes'));
     }
 
@@ -67,8 +72,8 @@ class PlantCodesController extends Controller
         // Hapus record tanaman dari database
         $plantCodes->delete();
 
-        Alert::success('Hapus Data Tanaman', 'Berhasil mengHapus data Tanaman');
+        Alert::success('Hapus Data Attribute Tanaman', 'Berhasil menghapus data Attribute Tanaman');
 
-        return redirect()->back()->with('success', 'Plant deleted successfully');
+        return redirect()->back();
     }
 }

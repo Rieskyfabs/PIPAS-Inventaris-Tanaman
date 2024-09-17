@@ -108,11 +108,11 @@
                                             </td>
                                             <td>
                                                 <x-action-buttons
-                                                    action="{{ route('plants.destroy', $plant->id) }}"
+                                                    deleteData="{{ route('plants.destroy', $plant->id) }}"
                                                     method="DELETE"
-                                                    submit="true"
+                                                    submit="true" {{-- Tombol hapus akan muncul --}}
                                                     :dropdown="[ 
-                                                        ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'],
+                                                        ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'], 
                                                     ]"
                                                 />
                                             </td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Location;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LocationController extends Controller
 {
@@ -13,6 +14,11 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::all();
+        
+        $title = 'Delete Location!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         return view('admin.pages.locations.index', compact('locations'));
     }
 
@@ -59,8 +65,12 @@ class LocationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Location $location)
+    public function destroy($id)
     {
-        //
+        $location = Location::findOrFail($id);
+        $location->delete();
+
+        Alert::success('Hapus Data locations', 'Berhasil mengHapus data locations');
+        return redirect()->route('locations');
     }
 }

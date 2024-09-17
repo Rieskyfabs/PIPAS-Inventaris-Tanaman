@@ -102,6 +102,10 @@ class PlantController extends Controller
         }
         $changeTypeTotal = $changePercentTotal >= 0 ? 'increase' : 'decrease';
 
+        $title = 'Delete Plants!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         return view('admin.pages.plants.index', compact(
             'plants',
             'totalPlants',
@@ -202,17 +206,12 @@ class PlantController extends Controller
     {
         $plant = Plant::findOrFail($id);
 
-        // Hapus file QR code jika ada
-        if ($plant->qr_code) {
-            Storage::disk('public')->delete($plant->qr_code);
-        }
-
         // Hapus record tanaman dari database
         $plant->delete();
         
         Alert::success('Hapus Data Tanaman', 'Berhasil mengHapus data Tanaman');
 
-        return redirect()->back()->with('success', 'Plant deleted successfully');
+        return redirect()->route('plants');
     }
 
     public function show($plantCode)
@@ -223,6 +222,9 @@ class PlantController extends Controller
                 $query->where('plant_code', $plantCode);
             })->get();
 
+        $title = 'Delete Plants!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
 
         return view('admin.pages.plants.show', compact('plants'));
     }

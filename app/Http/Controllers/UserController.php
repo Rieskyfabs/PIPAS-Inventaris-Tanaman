@@ -41,6 +41,10 @@ class UserController extends Controller
             $user->colors = $this->randomColor();
         }
 
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+        
         // Kirim data user ke view
         return view('admin.pages.users.index', compact('users', 'activeUsersCount', 'inactiveUsersCount'));
     }
@@ -120,16 +124,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-
-        // Simpan pesan ke dalam session untuk konfirmasi penghapusan
-        session()->flash('alert.delete', json_encode([
-            'title' => 'Apakah Anda yakin?',
-            'text' => 'User akan dihapus secara permanen!',
-            'icon' => 'warning',
-            'showCancelButton' => true,
-            'confirmButtonText' => 'Ya, hapus!',
-            'cancelButtonText' => 'Batal'
-        ]));
 
         Alert::success('Hapus Data User', 'Berhasil mengHapus data User');
         return redirect()->route('users');

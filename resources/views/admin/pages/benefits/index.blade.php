@@ -60,10 +60,12 @@
                               </td>
                               <td>
                                   <x-action-buttons
-                                      action="{{ route('benefits.destroy', $benefit->id) }}"
+                                      deleteData="{{ route('benefits.destroy', $benefit->id) }}"
                                       method="DELETE"
-                                      submit="true"
-                                      :dropdown="[ ['href' => route('benefits.edit', $benefit->id), 'label' => 'Edit'] ]"
+                                      submit="true" {{-- Tombol hapus akan muncul --}}
+                                      :dropdown="[ 
+                                          ['href' => route('benefits.edit', $benefit->id), 'label' => 'Edit'], 
+                                      ]"
                                   />
                               </td>
                             </tr>

@@ -63,10 +63,12 @@
                               </td>
                               <td>
                                   <x-action-buttons
-                                      action="{{ route('categories.destroy', $category->id) }}"
+                                      deleteData="{{ route('categories.destroy', $category->id) }}"
                                       method="DELETE"
-                                      submit="true"
-                                      :dropdown="[ ['href' => route('categories.edit', $category->id), 'label' => 'Edit'] ]"
+                                      submit="true" {{-- Tombol hapus akan muncul --}}
+                                      :dropdown="[ 
+                                          ['href' => route('categories.edit', $category->id), 'label' => 'Edit'], 
+                                      ]"
                                   />
                               </td>
                             </tr>

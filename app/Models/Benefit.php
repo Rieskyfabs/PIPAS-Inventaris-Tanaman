@@ -9,10 +9,6 @@ class Benefit extends Model
 {
     use HasFactory;
 
-    protected $table = 'benefits';
-
-    protected $primaryKey = 'benefit_id';
-
     protected $fillable = [
         'name',
         'status'

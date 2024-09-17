@@ -126,8 +126,8 @@
                           </td>
                           <td>
                               <x-action-buttons
-                                  action="{{ route('users.destroy', $user->id) }}"
                                   viewData="{{ route('users.show', $user->id) }}"
+                                  deleteData="{{ route('users.destroy', $user->id) }}"
                                   method="DELETE"
                                   submit="true" {{-- Tombol hapus akan muncul --}}
                                   :dropdown="[ 
