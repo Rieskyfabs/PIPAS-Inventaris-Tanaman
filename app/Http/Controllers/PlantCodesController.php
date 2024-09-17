@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PlantCode;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PlantCodesController extends Controller
 {
@@ -59,8 +60,15 @@ class PlantCodesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $plantCodes = PlantCode::findOrFail($id);
+
+        // Hapus record tanaman dari database
+        $plantCodes->delete();
+
+        Alert::success('Hapus Data Tanaman', 'Berhasil mengHapus data Tanaman');
+
+        return redirect()->back()->with('success', 'Plant deleted successfully');
     }
 }

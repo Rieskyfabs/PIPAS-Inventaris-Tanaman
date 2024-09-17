@@ -21,7 +21,7 @@ class Card extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($type, $title, $period, $icon, $value, $changePercent = 0, $changeType, $filter = false, $filterOptions = [])
+    public function __construct($type, $title, $period, $icon, $value, $changePercent = 0, $changeType, $filter = null, $filterOptions = [])
     {
         $this->type = $type;
         $this->title = $title;
@@ -33,7 +33,6 @@ class Card extends Component
         $this->filter = $filter;
         $this->filterOptions = $filterOptions;
     }
-
 
     /**
      * Get the view / contents that represent the component.

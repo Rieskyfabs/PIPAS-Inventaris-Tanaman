@@ -17,14 +17,13 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('scientific_name')->unique();
             $table->enum('type', ['Herbal', 'Sayuran']);
-            $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('benefit_id')->constrained('benefits');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('benefit_id')->constrained('benefits')->onDelete('cascade')->onUpdate('cascade');
             $table->text('description');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.

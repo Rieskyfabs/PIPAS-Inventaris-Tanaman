@@ -51,6 +51,7 @@
                             <table class="table table-bordered table-hover datatable">
                                 <thead>
                                     <tr>
+                                      <th>ID</th>
                                       <th>Kode</th>
                                       <th>Nama</th>
                                       <th>Nama Ilmiah</th>
@@ -62,11 +63,13 @@
                                       <th>Tanggal Tanam</th>
                                       <th>Tanggal Panen</th>
                                       <th>QR Code</th>
+                                      <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($plants as $plant)
                                         <tr>
+                                            <td>{{ $plant->id }}</td>
                                             <td>{{ $plant->plantCode ? $plant->plantCode->plant_code : 'Unknown' }}</td>
                                             <td>{{ $plant->plantCode->name }}</td>
                                             <td>{{ $plant->plantCode->scientific_name ?? 'Unknown' }}</td>
@@ -102,6 +105,16 @@
                                             <td>{{ \Carbon\Carbon::parse($plant->harvest_date)->format('d M Y') }}</td>
                                             <td>
                                               <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->name }}">
+                                            </td>
+                                            <td>
+                                                <x-action-buttons
+                                                    action="{{ route('plants.destroy', $plant->id) }}"
+                                                    method="DELETE"
+                                                    submit="true"
+                                                    :dropdown="[ 
+                                                        ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'],
+                                                    ]"
+                                                />
                                             </td>
                                         </tr>
                                     @endforeach

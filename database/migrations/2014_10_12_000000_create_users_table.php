@@ -14,14 +14,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique();
-            // $table->unsignedBigInteger('user_id')->nullable();
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('email')->unique();
             $table->string('password');
-            $table->unsignedBigInteger('role_id');  // Kolom untuk foreign key
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-            $table->enum('status', ['active', 'inactive'])
-                ->default('active');
+            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade')->onUpdate('cascade');  // Foreign key constraint with cascading delete and update
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

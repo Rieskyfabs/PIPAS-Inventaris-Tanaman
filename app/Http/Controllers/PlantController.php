@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Benefit;
 use App\Models\Location;
 use App\Models\PlantCode;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -15,21 +16,58 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PlantController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // Ambil nilai filter periode dari request, default 'today'
+        $period = $request->input('period', 'today');
+
+        // Tentukan tanggal awal dan akhir berdasarkan periode yang dipilih
+        $startDate = Carbon::today(); // Default untuk 'Hari ini'
+        $endDate = Carbon::now(); // Hari ini adalah batas akhir
+
+        // Tentukan periode sebelumnya
+        $previousStartDate = Carbon::yesterday();
+        $previousEndDate = Carbon::yesterday();
+
+        switch ($period) {
+            case 'this_month':
+                $startDate = Carbon::now()->startOfMonth();
+                $previousStartDate = Carbon::now()->subMonth()->startOfMonth();
+                $previousEndDate = Carbon::now()->subMonth()->endOfMonth();
+                break;
+            case 'this_year':
+                $startDate = Carbon::now()->startOfYear();
+                $previousStartDate = Carbon::now()->subYear()->startOfYear();
+                $previousEndDate = Carbon::now()->subYear()->endOfYear();
+                break;
+        }
+
+        // Ambil data tanaman dan group berdasarkan kode tanaman
         $plants = Plant::selectRaw('MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, MIN(location_id) as location_id, MIN(status) as status, MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, MAX(created_at) as created_at')
         ->groupBy('plant_code_id')
         ->orderBy('created_at', 'desc')
-        ->with([
-            'plantCode', 
-            'category',
-            'benefit',
-            'location'
-        ])
+        ->with(['plantCode', 'category', 'benefit', 'location'])
         ->get();
 
-        $totalQuantity = $plants->sum('total_quantity');
+        // Hitung total tanaman
+        $totalPlants = $plants->sum('total_quantity');
 
+        // Hitung total tanaman pada periode sebelumnya
+        $previousTotalPlants = Plant::whereBetween('created_at', [$previousStartDate, $previousEndDate])->count();
+
+        // Hitung jumlah tanaman masuk berdasarkan seeding_date dan periode filter
+        $plantsIn = Plant::whereBetween('created_at', [$startDate, $endDate])->count();
+
+        // Hitung jumlah tanaman masuk pada periode sebelumnya
+        $previousPlantsIn = Plant::whereBetween('created_at', [$previousStartDate, $previousEndDate])->count();
+
+        // Hitung jumlah tanaman keluar berdasarkan harvest_date dan periode filter
+        $plantsOut = Plant::whereBetween('harvest_date', [$startDate, $endDate])->count();
+
+        // Hitung jumlah tanaman keluar pada periode sebelumnya
+        $previousPlantsOut = Plant::whereBetween('harvest_date', [$previousStartDate, $previousEndDate])->count();
+
+        // Hitung jumlah berdasarkan status tanaman
         $countByStatus = Plant::selectRaw('status, COUNT(*) as total_quantity')
         ->groupBy('status')
         ->pluck('total_quantity', 'status');
@@ -40,8 +78,48 @@ class PlantController extends Controller
             'labels' => $countByStatus->keys()->toArray()
         ];
 
-        return view('admin.pages.plants.index', compact('plants', 'totalQuantity', 'countByStatus', 'chartData'));
+        // Hitung changePercent dan changeType untuk tanaman masuk
+        if ($previousPlantsIn > 0) {
+            $changePercentIn = (($plantsIn - $previousPlantsIn) / $previousPlantsIn) * 100;
+        } else {
+            $changePercentIn = $plantsIn > 0 ? 100 : 0;
+        }
+        $changeTypeIn = $changePercentIn >= 0 ? 'increase' : 'decrease';
+
+        // Hitung changePercent dan changeType untuk tanaman keluar
+        if ($previousPlantsOut > 0) {
+            $changePercentOut = (($plantsOut - $previousPlantsOut) / $previousPlantsOut) * 100;
+        } else {
+            $changePercentOut = $plantsOut > 0 ? 100 : 0;
+        }
+        $changeTypeOut = $changePercentOut >= 0 ? 'increase' : 'decrease';
+
+        // Hitung changePercent dan changeType untuk total tanaman
+        if ($previousTotalPlants > 0) {
+            $changePercentTotal = (($totalPlants - $previousTotalPlants) / $previousTotalPlants) * 100;
+        } else {
+            $changePercentTotal = $totalPlants > 0 ? 100 : 0;
+        }
+        $changeTypeTotal = $changePercentTotal >= 0 ? 'increase' : 'decrease';
+
+        return view('admin.pages.plants.index', compact(
+            'plants',
+            'totalPlants',
+            'plantsIn',
+            'plantsOut',
+            'countByStatus',
+            'chartData',
+            'period',
+            'changePercentIn',
+            'changeTypeIn',
+            'changePercentOut',
+            'changeTypeOut',
+            'changePercentTotal',
+            'changeTypeTotal'
+        ));
     }
+
+
 
     public function create()
     {
@@ -77,7 +155,7 @@ class PlantController extends Controller
         Alert::success('Data Tanaman Ditambahkan', 'Berhasil menambahkan data Tanaman');
 
         // Redirect ke halaman users
-        return redirect()->route('plants');
+        return redirect()->back();
     }
 
     public function edit($id)
@@ -131,9 +209,10 @@ class PlantController extends Controller
 
         // Hapus record tanaman dari database
         $plant->delete();
+        
         Alert::success('Hapus Data Tanaman', 'Berhasil mengHapus data Tanaman');
 
-        return redirect()->route('plants')->with('success', 'Plant deleted successfully');
+        return redirect()->back()->with('success', 'Plant deleted successfully');
     }
 
     public function show($plantCode)

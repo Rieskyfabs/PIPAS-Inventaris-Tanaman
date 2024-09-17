@@ -40,11 +40,6 @@
                                       <tr>
                                           <th>#</th>
                                           <th>{{__('PLANT CODE')}}</th>
-                                          {{-- <th>{{__('PLANT NAME')}}</th>
-                                          <th>{{__('SCIENTIFIC NAME')}}</th>
-                                          <th>{{__('PLANT TYPE')}}</th> --}}
-                                          {{-- <th>{{__('CATEGORIES')}}</th>
-                                          <th>{{__('BENEFITS')}}</th> --}}
                                           <th>{{__('DESCRIPTION')}}</th>
                                           <th>{{__('STATUS')}}</th>
                                           <th>{{__('ACTIONS')}}</th>
@@ -55,11 +50,6 @@
                                           <tr>
                                               <td>{{ $loop->iteration }}</td>
                                               <td>{{ $code->plant_code }}</td>
-                                              {{-- <td>{{ $code->name }}</td>
-                                              <td>{{ $code->scientific_name }}</td>
-                                              <td>{{ $code->type }}</td> --}}
-                                              {{-- <td>{{ $code->category ? $code->category->name : 'Unknown' }}</td>
-                                              <td>{{ $code->benefit ? $code->benefit->name : 'Unknown' }}</td> --}}
                                               <td>{{ $code->description ?? 'No Description' }}</td>
                                               <td>
                                                   @if($code->status == 'active')

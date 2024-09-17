@@ -1,15 +1,19 @@
 <div class="col-xxl-4 col-md-6">
     <div class="card info-card {{ $type }}-card">
 
-        @if(isset($filter))
+        @if(!is_null($filter) && $filter)
             <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
                         <h6>Filter</h6>
                     </li>
-                    @foreach($filterOptions as $option)
-                        <li><a class="dropdown-item" href="#">{{ $option }}</a></li>
+                    @foreach($filterOptions as $optionKey => $option)
+                        <li>
+                            <a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['period' => $optionKey]) }}">
+                                {{ $option }}
+                            </a>
+                        </li>
                     @endforeach
                 </ul>
             </div>

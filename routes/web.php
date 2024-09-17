@@ -47,22 +47,27 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'adminDashboard'])->name('admin/dashboard');
 
     // Daftar pengguna
-    Route::get('/admin/users/usersList', [UserController::class, 'index'])->name('users');
-    Route::get('/admin/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/admin/users/plants/store', [UserController::class, 'store'])->name('users.store');
-    Route::get('/admin/users/{id}', [UserController::class, 'show'])->name('users.show');
-    Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::prefix('admin/users')->group(function () {
+        Route::get('/usersList', [UserController::class, 'index'])->name('users');
+        Route::get('/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/plants/store', [UserController::class, 'store'])->name('users.store');
+        Route::get('/{id}', [UserController::class, 'show'])->name('users.show');
+        Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/{id}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    });
 
     // Tanaman
-    Route::get('/admin/inventaris/plants', [PlantController::class, 'index'])->name('plants');
-    Route::get('/admin/inventaris/plants/create', [PlantController::class, 'create'])->name('plants.create');
-    Route::post('/admin/inventaris/plants/store', [PlantController::class, 'store'])->name('plants.store');
-    Route::get('/admin/inventaris/plants/{plantCode}', [PlantController::class, 'show'])->name('plants.show');
-    Route::get('/admin/inventaris/plants/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
-    Route::put('/admin/inventaris/plants/{id}', [PlantController::class, 'update'])->name('plants.update');
-    Route::delete('/admin/inventaris/plants/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
+    Route::prefix('admin/inventaris/plants')->group(function () {
+        Route::get('/', [PlantController::class, 'index'])->name('plants');
+        Route::get('/create', [PlantController::class, 'create'])->name('plants.create');
+        Route::post('/store', [PlantController::class, 'store'])->name('plants.store');
+        Route::get('/{plantCode}', [PlantController::class, 'show'])->name('plants.show');
+        Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
+        Route::put('/{id}', [PlantController::class, 'update'])->name('plants.update');
+        Route::delete('/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
+    });
+
 
     // Kategori
     Route::prefix('admin/attributes/categories')->group(function () {

@@ -17,7 +17,7 @@ class UserController extends Controller
         $r = mt_rand($min, 0xFF);
         $g = mt_rand($min, 0xFF);
         $b = mt_rand($min, 0xFF);
-
+ 
         // Buat warna hex
         $randomColor = sprintf('#%02X%02X%02X', $r, $g, $b);
 
@@ -25,7 +25,7 @@ class UserController extends Controller
         $luminance = (0.299 * $r + 0.587 * $g + 0.114 * $b);
 
         // Jika kecerahan rendah, warna teks jadi putih, jika tinggi warna teks jadi hitam
-        $textColor = ($luminance > 186) ? '#000000' : '#FFFFFF';
+        $textColor = ($luminance > 186) ? '#021526' : '#F5F5F5';
 
         return ['background' => $randomColor, 'text' => $textColor];
     }

@@ -199,7 +199,7 @@
                         document.getElementById('plantBenefits').removeAttribute('readonly');
                         });
                     });
-                    </script>
+                </script>
 
                 <!-- End JavaScript for Auto Fill -->
 

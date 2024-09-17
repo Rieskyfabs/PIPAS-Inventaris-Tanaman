@@ -16,39 +16,53 @@
 
         <section class="section dashboard"> 
             <div class="row">
+                <form method="GET" action="{{ route('plants') }}">
+                    <div class="mb-3">
+                        <label for="period" class="form-label">Filter Periode</label>
+                        <select name="period" id="period" class="form-select" onchange="this.form.submit()">
+                            <option value="today" {{ $period == 'today' ? 'selected' : '' }}>Hari ini</option>
+                            <option value="this_month" {{ $period == 'this_month' ? 'selected' : '' }}>Bulan Ini</option>
+                            <option value="this_year" {{ $period == 'this_year' ? 'selected' : '' }}>Tahun Ini</option>
+                        </select>
+                    </div>
+                </form>
                 <!-- Summary Card -->
+
                 <x-card
                     type="plants"
                     title="Total Tanaman"
-                    period="Hari ini"
-                    icon="ri-plant-fill"
-                    value="{{ $totalQuantity }}"
-                    changePercent="12" 
-                    changeType="increase"
-                    :filter="true"
-                    :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+                    :period="$period == 'today' ? 'Hari ini' : ($period == 'this_month' ? 'Bulan Ini' : 'Tahun Ini')"
+                    icon="ri-seedling-fill"
+                    :value="$totalPlants"
+                    :changePercent="$changePercentTotal" 
+                    :changeType="$changeTypeTotal"
+                    :filter="null"  {{-- Tidak ada filter --}}
                 />
+
+                <!-- Card Tanaman Masuk -->
                 <x-card
                     type="revenue"
                     title="Tanaman Masuk"
-                    period="Hari ini"
+                    :period="$period == 'today' ? 'Hari ini' : ($period == 'this_month' ? 'Bulan Ini' : 'Tahun Ini')"
                     icon="ri-inbox-archive-fill"
-                    value="24"
-                    changePercent="12" 
-                    changeType="increase"
+                    :value="$plantsIn"
+                    :changePercent="$changePercentIn"
+                    :changeType="$changeTypeIn"
                     :filter="true"
-                    :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+                    :filterOptions="['today' => 'Hari ini', 'this_month' => 'Bulan Ini', 'this_year' => 'Tahun Ini']"
                 />
+
+                <!-- Card Tanaman Keluar -->
                 <x-card
                     type="location"
                     title="Tanaman Keluar"
-                    period="Hari ini"
+                    :period="$period == 'today' ? 'Hari ini' : ($period == 'this_month' ? 'Bulan Ini' : 'Tahun Ini')"
                     icon="ri-inbox-unarchive-fill"
-                    value="12"
-                    changePercent="12" 
-                    changeType="increase"
+                    :value="$plantsOut"
+                    :changePercent="$changePercentOut"
+                    :changeType="$changeTypeOut"
                     :filter="true"
-                    :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+                    :filterOptions="['today' => 'Hari ini', 'this_month' => 'Bulan Ini', 'this_year' => 'Tahun Ini']"
                 />
                 <!-- End Summary Card -->
                 
@@ -169,10 +183,7 @@
                                                 <td>{{ $plant->total_quantity }}</td>
                                                 <td>
                                                     <x-action-buttons
-                                                        action="{{ route('plants.destroy', $plant->id) }}"
                                                         viewData="{{ route('plants.show', $plant->plantCode->plant_code) }}"
-                                                        method="DELETE"
-                                                        submit="true"
                                                         :dropdown="[ ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'] ]"
                                                     />
                                                 </td>
