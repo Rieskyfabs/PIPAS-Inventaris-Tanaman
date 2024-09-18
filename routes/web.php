@@ -100,7 +100,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     });
 
     // Lokasi
-    Route::prefix('admin/attributes/plant-code')->group(function () {
+    Route::prefix('admin/attributes/plant-attributes')->group(function () {
         Route::get('/', [PlantCodesController::class, 'index'])->name('plantCodes');
         Route::get('/create', [PlantCodesController::class, 'create'])->name('plantCodes.create');
         Route::post('/', [PlantCodesController::class, 'store'])->name('plantCodes.store');

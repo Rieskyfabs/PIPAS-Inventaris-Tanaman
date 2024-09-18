@@ -47,7 +47,7 @@
                     </a>
                     <ul id="plantsAttribute-nav" class="nav-content collapse {{ Request::is('admin/attributes*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <li>
-                            <a class="{{ Request::is('admin/attributes/plant-code') ? 'active' : '' }}" href="{{ route('plantCodes') }}">
+                            <a class="{{ Request::is('admin/attributes/plant-attributes') ? 'active' : '' }}" href="{{ route('plantCodes') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('Plants Attributes') }}</span>
                             </a>
                         </li>

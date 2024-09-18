@@ -87,6 +87,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $roles = Role::all();
+
         return view('admin.pages.users.edit', compact('user', 'roles'));
     }
 
@@ -114,7 +115,7 @@ class UserController extends Controller
         $user->status = $request->status;
         $user->save();
 
-        Alert::success('Edit Data User', 'Berhasil mengUpdate data User');
+        Alert::success('Edit Data User', 'Berhasil mengupdate data User');
 
         return redirect()->route('users');
     }

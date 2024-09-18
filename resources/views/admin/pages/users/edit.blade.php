@@ -36,32 +36,32 @@
                     @method('PUT')
                     <div class="form-floating mb-3">
                         <input type="text" name="username" class="form-control" id="floatingInput" value="{{ $user->username }}" required>
-                        <label for="floatingInput">Username</label>
+                        <label for="floatingInput">{{__('Username')}}</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="email" name="email" class="form-control" id="floatingEmail" value="{{ $user->email }}" required>
-                        <label for="floatingEmail">Email address</label>
+                        <label for="floatingEmail">{{__('Email Address')}}</label>
                     </div>
                     <div class="form-floating mb-3">
                       <select name="role_id" class="form-select" id="userRole" required>
-                          <option value="" disabled>Silakan pilih role</option>
+                          <option value="" disabled>{{__('Silakan pilih role')}}</option>
                           @foreach($roles as $role)
                               <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
                                   {{ $role->name }}
                               </option>
                           @endforeach
                       </select>
-                      <label for="userRole">User Role</label>
+                      <label for="userRole">{{__('User Role')}}</label>
                     </div>
                     <div class="form-floating mb-3">
                         <select name="status" class="form-select" id="userStatus" required>
-                            <option value="active" {{ $user->status == 'active' ? 'selected' : '' }}>Active</option>
-                            <option value="inactive" {{ $user->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                            <option value="active" {{ $user->status == 'active' ? 'selected' : '' }}>{{__('Active')}}</option>
+                            <option value="inactive" {{ $user->status == 'inactive' ? 'selected' : '' }}>{{__('Inactive')}}</option>
                         </select>
-                        <label for="userStatus">Status</label>
+                        <label for="userStatus">{{__('Status')}}</label>
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">{{__('Update')}}</button>
                   </form>
                 <!-- End General Form Elements -->
               </div>

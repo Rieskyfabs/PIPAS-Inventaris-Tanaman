@@ -47,7 +47,7 @@ body {
   position: relative;
   /* Ensure positioning works with absolute children */
   flex: 1;
-  background-image: url('/images/P5-SideImage.png');
+  background-image: url('/images/bg-login-ai.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -117,11 +117,11 @@
                           </td>
                           <td>
                               @if($user->status == 'active')
-                                  <span class="badge badge-soft-green">Active</span>
+                                  <span class="badge badge-soft-green">{{__('Active')}}</span>
                               @elseif($user->status == 'inactive')
-                                  <span class="badge badge-soft-gray">Inactive</span>
+                                  <span class="badge badge-soft-gray">{{__('Inactive')}}</span>
                               @else
-                                  <span class="badge badge-soft-secondary">Unknown</span>
+                                  <span class="badge badge-soft-secondary">{{__('Unknown')}}</span>
                               @endif
                           </td>
                           <td>
