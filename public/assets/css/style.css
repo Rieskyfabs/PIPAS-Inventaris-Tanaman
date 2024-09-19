@@ -1463,3 +1463,18 @@ h6 {
   font-weight: bold;
   font-size: 18px;
 }
+
+select[readonly] {
+  pointer-events: none;
+  background-color: #e9ecef;
+  /* Warna abu-abu untuk efek disable */
+  color: #6c757d;
+  /* Warna teks abu-abu */
+  border: 1px solid #ced4da;
+  cursor: not-allowed;
+}
+
+select[readonly]:focus {
+  outline: none;
+  /* Agar tidak ada border saat di-klik */
+}

@@ -68,7 +68,6 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::delete('/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
     });
 
-
     // Kategori
     Route::prefix('admin/attributes/categories')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('categories');
@@ -110,4 +109,3 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     });
 
 });
-

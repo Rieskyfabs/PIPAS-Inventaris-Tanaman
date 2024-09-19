@@ -29,7 +29,7 @@
                     </a>
                     <ul id="plants-nav" class="nav-content collapse {{ Request::is('admin/inventaris*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <li>
-                            <a class="{{ Request::is('admin/inventaris/plants*') ? 'active' : '' }}" href="{{ route('plants') }}">
+                            <a class="{{ Request::is('admin/inventaris/plants') ? 'active' : '' }}" href="{{ route('plants') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('All Plants') }}</span>
                             </a>
                         </li>
