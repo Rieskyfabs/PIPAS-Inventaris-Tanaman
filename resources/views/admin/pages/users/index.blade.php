@@ -101,16 +101,18 @@
                             </div>
                           </td>
                           <td>
-                            <span class="role-label {{ strtolower($user->role->name) }}">
-                                @if($user->role->name === 'admin')
-                                    <i class="fas fa-crown"></i>
-                                @elseif($user->role->name === 'user')
-                                    <i class="fas fa-user"></i>
-                                @else
-                                    <i class="fas fa-user-tag"></i>
-                                @endif
-                                {{ ucfirst($user->role->name) }}
-                            </span>
+                              <span class="role-label {{ strtolower($user->role->name) }}">
+                                  @if($user->role->name === 'admin')
+                                      <i class="fas fa-desktop"></i> <!-- Icon for Admin -->
+                                  @elseif($user->role->name === 'super admin')
+                                      <i class="fas fa-shield-alt"></i> <!-- Icon for Super Admin -->
+                                  @elseif($user->role->name === 'user')
+                                      <i class="fas fa-user"></i> <!-- Icon for Guest -->
+                                  @else
+                                      <i class="fas fa-user-tag"></i> <!-- Default icon for other roles (optional) -->
+                                  @endif
+                                  {{ ucfirst($user->role->name) }} <!-- Capitalizes the first letter of the role name -->
+                              </span>
                           </td>
                           <td>
                               @if($user->status == 'active')
