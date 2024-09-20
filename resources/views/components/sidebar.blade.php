@@ -4,12 +4,11 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         @auth
-
             <!-- User Info -->
             <div class="user-info">
                 <div class="avatar">
                     <!-- Fetch the user's avatar from the specified path, or use a default image if none exists -->
-                    <img src="{{ Auth::user()->avatar ? asset('assets/img/' . Auth::user()->avatar) : asset('assets/img/default-profile-pic.jpg') }}" 
+                    <img src="{{ Auth::user()->avatar ? asset('assets/img/' . Auth::user()->avatar) : Avatar::create(Auth::user()->username)->toBase64() }}" 
                         alt="User Avatar" class="rounded-circle" width="50px">
                 </div>
                 <div class="user-details">

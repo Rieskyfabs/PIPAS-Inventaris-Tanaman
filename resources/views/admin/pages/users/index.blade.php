@@ -59,7 +59,6 @@
             <!-- End Total Users Inactive Card -->
 
           <div class="col-lg-12">
-
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">{{ __('Users Data') }}</h5>
@@ -91,9 +90,7 @@
                                 @if ($user->profile_image)
                                     <img src="{{ asset($user->profile_image) }}" alt="Profile Image" class="users-image">
                                 @else
-                                    <div class="initials-avatar" style="background-color: {{ $user->colors['background'] }}; color: {{ $user->colors['text'] }};">
-                                      {{ strtoupper(substr($user->username, 0, 2)) }}
-                                    </div>
+                                    <img src="{{ Avatar::create($user->username)->toBase64() }}" class="users-image" />
                                 @endif
                               </div>
                             </div>
