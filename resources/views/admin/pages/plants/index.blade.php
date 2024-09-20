@@ -77,20 +77,37 @@
 
                             <script>
                                 document.addEventListener("DOMContentLoaded", () => {
-           
                                     const chartData = @json($chartData);
 
-                                    // Inisialisasi ApexCharts dengan data yang diambil
+                                    // Define a mapping of status to colors
+                                    const colorMapping = {
+                                        "sehat": '#28a745',  // Green
+                                        "baik": '#007bff',   // Blue
+                                        "layu": '#ffc107',   // Yellow
+                                        "sakit": '#dc3545'   // Red
+                                    };
+
+                                    // Create an array for series and corresponding colors
+                                    const seriesData = [];
+                                    const colors = [];
+
+                                    chartData.labels.forEach(label => {
+                                        seriesData.push(chartData.series[chartData.labels.indexOf(label)]);
+                                        colors.push(colorMapping[label]);
+                                    });
+
+                                    // Initialize ApexCharts with the fetched data
                                     new ApexCharts(document.querySelector("#plantStatus"), {
-                                        series: chartData.series, // Nilai jumlah tanaman berdasarkan status
+                                        series: seriesData, // Values of plant counts based on status
                                         chart: {
                                             height: 350,
-                                            type: 'pie', // Tipe chart 'pie'
+                                            type: 'pie', // Pie chart type
                                             toolbar: {
-                                                show: true // Tampilkan toolbar
+                                                show: true // Show toolbar
                                             }
                                         },
-                                        labels: chartData.labels, // Label status (Sehat, Sakit, dll.)
+                                        labels: chartData.labels, // Status labels
+                                        colors: colors, // Set custom colors for the statuses
                                         responsive: [{
                                             breakpoint: 480,
                                             options: {
@@ -106,6 +123,7 @@
                                 });
                             </script>
                             <!-- End Pie Chart -->
+
                         </div>
                     </div>
                 </div>
