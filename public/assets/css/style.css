@@ -1478,3 +1478,35 @@ select[readonly]:focus {
   outline: none;
   /* Agar tidak ada border saat di-klik */
 }
+
+/* User info styling */
+.user-info {
+  display: flex;
+  align-items: center;
+  background-color: #eef2f7;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.avatar img {
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 50%;
+  /* To make sure the image is clear */
+}
+
+.user-details h5 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+  /* Slightly darker for better contrast */
+  font-weight: 500;
+}
+
+.user-details span {
+  font-size: 0.8rem;
+  color: #6c757d;
+  opacity: 0.7;
+  /* Light grey for subtle role display */
+}

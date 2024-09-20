@@ -28,7 +28,7 @@
     <li>
       <a class="dropdown-item d-flex align-items-center" href="{{ $profileUrl }}">
         <i class="bi bi-person"></i>
-        <span>Profile Saya</span>
+        <span>{{__('Profile Saya')}}</span>
       </a>
     </li>
     <li>
@@ -38,7 +38,7 @@
     <li>
       <a class="dropdown-item d-flex align-items-center" href="{{ $helpUrl }}">
         <i class="bi bi-question-circle"></i>
-        <span>Butuh Bantuan?</span>
+        <span>{{__('Butuh Bantuan?')}}</span>
       </a>
     </li>
     <li>
@@ -48,7 +48,7 @@
     <li>
       <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
         <i class="bi bi-box-arrow-right"></i>
-        <span>Keluar</span>
+        <span>{{__('Keluar')}}</span>
       </a>
     </li>
   </ul>

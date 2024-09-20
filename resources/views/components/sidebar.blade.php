@@ -4,7 +4,25 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         @auth
+
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="avatar">
+                    <!-- Fetch the user's avatar from the specified path, or use a default image if none exists -->
+                    <img src="{{ Auth::user()->avatar ? asset('assets/img/' . Auth::user()->avatar) : asset('assets/img/default-profile-pic.jpg') }}" 
+                        alt="User Avatar" class="rounded-circle" width="50px">
+                </div>
+                <div class="user-details">
+                    <!-- Display the logged-in user's username -->
+                    <h5>{{ Auth::user()->username }}</h5>
+                    <!-- Display the user's role -->
+                    <span>{{ Auth::user()->role->name }}</span>
+                </div>
+            </div>
+
             @if (Auth::user()->role->name == 'user')
+                <li class="nav-heading">{{ __('Dashboard') }}</li>
+
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('dashboard') ? '' : 'collapsed' }}" href="{{ route('dashboard') }}">
                         <i class="bi bi-grid"></i>
@@ -13,6 +31,8 @@
                 </li>
                 <!-- End Dashboard Nav -->
             @else
+                <li class="nav-heading">{{ __('Dashboard') }}</li>
+
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/dashboard') ? '' : 'collapsed' }}" href="{{ route('admin/dashboard') }}">
                         <i class="bi bi-grid"></i>
