@@ -43,7 +43,14 @@ class PlantController extends Controller
         }
 
         // Ambil data tanaman dan group berdasarkan kode tanaman
-        $plants = Plant::selectRaw('MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, MIN(location_id) as location_id, MIN(status) as status, MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, MAX(created_at) as created_at')
+        $plants = Plant::selectRaw('
+            MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, 
+            MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, 
+            MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, 
+            MIN(location_id) as location_id, MIN(status) as status, 
+            MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, 
+            MAX(created_at) as created_at, MIN(harvest_status) as harvest_status
+        ')
         ->groupBy('plant_code_id')
         ->orderBy('created_at', 'desc')
         ->with(['plantCode', 'category', 'benefit', 'location'])
@@ -123,8 +130,6 @@ class PlantController extends Controller
         ));
     }
 
-
-
     public function create()
     {
         $categories = Category::all();
@@ -137,6 +142,7 @@ class PlantController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi input
         $request->validate([
             'plant_name_id' => 'required',
             'plant_scientific_name_id' => 'required',
@@ -150,17 +156,40 @@ class PlantController extends Controller
             'seeding_date' => 'required|date',
         ]);
 
+        // Ambil tanggal tanam
         $seedingDate = $request->input('seeding_date');
+
+        // Estimasi tanggal panen (misalnya 90 hari setelah tanam)
         $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days'));
 
-        Plant::create(array_merge($request->all(), ['harvest_date' => $harvestDate]));
+        // Tentukan status panen secara otomatis
+        $today = Carbon::now();
+        $harvestDateCarbon = Carbon::parse($harvestDate);
+
+        $harvestStatus = 'belum panen';
+        if ($harvestDateCarbon->lessThanOrEqualTo($today)) {
+            $harvestStatus = 'sudah dipanen';
+        } elseif ($harvestDateCarbon->subDays(7)->lessThanOrEqualTo($today)) {
+            // 7 hari sebelum panen dianggap siap panen
+            $harvestStatus = 'siap panen';
+        }
+
+        // Buat tanaman baru dengan data yang digabung dan tambahkan harvest_status serta harvest_date
+        Plant::create(array_merge(
+            $request->all(),
+            [
+                'harvest_date' => $harvestDate,
+                'harvest_status' => $harvestStatus,
+            ]
+        ));
 
         // Tampilkan pesan sukses
         Alert::success('Data Tanaman Ditambahkan', 'Berhasil menambahkan data Tanaman');
 
-        // Redirect ke halaman users
+        // Redirect ke halaman sebelumnya
         return redirect()->back();
     }
+
 
     public function edit($id)
     {
@@ -216,12 +245,32 @@ class PlantController extends Controller
 
     public function show($plantCode)
     {
+        // Update harvest status based on harvest_date automatically
+        $today = Carbon::today();
 
+        // Update status to 'sudah dipanen' if harvest_date is less than or equal to today
+        Plant::where('harvest_date', '<=', $today)
+            ->where('harvest_status', '!=', 'sudah dipanen')
+            ->update(['harvest_status' => 'sudah dipanen']);
+
+        // Update status to 'siap panen' if harvest_date is within the next 7 days
+        Plant::whereBetween('harvest_date', [$today, $today->copy()->addDays(7)])
+            ->where('harvest_status', '!=', 'siap panen')
+            ->where('harvest_status', '!=', 'sudah dipanen')
+            ->update(['harvest_status' => 'siap panen']);
+
+        // Update status to 'belum panen' if harvest_date is in the future
+        Plant::where('harvest_date', '>', $today->copy()->addDays(7))
+            ->where('harvest_status', '!=', 'belum panen')
+            ->update(['harvest_status' => 'belum panen']);
+
+        // Retrieve plant data based on the selected plant code
         $plants = Plant::with('category', 'benefit', 'location')
             ->whereHas('plantCode', function ($query) use ($plantCode) {
                 $query->where('plant_code', $plantCode);
             })->get();
 
+        // Confirmation for deletion
         $title = 'Delete Plants!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);

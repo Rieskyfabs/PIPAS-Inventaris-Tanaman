@@ -41,6 +41,7 @@
                                           <th>#</th>
                                           <th>{{__('LOCATIONS')}}</th>
                                           <th>{{__('STATUS')}}</th>
+                                          <th>{{__('CREATED AT')}}</th>
                                           <th>{{__('ACTIONS')}}</th>
                                       </tr>
                                   </thead>
@@ -58,6 +59,7 @@
                                                       <span class="badge badge-soft-secondary">Unknown</span>
                                                   @endif
                                               </td>
+                                              <td>{{ $location->created_at->format('d F Y, H:i') }}</td>
                                               <td>
                                                   <x-action-buttons
                                                         deleteData="{{ route('locations.destroy', $location->id) }}"

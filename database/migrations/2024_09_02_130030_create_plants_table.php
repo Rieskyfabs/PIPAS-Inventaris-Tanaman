@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('status', ['sehat', 'baik', 'layu', 'sakit']);
             $table->date('seeding_date')->nullable();
             $table->date('harvest_date')->nullable();
+            $table->enum('harvest_status', ['belum panen', 'siap panen', 'sudah dipanen'])->default('belum panen');
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\PlantCode;
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Location;
 use App\Models\Plant;
@@ -27,6 +28,16 @@ class PlantFactory extends Factory
         // Tentukan tanggal penanaman dan panen
         $seedingDate = $this->faker->dateTimeBetween('-1 months', 'now');
         $harvestDate = Carbon::parse($seedingDate)->addDays(90);
+        $today = new DateTime();
+
+        // Tentukan harvest_status
+        if ($harvestDate <= $today) {
+            $harvestStatus = 'sudah dipanen';
+        } elseif ($harvestDate <= (clone $today)->modify('+7 days')) {
+            $harvestStatus = 'siap panen';
+        } else {
+            $harvestStatus = 'belum panen';
+        }
 
         // Get related data
         $location = Location::inRandomOrder()->first();
@@ -40,6 +51,7 @@ class PlantFactory extends Factory
             'plant_scientific_name_id' => $plantCode->id,  // Ganti jika berbeda
             'type' => $this->faker->randomElement(['Herbal', 'Sayuran']),
             'qr_code' => $this->faker->optional()->word,
+            'harvest_status' => $harvestStatus,
             'category_id' => $categoryId,
             'location_id' => $location ? $location->id : null,
             'benefit_id' => $benefitId,

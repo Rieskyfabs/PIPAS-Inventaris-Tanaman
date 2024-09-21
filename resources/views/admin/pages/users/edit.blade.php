@@ -47,7 +47,7 @@
                           <option value="" disabled>{{__('Silakan pilih role')}}</option>
                           @foreach($roles as $role)
                               <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>
-                                  {{ $role->name }}
+                                  {{ ucfirst($role->name) }}
                               </option>
                           @endforeach
                       </select>

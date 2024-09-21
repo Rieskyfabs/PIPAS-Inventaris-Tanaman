@@ -40,8 +40,12 @@
                                       <tr>
                                           <th>#</th>
                                           <th>{{__('PLANT CODE')}}</th>
+                                          <th>{{__('PLANT NAME')}}</th>
+                                          <th>{{__('CATEGORY')}}</th>
+                                          <th>{{__('BENEFIT')}}</th>
                                           <th>{{__('DESCRIPTION')}}</th>
                                           <th>{{__('STATUS')}}</th>
+                                          <th>{{__('CREATED AT')}}</th>
                                           <th>{{__('ACTIONS')}}</th>
                                       </tr>
                                   </thead>
@@ -50,26 +54,52 @@
                                           <tr>
                                               <td>{{ $loop->iteration }}</td>
                                               <td>{{ $code->plant_code }}</td>
-                                              <td>{{ $code->description ?? 'No Description' }}</td>
                                               <td>
-                                                  @if($code->status == 'active')
-                                                      <span class="badge badge-soft-green">Active</span>
-                                                  @elseif($code->status == 'inactive')
-                                                      <span class="badge badge-soft-gray">Inactive</span>
-                                                  @else
-                                                      <span class="badge badge-soft-secondary">Unknown</span>
-                                                  @endif
-                                              </td>
-                                              <td>
-                                                <x-action-buttons
-                                                    deleteData="{{ route('plantCodes.destroy', $code->id) }}"
-                                                    method="DELETE"
-                                                    submit="true" {{-- Tombol hapus akan muncul --}}
-                                                    :dropdown="[ 
-                                                        ['href' => route('plantCodes.edit', $code->id), 'label' => 'Edit'], 
-                                                    ]"
-                                                />
-                                              </td>
+                                                <div class="d-flex flex-column">
+                                                    <a href="app-user-view-account.html" class="text-heading text-truncate">
+                                                        <span class="fw-medium">{{ $code->name }}</span>
+                                                    </a>
+                                                    <small>{{ $code->scientific_name ?? 'Unknown' }}</small>
+                                                    <small>
+                                                        @if ($code->type === 'Sayuran')
+                                                            <span class="badge badge-soft-green">
+                                                                <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $code->type }}
+                                                            </span>
+                                                        @elseif ($code->type === 'Herbal')
+                                                            <span class="badge badge-soft-warning">
+                                                                <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $code->type }}
+                                                            </span>
+                                                        @else
+                                                            <span class="badge badge-soft-gray">
+                                                                {{ $code->type ?? 'Unknown' }}
+                                                            </span>
+                                                        @endif
+                                                    </small>
+                                                </div>
+                                            </td>
+                                            <td>{{ $code->category->name ?? 'Kategori tidak ditemukan' }}</td>
+                                            <td>{{ $code->benefit->name ?? 'Manfaat tidak ditemukan' }}</td>
+                                            <td>{{ $code->description ?? 'No Description' }}</td>
+                                            <td>
+                                                @if($code->status == 'active')
+                                                    <span class="badge badge-soft-green">Active</span>
+                                                @elseif($code->status == 'inactive')
+                                                    <span class="badge badge-soft-gray">Inactive</span>
+                                                @else
+                                                    <span class="badge badge-soft-secondary">Unknown</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $code->created_at->format('d F Y, H:i') }}</td>
+                                            <td>
+                                            <x-action-buttons
+                                                deleteData="{{ route('plantCodes.destroy', $code->id) }}"
+                                                method="DELETE"
+                                                submit="true" {{-- Tombol hapus akan muncul --}}
+                                                :dropdown="[ 
+                                                    ['href' => route('plantCodes.edit', $code->id), 'label' => 'Edit'], 
+                                                ]"
+                                            />
+                                            </td>
                                           </tr>
                                       @endforeach
                                   </tbody>

@@ -54,14 +54,13 @@
                                       <th>ID</th>
                                       <th>Kode</th>
                                       <th>Nama</th>
-                                      <th>Nama Ilmiah</th>
-                                      <th>Tipe</th>
                                       <th>Kategori</th>
                                       <th>Manfaat</th>
                                       <th>Lokasi</th>
-                                      <th>Status</th>
+                                      <th>Kondisi</th>
                                       <th>Tanggal Tanam</th>
-                                      <th>Tanggal Panen</th>
+                                      <th>Est. Tanggal Panen</th>
+                                      <th>{{__('Status')}}</th>
                                       <th>QR Code</th>
                                       <th>Actions</th>
                                     </tr>
@@ -71,22 +70,28 @@
                                         <tr>
                                             <td>{{ $plant->id }}</td>
                                             <td>{{ $plant->plantCode ? $plant->plantCode->plant_code : 'Unknown' }}</td>
-                                            <td>{{ $plant->plantCode->name }}</td>
-                                            <td>{{ $plant->plantCode->scientific_name ?? 'Unknown' }}</td>
                                             <td>
-                                                @if ($plant->type === 'Sayuran')
-                                                    <span class="badge badge-soft-green">
-                                                        <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                                    </span>
-                                                @elseif ($plant->type === 'Herbal')
-                                                    <span class="badge badge-soft-warning">
-                                                        <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                                    </span>
-                                                @else
-                                                    <span class="badge badge-soft-gray">
-                                                        {{ $plant->type ?? 'Unknown' }}
-                                                    </span>
-                                                @endif
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-heading text-truncate">
+                                                        <span class="fw-medium">{{ $plant->plantCode->name }}</span>
+                                                    </a>
+                                                    <small>{{ $plant->plantCode->scientific_name ?? 'Unknown' }}</small>
+                                                    <small>
+                                                        @if ($plant->type === 'Sayuran')
+                                                            <span class="badge badge-soft-green">
+                                                                <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
+                                                            </span>
+                                                        @elseif ($plant->type === 'Herbal')
+                                                            <span class="badge badge-soft-warning">
+                                                                <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
+                                                            </span>
+                                                        @else
+                                                            <span class="badge badge-soft-gray">
+                                                                {{ $plant->type ?? 'Unknown' }}
+                                                            </span>
+                                                        @endif
+                                                    </small>
+                                                </div>
                                             </td>
                                             <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
                                             <td>{{ $plant->benefit->name ?? 'Manfaat tidak ditemukan' }}</td>
@@ -98,11 +103,20 @@
                                                     @elseif ($plant->status === 'layu') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
                                                     @elseif ($plant->status === 'sakit') badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
                                                     @else bg-secondary @endif">
-                                                    {{ $plant->status }}
+                                                    {{ ucfirst($plant->status) }}
                                                 </span>
                                             </td>
                                             <td>{{ \Carbon\Carbon::parse($plant->seeding_date)->format('d M Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($plant->harvest_date)->format('d M Y') }}</td>
+                                            <td>
+                                                <span class="badge 
+                                                    @if ($plant->harvest_status === 'belum panen') badge-soft-warning
+                                                    @elseif ($plant->harvest_status === 'siap panen') badge-soft-primary
+                                                    @elseif ($plant->harvest_status === 'sudah dipanen') badge-soft-green
+                                                    @endif">
+                                                    {{ ucfirst($plant->harvest_status) }}
+                                                </span>
+                                            </td>
                                             <td>
                                               <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->name }}">
                                             </td>
@@ -122,6 +136,7 @@
                             </table>
                             <!-- End Table with stripped rows -->
                         </div>
+
                     </div>
                 </div>
             </div>

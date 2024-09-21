@@ -22,6 +22,7 @@ class Plant extends Model
         'status',
         'seeding_date',
         'harvest_date',
+        'harvest_status',
     ];
 
     public function category()
