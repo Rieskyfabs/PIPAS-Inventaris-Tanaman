@@ -12,8 +12,8 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
-        $title = 'Delete Category!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Apakah anda yakin ingin menghapus kategori ini?';
+        $text = "semua data tanaman dengan kategori ini akan terhapus juga";
         confirmDelete($title, $text);
 
         return view('admin.pages.categories.index', compact('categories'));

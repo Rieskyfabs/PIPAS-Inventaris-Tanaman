@@ -13,7 +13,7 @@
                 </div>
                 <div class="user-details">
                     <!-- Display the logged-in user's username -->
-                    <h5>{{ Auth::user()->username }}</h5>
+                    <h6>{{ Auth::user()->username }}</h6>
                     <!-- Display the user's role -->
                     <span>{{ Auth::user()->role->name }}</span>
                 </div>

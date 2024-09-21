@@ -14,9 +14,9 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::all();
-        
-        $title = 'Delete Location!';
-        $text = "Are you sure you want to delete?";
+
+        $title = 'Apakah anda yakin ingin menghapus lokasi ini?';
+        $text = "semua data tanaman dengan lokasi ini akan terhapus juga";
         confirmDelete($title, $text);
 
         return view('admin.pages.locations.index', compact('locations'));

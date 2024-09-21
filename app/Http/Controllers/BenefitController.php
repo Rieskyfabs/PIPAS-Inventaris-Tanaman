@@ -12,8 +12,8 @@ class BenefitController extends Controller
     {
         $benefits = Benefit::all();
 
-        $title = 'Delete Benefits!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Apakah anda yakin ingin menghapus manfaat ini?';
+        $text = "semua data tanaman dengan manfaat ini akan terhapus juga";
         confirmDelete($title, $text);
 
         return view('admin.pages.benefits.index', compact('benefits'));

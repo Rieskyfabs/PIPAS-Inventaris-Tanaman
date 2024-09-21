@@ -1482,7 +1482,7 @@ select[readonly]:focus {
   /* To make sure the image is clear */
 }
 
-.user-details h5 {
+.user-details h6 {
   margin: 0;
   font-size: 1.1rem;
   color: #333;
@@ -1495,4 +1495,44 @@ select[readonly]:focus {
   color: #6c757d;
   opacity: 0.7;
   /* Light grey for subtle role display */
+}
+
+/* Custom styles for the profile dropdown */
+
+/* Profile Image Styling */
+.custom-profile-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+/* User Info Section */
+.custom-user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.custom-username {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+  /* Slight space between username and role */
+}
+
+.custom-role {
+  font-size: 12px;
+  color: #6c757d;
+  text-align: left;
+  /* Muted grey color for role text */
+}
+
+/* Dropdown Header Container */
+.custom-profile-header {
+  padding: 10px;
+  /* Light background to make header stand out */
+  border-bottom: 1px solid #e9ecef;
 }

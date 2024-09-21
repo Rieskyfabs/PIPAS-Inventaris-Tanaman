@@ -38,7 +38,7 @@
             @endauth
         
             <x-profile-dropdown 
-                profileImage="{{ Auth::user()->profile_image ?? asset('/assets/img/default-profile-pic.jpg') }}" 
+                profileImage="{{ Auth::user()->profile_image ?? Avatar::create(Auth::user()->username)->toBase64()  }}" 
                 username="{{ Auth::user()->username }}" 
                 email="{{ Auth::user()->email }}" 
                 role="{{ Auth::user()->role->name }}"
