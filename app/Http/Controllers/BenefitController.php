@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Benefit;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BenefitController extends Controller
 {
     public function index()
     {
         $benefits = Benefit::all();
+
+        $title = 'Apakah anda yakin ingin menghapus manfaat ini?';
+        $text = "semua data tanaman dengan manfaat ini akan terhapus juga";
+        confirmDelete($title, $text);
+
         return view('admin.pages.benefits.index', compact('benefits'));
     }
 
@@ -52,7 +58,8 @@ class BenefitController extends Controller
         $benefit = Benefit::findOrFail($id);
         $benefit->delete();
 
-        return redirect()->route('benefits')->with('success', 'Benefit deleted successfully.');
+        Alert::success('Hapus Data benefits', 'Berhasil mengHapus data benefits');
+        return redirect()->route('benefits');
     }
 }
 

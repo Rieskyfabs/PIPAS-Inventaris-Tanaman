@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Location;
+use App\Models\PlantCode;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class LocationController extends Controller
+class PlantCodesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $locations = Location::all();
+        $plantCodes = PlantCode::with(['category', 'benefit'])->get();
 
-        $title = 'Apakah anda yakin ingin menghapus lokasi ini?';
-        $text = "semua data tanaman dengan lokasi ini akan terhapus juga";
+        $title = 'Delete Plant Attributes!';
+        $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        return view('admin.pages.locations.index', compact('locations'));
+        return view('admin.pages.plantCodes.index', compact('plantCodes'));
     }
 
     /**
@@ -41,7 +41,7 @@ class LocationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Location $location)
+    public function show(string $id)
     {
         //
     }
@@ -49,7 +49,7 @@ class LocationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Location $location)
+    public function edit(string $id)
     {
         //
     }
@@ -57,7 +57,7 @@ class LocationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Location $location)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -67,10 +67,13 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
-        $location = Location::findOrFail($id);
-        $location->delete();
+        $plantCodes = PlantCode::findOrFail($id);
 
-        Alert::success('Hapus Data locations', 'Berhasil mengHapus data locations');
-        return redirect()->route('locations');
+        // Hapus record tanaman dari database
+        $plantCodes->delete();
+
+        Alert::success('Hapus Data Attribute Tanaman', 'Berhasil menghapus data Attribute Tanaman');
+
+        return redirect()->back();
     }
 }

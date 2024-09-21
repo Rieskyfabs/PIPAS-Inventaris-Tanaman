@@ -59,7 +59,6 @@
             <!-- End Total Users Inactive Card -->
 
           <div class="col-lg-12">
-
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">{{ __('Users Data') }}</h5>
@@ -73,7 +72,7 @@
                 </div>
               <div class="table-responsive">
                 <!-- Table with stripped rows -->
-                <table class="table datatable">
+                <table class="table table-bordered table-hover datatable">
                   <thead>
                       <tr>
                         <th>{{__('USER')}}</th>
@@ -88,7 +87,11 @@
                           <td>
                             <div class="d-flex justify-content-start align-items-center user-name">
                               <div class="avatar-wrapper"><div class="avatar avatar-sm me-4">
-                                <img src="{{ $user->profile_image ? asset($user->profile_image) : asset('/assets/img/default-profile-pic.jpg') }}" alt="Profile Image" class="users-image">
+                                @if ($user->profile_image)
+                                    <img src="{{ asset($user->profile_image) }}" alt="Profile Image" class="users-image">
+                                @else
+                                    <img src="{{ Avatar::create($user->username)->toBase64() }}" class="users-image" />
+                                @endif
                               </div>
                             </div>
                             <div class="d-flex flex-column">
@@ -98,33 +101,38 @@
                             </div>
                           </td>
                           <td>
-                            <span class="role-label {{ strtolower($user->role) }}">
-                                @if($user->role === 'admin')
-                                    <i class="fas fa-crown"></i>
-                                @elseif($user->role === 'user')
-                                    <i class="fas fa-user"></i>
-                                @else
-                                    <i class="fas fa-user-tag"></i>
-                                @endif
-                                {{ ucfirst($user->role) }}
-                            </span>
+                              <span class="role-label {{ strtolower($user->role->name) }}">
+                                  @if($user->role->name === 'admin')
+                                      <i class="fas fa-desktop"></i> <!-- Icon for Admin -->
+                                  @elseif($user->role->name === 'super admin')
+                                      <i class="fas fa-shield-alt"></i> <!-- Icon for Super Admin -->
+                                  @elseif($user->role->name === 'user')
+                                      <i class="fas fa-user"></i> <!-- Icon for Guest -->
+                                  @else
+                                      <i class="fas fa-user-tag"></i> <!-- Default icon for other roles (optional) -->
+                                  @endif
+                                  {{ ucfirst($user->role->name) }} <!-- Capitalizes the first letter of the role name -->
+                              </span>
                           </td>
                           <td>
                               @if($user->status == 'active')
-                                  <span class="badge badge-soft-green">Active</span>
+                                  <span class="badge badge-soft-green">{{__('Active')}}</span>
                               @elseif($user->status == 'inactive')
-                                  <span class="badge badge-soft-gray">Inactive</span>
+                                  <span class="badge badge-soft-gray">{{__('Inactive')}}</span>
                               @else
-                                  <span class="badge badge-soft-secondary">Unknown</span>
+                                  <span class="badge badge-soft-secondary">{{__('Unknown')}}</span>
                               @endif
                           </td>
                           <td>
                               <x-action-buttons
-                                  action="{{ route('users.destroy', $user->id) }}"
                                   viewData="{{ route('users.show', $user->id) }}"
+                                  deleteData="{{ route('users.destroy', $user->id) }}"
                                   method="DELETE"
-                                  submit="true"
-                                  :dropdown="[ ['href' => route('users.edit', $user->id), 'label' => 'Edit'], ['href' => '#', 'label' => 'Suspend User'] ]"
+                                  submit="true" {{-- Tombol hapus akan muncul --}}
+                                  :dropdown="[ 
+                                      ['href' => route('users.edit', $user->id), 'label' => 'Edit'], 
+                                      ['href' => '#', 'label' => 'Suspend User'] 
+                                  ]"
                               />
                           </td>
                         </tr>
@@ -138,6 +146,7 @@
           </div>
         </div>
       </section>
+      
     </main>
   </div>
 @endsection

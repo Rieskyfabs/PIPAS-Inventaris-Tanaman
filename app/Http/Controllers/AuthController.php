@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('guest')->except('logout');
     }
+
     public function register()
     {
         return view('auth/register');
@@ -47,7 +49,7 @@ class AuthController extends Controller
         }
 
         // Ambil user yang telah diautentikasi
-        $user = auth()->user();
+        $user = Auth::user();
 
         // Periksa status user (misalnya "active" atau "inactive")
         if ($user->status !== 'active') {
@@ -62,21 +64,24 @@ class AuthController extends Controller
         // Setel pesan sukses
         Alert::success('Login Berhasil!', 'Selamat datang di dashboard anda.');
 
-        // Redirect berdasarkan peran pengguna
-        if ($user->role === 'admin') {
+        // Redirect berdasarkan role_id
+        if ($user->role_id === Role::where('name', 'admin')->first()->id) {
             return redirect()->route('admin/dashboard');
         } else {
             return redirect()->route('dashboard');
         }
     }
 
-
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::guard('web')->logout();
 
-        $request->Session()->invalidate();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         Alert::info('Anda Logout', 'Terimakasih telah berkunjung!, datang lagi yaa!');
 
         return redirect()->route('home');
     }
 }
+

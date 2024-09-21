@@ -3,7 +3,7 @@
 
     <x-logo-sidebar 
         logoSrc="{{ asset('images/wikrama-logo.png')}} " 
-        logoText="DAMASU PIPAS" 
+        logoText="SIM PIPAS" 
     />
     <!-- End Logo -->
 
@@ -24,7 +24,7 @@
             <!-- End Search Icon -->
 
             @auth
-                @if (Auth::user()->role == 'admin')
+                @if (Auth::user()->role->name == 'admin')
                     <x-notification-dropdown 
                         :notificationCount="4" 
                         :notifications="[
@@ -36,18 +36,15 @@
                     />
                 @endif
             @endauth
-            
-
+        
             <x-profile-dropdown 
-                profileImage="{{ Auth::user()->profile_image ?? asset('/assets/img/default-profile-pic.jpg') }}" 
+                profileImage="{{ Auth::user()->profile_image ?? Avatar::create(Auth::user()->username)->toBase64()  }}" 
                 username="{{ Auth::user()->username }}" 
                 email="{{ Auth::user()->email }}" 
-                role="{{ Auth::user()->role }}"
+                role="{{ Auth::user()->role->name }}"
                 profileUrl="users-profile.html" 
-                
                 helpUrl="pages-faq.html" 
             />
-
 
         </ul>
     </nav>

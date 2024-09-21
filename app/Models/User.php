@@ -22,7 +22,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'role',
+        'role_id',
         'status'
     ];
 
@@ -51,5 +51,10 @@ class User extends Authenticatable
         return new Attribute(
             get: fn ($value) => ["user", "admin"][$value],
         );
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

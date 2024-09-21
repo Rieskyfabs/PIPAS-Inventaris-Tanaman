@@ -9,18 +9,19 @@ class Benefit extends Model
 {
     use HasFactory;
 
-    protected $table = 'benefits';
-
-    protected $primaryKey = 'benefit_id';
-
     protected $fillable = [
-        'description',
+        'name',
+        'status'
     ];
 
     // Relasi dengan Plant
     public function plants()
     {
         return $this->hasMany(Plant::class);
+    }
+    public function plantCodes()
+    {
+        return $this->hasMany(PlantCode::class);
     }
 }
 

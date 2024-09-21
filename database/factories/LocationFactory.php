@@ -13,6 +13,7 @@ class LocationFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->randomElement(['Rooftop', 'GreenRoof', 'Depan Lab DKV', 'Pendopo']),
+            'status' => $this->faker->randomElement(['active', 'inactive']),
         ];
     }
 }

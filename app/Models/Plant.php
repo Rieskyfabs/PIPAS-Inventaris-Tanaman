@@ -10,12 +10,13 @@ class Plant extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'scientific_name',
+        'plant_code_id',
+        'plant_name_id',
+        'plant_scientific_name_id',
         'type',
         'qr_code',
         'category_id',
-        'quantity',
+        // 'quantity',
         'benefit_id',
         'location_id',
         'status',
@@ -36,6 +37,11 @@ class Plant extends Model
     public function location()
     {
         return $this->belongsTo(Location::class, 'location_id', 'id');
+    }
+
+    public function plantCode()
+    {
+        return $this->belongsTo(PlantCode::class, 'plant_code_id', 'id');
     }
 
     public function setTypeAttribute($value)

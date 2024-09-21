@@ -17,7 +17,8 @@ class BenefitFactory extends Factory
     public function definition(): array
     {
         return [
-            'description' => $this->faker->sentence(),
+            'name' => $this->faker->sentence(),
+            'status' => $this->faker->randomElement(['active', 'inactive']),
         ];
     }
 }
