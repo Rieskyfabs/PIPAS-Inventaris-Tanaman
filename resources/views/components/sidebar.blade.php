@@ -4,7 +4,24 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         @auth
-            @if (Auth::user()->role == 'user')
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="avatar">
+                    <!-- Fetch the user's avatar from the specified path, or use a default image if none exists -->
+                    <img src="{{ Auth::user()->avatar ? asset('assets/img/' . Auth::user()->avatar) : Avatar::create(Auth::user()->username)->toBase64() }}" 
+                        alt="User Avatar" class="rounded-circle" width="50px">
+                </div>
+                <div class="user-details">
+                    <!-- Display the logged-in user's username -->
+                    <h6>{{ Auth::user()->username }}</h6>
+                    <!-- Display the user's role -->
+                    <span>{{ Auth::user()->role->name }}</span>
+                </div>
+            </div>
+
+            @if (Auth::user()->role->name == 'user')
+                <li class="nav-heading">{{ __('Dashboard') }}</li>
+
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('dashboard') ? '' : 'collapsed' }}" href="{{ route('dashboard') }}">
                         <i class="bi bi-grid"></i>
@@ -13,6 +30,8 @@
                 </li>
                 <!-- End Dashboard Nav -->
             @else
+                <li class="nav-heading">{{ __('Dashboard') }}</li>
+
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/dashboard') ? '' : 'collapsed' }}" href="{{ route('admin/dashboard') }}">
                         <i class="bi bi-grid"></i>
@@ -34,17 +53,35 @@
                             </a>
                         </li>
                         <li>
-                            <a class="{{ Request::is('admin/inventaris/categories') ? 'active' : '' }}" href="{{ route('categories') }}">
+                            <a class="{{ Request::is('admin/inventaris/plants/create') ? 'active' : '' }}" href="{{ route('plants.create') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Create Plants') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('admin/attributes*') ? '' : 'collapsed' }}" data-bs-target="#plantsAttribute-nav" data-bs-toggle="collapse" href="#">
+                        <i class="ri-draft-fill"></i><span>{{ __('Plant Attributes') }}</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="plantsAttribute-nav" class="nav-content collapse {{ Request::is('admin/attributes*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a class="{{ Request::is('admin/attributes/plant-attributes') ? 'active' : '' }}" href="{{ route('plantCodes') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Plants Attributes') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{{ Request::is('admin/attributes/categories') ? 'active' : '' }}" href="{{ route('categories') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('Plants Categories') }}</span>
                             </a>
                         </li>
                         <li>
-                            <a class="{{ Request::is('admin/inventaris/benefits') ? 'active' : '' }}" href="{{ route('benefits') }}">
+                            <a class="{{ Request::is('admin/attributes/benefits') ? 'active' : '' }}" href="{{ route('benefits') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('Plants Benefits') }}</span>
                             </a>
                         </li>
                         <li>
-                            <a class="{{ Request::is('admin/inventaris/locations') ? 'active' : '' }}" href="{{ route('locations') }}">
+                            <a class="{{ Request::is('admin/attributes/locations') ? 'active' : '' }}" href="{{ route('locations') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('Plants Locations') }}</span>
                             </a>
                         </li>
@@ -53,8 +90,6 @@
 
                 <li class="nav-heading">{{ __('Users') }}</li>
 
-                
-                
                 <!-- Users -->
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/users*') ? '' : 'collapsed' }}" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
@@ -62,8 +97,13 @@
                     </a>
                     <ul id="users-nav" class="nav-content collapse {{ Request::is('admin/users*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <li>
-                            <a class="{{ Request::is('admin/users/usersList') ? 'active' : '' }}" href="{{ route('users') }}">
+                            <a class="{{ Request::is('admin/users/usersList*') ? 'active' : '' }}" href="{{ route('users') }}">
                                 <i class="bi bi-circle"></i><span>{{ __('All Users') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{{ Request::is('admin/users/create') ? 'active' : '' }}" href="{{ route('users.create') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Create New User') }}</span>
                             </a>
                         </li>
                     </ul>

@@ -9,10 +9,10 @@ class BenefitSeeder extends Seeder
 {
     public function run()
     {
-        Benefit::create(['description' => 'Kesehatan']);
-        Benefit::create(['description' => 'Kecantikan']);
-        Benefit::create(['description' => 'Pengobatan']);
-        Benefit::create(['description' => 'Pemanis']);
-        Benefit::create(['description' => 'Bumbu']);
+        Benefit::create(['name' => 'Kesehatan']);
+        Benefit::create(['name' => 'Kecantikan']);
+        Benefit::create(['name' => 'Pengobatan']);
+        Benefit::create(['name' => 'Pemanis']);
+        Benefit::create(['name' => 'Bumbu']);
     }
 }

@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
     public function index()
     {
         $categories = Category::all();
+
+        $title = 'Apakah anda yakin ingin menghapus kategori ini?';
+        $text = "semua data tanaman dengan kategori ini akan terhapus juga";
+        confirmDelete($title, $text);
+
         return view('admin.pages.categories.index', compact('categories'));
     }
 
@@ -54,6 +60,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect()->route('categories')->with('success', 'Category deleted successfully.');
+        Alert::success('Hapus Data categories', 'Berhasil mengHapus data categories');
+        return redirect()->route('categories');
     }
 }

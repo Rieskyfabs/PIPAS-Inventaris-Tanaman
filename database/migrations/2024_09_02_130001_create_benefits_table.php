@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('benefits', function (Blueprint $table) {
             $table->id(); // PK
-            $table->text('description');
+            $table->text('name');
+            $table->enum('status', ['active', 'inactive'])
+                ->default('active');
             $table->timestamps();
         });
     }

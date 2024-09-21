@@ -1411,41 +1411,128 @@ h6 {
   display: inline-block;
   padding: 5px 10px;
   border-radius: 5px;
-  font-weight: bold;
-  color: white;
+  font-weight: 500;
   font-size: 14px;
   text-transform: capitalize;
 }
 
-.role-label.admin {
-  background-color: #a3d5a1;
-  /* Warna hijau pastel lembut untuk admin */
-  color: #2d572c;
-  /* Warna teks hijau yang lebih gelap */
+.role-label.admin i {
+  color: #dc3545;
+  /* Red for Admin */
 }
 
-.role-label.moderator {
-  background-color: #f7d794;
-  /* Warna kuning pastel lembut untuk moderator */
-  color: #996c00;
-  /* Warna teks coklat kekuningan */
+.role-label.super-admin i {
+  color: #ffc107;
+  /* Yellow/Gold for Super Admin */
 }
 
-.role-label.user {
-  background-color: #a1c6e7;
-  /* Warna biru pastel lembut untuk user */
-  color: #2a4d69;
-  /* Warna teks biru yang lebih gelap */
-}
-
-.role-label.guest {
-  background-color: #d3d3d3;
-  /* Abu-abu lembut untuk guest */
-  color: #595959;
-  /* Warna teks abu-abu lebih gelap */
+.role-label.user i {
+  color: #41B06E;
+  /* Grey for Guest */
 }
 
 .role-label i {
   margin-right: 7px;
   /* Jarak antara ikon dan teks */
+}
+
+.initials-avatar {
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  /* Warna teks tetap putih agar kontras */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  /* Membuat lingkaran */
+  font-weight: bold;
+  font-size: 18px;
+}
+
+select[readonly] {
+  pointer-events: none;
+  background-color: #e9ecef;
+  /* Warna abu-abu untuk efek disable */
+  color: #6c757d;
+  /* Warna teks abu-abu */
+  border: 1px solid #ced4da;
+  cursor: not-allowed;
+}
+
+select[readonly]:focus {
+  outline: none;
+  /* Agar tidak ada border saat di-klik */
+}
+
+/* User info styling */
+.user-info {
+  display: flex;
+  align-items: center;
+  background-color: #f6f9ff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.avatar img {
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 50%;
+  /* To make sure the image is clear */
+}
+
+.user-details h6 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+  /* Slightly darker for better contrast */
+  font-weight: 500;
+}
+
+.user-details span {
+  font-size: 0.8rem;
+  color: #6c757d;
+  opacity: 0.7;
+  /* Light grey for subtle role display */
+}
+
+/* Custom styles for the profile dropdown */
+
+/* Profile Image Styling */
+.custom-profile-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+/* User Info Section */
+.custom-user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.custom-username {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+  /* Slight space between username and role */
+}
+
+.custom-role {
+  font-size: 12px;
+  color: #6c757d;
+  text-align: left;
+  /* Muted grey color for role text */
+}
+
+/* Dropdown Header Container */
+.custom-profile-header {
+  padding: 10px;
+  /* Light background to make header stand out */
+  border-bottom: 1px solid #e9ecef;
 }

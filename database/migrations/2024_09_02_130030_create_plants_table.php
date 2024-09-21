@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('plants', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('scientific_name');
-            $table->enum('type', ['Herbal', 'Sayuran']); // Tipe tanaman dibatasi
+            $table->foreignId('plant_code_id')->constrained('plant_codes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('plant_name_id')->constrained('plant_codes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('plant_scientific_name_id')->constrained('plant_codes')->onDelete('cascade')->onUpdate('cascade');
+            $table->enum('type', ['Herbal', 'Sayuran']);
             $table->string('qr_code')->nullable();
-            $table->foreignId('category_id')->constrained('categories'); // FK ke categories
-            $table->integer('quantity')->default(0);
-            $table->foreignId('benefit_id')->constrained('benefits'); // FK ke benefits
-            $table->foreignId('location_id')->constrained('locations'); // FK ke locations
-            $table->enum('status', ['sehat', 'baik', 'layu', 'sakit']);; // Menambahkan kolom status
-            $table->date('seeding_date')->nullable(); // Menambahkan kolom tanggal pembibitan
-            $table->date('harvest_date')->nullable(); // Menambahkan kolom tanggal panen
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('benefit_id')->constrained('benefits')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('location_id')->constrained('locations')->onDelete('cascade')->onUpdate('cascade');
+            $table->enum('status', ['sehat', 'baik', 'layu', 'sakit']);
+            $table->date('seeding_date')->nullable();
+            $table->date('harvest_date')->nullable();
             $table->timestamps();
         });
     }

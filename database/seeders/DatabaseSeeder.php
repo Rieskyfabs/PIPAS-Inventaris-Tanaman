@@ -20,10 +20,11 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             CategorySeeder::class,
             BenefitSeeder::class,
+            PlantCodeSeeder::class,
             UserSeeder::class,
         ]);
 
         // Mengisi tabel plants dengan 20 data dummy
-        Plant::factory()->count(40)->create();
+        Plant::factory()->count(6)->create();
     }
 }

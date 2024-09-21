@@ -1,14 +1,16 @@
-<form action="{{ $action }}" method="POST" class="action-buttons">
+<form action="#" method="POST" class="action-buttons">
     @if(isset($viewData))
         <a href="{{ $viewData }}" class="icon-button"><i class="bi bi-eye"></i></a>
-    @else
-        <p>View URL is not set.</p>
     @endif
     @csrf
     @method($method ?? 'POST')
-    @if(isset($submit))
-        <button type="submit" class="icon-button"><i class="bi bi-trash"></i></button>
+
+    {{-- Tombol hapus hanya muncul jika submit bernilai true --}}
+    @if($submit)
+        {{-- <button type="submit" class="icon-button" data-confirm-delete="true"><i class="bi bi-trash"></i></button> --}}
+        <a href="{{ $deleteData }}" class="icon-button" data-confirm-delete="true"><i class="bi bi-trash"></i></a>
     @endif
+
     @if(isset($dropdown))
         <div class="dropdown">
             <button class="icon-button dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
