@@ -208,28 +208,31 @@
         <div class="col-lg-4">
           <!-- Recent Activity -->
           <div class="card">
-              <div class="card-body">
-                  <h5 class="card-title">{{__('Aktifitas Terbaru')}}</h5>
-                  <div class="activity">
-                      @forelse ($activityLogs as $log)
-                          <div class="activity-item d-flex">
-                              <div class="activite-label">{{ $log->performed_at->diffForHumans() }} </div>
-                              <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                              <div class="activity-content">
-                                  {{ $log->action }} - {{ $log->description }}
-                                  <br><small>Oleh: {{ $log->user->username }}</small>
-                              </div>
-                          </div><!-- End activity item-->
-                      @empty
-                          <div class="activity-item d-flex">
-                              <div class="activity-content">
-                                  {{__('Tidak Ada Aktivitas')}}
-                              </div>
-                          </div><!-- End activity item-->
-                      @endforelse
-                  </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ __('Aktifitas Terbaru') }}</h5>
+              <div class="activity">
+                @forelse ($activityLogs as $log)
+                  <div class="activity-item d-flex mb-3">
+                    <div class="activite-label text-muted small me-3" style="min-width: 70px;">
+                      {{ $log->performed_at->diffForHumans() }}
+                    </div>
+                    <i class='bi bi-circle-fill activity-badge text-success me-3'></i>
+                    <div class="activity-content">
+                      <strong>{{ $log->action }}</strong> - {{ $log->description }}
+                      <br><small class="text-muted">{{ __('Oleh') }}: {{ $log->user->username }}</small>
+                    </div>
+                  </div><!-- End activity item-->
+                @empty
+                  <div class="activity-item d-flex">
+                    <div class="activity-content">
+                      {{ __('Tidak Ada Aktivitas') }}
+                    </div>
+                  </div><!-- End activity item-->
+                @endforelse
               </div>
+            </div>
           </div>
+
           <!-- End Recent Activity -->
 
           <div class="col-lg-12">

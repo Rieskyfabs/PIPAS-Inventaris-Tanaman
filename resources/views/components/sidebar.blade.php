@@ -60,7 +60,7 @@
                         <!-- Plant Attributes as nav-item with sub-menu -->
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('admin/attributes*') ? '' : 'collapsed' }}" data-bs-target="#plants-attributes-subnav" data-bs-toggle="collapse" href="#">
-                                <i class="ri-draft-fill fs-5"></i><span>{{ __('Kelola Atribut') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
+                                <i class="bi bi-circle-fill"></i><span>{{ __('Kelola Atribut') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
                             </a>
                             <ul id="plants-attributes-subnav" class="nav-content collapse {{ Request::is('admin/attributes*') ? 'show' : '' }} ps-3" data-bs-parent="#plants-nav">
                                 <li>
@@ -72,7 +72,7 @@
                                     <a class="{{ Request::is('admin/attributes/categories') ? 'active' : '' }}" href="{{ route('categories') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Kategori Tanaman') }}</span>
                                     </a>
-                                </li>
+                                </li>   
                                 <li>
                                     <a class="{{ Request::is('admin/attributes/benefits') ? 'active' : '' }}" href="{{ route('benefits') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Manfaat Tanaman') }}</span>
@@ -97,7 +97,7 @@
                         </a>
                         <ul id="users-nav" class="nav-content collapse {{ Request::is('admin/users*') || Request::is('admin/role-permissions*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                             <li>
-                                <a class="{{ Request::is('admin/users/usersList*') ? 'active' : '' }}" href="{{ route('users') }}">
+                                <a class="{{ Request::is('admin/users*') ? 'active' : '' }}" href="{{ route('users') }}">
                                     <i class="bi bi-circle"></i><span>{{ __('List Pengguna') }}</span>
                                 </a>
                             </li>
@@ -105,7 +105,7 @@
                             <!-- Roles & Permissions as sub-menu -->
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::is('admin/role-permissions*') ? '' : 'collapsed' }}" data-bs-target="#roles-permissions-subnav" data-bs-toggle="collapse" href="#">
-                                    <i class="ri-shield-check-line fs-5"></i><span>{{ __('Roles & Permissions') }}</span><i class="bi bi-chevron-down ms-auto ms-auto me-3 fs-6"></i>
+                                    <i class="bi bi-circle-fill"></i><span>{{ __('Roles & Permissions') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
                                 </a>
                                 <ul id="roles-permissions-subnav" class="nav-content collapse {{ Request::is('admin/role-permissions*') ? 'show' : '' }} ps-3" data-bs-parent="#users-nav">
                                     <li>

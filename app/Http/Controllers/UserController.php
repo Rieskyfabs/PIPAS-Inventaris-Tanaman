@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -54,6 +55,8 @@ class UserController extends Controller
         // Tampilkan pesan sukses
         Alert::success('User Ditambahkan', 'Berhasil menambahkan data User');
 
+        ActivityLogger::log('create', 'Created a new User Data with name: ' . $request->username);
+
         // Redirect ke halaman users
         return redirect()->route('users');
     }
@@ -91,6 +94,8 @@ class UserController extends Controller
         $user->status = $request->status;
         $user->save();
 
+        ActivityLogger::log('update', 'Updated User Data with ID: ' . $user->id);
+
         Alert::success('Edit Data User', 'Berhasil mengupdate data User');
 
         return redirect()->route('users');
@@ -102,7 +107,10 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
+        ActivityLogger::log('delete', 'Deleted User Data with ID: ' . $user->id);
+
         Alert::success('Hapus Data User', 'Berhasil mengHapus data User');
+
         return redirect()->route('users');
     }
 

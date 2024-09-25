@@ -87,8 +87,6 @@ class PlantController extends Controller
             'labels' => $countByStatus->keys()->toArray()
         ];
 
-        $activityLogs = ActivityLog::latest()->limit(5)->get();
-
         $title = 'Delete Plants!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
@@ -101,7 +99,6 @@ class PlantController extends Controller
             'countByStatus',
             'chartData',
             'period',
-            'activityLogs'
         ));
     }
 
