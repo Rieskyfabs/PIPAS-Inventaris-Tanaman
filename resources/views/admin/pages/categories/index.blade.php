@@ -43,7 +43,7 @@
                         <tr>
                           <th>{{__('ID')}}</th>
                           <th>{{__('CATEGORIES NAME')}}</th>
-                          <th>{{__('STATUS')}}</th>
+                          {{-- <th>{{__('STATUS')}}</th> --}}
                           <th>{{__('CREATED AT')}}</th>
                           <th>{{__('ACTIONS')}}</th>
                         </tr>
@@ -54,13 +54,13 @@
                               <td>{{ $category->id }}</td>
                               <td>
                                   <div class="d-flex flex-column">
-                                      <a href="app-user-view-account.html" class="text-heading text-truncate">
+                                      <a href="#" class="text-heading text-truncate">
                                           <span class="fw-medium">{{ $category->name }}</span>
                                       </a>
                                       <small>{{ $category->description ?? 'No Description' }}</small>
                                   </div>
                               </td>
-                              <td>
+                              {{-- <td>
                                   @if($category->status == 'active')
                                       <span class="badge badge-soft-green">Active</span>
                                   @elseif($category->status == 'inactive')
@@ -68,7 +68,7 @@
                                   @else
                                       <span class="badge badge-soft-secondary">Unknown</span>
                                   @endif
-                              </td>
+                              </td> --}}
                               <td>{{ $category->created_at->format('d F Y, H:i') }}</td>
                               <td>
                                   <x-action-buttons

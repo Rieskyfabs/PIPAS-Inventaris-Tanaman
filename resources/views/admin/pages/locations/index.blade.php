@@ -40,7 +40,7 @@
                                       <tr>
                                           <th>#</th>
                                           <th>{{__('LOCATIONS')}}</th>
-                                          <th>{{__('STATUS')}}</th>
+                                          {{-- <th>{{__('STATUS')}}</th> --}}
                                           <th>{{__('CREATED AT')}}</th>
                                           <th>{{__('ACTIONS')}}</th>
                                       </tr>
@@ -50,7 +50,7 @@
                                           <tr>
                                               <td>{{ $loop->iteration }}</td>
                                               <td>{{ $location->name }}</td>
-                                              <td>
+                                              {{-- <td>
                                                   @if($location->status == 'active')
                                                       <span class="badge badge-soft-green">Active</span>
                                                   @elseif($location->status == 'inactive')
@@ -58,7 +58,7 @@
                                                   @else
                                                       <span class="badge badge-soft-secondary">Unknown</span>
                                                   @endif
-                                              </td>
+                                              </td> --}}
                                               <td>{{ $location->created_at->format('d F Y, H:i') }}</td>
                                               <td>
                                                   <x-action-buttons

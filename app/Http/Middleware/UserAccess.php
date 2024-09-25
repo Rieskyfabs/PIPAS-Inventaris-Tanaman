@@ -13,16 +13,16 @@ class UserAccess
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $userRole): Response
+    public function handle(Request $request, Closure $next, ...$userRoles): Response
     {
+        // Ambil role name dari user yang sedang login
         $roleName = auth()->user()->role->name;
 
-        if ($roleName == $userRole) {
+        // Cek apakah role user ada dalam daftar userRoles
+        if (in_array($roleName, $userRoles)) {
             return $next($request);
         }
 
         return response()->view('errors.403', [], 403);
     }
-
-
 }

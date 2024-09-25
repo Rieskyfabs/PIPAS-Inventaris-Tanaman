@@ -40,7 +40,7 @@
                         <tr>
                           <th>{{__('ID')}}</th>
                           <th>{{__('BENEFITS NAME')}}</th>
-                          <th>{{__('STATUS')}}</th>
+                          {{-- <th>{{__('STATUS')}}</th> --}}
                           <th>{{__('CREATED AT')}}</th>
                           <th>{{__('ACTIONS')}}</th>
                         </tr>
@@ -50,7 +50,7 @@
                             <tr>
                               <td>{{ $benefit->id }}</td>
                               <td>{{ $benefit->name }}</td>
-                              <td>
+                              {{-- <td>
                                   @if($benefit->status == 'active')
                                       <span class="badge badge-soft-green">Active</span>
                                   @elseif($benefit->status == 'inactive')
@@ -58,7 +58,7 @@
                                   @else
                                       <span class="badge badge-soft-secondary">Unknown</span>
                                   @endif
-                              </td>
+                              </td> --}}
                               <td>{{ $benefit->created_at->format('d F Y, H:i') }}</td>
                               <td>
                                   <x-action-buttons

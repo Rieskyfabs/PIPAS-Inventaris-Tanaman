@@ -44,7 +44,7 @@
                                           <th>{{__('CATEGORY')}}</th>
                                           <th>{{__('BENEFIT')}}</th>
                                           <th>{{__('DESCRIPTION')}}</th>
-                                          <th>{{__('STATUS')}}</th>
+                                          {{-- <th>{{__('STATUS')}}</th> --}}
                                           <th>{{__('CREATED AT')}}</th>
                                           <th>{{__('ACTIONS')}}</th>
                                       </tr>
@@ -56,7 +56,7 @@
                                               <td>{{ $code->plant_code }}</td>
                                               <td>
                                                 <div class="d-flex flex-column">
-                                                    <a href="app-user-view-account.html" class="text-heading text-truncate">
+                                                    <a href="#" class="text-heading text-truncate">
                                                         <span class="fw-medium">{{ $code->name }}</span>
                                                     </a>
                                                     <small>{{ $code->scientific_name ?? 'Unknown' }}</small>
@@ -80,7 +80,7 @@
                                             <td>{{ $code->category->name ?? 'Kategori tidak ditemukan' }}</td>
                                             <td>{{ $code->benefit->name ?? 'Manfaat tidak ditemukan' }}</td>
                                             <td>{{ $code->description ?? 'No Description' }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 @if($code->status == 'active')
                                                     <span class="badge badge-soft-green">Active</span>
                                                 @elseif($code->status == 'inactive')
@@ -88,7 +88,7 @@
                                                 @else
                                                     <span class="badge badge-soft-secondary">Unknown</span>
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             <td>{{ $code->created_at->format('d F Y, H:i') }}</td>
                                             <td>
                                             <x-action-buttons

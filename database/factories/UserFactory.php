@@ -23,14 +23,38 @@ class UserFactory extends Factory
         $role = Role::inRandomOrder()->first();
 
         return [
-            'username' => $this->faker->unique()->userName(), // Username yang unik
+            'username' => $this->faker->unique()->userName(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => Hash::make('password'), // Hashing password
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
-            'role_id' => $role ? $role->id : Role::factory(), // Menggunakan role_id yang ada atau membuat role baru
-            'status' => $this->faker->randomElement(['active', 'inactive']), // Status acak
+            'role_id' => $role ? $role->id : Role::factory()->create(['guard_name' => 'web'])->id,
+            'status' => $this->faker->randomElement(['active', 'inactive']),
         ];
+    }
+
+    /**
+     * State for Master.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+
+    public function master()
+    {
+        return $this->state(function (array $attributes) {
+            $masterRole = Role::firstOrCreate(
+                ['name' => 'master'],
+                ['guard_name' => 'web']
+            );
+
+            return [
+                'username' => 'master',
+                'email' => 'master@gmail.com',
+                'password' => Hash::make('password'),
+                'role_id' => $masterRole->id,
+                'status' => 'active',
+            ];
+        });
     }
 
     /**
@@ -38,18 +62,21 @@ class UserFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
+
     public function admin()
     {
         return $this->state(function (array $attributes) {
-            // Jika ingin mengatur role_id khusus untuk admin
-            $adminRole = Role::firstOrCreate(['name' => 'admin']);
+            $adminRole = Role::firstOrCreate(
+                ['name' => 'admin'],
+                ['guard_name' => 'web']
+            );
 
             return [
                 'username' => 'admin',
                 'email' => 'admin@gmail.com',
-                'password' => Hash::make('password'), // Password tetap
+                'password' => Hash::make('password'),
                 'role_id' => $adminRole->id,
-                'status' => 'active', // Admin biasanya aktif
+                'status' => 'active',
             ];
         });
     }
@@ -62,13 +89,15 @@ class UserFactory extends Factory
     public function normalUser()
     {
         return $this->state(function (array $attributes) {
-            // Jika ingin mengatur role_id khusus untuk user biasa
-            $userRole = Role::firstOrCreate(['name' => 'user']);
+            $userRole = Role::firstOrCreate(
+                ['name' => 'user'],
+                ['guard_name' => 'web']
+            );
 
             return [
                 'username' => $this->faker->unique()->userName(),
                 'email' => $this->faker->unique()->safeEmail(),
-                'password' => Hash::make('password'), // Password tetap
+                'password' => Hash::make('password'),
                 'role_id' => $userRole->id,
                 'status' => $this->faker->randomElement(['active', 'inactive']),
             ];

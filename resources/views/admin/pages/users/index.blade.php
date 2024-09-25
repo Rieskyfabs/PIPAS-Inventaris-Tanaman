@@ -104,8 +104,8 @@
                               <span class="role-label {{ strtolower($user->role->name) }}">
                                   @if($user->role->name === 'admin')
                                       <i class="fas fa-desktop"></i> <!-- Icon for Admin -->
-                                  @elseif($user->role->name === 'super admin')
-                                      <i class="fas fa-shield-alt"></i> <!-- Icon for Super Admin -->
+                                  @elseif($user->role->name === 'master')
+                                      <i class="fa-solid fa-crown"></i> <!-- Icon for Super Admin -->
                                   @elseif($user->role->name === 'user')
                                       <i class="fas fa-user"></i> <!-- Icon for Guest -->
                                   @else
@@ -125,7 +125,6 @@
                           </td>
                           <td>
                               <x-action-buttons
-                                  viewData="{{ route('users.show', $user->id) }}"
                                   deleteData="{{ route('users.destroy', $user->id) }}"
                                   method="DELETE"
                                   submit="true" {{-- Tombol hapus akan muncul --}}

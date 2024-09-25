@@ -9,7 +9,7 @@
       <x-breadcrumbs 
         title="{{ __('Plants')}}" 
         :items="[
-          ['route' => 'home', 'label' => 'Home'],
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
           ['label' => 'Data Tanaman']
         ]" 
       />
@@ -31,38 +31,24 @@
                 <x-card
                     type="plants"
                     title="Total Tanaman"
-                    :period="$period == 'today' ? 'Hari ini' : ($period == 'this_month' ? 'Bulan Ini' : 'Tahun Ini')"
                     icon="ri-seedling-fill"
                     :value="$totalPlants"
-                    :changePercent="$changePercentTotal" 
-                    :changeType="$changeTypeTotal"
-                    :filter="null"  {{-- Tidak ada filter --}}
                 />
 
                 <!-- Card Tanaman Masuk -->
                 <x-card
                     type="revenue"
                     title="Tanaman Masuk"
-                    :period="$period == 'today' ? 'Hari ini' : ($period == 'this_month' ? 'Bulan Ini' : 'Tahun Ini')"
                     icon="ri-inbox-archive-fill"
                     :value="$plantsIn"
-                    :changePercent="$changePercentIn"
-                    :changeType="$changeTypeIn"
-                    :filter="true"
-                    :filterOptions="['today' => 'Hari ini', 'this_month' => 'Bulan Ini', 'this_year' => 'Tahun Ini']"
                 />
 
                 <!-- Card Tanaman Keluar -->
                 <x-card
                     type="location"
                     title="Tanaman Keluar"
-                    :period="$period == 'today' ? 'Hari ini' : ($period == 'this_month' ? 'Bulan Ini' : 'Tahun Ini')"
                     icon="ri-inbox-unarchive-fill"
                     :value="$plantsOut"
-                    :changePercent="$changePercentOut"
-                    :changeType="$changeTypeOut"
-                    :filter="true"
-                    :filterOptions="['today' => 'Hari ini', 'this_month' => 'Bulan Ini', 'this_year' => 'Tahun Ini']"
                 />
                 <!-- End Summary Card -->
                 

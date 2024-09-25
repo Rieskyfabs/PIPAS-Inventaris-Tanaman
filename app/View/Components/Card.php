@@ -10,28 +10,18 @@ class Card extends Component
 {
     public $type;
     public $title;
-    public $period;
     public $icon;
     public $value;
-    public $changePercent;
-    public $changeType;
-    public $filter;
-    public $filterOptions;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($type, $title, $period, $icon, $value, $changePercent = 0, $changeType, $filter = null, $filterOptions = [])
+    public function __construct($type, $title, $icon, $value)
     {
         $this->type = $type;
         $this->title = $title;
-        $this->period = $period;
         $this->icon = $icon;
         $this->value = $value;
-        $this->changePercent = $changePercent;
-        $this->changeType = $changeType;
-        $this->filter = $filter;
-        $this->filterOptions = $filterOptions;
     }
 
     /**

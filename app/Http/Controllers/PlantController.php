@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogger;
+use App\Models\ActivityLog;
 use App\Models\Plant;
 use App\Models\Category;
 use App\Models\Benefit;
@@ -85,29 +87,7 @@ class PlantController extends Controller
             'labels' => $countByStatus->keys()->toArray()
         ];
 
-        // Hitung changePercent dan changeType untuk tanaman masuk
-        if ($previousPlantsIn > 0) {
-            $changePercentIn = (($plantsIn - $previousPlantsIn) / $previousPlantsIn) * 100;
-        } else {
-            $changePercentIn = $plantsIn > 0 ? 100 : 0;
-        }
-        $changeTypeIn = $changePercentIn >= 0 ? 'increase' : 'decrease';
-
-        // Hitung changePercent dan changeType untuk tanaman keluar
-        if ($previousPlantsOut > 0) {
-            $changePercentOut = (($plantsOut - $previousPlantsOut) / $previousPlantsOut) * 100;
-        } else {
-            $changePercentOut = $plantsOut > 0 ? 100 : 0;
-        }
-        $changeTypeOut = $changePercentOut >= 0 ? 'increase' : 'decrease';
-
-        // Hitung changePercent dan changeType untuk total tanaman
-        if ($previousTotalPlants > 0) {
-            $changePercentTotal = (($totalPlants - $previousTotalPlants) / $previousTotalPlants) * 100;
-        } else {
-            $changePercentTotal = $totalPlants > 0 ? 100 : 0;
-        }
-        $changeTypeTotal = $changePercentTotal >= 0 ? 'increase' : 'decrease';
+        $activityLogs = ActivityLog::latest()->limit(5)->get();
 
         $title = 'Delete Plants!';
         $text = "Are you sure you want to delete?";
@@ -121,12 +101,7 @@ class PlantController extends Controller
             'countByStatus',
             'chartData',
             'period',
-            'changePercentIn',
-            'changeTypeIn',
-            'changePercentOut',
-            'changeTypeOut',
-            'changePercentTotal',
-            'changeTypeTotal'
+            'activityLogs'
         ));
     }
 
@@ -167,9 +142,11 @@ class PlantController extends Controller
         $harvestDateCarbon = Carbon::parse($harvestDate);
 
         $harvestStatus = 'belum panen';
-        if ($harvestDateCarbon->lessThanOrEqualTo($today)) {
+
+        // Tentukan jika tanaman siap panen atau sudah dipanen
+        if ($harvestDateCarbon->isBefore($today)) {
             $harvestStatus = 'sudah dipanen';
-        } elseif ($harvestDateCarbon->subDays(7)->lessThanOrEqualTo($today)) {
+        } elseif ($harvestDateCarbon->copy()->subDays(7)->lessThanOrEqualTo($today)) {
             // 7 hari sebelum panen dianggap siap panen
             $harvestStatus = 'siap panen';
         }
@@ -183,13 +160,14 @@ class PlantController extends Controller
             ]
         ));
 
+        ActivityLogger::log('create', 'Created a new plant with code: ' . $request->plant_code_id);
+
         // Tampilkan pesan sukses
         Alert::success('Data Tanaman Ditambahkan', 'Berhasil menambahkan data Tanaman');
 
         // Redirect ke halaman sebelumnya
         return redirect()->back();
     }
-
 
     public function edit($id)
     {
@@ -224,6 +202,8 @@ class PlantController extends Controller
 
         $plant->update(array_merge($request->all(), ['harvest_date' => $harvestDate]));
 
+        ActivityLogger::log('update', 'Updated plant with ID: ' . $plant->id);
+
         // Tampilkan pesan sukses
         Alert::success('Data Tanaman DiUpdate', 'Berhasil mengUpdate data Tanaman');
 
@@ -237,6 +217,8 @@ class PlantController extends Controller
 
         // Hapus record tanaman dari database
         $plant->delete();
+
+        ActivityLogger::log('delete', 'Deleted plant with ID: ' . $plant->id);
         
         Alert::success('Hapus Data Tanaman', 'Berhasil mengHapus data Tanaman');
 

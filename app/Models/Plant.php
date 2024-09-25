@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,6 +25,11 @@ class Plant extends Model
         'harvest_date',
         'harvest_status',
     ];
+
+    public function isReadyToHarvest()
+    {
+        return Carbon::now()->greaterThanOrEqualTo($this->harvest_date);
+    }
 
     public function category()
     {
