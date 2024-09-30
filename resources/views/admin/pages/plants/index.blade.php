@@ -6,15 +6,15 @@
   <div>
     <main id="main" class="main">
 
-      <x-breadcrumbs 
-        title="{{ __('Plants')}}" 
+      <x-breadcrumbs
+        title="{{ __('Plants')}}"
         :items="[
           ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
           ['label' => 'Data Tanaman']
-        ]" 
+        ]"
       />
 
-        <section class="section dashboard"> 
+        <section class="section dashboard">
             <div class="row">
                 <form method="GET" action="{{ route('plants') }}">
                     <div class="mb-3">
@@ -51,7 +51,7 @@
                     :value="$plantsOut"
                 />
                 <!-- End Summary Card -->
-                
+
                 <!-- Right side columns -->
                 <div class="row-lg-6">
                     <div class="card">
@@ -143,7 +143,7 @@
                                     {{ __('Add Plant') }}
                                 </a>
                             </div>
-                            
+
                             <div class="table-responsive">
                                 <!-- Table with stripped rows -->
                                 <table class="table table-bordered table-hover datatable">
@@ -188,7 +188,6 @@
                                                 <td>
                                                     <x-action-buttons
                                                         viewData="{{ route('plants.show', $plant->plantCode->plant_code) }}"
-                                                        :dropdown="[ ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'] ]"
                                                     />
                                                 </td>
                                             </tr>
@@ -202,7 +201,7 @@
                 </div>
             </div>
         </section>
-    
+
     </main>
   </div>
 @endsection
