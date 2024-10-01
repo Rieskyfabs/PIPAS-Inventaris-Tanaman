@@ -107,21 +107,21 @@
                                             <option value="sakit" {{ $plant->status == 'sakit' ? 'selected' : '' }}>Sakit
                                             </option>
                                         </select>
-                                        <label for="status">{{ __('Status') }}</label>
+                                        <label for="status">{{ __('Status Tanaman') }}</label>
                                     </div>
 
                                     <!-- Seeding Date (editable) -->
                                     <div class="form-floating mb-3">
                                         <input type="date" name="seeding_date" class="form-control"
                                             value="{{ $plant->seeding_date }}" required>
-                                        <label for="seeding_date">{{ __('Seeding Date') }}</label>
+                                        <label for="seeding_date">{{ __('Tanggal Tanam') }}</label>
                                     </div>
 
                                     <!-- Harvest Date (editable) -->
                                     <div class="form-floating mb-3">
                                         <input type="date" name="harvest_date" class="form-control"
                                             value="{{ $plant->harvest_date }}" required>
-                                        <label for="harvest_date">{{ __('Harvest Date') }}</label>
+                                        <label for="harvest_date">{{ __('Tanggal Panen') }}</label>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
