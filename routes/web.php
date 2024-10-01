@@ -8,9 +8,11 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\PlantCodesController;
+use App\Http\Controllers\PlantAttributesController;
 use App\Http\Controllers\PlantController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -71,7 +73,7 @@ Route::middleware(['auth', 'user-access:master'])->group(function () {
         Route::get('/', [PlantController::class, 'index'])->name('master.plants');
         Route::get('/create', [PlantController::class, 'create'])->name('master.plants.create');
         Route::post('/store', [PlantController::class, 'store'])->name('master.plants.store');
-        Route::get('/{plantCode}', [PlantController::class, 'show'])->name('master.plants.show');
+        Route::get('/{plantAttribute}', [PlantController::class, 'show'])->name('master.plants.show');
         Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('master.plants.edit');
         Route::put('/{id}', [PlantController::class, 'update'])->name('master.plants.update');
         Route::delete('/{id}', [PlantController::class, 'destroy'])->name('master.plants.destroy');
@@ -109,12 +111,12 @@ Route::middleware(['auth', 'user-access:master'])->group(function () {
 
     // Plant Attributes
     Route::prefix('master/attributes/plant-attributes')->group(function () {
-        Route::get('/', [PlantCodesController::class, 'index'])->name('master.plantCodes');
-        Route::get('/create', [PlantCodesController::class, 'create'])->name('master.plantCodes.create');
-        Route::post('/store', [PlantCodesController::class, 'store'])->name('master.plantCodes.store');
-        Route::get('/{id}/edit', [PlantCodesController::class, 'edit'])->name('master.plantCodes.edit');
-        Route::put('/{id}', [PlantCodesController::class, 'update'])->name('master.plantCodes.update');
-        Route::delete('/{id}', [PlantCodesController::class, 'destroy'])->name('master.plantCodes.destroy');
+        Route::get('/', [PlantAttributesController::class, 'index'])->name('master.plantAttributes');
+        Route::get('/create', [PlantAttributesController::class, 'create'])->name('master.plantAttributes.create');
+        Route::post('/store', [PlantAttributesController::class, 'store'])->name('master.plantAttributes.store');
+        Route::get('/{id}/edit', [PlantAttributesController::class, 'edit'])->name('master.plantAttributes.edit');
+        Route::put('/{id}', [PlantAttributesController::class, 'update'])->name('master.plantAttributes.update');
+        Route::delete('/{id}', [PlantAttributesController::class, 'destroy'])->name('master.plantAttributes.destroy');
     });
 });
 
@@ -128,7 +130,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::get('/', [PlantController::class, 'index'])->name('plants');
         Route::get('/create', [PlantController::class, 'create'])->name('plants.create');
         Route::post('/store', [PlantController::class, 'store'])->name('plants.store');
-        Route::get('/{plantCode}', [PlantController::class, 'show'])->name('plants.show');
+        Route::get('/{plantAttribute}', [PlantController::class, 'show'])->name('plants.show');
         Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
         Route::put('/{id}', [PlantController::class, 'update'])->name('plants.update');
         Route::delete('/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
@@ -166,12 +168,18 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     // Lokasi
     Route::prefix('admin/attributes/plant-attributes')->group(function () {
-        Route::get('/', [PlantCodesController::class, 'index'])->name('plantCodes');
-        Route::get('/create', [PlantCodesController::class, 'create'])->name('plantCodes.create');
-        Route::post('/', [PlantCodesController::class, 'store'])->name('plantCodes.store');
-        Route::get('/{id}/edit', [PlantCodesController::class, 'edit'])->name('plantCodes.edit');
-        Route::put('/{id}', [PlantCodesController::class, 'update'])->name('plantCodes.update');
-        Route::delete('/{id}', [PlantCodesController::class, 'destroy'])->name('plantCodes.destroy');
+        Route::get('/', [PlantAttributesController::class, 'index'])->name('plantAttributes');
+        Route::get('/create', [PlantAttributesController::class, 'create'])->name('plantAttributes.create');
+        Route::post('/', [PlantAttributesController::class, 'store'])->name('plantAttributes.store');
+        Route::get('/{id}/edit', [PlantAttributesController::class, 'edit'])->name('plantAttributes.edit');
+        Route::put('/{id}', [PlantAttributesController::class, 'update'])->name('plantAttributes.update');
+        Route::delete('/{id}', [PlantAttributesController::class, 'destroy'])->name('plantAttributes.destroy');
+    });
+
+    // Transaksi
+    Route::prefix('admin/transactions')->group(function () {
+        Route::get('/tanaman-masuk', [TransactionController::class, 'tanamanMasuk'])->name('transactions.tanaman-masuk');
+        Route::get('/tanaman-keluar', [TransactionController::class, 'tanamanKeluar'])->name('transactions.tanaman-keluar');
     });
 
     // User Management

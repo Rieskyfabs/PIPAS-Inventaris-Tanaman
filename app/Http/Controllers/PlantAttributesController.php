@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PlantCode;
+use App\Models\PlantAttributes;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class PlantCodesController extends Controller
+class PlantAttributesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $plantCodes = PlantCode::with(['category', 'benefit'])->get();
+        $plantAttributes = PlantAttributes::with(['category', 'benefit'])->get();
 
         $title = 'Delete Plant Attributes!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        return view('admin.pages.plantCodes.index', compact('plantCodes'));
+        return view('admin.pages.plantAttributes.index', compact('plantAttributes'));
     }
 
     /**
@@ -67,10 +67,10 @@ class PlantCodesController extends Controller
      */
     public function destroy($id)
     {
-        $plantCodes = PlantCode::findOrFail($id);
+        $plantAttributes = PlantAttributes::findOrFail($id);
 
         // Hapus record tanaman dari database
-        $plantCodes->delete();
+        $plantAttributes->delete();
 
         Alert::success('Hapus Data Attribute Tanaman', 'Berhasil menghapus data Attribute Tanaman');
 

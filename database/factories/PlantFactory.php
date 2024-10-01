@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\PlantCode;
+use App\Models\PlantAttributes;
 use DateTime;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Location;
@@ -17,12 +17,12 @@ class PlantFactory extends Factory
 
     public function definition()
     {
-        // Ambil kode tanaman yang sudah ada di PlantCode
-        $plantCode = PlantCode::inRandomOrder()->first();
+        // Ambil kode tanaman yang sudah ada di PlantAttribute
+        $plantAttribute = PlantAttributes::inRandomOrder()->first();
 
         // Pastikan bahwa ada kode tanaman yang diambil
-        if (!$plantCode) {
-            throw new \Exception("No PlantCode available. Please seed the PlantCode table first.");
+        if (!$plantAttribute) {
+            throw new \Exception("No Plant Attribute available. Please seed the Plant Attribute table first.");
         }
 
         // Tentukan tanggal penanaman dan panen
@@ -44,11 +44,11 @@ class PlantFactory extends Factory
         $categoryId = Category::inRandomOrder()->first()->id ?? null;
         $benefitId = Benefit::inRandomOrder()->first()->id ?? null;
 
-        // Return data plant yang dibuat berdasarkan kode tanaman dari PlantCodeSeeder
+        // Return data plant yang dibuat berdasarkan kode tanaman dari PlantAttributeSeeder
         return [
-            'plant_code_id' => $plantCode->id,
-            'plant_name_id' => $plantCode->id,  // Ganti jika berbeda
-            'plant_scientific_name_id' => $plantCode->id,  // Ganti jika berbeda
+            'plant_code_id' => $plantAttribute->id,
+            'plant_name_id' => $plantAttribute->id,  // Ganti jika berbeda
+            'plant_scientific_name_id' => $plantAttribute->id,  // Ganti jika berbeda
             'type' => $this->faker->randomElement(['Herbal', 'Sayuran']),
             'qr_code' => $this->faker->optional()->word,
             'harvest_status' => $harvestStatus,

@@ -19,9 +19,9 @@ class Benefit extends Model
     {
         return $this->hasMany(Plant::class);
     }
-    public function plantCodes()
+    public function plantAttributes()
     {
-        return $this->hasMany(PlantCode::class);
+        return $this->hasMany(PlantAttributes::class);
     }
 }
 

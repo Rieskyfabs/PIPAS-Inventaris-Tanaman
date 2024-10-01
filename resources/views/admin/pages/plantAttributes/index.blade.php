@@ -21,7 +21,7 @@
                       <div class="card-body">
                           <h5 class="card-title">{{__('Plant Attributes')}}</h5>
                           <div class="add-btn-container">
-                              <a href="{{ route('plantCodes.create') }}" class="btn-add-item">
+                              <a href="{{ route('plantAttributes.create') }}" class="btn-add-item">
                                   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -50,53 +50,53 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      @foreach ($plantCodes as $code)
+                                      @foreach ($plantAttributes as $item)
                                           <tr>
                                               <td>{{ $loop->iteration }}</td>
-                                              <td>{{ $code->plant_code }}</td>
+                                              <td>{{ $item->plant_code }}</td>
                                               <td>
                                                 <div class="d-flex flex-column">
                                                     <a href="#" class="text-heading text-truncate">
-                                                        <span class="fw-medium">{{ $code->name }}</span>
+                                                        <span class="fw-medium">{{ $item->name }}</span>
                                                     </a>
-                                                    <small>{{ $code->scientific_name ?? 'Unknown' }}</small>
+                                                    <small>{{ $item->scientific_name ?? 'Unknown' }}</small>
                                                     <small>
-                                                        @if ($code->type === 'Sayuran')
+                                                        @if ($item->type === 'Sayuran')
                                                             <span class="badge badge-soft-green">
-                                                                <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $code->type }}
+                                                                <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $item->type }}
                                                             </span>
-                                                        @elseif ($code->type === 'Herbal')
+                                                        @elseif ($item->type === 'Herbal')
                                                             <span class="badge badge-soft-warning">
-                                                                <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $code->type }}
+                                                                <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $item->type }}
                                                             </span>
                                                         @else
                                                             <span class="badge badge-soft-gray">
-                                                                {{ $code->type ?? 'Unknown' }}
+                                                                {{ $item->type ?? 'Unknown' }}
                                                             </span>
                                                         @endif
                                                     </small>
                                                 </div>
                                             </td>
-                                            <td>{{ $code->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                                            <td>{{ $code->benefit->name ?? 'Manfaat tidak ditemukan' }}</td>
-                                            <td>{{ $code->description ?? 'No Description' }}</td>
+                                            <td>{{ $item->category->name ?? 'Kategori tidak ditemukan' }}</td>
+                                            <td>{{ $item->benefit->name ?? 'Manfaat tidak ditemukan' }}</td>
+                                            <td>{{ $item->description ?? 'No Description' }}</td>
                                             {{-- <td>
-                                                @if($code->status == 'active')
+                                                @if($item->status == 'active')
                                                     <span class="badge badge-soft-green">Active</span>
-                                                @elseif($code->status == 'inactive')
+                                                @elseif($item->status == 'inactive')
                                                     <span class="badge badge-soft-gray">Inactive</span>
                                                 @else
                                                     <span class="badge badge-soft-secondary">Unknown</span>
                                                 @endif
                                             </td> --}}
-                                            <td>{{ $code->created_at->format('d F Y, H:i') }}</td>
+                                            <td>{{ $item->created_at->format('d F Y, H:i') }}</td>
                                             <td>
                                             <x-action-buttons
-                                                deleteData="{{ route('plantCodes.destroy', $code->id) }}"
+                                                deleteData="{{ route('plantAttributes.destroy', $item->id) }}"
                                                 method="DELETE"
                                                 submit="true" {{-- Tombol hapus akan muncul --}}
                                                 :dropdown="[ 
-                                                    ['href' => route('plantCodes.edit', $code->id), 'label' => 'Edit'], 
+                                                    ['href' => route('plantAttributes.edit', $item->id), 'label' => 'Edit'], 
                                                 ]"
                                             />
                                             </td>

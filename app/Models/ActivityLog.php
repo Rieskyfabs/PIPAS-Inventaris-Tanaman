@@ -16,9 +16,9 @@ class ActivityLog extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function plantCode()
+    public function plantAttribute()
     {
-        return $this->belongsTo(PlantCode::class, 'plant_code_id', 'id');
+        return $this->belongsTo(PlantAttributes::class, 'plant_code_id', 'id');
     }
 
     protected $casts = [

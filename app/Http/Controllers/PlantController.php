@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PlantCreated;
+use App\Events\PlantHarvested;
 use App\Helpers\ActivityLogger;
 use App\Models\ActivityLog;
 use App\Models\Plant;
 use App\Models\Category;
 use App\Models\Benefit;
 use App\Models\Location;
-use App\Models\PlantCode;
+use App\Models\PlantAttributes;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -44,37 +46,48 @@ class PlantController extends Controller
                 break;
         }
 
-        // Ambil data tanaman dan group berdasarkan kode tanaman
+        // Ambil data tanaman yang belum dipanen dan group berdasarkan kode tanaman
         $plants = Plant::selectRaw('
-            MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, 
-            MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, 
-            MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, 
-            MIN(location_id) as location_id, MIN(status) as status, 
-            MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, 
-            MAX(created_at) as created_at, MIN(harvest_status) as harvest_status
-        ')
+        MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, 
+        MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, 
+        MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, 
+        MIN(location_id) as location_id, MIN(status) as status, 
+        MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, 
+        MAX(created_at) as created_at, MIN(harvest_status) as harvest_status
+    ')
+        ->where('harvest_status', '!=', 'sudah dipanen') // Hanya tanaman yang belum dipanen
         ->groupBy('plant_code_id')
         ->orderBy('created_at', 'desc')
-        ->with(['plantCode', 'category', 'benefit', 'location'])
+        ->with(['plantAttribute', 'category', 'benefit', 'location'])
         ->get();
 
-        // Hitung total tanaman
+        // Hitung total tanaman masuk (belum dipanen)
         $totalPlants = $plants->sum('total_quantity');
 
         // Hitung total tanaman pada periode sebelumnya
-        $previousTotalPlants = Plant::whereBetween('created_at', [$previousStartDate, $previousEndDate])->count();
+        $previousTotalPlants = Plant::where('harvest_status', '!=', 'sudah dipanen')
+        ->whereBetween('created_at', [$previousStartDate, $previousEndDate])
+        ->count();
 
-        // Hitung jumlah tanaman masuk berdasarkan seeding_date dan periode filter
-        $plantsIn = Plant::whereBetween('created_at', [$startDate, $endDate])->count();
+        // Hitung jumlah tanaman masuk (belum dipanen) berdasarkan seeding_date dan periode filter
+        $plantsIn = Plant::where('harvest_status', '!=', 'sudah dipanen')
+        ->whereBetween('created_at', [$startDate, $endDate])
+        ->count();
 
         // Hitung jumlah tanaman masuk pada periode sebelumnya
-        $previousPlantsIn = Plant::whereBetween('created_at', [$previousStartDate, $previousEndDate])->count();
+        $previousPlantsIn = Plant::where('harvest_status', '!=', 'sudah dipanen')
+        ->whereBetween('created_at', [$previousStartDate, $previousEndDate])
+        ->count();
 
-        // Hitung jumlah tanaman keluar berdasarkan harvest_date dan periode filter
-        $plantsOut = Plant::whereBetween('harvest_date', [$startDate, $endDate])->count();
+        // Hitung jumlah tanaman keluar (sudah dipanen) berdasarkan harvest_date dan periode filter
+        $plantsOut = Plant::where('harvest_status', 'sudah dipanen')
+        ->whereBetween('harvest_date', [$startDate, $endDate])
+        ->count();
 
         // Hitung jumlah tanaman keluar pada periode sebelumnya
-        $previousPlantsOut = Plant::whereBetween('harvest_date', [$previousStartDate, $previousEndDate])->count();
+        $previousPlantsOut = Plant::where('harvest_status', 'sudah dipanen')
+        ->whereBetween('harvest_date', [$previousStartDate, $previousEndDate])
+            ->count();
 
         // Hitung jumlah berdasarkan status tanaman
         $countByStatus = Plant::selectRaw('status, COUNT(*) as total_quantity')
@@ -102,14 +115,15 @@ class PlantController extends Controller
         ));
     }
 
+
     public function create()
     {
         $categories = Category::all();
         $benefits = Benefit::all();
         $locations = Location::all();
-        $plantCodes  = PlantCode::all();
+        $plantAttributes  = PlantAttributes::all();
 
-        return view('admin.pages.plants.create', compact('categories', 'benefits', 'locations', 'plantCodes'));
+        return view('admin.pages.plants.create', compact('categories', 'benefits', 'locations', 'plantAttributes'));
     }
 
     public function store(Request $request)
@@ -149,7 +163,7 @@ class PlantController extends Controller
         }
 
         // Buat tanaman baru dengan data yang digabung dan tambahkan harvest_status serta harvest_date
-        Plant::create(array_merge(
+        $plant = Plant::create(array_merge(
             $request->all(),
             [
                 'harvest_date' => $harvestDate,
@@ -157,6 +171,15 @@ class PlantController extends Controller
             ]
         ));
 
+        // Hitung jumlah tanaman berdasarkan plant_code_id
+        $jumlahMasuk = Plant::where('plant_code_id', $request->plant_code_id)->count() + 1;
+
+        // Memicu event PlantCreated dengan jumlah masuk tanaman
+        event(new PlantCreated($plant,
+            $jumlahMasuk
+        ));
+
+        // Mencatat aktivitas
         ActivityLogger::log('create', 'Created a new plant with code: ' . $request->plant_code_id);
 
         // Tampilkan pesan sukses
@@ -172,9 +195,9 @@ class PlantController extends Controller
         $categories = Category::all();
         $benefits = Benefit::all();
         $locations = Location::all();
-        $plantCodes = PlantCode::all();
+        $plantAttributes = plantAttributes::all();
 
-        return view('admin.pages.plants.edit', compact('plant', 'categories', 'benefits', 'locations', 'plantCodes'));
+        return view('admin.pages.plants.edit', compact('plant', 'categories', 'benefits', 'locations', 'plantAttributes'));
     }
 
     public function update(Request $request, $id)
@@ -222,31 +245,25 @@ class PlantController extends Controller
         return redirect()->route('plants');
     }
 
-    public function show($plantCode)
+    public function show($plantAttribute)
     {
-        // Update harvest status based on harvest_date automatically
         $today = Carbon::today();
 
-        // Update status to 'sudah dipanen' if harvest_date is less than or equal to today
-        Plant::where('harvest_date', '<=', $today)
-            ->where('harvest_status', '!=', 'sudah dipanen')
-            ->update(['harvest_status' => 'sudah dipanen']);
-
-        // Update status to 'siap panen' if harvest_date is within the next 7 days
+        // Automatically update status to 'siap panen' if harvest_date is less than or equal to today and within the next 7 days
         Plant::whereBetween('harvest_date', [$today, $today->copy()->addDays(7)])
             ->where('harvest_status', '!=', 'siap panen')
-            ->where('harvest_status', '!=', 'sudah dipanen')
+            ->where('harvest_status', '!=', 'sudah dipanen')  // Ensure we don't change 'sudah dipanen'
             ->update(['harvest_status' => 'siap panen']);
 
-        // Update status to 'belum panen' if harvest_date is in the future
+        // Update status to 'belum panen' if the harvest_date is further than 7 days in the future
         Plant::where('harvest_date', '>', $today->copy()->addDays(7))
             ->where('harvest_status', '!=', 'belum panen')
             ->update(['harvest_status' => 'belum panen']);
 
         // Retrieve plant data based on the selected plant code
         $plants = Plant::with('category', 'benefit', 'location')
-            ->whereHas('plantCode', function ($query) use ($plantCode) {
-                $query->where('plant_code', $plantCode);
+            ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
+                $query->where('plant_code', $plantAttribute);
             })->get();
 
         // Confirmation for deletion
@@ -255,6 +272,20 @@ class PlantController extends Controller
         confirmDelete($title, $text);
 
         return view('admin.pages.plants.show', compact('plants'));
+    }
+
+    // Menandai tanaman sebagai sudah dipanen
+    public function harvest($id)
+    {
+        $plant = Plant::findOrFail($id);
+        $plant->status = 'sudah dipanen'; // Atur status tanaman
+        $plant->save();
+
+        // Memicu event PlantHarvested
+        event(new PlantHarvested($plant));
+
+        // Redirect atau return response
+        return redirect()->route('plants.index')->with('success', 'Tanaman berhasil dipanen!');
     }
 
 }

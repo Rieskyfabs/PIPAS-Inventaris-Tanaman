@@ -36,28 +36,28 @@
                     @csrf
                     
                     <div class="form-floating mb-3">
-                        <select name="plant_code_id" class="form-select" id="plantCodes" required>
+                        <select name="plant_code_id" class="form-select" id="plantAttributes" required>
                             <option value="" disabled selected>Silahkan Pilih Kode Tanaman</option>
-                            @foreach ($plantCodes as $code)
-                                <option value="{{ $code->id }}" 
-                                        data-name="{{ $code->name }}" 
-                                        data-scientific-name="{{ $code->scientific_name }}" 
-                                        data-type="{{ $code->type }}"
-                                        data-category-id="{{ $code->category_id }}"
-                                        data-benefit-id="{{ $code->benefit_id }}">
-                                    {{ $code->plant_code }} : {{ $code->description }}
+                            @foreach ($plantAttributes as $item)
+                                <option value="{{ $item->id }}" 
+                                        data-name="{{ $item->name }}" 
+                                        data-scientific-name="{{ $item->scientific_name }}" 
+                                        data-type="{{ $item->type }}"
+                                        data-category-id="{{ $item->category_id }}"
+                                        data-benefit-id="{{ $item->benefit_id }}">
+                                    {{ $item->plant_code }} : {{ $item->description }}
                                 </option>
                             @endforeach
                         </select>
-                        <label for="plantCodes">Kode Tanaman</label>
+                        <label for="plantAttributes">Kode Tanaman</label>
                     </div>
                     
                     <!-- Nama Tanaman -->
                     <div class="form-floating mb-3">
                         <select name="plant_name_id" class="form-select" id="plantName" required>
                             <option value="" disabled selected>Nama Tanaman</option>
-                            @foreach ($plantCodes as $code)
-                                <option value="{{ $code->id }}">{{ $code->name }}</option>
+                            @foreach ($plantAttributes as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                         <label for="plantName">Nama Tanaman</label>
@@ -67,8 +67,8 @@
                     <div class="form-floating mb-3">
                         <select name="plant_scientific_name_id" class="form-select" id="scientificName" required>
                             <option value="" disabled selected>Nama Ilmiah</option>
-                            @foreach ($plantCodes as $code)
-                                <option value="{{ $code->id }}">{{ $code->scientific_name }}</option>
+                            @foreach ($plantAttributes as $item)
+                                <option value="{{ $item->id }}">{{ $item->scientific_name }}</option>
                             @endforeach
                         </select>
                         <label for="scientificName">Nama Ilmiah</label>
@@ -140,7 +140,7 @@
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         // Auto-fill logic when selecting plant code
-                        document.getElementById('plantCodes').addEventListener('change', function () {
+                        document.getElementById('plantAttributes').addEventListener('change', function () {
                         var selectedOption = this.options[this.selectedIndex];
 
                         // Mengambil data dari attribute 'data-*' di option yang dipilih

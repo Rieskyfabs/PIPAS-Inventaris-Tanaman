@@ -1,6 +1,6 @@
 <li class="nav-item dropdown">
   <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-    <i class="bi bi-bell"></i>
+    <i class="ri-notification-3-line"></i>
     <span class="badge bg-primary badge-number">{{ $notificationCount }}</span>
   </a>
   <!-- End Notification Icon -->

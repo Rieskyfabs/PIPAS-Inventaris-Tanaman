@@ -51,7 +51,7 @@
                             <table class="table table-bordered table-hover datatable">
                                 <thead>
                                     <tr>
-                                      <th>ID</th>
+                                      {{-- <th>ID</th> --}}
                                       <th>Kode</th>
                                       <th>Nama</th>
                                       <th>Kategori</th>
@@ -59,7 +59,7 @@
                                       <th>Lokasi</th>
                                       <th>Kondisi</th>
                                       <th>Tanggal Tanam</th>
-                                      <th>Est. Tanggal Panen</th>
+                                      <th>{{__('Est. Tanggal Pane')}}n</th>
                                       <th>{{__('Status')}}</th>
                                       <th>QR Code</th>
                                       <th>Actions</th>
@@ -68,14 +68,14 @@
                                 <tbody>
                                     @foreach ($plants as $plant)
                                         <tr>
-                                            <td>{{ $plant->id }}</td>
-                                            <td>{{ $plant->plantCode ? $plant->plantCode->plant_code : 'Unknown' }}</td>
+                                            {{-- <td>{{ $plant->id }}</td> --}}
+                                            <td>{{ $plant->plantAttribute ? $plant->plantAttribute->plant_code : 'Unknown' }}</td>
                                             <td>
                                                 <div class="d-flex flex-column">
                                                     <a href="#" class="text-heading text-truncate">
-                                                        <span class="fw-medium">{{ $plant->plantCode->name }}</span>
+                                                        <span class="fw-medium">{{ $plant->plantAttribute->name }}</span>
                                                     </a>
-                                                    <small>{{ $plant->plantCode->scientific_name ?? 'Unknown' }}</small>
+                                                    <small>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</small>
                                                     <small>
                                                         @if ($plant->type === 'Sayuran')
                                                             <span class="badge badge-soft-green">

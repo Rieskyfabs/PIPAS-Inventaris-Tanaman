@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\PlantCode;
 use App\Models\Category;
 use App\Models\Benefit;
+use App\Models\PlantAttributes;
 
-class PlantCodeSeeder extends Seeder
+class PlantAttributeSeeder extends Seeder
 {
     public function run()
     {
@@ -31,7 +31,7 @@ class PlantCodeSeeder extends Seeder
         ];
 
         foreach ($codes as $code) {
-            PlantCode::create($code);
+            PlantAttributes::create($code);
         }
     }
 }

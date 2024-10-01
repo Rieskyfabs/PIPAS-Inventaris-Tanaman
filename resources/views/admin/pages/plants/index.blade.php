@@ -18,11 +18,11 @@
             <div class="row">
                 <form method="GET" action="{{ route('plants') }}">
                     <div class="mb-3">
-                        <label for="period" class="form-label">Filter Periode</label>
+                        <label for="period" class="form-label">{{__('Filter Periode')}}</label>
                         <select name="period" id="period" class="form-select" onchange="this.form.submit()">
-                            <option value="today" {{ $period == 'today' ? 'selected' : '' }}>Hari ini</option>
-                            <option value="this_month" {{ $period == 'this_month' ? 'selected' : '' }}>Bulan Ini</option>
-                            <option value="this_year" {{ $period == 'this_year' ? 'selected' : '' }}>Tahun Ini</option>
+                            <option value="today" {{ $period == 'today' ? 'selected' : '' }}>{{__('Hari ini')}}</option>
+                            <option value="this_month" {{ $period == 'this_month' ? 'selected' : '' }}>{{__('Bulan Ini')}}</option>
+                            <option value="this_year" {{ $period == 'this_year' ? 'selected' : '' }}>{{__('Tahun Ini')}}</option>
                         </select>
                     </div>
                 </form>
@@ -149,7 +149,7 @@
                                 <table class="table table-bordered table-hover datatable">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>NO</th>
                                             <th>{{__('KODE')}}</th>
                                             <th>{{__('NAMA TANAMAN')}}</th>
                                             <th>{{__('NAMA ILMIAH')}}</th>
@@ -164,9 +164,9 @@
                                         @foreach ($plants as $plant)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $plant->plantCode ? $plant->plantCode->plant_code : 'Unknown' }}</td>
-                                                <td>{{ $plant->plantCode->name }}</td>
-                                                <td>{{ $plant->plantCode->scientific_name ?? 'Unknown' }}</td>
+                                                <td>{{ $plant->plantAttribute ? $plant->plantAttribute->plant_code : 'Unknown' }}</td>
+                                                <td>{{ $plant->plantAttribute->name }}</td>
+                                                <td>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</td>
                                                 <td>
                                                     @if ($plant->type === 'Sayuran')
                                                         <span class="badge badge-soft-green">
@@ -184,10 +184,11 @@
                                                 </td>
                                                 <td>{{ $plant->category ? $plant->category->name : 'Unknown' }}</td>
                                                 <td>{{ $plant->benefit ? $plant->benefit->name : 'Unknown' }}</td>
-                                                <td>{{ $plant->total_quantity }}</td>
+                                                {{-- <td>{{ $plant->total_quantity }}</td> --}}
+                                                <td><span class="badge bg-primary badge-number">{{ $plant->total_quantity }}</span></td>
                                                 <td>
                                                     <x-action-buttons
-                                                        viewData="{{ route('plants.show', $plant->plantCode->plant_code) }}"
+                                                        viewData="{{ route('plants.show', $plant->plantAttribute->plant_code) }}"
                                                         :dropdown="[ ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'] ]"
                                                     />
                                                 </td>

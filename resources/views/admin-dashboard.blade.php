@@ -26,7 +26,7 @@
               type="plants"
               title="Total Tanaman"
               period="Hari ini"
-              icon="ri-plant-fill"
+              icon="ri-plant-line"
               value="{{ $totalPlantsQuantity }}"
               changePercent="12"
               changeType="increase"
@@ -54,7 +54,7 @@
               type="revenue"
               title="Total Pengguna"
               period="Hari ini"
-              icon="ri-user-fill"
+              icon="ri-group-line"
               value="{{ $totalUsers }}"
               changePercent="12"
               changeType="increase"
@@ -78,7 +78,7 @@
                         document.addEventListener("DOMContentLoaded", () => {
                             new ApexCharts(document.querySelector("#columnChart"), {
                                 series: [{
-                                    name: 'Belum Dipanen',
+                                    name: 'Belum Panen',
                                     data: @json($dataBelumDipanen) // Data dinamis berdasarkan ruangan
                                 }, {
                                     name: 'Siap Dipanen',
@@ -145,55 +145,60 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Tanaman Terbaru</h5>
+                  <h5 class="card-title">{{__('Tanaman Terbaru')}}</h5>
 
                   <table class="table table-borderless table-hover datatable">
                     <thead>
-                      <tr>
-                        <th scope="col">{{__('KODE')}}</th>
-                        <th scope="col">{{__('NAMA TANAMAN')}}</th>
-                        <th scope="col">{{__('TIPE TANAMAN')}}</th>
-                        <th scope="col">{{__('KATEGORI TANAMAN')}}</th>
-                        <th scope="col">{{__('LOKASI TANAMAN')}}</th>
-                        <th scope="col">{{__('STATUS')}}</th>
-                      </tr>
+                        <tr>
+                            <th scope="col">{{ __('KODE') }}</th>
+                            <th scope="col">{{ __('NAMA TANAMAN') }}</th>
+                            <th scope="col">{{ __('TIPE TANAMAN') }}</th>
+                            <th scope="col">{{ __('KATEGORI TANAMAN') }}</th>
+                            <th scope="col">{{ __('LOKASI TANAMAN') }}</th>
+                            <th scope="col">{{ __('STATUS') }}</th>
+                        </tr>
                     </thead>
                     <tbody>
-                      @foreach ($plants as $plant)
-                        <tr>
-                          <td>{{$plant->plantCode->plant_code}}</td>
-                          <th scope="row"><a href="#">{{$plant->plantCode->name}}</a></th>
-                          <td>
-                              @if ($plant->type === 'Sayuran')
-                                  <span class="badge badge-soft-green">
-                                      <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                  </span>
-                              @elseif ($plant->type === 'Herbal')
-                                  <span class="badge badge-soft-warning">
-                                      <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                  </span>
-                              @else
-                                  <span class="badge badge-soft-gray">
-                                      {{ $plant->type }}
-                                  </span>
-                              @endif
-                          </td>
-                          <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                          <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
-                          <td>
-                            <span class="badge 
-                                @if ($plant->status === 'sehat') badge-soft-green <i class='bi bi-check-circle me-1'></i>
-                                @elseif ($plant->status === 'baik') badge-soft-primary <i class='bi bi-star me-1'></i>
-                                @elseif ($plant->status === 'layu') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
-                                @elseif ($plant->status === 'sakit') badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
-                                @else bg-secondary @endif">
-                                {{ $plant->status }}
-                            </span>
-                          </td>
-                        </tr>
-                      @endforeach
+                        @foreach ($plants as $plant)
+                            <tr>
+                                <td>{{ $plant->plantAttribute->plant_code }}</td>
+                                <th scope="row">
+                                    <a href="{{ route('plants.show', ['plantAttribute' => $plant->plantAttribute->plant_code]) }}">
+                                        {{ $plant->plantAttribute->name }}
+                                    </a>
+                                </th>
+                                <td>
+                                    @if ($plant->type === 'Sayuran')
+                                        <span class="badge badge-soft-green">
+                                            <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
+                                        </span>
+                                    @elseif ($plant->type === 'Herbal')
+                                        <span class="badge badge-soft-warning">
+                                            <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
+                                        </span>
+                                    @else
+                                        <span class="badge badge-soft-gray">
+                                            {{ $plant->type }}
+                                        </span>
+                                    @endif
+                                </td>
+                                <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
+                                <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
+                                <td>
+                                    <span class="badge 
+                                        @if ($plant->status === 'sehat') badge-soft-green <i class='bi bi-check-circle me-1'></i>
+                                        @elseif ($plant->status === 'baik') badge-soft-primary <i class='bi bi-star me-1'></i>
+                                        @elseif ($plant->status === 'layu') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
+                                        @elseif ($plant->status === 'sakit') badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
+                                        @else bg-secondary @endif">
+                                        {{ $plant->status }}
+                                    </span>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                   </table>
+
                 </div>
 
               </div>
@@ -238,7 +243,7 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Galeri PIPAS</h5>
+                <h5 class="card-title">{{__('Galeri Tanaman Terbaru')}}</h5>
 
                 <!-- Slides with captions -->
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -284,7 +289,6 @@
 
               </div>
             </div>
-
           </div>
 
           <div class="card">
