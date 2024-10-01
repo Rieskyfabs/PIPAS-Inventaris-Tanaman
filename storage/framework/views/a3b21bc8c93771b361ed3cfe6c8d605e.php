@@ -42,7 +42,7 @@
                             <table class="table table-bordered table-hover datatable">
                                 <thead>
                                     <tr>
-                                      <th>ID</th>
+                                      
                                       <th>Kode</th>
                                       <th>Nama</th>
                                       <th>Kategori</th>
@@ -50,7 +50,7 @@
                                       <th>Lokasi</th>
                                       <th>Kondisi</th>
                                       <th>Tanggal Tanam</th>
-                                      <th>Est. Tanggal Panen</th>
+                                      <th><?php echo e(__('Est. Tanggal Pane')); ?>n</th>
                                       <th><?php echo e(__('Status')); ?></th>
                                       <th>QR Code</th>
                                       <th>Actions</th>
@@ -59,14 +59,14 @@
                                 <tbody>
                                     <?php $__currentLoopData = $plants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr>
-                                            <td><?php echo e($plant->id); ?></td>
-                                            <td><?php echo e($plant->plantCode ? $plant->plantCode->plant_code : 'Unknown'); ?></td>
+                                            
+                                            <td><?php echo e($plant->plantAttribute ? $plant->plantAttribute->plant_code : 'Unknown'); ?></td>
                                             <td>
                                                 <div class="d-flex flex-column">
                                                     <a href="#" class="text-heading text-truncate">
-                                                        <span class="fw-medium"><?php echo e($plant->plantCode->name); ?></span>
+                                                        <span class="fw-medium"><?php echo e($plant->plantAttribute->name); ?></span>
                                                     </a>
-                                                    <small><?php echo e($plant->plantCode->scientific_name ?? 'Unknown'); ?></small>
+                                                    <small><?php echo e($plant->plantAttribute->scientific_name ?? 'Unknown'); ?></small>
                                                     <small>
                                                         <?php if($plant->type === 'Sayuran'): ?>
                                                             <span class="badge badge-soft-green">

@@ -5,5 +5,4 @@
     <button type="submit" title="Search"><i class="bi bi-search"></i></button>
   </form>
 </div>
-<!-- End Search Bar -->
-<?php /**PATH /home/daffy/Documents/Projects/PIPAS Invetaris Tanaman/PIPAS-Inventaris-Tanaman/resources/views/components/sidebar-search.blade.php ENDPATH**/ ?>
+<!-- End Search Bar --><?php /**PATH /home/daffy/Documents/Projects/PIPAS Invetaris Tanaman/PIPAS-Inventaris-Tanaman/resources/views/components/sidebar-search.blade.php ENDPATH**/ ?>

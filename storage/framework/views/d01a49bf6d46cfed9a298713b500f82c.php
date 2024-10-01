@@ -50,15 +50,32 @@
                     <?php echo csrf_field(); ?>
                     <?php echo method_field('PUT'); ?>
 
-                    <!-- Plant Name -->
-                    <div class="form-floating mb-3">
-                        <input type="text" name="name" class="form-control" value="<?php echo e($plant->name); ?>" required>
-                        <label for="name"><?php echo e(__('Plant Name')); ?></label>
+                   <!-- Plant Name (readonly) -->
+                   <div class="form-floating mb-3">
+                        <select name="plant_name_id" class="form-select" id="plantName" readonly>
+                            <?php $__currentLoopData = $plantAttributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($item->id); ?>"
+                                    <?php echo e($item->id == $plant->plant_name_id ? 'selected' : ''); ?>>
+                                    <?php echo e($item->name); ?>
+
+                                </option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                        <label for="plantName"><?php echo e(__('Nama Tanaman')); ?></label>
                     </div>
 
-                    <!-- Category Selection -->
+                    <!-- Plant Scientific Name (hidden) -->
+                    <input type="hidden" name="plant_scientific_name_id" value="<?php echo e($plant->plant_scientific_name_id); ?>">
+
+                     <!-- Plant Code (hidden) -->
+                     <input type="hidden" name="plant_code_id" value="<?php echo e($plant->plant_code_id); ?>">
+
+                     <!-- Type Selection (disabled) -->
+                     <input type="hidden" name="type" value="<?php echo e($plant->type); ?>">
+
+                    <!-- Category Selection (disabled) -->
                     <div class="form-floating mb-3">
-                        <select name="category_id" class="form-select" id="plantCategories" required>
+                        <select name="category_id" class="form-select" id="plantCategories" readonly>
                             <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($category->id); ?>"
                                     <?php echo e($category->id == $plant->category_id ? 'selected' : ''); ?>>
@@ -67,12 +84,12 @@
                                 </option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
-                        <label for="plantCategories">Kategori Tanaman</label>
+                        <label for="plantCategories"><?php echo e(__('Kategori Tanaman')); ?></label>
                     </div>
 
-                    <!-- Benefit Selection -->
+                    <!-- Benefit Selection (disabled) -->
                     <div class="form-floating mb-3">
-                        <select name="benefit_id" class="form-select" id="plantBenefits" required>
+                        <select name="benefit_id" class="form-select" id="plantBenefits" readonly>
                             <?php $__currentLoopData = $benefits; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $benefit): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($benefit->id); ?>"
                                     <?php echo e($benefit->id == $plant->benefit_id ? 'selected' : ''); ?>>
@@ -81,12 +98,12 @@
                                 </option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
-                        <label for="plantBenefits">Manfaat Tanaman</label>
+                        <label for="plantBenefits"><?php echo e(__('Manfaat Tanaman')); ?></label>
                     </div>
 
-                    <!-- Location Selection -->
+                    <!-- Location Selection (disabled) -->
                     <div class="form-floating mb-3">
-                        <select name="location_id" class="form-select" id="plantLocations" required>
+                        <select name="location_id" class="form-select" id="plantLocations" readonly>
                             <?php $__currentLoopData = $locations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $location): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($location->id); ?>"
                                     <?php echo e($location->id == $plant->location_id ? 'selected' : ''); ?>>
@@ -95,10 +112,10 @@
                                 </option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
-                        <label for="plantLocations">Lokasi Tanaman</label>
+                        <label for="plantLocations"><?php echo e(__('Lokasi Tanaman')); ?></label>
                     </div>
 
-                    <!-- Status -->
+                    <!-- Status (editable) -->
                     <div class="form-floating mb-3">
                         <select name="status" class="form-select" required>
                             <option value="sehat" <?php echo e($plant->status == 'sehat' ? 'selected' : ''); ?>>Sehat</option>
@@ -109,13 +126,13 @@
                         <label for="status"><?php echo e(__('Status')); ?></label>
                     </div>
 
-                    <!-- Seeding Date -->
+                    <!-- Seeding Date (editable) -->
                     <div class="form-floating mb-3">
                         <input type="date" name="seeding_date" class="form-control" value="<?php echo e($plant->seeding_date); ?>" required>
                         <label for="seeding_date"><?php echo e(__('Seeding Date')); ?></label>
                     </div>
 
-                    <!-- Harvest Date -->
+                    <!-- Harvest Date (editable) -->
                     <div class="form-floating mb-3">
                         <input type="date" name="harvest_date" class="form-control" value="<?php echo e($plant->harvest_date); ?>" required>
                         <label for="harvest_date"><?php echo e(__('Harvest Date')); ?></label>

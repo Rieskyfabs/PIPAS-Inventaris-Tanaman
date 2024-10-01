@@ -38,7 +38,7 @@
             <!-- Plant Card -->
             <?php if (isset($component)) { $__componentOriginal740c66ff9bbfcb19a96a45ba2fa42d64 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal740c66ff9bbfcb19a96a45ba2fa42d64 = $attributes; } ?>
-<?php $component = App\View\Components\Card::resolve(['type' => 'plants','title' => 'Total Tanaman','icon' => 'ri-plant-fill','value' => ''.e($totalPlantsQuantity).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = App\View\Components\Card::resolve(['type' => 'plants','title' => 'Total Tanaman','icon' => 'ri-plant-line','value' => ''.e($totalPlantsQuantity).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -84,7 +84,7 @@
             <!-- Total Users Card -->
             <?php if (isset($component)) { $__componentOriginal740c66ff9bbfcb19a96a45ba2fa42d64 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal740c66ff9bbfcb19a96a45ba2fa42d64 = $attributes; } ?>
-<?php $component = App\View\Components\Card::resolve(['type' => 'revenue','title' => 'Total Pengguna','icon' => 'ri-user-fill','value' => ''.e($totalUsers).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = App\View\Components\Card::resolve(['type' => 'revenue','title' => 'Total Pengguna','icon' => 'ri-group-line','value' => ''.e($totalUsers).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -119,7 +119,7 @@
                         document.addEventListener("DOMContentLoaded", () => {
                             new ApexCharts(document.querySelector("#columnChart"), {
                                 series: [{
-                                    name: 'Belum Dipanen',
+                                    name: 'Belum Panen',
                                     data: <?php echo json_encode($dataBelumDipanen, 15, 512) ?> // Data dinamis berdasarkan ruangan
                                 }, {
                                     name: 'Siap Dipanen',
@@ -186,59 +186,65 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Tanaman Terbaru</h5>
+                  <h5 class="card-title"><?php echo e(__('Tanaman Terbaru')); ?></h5>
 
                   <table class="table table-borderless table-hover datatable">
                     <thead>
-                      <tr>
-                        <th scope="col"><?php echo e(__('KODE')); ?></th>
-                        <th scope="col"><?php echo e(__('NAMA TANAMAN')); ?></th>
-                        <th scope="col"><?php echo e(__('TIPE TANAMAN')); ?></th>
-                        <th scope="col"><?php echo e(__('KATEGORI TANAMAN')); ?></th>
-                        <th scope="col"><?php echo e(__('LOKASI TANAMAN')); ?></th>
-                        <th scope="col"><?php echo e(__('STATUS')); ?></th>
-                      </tr>
+                        <tr>
+                            <th scope="col"><?php echo e(__('KODE')); ?></th>
+                            <th scope="col"><?php echo e(__('NAMA TANAMAN')); ?></th>
+                            <th scope="col"><?php echo e(__('TIPE TANAMAN')); ?></th>
+                            <th scope="col"><?php echo e(__('KATEGORI TANAMAN')); ?></th>
+                            <th scope="col"><?php echo e(__('LOKASI TANAMAN')); ?></th>
+                            <th scope="col"><?php echo e(__('STATUS')); ?></th>
+                        </tr>
                     </thead>
                     <tbody>
-                      <?php $__currentLoopData = $plants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <tr>
-                          <td><?php echo e($plant->plantCode->plant_code); ?></td>
-                          <th scope="row"><a href="#"><?php echo e($plant->plantCode->name); ?></a></th>
-                          <td>
-                              <?php if($plant->type === 'Sayuran'): ?>
-                                  <span class="badge badge-soft-green">
-                                      <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> <?php echo e($plant->type); ?>
+                        <?php $__currentLoopData = $plants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <tr>
+                                <td><?php echo e($plant->plantAttribute->plant_code); ?></td>
+                                <th scope="row">
+                                    <a href="<?php echo e(route('plants.show', ['plantAttribute' => $plant->plantAttribute->plant_code])); ?>">
+                                        <?php echo e($plant->plantAttribute->name); ?>
 
-                                  </span>
-                              <?php elseif($plant->type === 'Herbal'): ?>
-                                  <span class="badge badge-soft-warning">
-                                      <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> <?php echo e($plant->type); ?>
+                                    </a>
+                                </th>
+                                <td>
+                                    <?php if($plant->type === 'Sayuran'): ?>
+                                        <span class="badge badge-soft-green">
+                                            <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> <?php echo e($plant->type); ?>
 
-                                  </span>
-                              <?php else: ?>
-                                  <span class="badge badge-soft-gray">
-                                      <?php echo e($plant->type); ?>
+                                        </span>
+                                    <?php elseif($plant->type === 'Herbal'): ?>
+                                        <span class="badge badge-soft-warning">
+                                            <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> <?php echo e($plant->type); ?>
 
-                                  </span>
-                              <?php endif; ?>
-                          </td>
-                          <td><?php echo e($plant->category->name ?? 'Kategori tidak ditemukan'); ?></td>
-                          <td><?php echo e($plant->location->name ?? 'Lokasi tidak ditemukan'); ?></td>
-                          <td>
-                            <span class="badge 
-                                <?php if($plant->status === 'sehat'): ?> badge-soft-green <i class='bi bi-check-circle me-1'></i>
-                                <?php elseif($plant->status === 'baik'): ?> badge-soft-primary <i class='bi bi-star me-1'></i>
-                                <?php elseif($plant->status === 'layu'): ?> badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
-                                <?php elseif($plant->status === 'sakit'): ?> badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
-                                <?php else: ?> bg-secondary <?php endif; ?>">
-                                <?php echo e($plant->status); ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="badge badge-soft-gray">
+                                            <?php echo e($plant->type); ?>
 
-                            </span>
-                          </td>
-                        </tr>
-                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?php echo e($plant->category->name ?? 'Kategori tidak ditemukan'); ?></td>
+                                <td><?php echo e($plant->location->name ?? 'Lokasi tidak ditemukan'); ?></td>
+                                <td>
+                                    <span class="badge 
+                                        <?php if($plant->status === 'sehat'): ?> badge-soft-green <i class='bi bi-check-circle me-1'></i>
+                                        <?php elseif($plant->status === 'baik'): ?> badge-soft-primary <i class='bi bi-star me-1'></i>
+                                        <?php elseif($plant->status === 'layu'): ?> badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
+                                        <?php elseif($plant->status === 'sakit'): ?> badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
+                                        <?php else: ?> bg-secondary <?php endif; ?>">
+                                        <?php echo e($plant->status); ?>
+
+                                    </span>
+                                </td>
+                            </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                   </table>
+
                 </div>
 
               </div>
@@ -286,7 +292,7 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Galeri PIPAS</h5>
+                <h5 class="card-title"><?php echo e(__('Galeri Tanaman Terbaru')); ?></h5>
 
                 <!-- Slides with captions -->
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -332,7 +338,6 @@
 
               </div>
             </div>
-
           </div>
 
           <div class="card">

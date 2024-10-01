@@ -32,11 +32,11 @@
             <div class="row">
                 <form method="GET" action="<?php echo e(route('plants')); ?>">
                     <div class="mb-3">
-                        <label for="period" class="form-label">Filter Periode</label>
+                        <label for="period" class="form-label"><?php echo e(__('Filter Periode')); ?></label>
                         <select name="period" id="period" class="form-select" onchange="this.form.submit()">
-                            <option value="today" <?php echo e($period == 'today' ? 'selected' : ''); ?>>Hari ini</option>
-                            <option value="this_month" <?php echo e($period == 'this_month' ? 'selected' : ''); ?>>Bulan Ini</option>
-                            <option value="this_year" <?php echo e($period == 'this_year' ? 'selected' : ''); ?>>Tahun Ini</option>
+                            <option value="today" <?php echo e($period == 'today' ? 'selected' : ''); ?>><?php echo e(__('Hari ini')); ?></option>
+                            <option value="this_month" <?php echo e($period == 'this_month' ? 'selected' : ''); ?>><?php echo e(__('Bulan Ini')); ?></option>
+                            <option value="this_year" <?php echo e($period == 'this_year' ? 'selected' : ''); ?>><?php echo e(__('Tahun Ini')); ?></option>
                         </select>
                     </div>
                 </form>
@@ -206,7 +206,7 @@
                                 <table class="table table-bordered table-hover datatable">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>NO</th>
                                             <th><?php echo e(__('KODE')); ?></th>
                                             <th><?php echo e(__('NAMA TANAMAN')); ?></th>
                                             <th><?php echo e(__('NAMA ILMIAH')); ?></th>
@@ -221,9 +221,9 @@
                                         <?php $__currentLoopData = $plants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
                                                 <td><?php echo e($loop->iteration); ?></td>
-                                                <td><?php echo e($plant->plantCode ? $plant->plantCode->plant_code : 'Unknown'); ?></td>
-                                                <td><?php echo e($plant->plantCode->name); ?></td>
-                                                <td><?php echo e($plant->plantCode->scientific_name ?? 'Unknown'); ?></td>
+                                                <td><?php echo e($plant->plantAttribute ? $plant->plantAttribute->plant_code : 'Unknown'); ?></td>
+                                                <td><?php echo e($plant->plantAttribute->name); ?></td>
+                                                <td><?php echo e($plant->plantAttribute->scientific_name ?? 'Unknown'); ?></td>
                                                 <td>
                                                     <?php if($plant->type === 'Sayuran'): ?>
                                                         <span class="badge badge-soft-green">
@@ -244,11 +244,12 @@
                                                 </td>
                                                 <td><?php echo e($plant->category ? $plant->category->name : 'Unknown'); ?></td>
                                                 <td><?php echo e($plant->benefit ? $plant->benefit->name : 'Unknown'); ?></td>
-                                                <td><?php echo e($plant->total_quantity); ?></td>
+                                                
+                                                <td><span class="badge bg-primary badge-number"><?php echo e($plant->total_quantity); ?></span></td>
                                                 <td>
                                                     <?php if (isset($component)) { $__componentOriginal4dffe1a5f1124477dbf774a1691bd6c0 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal4dffe1a5f1124477dbf774a1691bd6c0 = $attributes; } ?>
-<?php $component = App\View\Components\ActionButtons::resolve(['viewData' => ''.e(route('plants.show', $plant->plantCode->plant_code)).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = App\View\Components\ActionButtons::resolve(['viewData' => ''.e(route('plants.show', $plant->plantAttribute->plant_code)).'','dropdown' => [ ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'] ]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('action-buttons'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

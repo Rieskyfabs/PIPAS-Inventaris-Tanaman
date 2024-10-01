@@ -36,15 +36,31 @@
                     @csrf
                     @method('PUT')
 
-                    <!-- Plant Name -->
-                    <div class="form-floating mb-3">
-                        <input type="text" name="name" class="form-control" value="{{ $plant->name }}" required>
-                        <label for="name">{{__('Plant Name')}}</label>
+                   <!-- Plant Name (readonly) -->
+                   <div class="form-floating mb-3">
+                        <select name="plant_name_id" class="form-select" id="plantName" readonly>
+                            @foreach ($plantAttributes as $item)
+                                <option value="{{ $item->id }}"
+                                    {{ $item->id == $plant->plant_name_id ? 'selected' : '' }}>
+                                    {{ $item->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <label for="plantName">{{__('Nama Tanaman')}}</label>
                     </div>
 
-                    <!-- Category Selection -->
+                    <!-- Plant Scientific Name (hidden) -->
+                    <input type="hidden" name="plant_scientific_name_id" value="{{ $plant->plant_scientific_name_id }}">
+
+                     <!-- Plant Code (hidden) -->
+                     <input type="hidden" name="plant_code_id" value="{{ $plant->plant_code_id }}">
+
+                     <!-- Type Selection (readonly) -->
+                     <input type="hidden" name="type" value="{{ $plant->type }}">
+
+                    <!-- Category Selection (readonly) -->
                     <div class="form-floating mb-3">
-                        <select name="category_id" class="form-select" id="plantCategories" required>
+                        <select name="category_id" class="form-select" id="plantCategories" readonly>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
                                     {{ $category->id == $plant->category_id ? 'selected' : '' }}>
@@ -52,12 +68,12 @@
                                 </option>
                             @endforeach
                         </select>
-                        <label for="plantCategories">Kategori Tanaman</label>
+                        <label for="plantCategories">{{ __('Kategori Tanaman') }}</label>
                     </div>
 
-                    <!-- Benefit Selection -->
+                    <!-- Benefit Selection (readonly) -->
                     <div class="form-floating mb-3">
-                        <select name="benefit_id" class="form-select" id="plantBenefits" required>
+                        <select name="benefit_id" class="form-select" id="plantBenefits" readonly>
                             @foreach ($benefits as $benefit)
                                 <option value="{{ $benefit->id }}"
                                     {{ $benefit->id == $plant->benefit_id ? 'selected' : '' }}>
@@ -65,12 +81,12 @@
                                 </option>
                             @endforeach
                         </select>
-                        <label for="plantBenefits">Manfaat Tanaman</label>
+                        <label for="plantBenefits">{{ __('Manfaat Tanaman') }}</label>
                     </div>
 
-                    <!-- Location Selection -->
+                    <!-- Location Selection (readonly) -->
                     <div class="form-floating mb-3">
-                        <select name="location_id" class="form-select" id="plantLocations" required>
+                        <select name="location_id" class="form-select" id="plantLocations" readonly>
                             @foreach ($locations as $location)
                                 <option value="{{ $location->id }}"
                                     {{ $location->id == $plant->location_id ? 'selected' : '' }}>
@@ -78,10 +94,10 @@
                                 </option>
                             @endforeach
                         </select>
-                        <label for="plantLocations">Lokasi Tanaman</label>
+                        <label for="plantLocations">{{ __('Lokasi Tanaman') }}</label>
                     </div>
 
-                    <!-- Status -->
+                    <!-- Status (editable) -->
                     <div class="form-floating mb-3">
                         <select name="status" class="form-select" required>
                             <option value="sehat" {{ $plant->status == 'sehat' ? 'selected' : '' }}>Sehat</option>
@@ -89,19 +105,19 @@
                             <option value="layu" {{ $plant->status == 'layu' ? 'selected' : '' }}>Layu</option>
                             <option value="sakit" {{ $plant->status == 'sakit' ? 'selected' : '' }}>Sakit</option>
                         </select>
-                        <label for="status">{{__('Status')}}</label>
+                        <label for="status">{{ __('Status') }}</label>
                     </div>
 
-                    <!-- Seeding Date -->
+                    <!-- Seeding Date (editable) -->
                     <div class="form-floating mb-3">
                         <input type="date" name="seeding_date" class="form-control" value="{{ $plant->seeding_date }}" required>
-                        <label for="seeding_date">{{__('Seeding Date')}}</label>
+                        <label for="seeding_date">{{ __('Seeding Date') }}</label>
                     </div>
 
-                    <!-- Harvest Date -->
+                    <!-- Harvest Date (editable) -->
                     <div class="form-floating mb-3">
                         <input type="date" name="harvest_date" class="form-control" value="{{ $plant->harvest_date }}" required>
-                        <label for="harvest_date">{{__('Harvest Date')}}</label>
+                        <label for="harvest_date">{{ __('Harvest Date') }}</label>
                     </div>
 
                     <button type="submit" class="btn btn-primary">{{__('Update')}}</button>

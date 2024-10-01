@@ -50,29 +50,29 @@
                     <?php echo csrf_field(); ?>
                     
                     <div class="form-floating mb-3">
-                        <select name="plant_code_id" class="form-select" id="plantCodes" required>
+                        <select name="plant_code_id" class="form-select" id="plantAttributes" required>
                             <option value="" disabled selected>Silahkan Pilih Kode Tanaman</option>
-                            <?php $__currentLoopData = $plantCodes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($code->id); ?>" 
-                                        data-name="<?php echo e($code->name); ?>" 
-                                        data-scientific-name="<?php echo e($code->scientific_name); ?>" 
-                                        data-type="<?php echo e($code->type); ?>"
-                                        data-category-id="<?php echo e($code->category_id); ?>"
-                                        data-benefit-id="<?php echo e($code->benefit_id); ?>">
-                                    <?php echo e($code->plant_code); ?> : <?php echo e($code->description); ?>
+                            <?php $__currentLoopData = $plantAttributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($item->id); ?>" 
+                                        data-name="<?php echo e($item->name); ?>" 
+                                        data-scientific-name="<?php echo e($item->scientific_name); ?>" 
+                                        data-type="<?php echo e($item->type); ?>"
+                                        data-category-id="<?php echo e($item->category_id); ?>"
+                                        data-benefit-id="<?php echo e($item->benefit_id); ?>">
+                                    <?php echo e($item->plant_code); ?> : <?php echo e($item->description); ?>
 
                                 </option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
-                        <label for="plantCodes">Kode Tanaman</label>
+                        <label for="plantAttributes">Kode Tanaman</label>
                     </div>
                     
                     <!-- Nama Tanaman -->
                     <div class="form-floating mb-3">
                         <select name="plant_name_id" class="form-select" id="plantName" required>
                             <option value="" disabled selected>Nama Tanaman</option>
-                            <?php $__currentLoopData = $plantCodes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($code->id); ?>"><?php echo e($code->name); ?></option>
+                            <?php $__currentLoopData = $plantAttributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($item->id); ?>"><?php echo e($item->name); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                         <label for="plantName">Nama Tanaman</label>
@@ -82,8 +82,8 @@
                     <div class="form-floating mb-3">
                         <select name="plant_scientific_name_id" class="form-select" id="scientificName" required>
                             <option value="" disabled selected>Nama Ilmiah</option>
-                            <?php $__currentLoopData = $plantCodes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($code->id); ?>"><?php echo e($code->scientific_name); ?></option>
+                            <?php $__currentLoopData = $plantAttributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($item->id); ?>"><?php echo e($item->scientific_name); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                         <label for="scientificName">Nama Ilmiah</label>
@@ -155,7 +155,7 @@
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         // Auto-fill logic when selecting plant code
-                        document.getElementById('plantCodes').addEventListener('change', function () {
+                        document.getElementById('plantAttributes').addEventListener('change', function () {
                         var selectedOption = this.options[this.selectedIndex];
 
                         // Mengambil data dari attribute 'data-*' di option yang dipilih

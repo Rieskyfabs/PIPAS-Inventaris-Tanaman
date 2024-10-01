@@ -24,7 +24,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link <?php echo e(Request::is('dashboard') ? '' : 'collapsed'); ?>" href="<?php echo e(route('dashboard')); ?>">
-                        <i class="bi bi-grid"></i>
+                        <i class='bx bxs-dashboard' ></i>
                         <span><?php echo e(__('Dashboard')); ?></span>
                     </a>
                 </li>
@@ -34,13 +34,14 @@
 
                 <li class="nav-item">
                     <a class="nav-link <?php echo e(Request::is('admin/dashboard') ? '' : 'collapsed'); ?>" href="<?php echo e(route('admin/dashboard')); ?>">
-                        <i class="bi bi-grid"></i>
+                        <i class='bx bxs-dashboard' ></i>
                         <span><?php echo e(__('Dashboard')); ?></span>
                     </a>
                 </li>
                 <!-- End Dashboard Nav -->
 
-                <li class="nav-heading"><?php echo e(__('Menu')); ?></li>
+                <li class="nav-heading"><?php echo e(__('MASTER')); ?></li>
+                
 
                 <li class="nav-item">
                     <a class="nav-link <?php echo e(Request::is('admin/inventaris*') || Request::is('admin/attributes*') ? '' : 'collapsed'); ?>" data-bs-target="#plants-nav" data-bs-toggle="collapse" href="#">
@@ -52,15 +53,13 @@
                                 <i class="bi bi-circle"></i><span><?php echo e(__('List Tanaman')); ?></span>
                             </a>
                         </li>
-                        
-                        <!-- Plant Attributes as nav-item with sub-menu -->
                         <li class="nav-item">
                             <a class="nav-link <?php echo e(Request::is('admin/attributes*') ? '' : 'collapsed'); ?>" data-bs-target="#plants-attributes-subnav" data-bs-toggle="collapse" href="#">
                                 <i class="bi bi-circle-fill"></i><span><?php echo e(__('Kelola Atribut')); ?></span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
                             </a>
                             <ul id="plants-attributes-subnav" class="nav-content collapse <?php echo e(Request::is('admin/attributes*') ? 'show' : ''); ?> ps-3" data-bs-parent="#plants-nav">
                                 <li>
-                                    <a class="<?php echo e(Request::is('admin/attributes/plant-attributes') ? 'active' : ''); ?>" href="<?php echo e(route('plantCodes')); ?>">
+                                    <a class="<?php echo e(Request::is('admin/attributes/plant-attributes') ? 'active' : ''); ?>" href="<?php echo e(route('plantAttributes')); ?>">
                                         <i class="bi bi-circle"></i><span><?php echo e(__('Atribut Tanaman')); ?></span>
                                     </a>
                                 </li>
@@ -80,6 +79,46 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li class="nav-heading"><?php echo e(__('TRANSAKSI')); ?></li>
+
+                <li class="nav-item">
+                    <a class="nav-link <?php echo e(Request::is('admin/transactions*') ? '' : 'collapsed'); ?>" data-bs-target="#plants-transactions-nav" data-bs-toggle="collapse" href="#">
+                        <i class='bx bx-transfer-alt fs-5'></i><span><?php echo e(__('Transaksi')); ?></span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="plants-transactions-nav" class="nav-content collapse <?php echo e(Request::is('admin/transactions*') ? 'show' : ''); ?>" data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a class="<?php echo e(Request::is('admin/transactions/tanaman-masuk') ? 'active' : ''); ?>" href="<?php echo e(route('transactions.tanaman-masuk')); ?>">
+                                <i class="bi bi-circle"></i><span><?php echo e(__('Tanaman Masuk')); ?></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="<?php echo e(Request::is('admin/transactions/tanaman-keluar') ? 'active' : ''); ?>" href="<?php echo e(route('transactions.tanaman-keluar')); ?>">
+                                <i class="bi bi-circle"></i><span><?php echo e(__('Tanaman Keluar')); ?></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-heading"><?php echo e(__('LAPORAN')); ?></li>
+
+                <li class="nav-item">
+                    <a class="nav-link <?php echo e(Request::is('admin/report*') ? '' : 'collapsed'); ?>" data-bs-target="#plants-report-nav" data-bs-toggle="collapse" href="#">
+                        <i class='bx bx-printer fs-5'></i><span><?php echo e(__('Kelola Laporan')); ?></span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="plants-report-nav" class="nav-content collapse <?php echo e(Request::is('admin/report*') ? 'show' : ''); ?>" data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a class="<?php echo e(Request::is('admin/reports/tanaman-masuk') ? 'active' : ''); ?>" href="#">
+                                <i class="bi bi-circle"></i><span><?php echo e(__('Laporan Tanaman Masuk')); ?></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="<?php echo e(Request::is('admin/reports/tanaman-keluar') ? 'active' : ''); ?>" href="#">
+                                <i class="bi bi-circle"></i><span><?php echo e(__('Laporan Tanaman Keluar')); ?></span>
+                            </a>
                         </li>
                     </ul>
                 </li>
