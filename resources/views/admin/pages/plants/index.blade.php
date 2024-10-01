@@ -196,7 +196,6 @@
                                                 <td>
                                                     <x-action-buttons
                                                         viewData="{{ route('plants.show', $plant->plantAttribute->plant_code) }}"
-                                                        :dropdown="[ ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'] ]"
                                                     />
                                                 </td>
                                             </tr>

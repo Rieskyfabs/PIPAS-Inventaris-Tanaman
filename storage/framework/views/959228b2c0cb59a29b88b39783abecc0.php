@@ -256,7 +256,7 @@
                                                 <td>
                                                     <?php if (isset($component)) { $__componentOriginal4dffe1a5f1124477dbf774a1691bd6c0 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal4dffe1a5f1124477dbf774a1691bd6c0 = $attributes; } ?>
-<?php $component = App\View\Components\ActionButtons::resolve(['viewData' => ''.e(route('plants.show', $plant->plantAttribute->plant_code)).'','dropdown' => [ ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'] ]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = App\View\Components\ActionButtons::resolve(['viewData' => ''.e(route('plants.show', $plant->plantAttribute->plant_code)).''] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('action-buttons'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
