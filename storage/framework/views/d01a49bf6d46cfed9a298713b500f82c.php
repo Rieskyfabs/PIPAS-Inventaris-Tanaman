@@ -70,10 +70,10 @@
                      <!-- Plant Code (hidden) -->
                      <input type="hidden" name="plant_code_id" value="<?php echo e($plant->plant_code_id); ?>">
 
-                     <!-- Type Selection (disabled) -->
+                     <!-- Type Selection (readonly) -->
                      <input type="hidden" name="type" value="<?php echo e($plant->type); ?>">
 
-                    <!-- Category Selection (disabled) -->
+                    <!-- Category Selection (readonly) -->
                     <div class="form-floating mb-3">
                         <select name="category_id" class="form-select" id="plantCategories" readonly>
                             <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -87,7 +87,7 @@
                         <label for="plantCategories"><?php echo e(__('Kategori Tanaman')); ?></label>
                     </div>
 
-                    <!-- Benefit Selection (disabled) -->
+                    <!-- Benefit Selection (readonly) -->
                     <div class="form-floating mb-3">
                         <select name="benefit_id" class="form-select" id="plantBenefits" readonly>
                             <?php $__currentLoopData = $benefits; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $benefit): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -101,7 +101,7 @@
                         <label for="plantBenefits"><?php echo e(__('Manfaat Tanaman')); ?></label>
                     </div>
 
-                    <!-- Location Selection (disabled) -->
+                    <!-- Location Selection (readonly) -->
                     <div class="form-floating mb-3">
                         <select name="location_id" class="form-select" id="plantLocations" readonly>
                             <?php $__currentLoopData = $locations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $location): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

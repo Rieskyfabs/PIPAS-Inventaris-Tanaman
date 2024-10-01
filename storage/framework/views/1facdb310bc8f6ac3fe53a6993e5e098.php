@@ -124,11 +124,12 @@
                 </li>
 
                 <li class="nav-heading"><?php echo e(__('Users')); ?></li>
+              
 
                     <!-- Kelola Pengguna -->
                     <li class="nav-item">
                         <a class="nav-link <?php echo e(Request::is('admin/users*') || Request::is('admin/role-permissions*') ? '' : 'collapsed'); ?>" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
-                            <i class="ri-admin-line"></i><span><?php echo e(__('Kelola Pengguna')); ?></span><i class="bi bi-chevron-down ms-auto"></i>
+                            <i class="ri-admin-line fs-5"></i><span><?php echo e(__('Kelola Pengguna')); ?></span><i class="bi bi-chevron-down ms-auto"></i>
                         </a>
                         <ul id="users-nav" class="nav-content collapse <?php echo e(Request::is('admin/users*') || Request::is('admin/role-permissions*') ? 'show' : ''); ?>" data-bs-parent="#sidebar-nav">
                             <li>
@@ -159,7 +160,27 @@
                     </li>
 
                 <!-- End Users Page Nav -->
+                <li class="nav-heading"><?php echo e(__('Others')); ?></li>
 
+                <li class="nav-item">
+                    <a class="nav-link <?php echo e(Request::is('admin/settings*') ? '' : 'collapsed'); ?>" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#">
+                        <i class='bx bx-cog fs-5'></i><span><?php echo e(__('Settings')); ?></span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="settings-nav" class="nav-content collapse <?php echo e(Request::is('admin/settings*') ? 'show' : ''); ?>" data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a class="<?php echo e(Request::is('admin/settings/profile-settings') ? 'active' : ''); ?>" href="#">
+                                <i class="bi bi-circle"></i><span><?php echo e(__('My Profile')); ?></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="<?php echo e(route('logout')); ?>">
+                    <i class='bx bx-log-out-circle fs-5'></i>
+                    <span><?php echo e(__('Logout')); ?></span>
+                    </a>
+                </li>
             <?php endif; ?>
         <?php endif; ?>
 
