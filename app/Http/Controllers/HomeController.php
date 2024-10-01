@@ -68,7 +68,7 @@ class HomeController extends Controller
         $dataSiapDipanen = $this->fillLocationData($ruangan, $siapDipanen);
         $dataSudahDipanen = $this->fillLocationData($ruangan, $sudahDipanen);
 
-        $activityLogs = ActivityLog::latest()->limit(5)->get();
+        $activityLogs = ActivityLog::latest()->limit(4)->get();
 
         // Kirim data ke view
         return view('admin-dashboard', compact(

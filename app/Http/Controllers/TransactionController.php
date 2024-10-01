@@ -18,11 +18,12 @@ class TransactionController extends Controller
     public function tanamanKeluar()
     {
         // Ambil data tanaman keluar yang statusnya 'sudah dipanen'
-        $tanamanKeluar = TanamanKeluar::with('plant')
-        ->whereHas('plant', function ($query) {
-            $query->where('status', 'sudah dipanen');
-        })->get();
+        $tanamanKeluar = TanamanKeluar::with(['plant.plantAttribute'])
+            ->whereHas('plant', function ($query) {
+                $query->where('harvest_status', 'sudah dipanen');
+            })->get();
 
         return view('admin.pages.transactions.tanaman_keluar', compact('tanamanKeluar'));
     }
+
 }

@@ -292,88 +292,57 @@
           </div>
 
           <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{__('Total Tanaman Per Lokasi')}}</h5>
+              <div class="card-body">
+                  <h5 class="card-title">{{ __('Total Tanaman Per Lokasi') }}</h5>
 
-                @if (empty($dataPerLocation) || count($dataPerLocation) === 0)
-                    <p class="text-center">{{__('Tidak ada data')}}</p>
-                @else
-                    <!-- Bar Chart -->
-                    <canvas id="DataTanaman" style="max-height: 400px;"></canvas>
-                    <script>
-                        document.addEventListener("DOMContentLoaded", () => {
-                            // Get data from the Blade view
-                            const labels = @json(array_keys($dataPerLocation));
-                            const dataValues = @json(array_values($dataPerLocation));
+                  <!-- Check if there's data -->
+                  @if(count($dataPerLocation) > 0)
+                      <!-- Bar Chart -->
+                      <canvas id="DataTanaman" style="max-height: 400px;"></canvas>
+                      <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                              // Get data from the Blade view
+                              const labels = @json(array_keys($dataPerLocation));
+                              const dataValues = @json(array_values($dataPerLocation));
 
-                            new Chart(document.querySelector('#DataTanaman'), {
-                                type: 'bar',
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                        label: 'Total',
-                                        data: dataValues,
-                                        backgroundColor: [
-                                            'rgba(153, 102, 255, 0.6)', // Purple
-                                            'rgba(255, 159, 64, 0.6)',  // Orange
-                                            'rgba(54, 162, 235, 0.6)',  // Blue
-                                            'rgba(75, 192, 192, 0.6)',  // Teal
-                                            'rgba(255, 206, 86, 0.6)',  // Yellow
-                                            'rgba(255, 99, 132, 0.6)',  // Red
-                                        ],
-                                        borderColor: [
-                                            'rgb(153, 102, 255)',
-                                            'rgb(255, 159, 64)',
-                                            'rgb(54, 162, 235)',
-                                            'rgb(75, 192, 192)',
-                                            'rgb(255, 206, 86)',
-                                            'rgb(255, 99, 132)',
-                                        ],
-                                        borderWidth: 2,
-                                        hoverBorderWidth: 3,
-                                        hoverBorderColor: 'rgba(0, 0, 0, 0.5)', // Darker border on hover
-                                    }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    maintainAspectRatio: false,
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true,
-                                            ticks: {
-                                                stepSize: 1,  // Adjust this based on the value range
-                                                color: '#333' // Darker color for better readability
-                                            }
-                                        },
-                                        x: {
-                                            ticks: {
-                                                color: '#333' // Darker color for better readability
-                                            }
-                                        }
-                                    },
-                                    plugins: {
-                                        legend: {
-                                            display: true,
-                                            labels: {
-                                                color: '#333' // Adjust legend text color
-                                            }
-                                        },
-                                        tooltip: {
-                                            backgroundColor: 'rgba(0,0,0,0.8)',
-                                            titleColor: '#fff',
-                                            bodyColor: '#fff',
-                                            borderColor: 'rgba(0,0,0,0.1)',
-                                            borderWidth: 1,
-                                            caretPadding: 10
-                                        }
-                                    }
-                                }
-                            });
-                        });
-                    </script>
-                    <!-- End Bar Chart -->
-                @endif
-            </div>
+                              new Chart(document.querySelector('#DataTanaman'), {
+                                  type: 'bar',
+                                  data: {
+                                      labels: labels,
+                                      datasets: [{
+                                          label: 'Total',
+                                          data: dataValues,
+                                          backgroundColor: [
+                                              'rgba(255, 99, 132, 0.2)',
+                                              'rgba(255, 159, 64, 0.2)',
+                                              'rgba(255, 205, 86, 0.2)',
+                                              'rgba(75, 192, 192, 0.2)',
+                                          ],
+                                          borderColor: [
+                                              'rgb(255, 99, 132)',
+                                              'rgb(255, 159, 64)',
+                                              'rgb(255, 205, 86)',
+                                              'rgb(75, 192, 192)',
+                                          ],
+                                          borderWidth: 1
+                                      }]
+                                  },
+                                  options: {
+                                      scales: {
+                                          y: {
+                                              beginAtZero: true
+                                          }
+                                      }
+                                  }
+                              });
+                          });
+                      </script>
+                      <!-- End Bar Chart -->
+                  @else
+                      <!-- No data message -->
+                      <p>{{ __('Tidak ada data tersedia untuk lokasi tanaman.') }}</p>
+                  @endif
+              </div>
           </div>
 
         </div>

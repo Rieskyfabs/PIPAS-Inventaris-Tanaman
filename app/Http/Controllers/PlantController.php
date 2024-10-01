@@ -58,7 +58,7 @@ class PlantController extends Controller
             MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, 
             MAX(created_at) as created_at, MIN(harvest_status) as harvest_status
         ')
-        ->where('harvest_status', '!=', 'sudah dipanen') // Hanya tanaman yang belum dipanen
+        // ->where('harvest_status', '!=', 'sudah dipanen')
         ->groupBy('plant_code_id')
         ->orderBy('created_at', 'desc')
         ->with(['plantAttribute', 'category', 'benefit', 'location'])
