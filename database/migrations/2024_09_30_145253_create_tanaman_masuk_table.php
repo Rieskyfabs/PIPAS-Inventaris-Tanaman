@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tanaman_masuk', function (Blueprint $table) {
             $table->id();
             $table->foreignId('plant_id')->constrained('plants')->onDelete('cascade')->onUpdate('cascade');  // Foreign key ke tabel plants
-            $table->string('kode_tanaman_masuk'); // Kode unik untuk tanaman masuk
+            $table->string('kode_tanaman_masuk')->unique(); // Kode unik untuk tanaman masuk
             $table->date('tanggal_masuk');  // Tanggal tanaman masuk
             $table->integer('jumlah_masuk');
             $table->timestamps();

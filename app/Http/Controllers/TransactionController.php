@@ -10,7 +10,7 @@ class TransactionController extends Controller
 {
     public function tanamanMasuk()
     {
-        $tanamanMasuk = TanamanMasuk::with('plant')->get();
+        $tanamanMasuk = TanamanMasuk::with('plant')->orderBy('created_at', 'desc')->get();
         return view('admin.pages.transactions.tanaman_masuk', compact('tanamanMasuk'));
     }
 

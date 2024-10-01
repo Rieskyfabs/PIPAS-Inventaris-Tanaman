@@ -33,7 +33,8 @@
                           <th>{{__('KODE TANAMAN MASUK')}}</th>
                           <th>{{__('KODE TANAMAN')}}</th>
                           <th>{{__('NAMA TANAMAN')}}</th>
-                          {{-- <th>{{__('LOKASI TANAMAN')}}</th> --}}
+                          <th>{{__('LOKASI TANAMAN')}}</th>
+                          <th>{{__('KONDISI TANAMAN')}}</th>
                           <th>{{__('TANGGAL MASUK')}}</th>
                           <th>{{__('JUMLAH MASUK')}}</th>
                           {{-- <th>{{__('ACTIONS')}}</th> --}}
@@ -46,7 +47,17 @@
                               <td>{{ $item->kode_tanaman_masuk }}</td>
                               <td>{{ $item->plant->plantAttribute->plant_code }}</td>
                               <td>{{ $item->plant->plantAttribute->name }}</td>
-                              {{-- <td>{{ $item->plant->location->name }}</td> --}}
+                              <td>{{ $item->plant->location->name }}</td>
+                              <td>
+                                  <span class="badge
+                                      @if ($item->plant->status === 'sehat') badge-soft-green <i class='bi bi-check-circle me-1'></i>
+                                      @elseif ($item->plant->status === 'baik') badge-soft-primary <i class='bi bi-star me-1'></i>
+                                      @elseif ($item->plant->status === 'layu') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
+                                      @elseif ($item->plant->status === 'sakit') badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
+                                      @else bg-secondary @endif">
+                                      {{ ucfirst($item->plant->status) }}
+                                  </span>
+                              </td>
                               <td>{{ $item->tanggal_masuk }}</td>
                               <td>{{ $item->jumlah_masuk }}</td>
 
