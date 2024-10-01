@@ -293,49 +293,55 @@
 
           <div class="card">
               <div class="card-body">
-                  <h5 class="card-title">{{__('Total Tanaman PerLokasi')}}</h5>
+                  <h5 class="card-title">{{ __('Total Tanaman Per Lokasi') }}</h5>
 
-                  <!-- Bar Chart -->
-                  <canvas id="DataTanaman" style="max-height: 400px;"></canvas>
-                  <script>
-                      document.addEventListener("DOMContentLoaded", () => {
-                          // Get data from the Blade view
-                          const labels = @json(array_keys($dataPerLocation));
-                          const dataValues = @json(array_values($dataPerLocation));
+                  <!-- Check if there's data -->
+                  @if(count($dataPerLocation) > 0)
+                      <!-- Bar Chart -->
+                      <canvas id="DataTanaman" style="max-height: 400px;"></canvas>
+                      <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                              // Get data from the Blade view
+                              const labels = @json(array_keys($dataPerLocation));
+                              const dataValues = @json(array_values($dataPerLocation));
 
-                          new Chart(document.querySelector('#DataTanaman'), {
-                              type: 'bar',
-                              data: {
-                                  labels: labels,
-                                  datasets: [{
-                                      label: 'Total',
-                                      data: dataValues,
-                                      backgroundColor: [
-                                          'rgba(255, 99, 132, 0.2)',
-                                          'rgba(255, 159, 64, 0.2)',
-                                          'rgba(255, 205, 86, 0.2)',
-                                          'rgba(75, 192, 192, 0.2)',
-                                      ],
-                                      borderColor: [
-                                          'rgb(255, 99, 132)',
-                                          'rgb(255, 159, 64)',
-                                          'rgb(255, 205, 86)',
-                                          'rgb(75, 192, 192)',
-                                      ],
-                                      borderWidth: 1
-                                  }]
-                              },
-                              options: {
-                                  scales: {
-                                      y: {
-                                          beginAtZero: true
+                              new Chart(document.querySelector('#DataTanaman'), {
+                                  type: 'bar',
+                                  data: {
+                                      labels: labels,
+                                      datasets: [{
+                                          label: 'Total',
+                                          data: dataValues,
+                                          backgroundColor: [
+                                              'rgba(255, 99, 132, 0.2)',
+                                              'rgba(255, 159, 64, 0.2)',
+                                              'rgba(255, 205, 86, 0.2)',
+                                              'rgba(75, 192, 192, 0.2)',
+                                          ],
+                                          borderColor: [
+                                              'rgb(255, 99, 132)',
+                                              'rgb(255, 159, 64)',
+                                              'rgb(255, 205, 86)',
+                                              'rgb(75, 192, 192)',
+                                          ],
+                                          borderWidth: 1
+                                      }]
+                                  },
+                                  options: {
+                                      scales: {
+                                          y: {
+                                              beginAtZero: true
+                                          }
                                       }
                                   }
-                              }
+                              });
                           });
-                      });
-                  </script>
-                  <!-- End Bar Chart -->
+                      </script>
+                      <!-- End Bar Chart -->
+                  @else
+                      <!-- No data message -->
+                      <p>{{ __('Tidak ada data tersedia untuk lokasi tanaman.') }}</p>
+                  @endif
               </div>
           </div>
 

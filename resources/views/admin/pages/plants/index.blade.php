@@ -65,6 +65,12 @@
                                 document.addEventListener("DOMContentLoaded", () => {
                                     const chartData = @json($chartData);
 
+                                    // Check if there's no data
+                                    if (chartData.labels.length === 0 || chartData.series.length === 0) {
+                                        document.querySelector("#plantStatus").innerHTML = "<p class='text-center'>Tidak ada data</p>";
+                                        return; // Exit the script to avoid rendering the chart
+                                    }
+
                                     // Define a mapping of status to colors
                                     const colorMapping = {
                                         "sehat": '#28a745',  // Green
@@ -113,6 +119,7 @@
                         </div>
                     </div>
                 </div>
+
 
                 <!-- End Right side columns -->
 

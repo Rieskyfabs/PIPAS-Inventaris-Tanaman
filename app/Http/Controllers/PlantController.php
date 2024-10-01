@@ -11,9 +11,12 @@ use App\Models\Category;
 use App\Models\Benefit;
 use App\Models\Location;
 use App\Models\PlantAttributes;
+use App\Models\TanamanMasuk;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -48,14 +51,14 @@ class PlantController extends Controller
 
         // Ambil data tanaman yang belum dipanen dan group berdasarkan kode tanaman
         $plants = Plant::selectRaw('
-        MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, 
-        MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, 
-        MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, 
-        MIN(location_id) as location_id, MIN(status) as status, 
-        MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, 
-        MAX(created_at) as created_at, MIN(harvest_status) as harvest_status
-    ')
-        ->where('harvest_status', '!=', 'sudah dipanen') // Hanya tanaman yang belum dipanen
+            MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, 
+            MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, 
+            MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, 
+            MIN(location_id) as location_id, MIN(status) as status, 
+            MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, 
+            MAX(created_at) as created_at, MIN(harvest_status) as harvest_status
+        ')
+        // ->where('harvest_status', '!=', 'sudah dipanen')
         ->groupBy('plant_code_id')
         ->orderBy('created_at', 'desc')
         ->with(['plantAttribute', 'category', 'benefit', 'location'])
@@ -87,7 +90,7 @@ class PlantController extends Controller
         // Hitung jumlah tanaman keluar pada periode sebelumnya
         $previousPlantsOut = Plant::where('harvest_status', 'sudah dipanen')
         ->whereBetween('harvest_date', [$previousStartDate, $previousEndDate])
-            ->count();
+        ->count();
 
         // Hitung jumlah berdasarkan status tanaman
         $countByStatus = Plant::selectRaw('status, COUNT(*) as total_quantity')
@@ -126,6 +129,16 @@ class PlantController extends Controller
         return view('admin.pages.plants.create', compact('categories', 'benefits', 'locations', 'plantAttributes'));
     }
 
+    // Function to generate unique numeric kode_tanaman_masuk
+    private function generateUniqueKodeTanamanMasuk()
+    {
+        do {
+            $kodeTanamanMasuk = random_int(100000000000, 999999999999); // Generate 12-digit numeric code
+        } while (TanamanMasuk::where('kode_tanaman_masuk', 'TM-' . $kodeTanamanMasuk)->exists());
+
+        return $kodeTanamanMasuk;
+    }
+
     public function store(Request $request)
     {
         // Validasi input
@@ -162,7 +175,7 @@ class PlantController extends Controller
             $harvestStatus = 'siap panen';
         }
 
-        // Buat tanaman baru dengan data yang digabung dan tambahkan harvest_status serta harvest_date
+        // Buat tanaman baru
         $plant = Plant::create(array_merge(
             $request->all(),
             [
@@ -171,13 +184,16 @@ class PlantController extends Controller
             ]
         ));
 
-        // Hitung jumlah tanaman berdasarkan plant_code_id
-        $jumlahMasuk = Plant::where('plant_code_id', $request->plant_code_id)->count() + 1;
+        // Generate unique kode_tanaman_masuk with 'TM-' prefix
+        $kodeTanamanMasuk = 'TM-' . $this->generateUniqueKodeTanamanMasuk();
 
-        // Memicu event PlantCreated dengan jumlah masuk tanaman
-        event(new PlantCreated($plant,
-            $jumlahMasuk
-        ));
+        // Store data in the tanaman_masuk table
+        TanamanMasuk::create([
+            'plant_id' => $plant->id,
+            'kode_tanaman_masuk' => $kodeTanamanMasuk,
+            'tanggal_masuk' => Carbon::now()->format('Y-m-d'),
+            'jumlah_masuk' => 1, // You can modify this based on your requirement
+        ]);
 
         // Mencatat aktivitas
         ActivityLogger::log('create', 'Created a new plant with code: ' . $request->plant_code_id);
@@ -188,6 +204,7 @@ class PlantController extends Controller
         // Redirect ke halaman sebelumnya
         return redirect()->back();
     }
+
 
     public function edit($id)
     {

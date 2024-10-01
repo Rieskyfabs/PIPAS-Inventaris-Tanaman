@@ -36,6 +36,7 @@
                           <th>{{__('TANGGAL KELUAR')}}</th>
                           <th>{{__('JUMLAH KELUAR')}}</th>
                           <th>{{__('STATUS TANAMAN')}}</th>
+                          <th>{{__('TUJUAN')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,6 +49,7 @@
                               <td>{{ $item->tanggal_keluar }}</td>
                               <td>{{ $item->jumlah_keluar }}</td>
                               <td>{{ $item->plant->status }}</td>
+                              <td>Dummy -> GreenRoof</td>
                             </tr>
                         @endforeach
                     </tbody>
