@@ -5,7 +5,6 @@
 @section('contents')
   <div>
     <main id="main" class="main">
-
       <x-breadcrumbs 
         title="Kategori" 
         :items="[
