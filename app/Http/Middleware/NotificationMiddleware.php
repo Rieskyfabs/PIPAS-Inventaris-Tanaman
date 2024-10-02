@@ -16,13 +16,13 @@ class NotificationMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // Ambil data tanaman dengan status "siap panen"
-        $siapPanenPlants = Plant::where('harvest_status', 'siap panen')->get();
+        // Ambil data tanaman siap panen dan urutkan berdasarkan created_at terbaru
+        $siapPanenPlants = Plant::where('harvest_status', 'siap panen')
+        ->orderBy('created_at', 'desc') // Urutkan berdasarkan created_at
+        ->get();
 
-        // Menghitung jumlah notifikasi
         $notificationCount = $siapPanenPlants->count();
 
-        // Siapkan data notifikasi untuk dropdown
         $notifications = [];
         foreach ($siapPanenPlants as $plant) {
             $notifications[] = [
@@ -34,7 +34,6 @@ class NotificationMiddleware
             ];
         }
 
-        // Share data ke seluruh view
         view()->share('notificationCount', $notificationCount);
         view()->share('notifications', $notifications);
 

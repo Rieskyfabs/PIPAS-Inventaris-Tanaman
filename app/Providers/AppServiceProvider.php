@@ -21,15 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // View composer untuk setiap view yang memuat komponen header
         View::composer('components.header', function ($view) {
-            // Ambil data tanaman dengan status "siap panen"
-            $siapPanenPlants = Plant::where('harvest_status', 'siap panen')->get();
+            // Ambil data tanaman siap panen dan urutkan berdasarkan created_at terbaru
+            $siapPanenPlants = Plant::where('harvest_status', 'siap panen')
+            ->orderBy('created_at', 'desc') // Urutkan berdasarkan created_at
+            ->get();
 
-            // Menghitung jumlah notifikasi
             $notificationCount = $siapPanenPlants->count();
 
-            // Siapkan data detail notifikasi untuk dropdown
             $notifications = [];
             foreach ($siapPanenPlants as $plant) {
                 $notifications[] = [
@@ -41,7 +40,6 @@ class AppServiceProvider extends ServiceProvider
                 ];
             }
 
-            // Kirim data ke view
             $view->with([
                 'notificationCount' => $notificationCount,
                 'notifications' => $notifications,

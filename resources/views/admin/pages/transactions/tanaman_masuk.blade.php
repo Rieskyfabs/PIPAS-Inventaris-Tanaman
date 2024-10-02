@@ -38,6 +38,7 @@
                           <th>{{__('KONDISI TANAMAN')}}</th>
                           <th>{{__('TANGGAL MASUK')}}</th>
                           <th>{{__('JUMLAH MASUK')}}</th>
+                          <th>{{__('CREATED AT')}}</th>
                           {{-- <th>{{__('ACTIONS')}}</th> --}}
                         </tr>
                     </thead>
@@ -46,9 +47,9 @@
                             <tr>
                               <td>{{ $loop->iteration }}</td>
                               <td>
-                                  @if($item->image)
-                                      <a href="{{ asset('storage/' . $item->image) }}" target="_blank">
-                                          <img src="{{ asset('storage/' . $item->image) }}" alt="Image of {{ $item->plantAttribute->name }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                  @if($item->plant->image)
+                                      <a href="{{ asset('storage/' . $item->plant->image) }}" target="_blank">
+                                          <img src="{{ asset('storage/' . $item->plant->image) }}" alt="Image of {{ $item->plant->name }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
                                       </a>
                                   @else
                                       <img src="{{ asset('default-image.png') }}" alt="Default Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
@@ -70,7 +71,7 @@
                               </td>
                               <td>{{ $item->tanggal_masuk }}</td>
                               <td>{{ $item->jumlah_masuk }}</td>
-
+                              <td>{{ $item->created_at->translatedFormat('d F Y, H:i') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
