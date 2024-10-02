@@ -6,6 +6,7 @@ use App\Events\PlantCreated;
 use App\Events\PlantHarvested;
 use App\Helpers\ActivityLogger;
 use App\Models\ActivityLog;
+use Intervention\Image\Facades\Image;
 use App\Models\Plant;
 use App\Models\Category;
 use App\Models\Benefit;
@@ -153,6 +154,7 @@ class PlantController extends Controller
             'location_id' => 'required|exists:locations,id',
             'status' => 'required|string|in:sehat,baik,layu,sakit',
             'seeding_date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
         ]);
 
         // Ambil tanggal tanam
@@ -175,12 +177,19 @@ class PlantController extends Controller
             $harvestStatus = 'siap panen';
         }
 
+        // Proses upload gambar jika ada
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('plants', 'public'); // Menyimpan gambar di folder storage/app/public/plants
+        }
+
         // Buat tanaman baru
         $plant = Plant::create(array_merge(
             $request->all(),
             [
                 'harvest_date' => $harvestDate,
                 'harvest_status' => $harvestStatus,
+                'image' => $imagePath, // Menyimpan path gambar di database
             ]
         ));
 
@@ -204,7 +213,6 @@ class PlantController extends Controller
         // Redirect ke halaman sebelumnya
         return redirect()->back();
     }
-
 
     public function edit($id)
     {
@@ -277,18 +285,23 @@ class PlantController extends Controller
             ->where('harvest_status', '!=', 'belum panen')
             ->update(['harvest_status' => 'belum panen']);
 
-        // Retrieve plant data based on the selected plant code
+        // Retrieve all plant data
         $plants = Plant::with('category', 'benefit', 'location')
-            ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
-                $query->where('plant_code', $plantAttribute);
-            })->get();
+        ->orderBy('created_at', 'DESC')
+        ->get();
+
+        // Retrieve the specific plant based on the plant code for the detail title
+        $plantDetail = Plant::with('category', 'benefit', 'location')
+        ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
+            $query->where('plant_code', $plantAttribute);
+        })->first();
 
         // Confirmation for deletion
         $title = 'Delete Plants!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        return view('admin.pages.plants.show', compact('plants'));
+        return view('admin.pages.plants.show', compact('plants', 'plantDetail'));
     }
 
     // Menandai tanaman sebagai sudah dipanen

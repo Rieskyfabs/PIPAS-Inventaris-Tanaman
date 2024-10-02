@@ -21,7 +21,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{__('Plants Data Details')}}</h5>
+                        <h5 class="card-title">{{ __('Plants Data Details : ') . $plantDetail->plantAttribute->plant_code }}</h5>
 
                         <div class="table-responsive">
                             <!-- Table with stripped rows -->
@@ -29,24 +29,34 @@
                                 <thead>
                                     <tr>
                                       {{-- <th>ID</th> --}}
-                                      <th>Kode</th>
-                                      <th>Nama</th>
-                                      <th>Kategori</th>
-                                      <th>Manfaat</th>
-                                      <th>Lokasi</th>
-                                      <th>Kondisi</th>
-                                      <th>Tanggal Tanam</th>
-                                      <th>{{__('Est. Tanggal Pane')}}n</th>
-                                      <th>{{__('Status')}}</th>
-                                      <th>QR Code</th>
-                                      <th>Actions</th>
+                                      <th>{{__('GAMBAR')}}</th>
+                                      {{-- <th>{{__('KODE')}}</th> --}}
+                                      <th>{{__('NAMA')}}</th>
+                                      <th>{{__('KATEGORI')}}</th>
+                                      <th>{{__('MANFAAT')}}</th>
+                                      <th>{{__('LOKASI')}}</th>
+                                      <th>{{__('KONDISI')}}</th>
+                                      <th>{{__('TANGGAL TANAM')}}</th>
+                                      <th>{{__('EST. TANGGAL PANEN')}}</th>
+                                      <th>{{__('STATUS')}}</th>
+                                      <th>{{__('QR CODE')}}</th>
+                                      <th>{{__('AKSI')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($plants as $plant)
                                         <tr>
                                             {{-- <td>{{ $plant->id }}</td> --}}
-                                            <td>{{ $plant->plantAttribute ? $plant->plantAttribute->plant_code : 'Unknown' }}</td>
+                                            <td>
+                                                @if($plant->image)
+                                                    <a href="{{ asset('storage/' . $plant->image) }}" target="_blank">
+                                                        <img src="{{ asset('storage/' . $plant->image) }}" alt="Image of {{ $plant->plantAttribute->name }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                                    </a>
+                                                @else
+                                                    <img src="{{ asset('default-image.png') }}" alt="Default Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                                                @endif 
+                                            </td>
+                                            {{-- <td>{{ $plant->plantAttribute ? $plant->plantAttribute->plant_code : 'Unknown' }}</td> --}}
                                             <td>
                                                 <div class="d-flex flex-column">
                                                     <a href="#" class="text-heading text-truncate">

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('plants', function (Blueprint $table) {
             $table->id();
+            $table->string('image')->nullable();
             $table->foreignId('plant_code_id')->constrained('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('plant_name_id')->constrained('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('plant_scientific_name_id')->constrained('plant_attributes')->onDelete('cascade')->onUpdate('cascade');

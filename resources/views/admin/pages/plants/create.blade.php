@@ -32,7 +32,7 @@
                     </div>
                 @endif
                 <!-- Advanced Form Elements -->
-                  <form action="{{ route('plants.store') }}" method="POST">
+                  <form action="{{ route('plants.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
                     <div class="form-floating mb-3">
@@ -104,6 +104,17 @@
                             @endforeach
                         </select>
                         <label for="plantBenefits">Manfaat Tanaman</label>
+                    </div>
+
+                    <!-- Input for Image -->
+                    <div class="form-group mb-3">
+                        <label for="plantImage">Upload Gambar Tanaman</label>
+                        <input type="file" name="image" class="form-control" id="plantImage" accept="image/*" onchange="previewImage(event)">
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="form-group mb-3">
+                        <img id="imagePreview" src="#" alt="Preview Gambar" style="display: none; width: 100px; height: 100px; object-fit: cover;" />
                     </div>
 
                     <div class="form-floating mb-3">
@@ -200,8 +211,20 @@
                         });
                     });
                 </script>
-
                 <!-- End JavaScript for Auto Fill -->
+
+                <!-- JavaScript for Previewing Image -->
+                <script>
+                    function previewImage(event) {
+                        var reader = new FileReader();
+                        reader.onload = function(){
+                            var output = document.getElementById('imagePreview');
+                            output.src = reader.result;
+                            output.style.display = 'block'; // Show the preview
+                        };
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+                </script>
 
               </div>
             </div>
