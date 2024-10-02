@@ -41,9 +41,8 @@
                 <table class="table datatable">
                     <thead>
                         <tr>
-                          <th>{{__('ID')}}</th>
-                          <th>{{__('CATEGORIES NAME')}}</th>
-                          {{-- <th>{{__('STATUS')}}</th> --}}
+                          <th>{{__('NO')}}</th>
+                          <th>{{__('NAMA KATEGORI')}}</th>
                           <th>{{__('CREATED AT')}}</th>
                           <th>{{__('ACTIONS')}}</th>
                         </tr>
@@ -51,30 +50,21 @@
                     <tbody>
                         @foreach ($categories as $category)
                             <tr>
-                              <td>{{ $category->id }}</td>
+                              <td>{{ $loop->iteration }}</td>
                               <td>
                                   <div class="d-flex flex-column">
                                       <a href="#" class="text-heading text-truncate">
                                           <span class="fw-medium">{{ $category->name }}</span>
                                       </a>
-                                      <small>{{ $category->description ?? 'No Description' }}</small>
+                                      <small>{{ $category->description ?? 'Tidak Ada Deskripsi' }}</small>
                                   </div>
                               </td>
-                              {{-- <td>
-                                  @if($category->status == 'active')
-                                      <span class="badge badge-soft-green">Active</span>
-                                  @elseif($category->status == 'inactive')
-                                      <span class="badge badge-soft-gray">Inactive</span>
-                                  @else
-                                      <span class="badge badge-soft-secondary">Unknown</span>
-                                  @endif
-                              </td> --}}
                               <td>{{ $category->created_at->format('d F Y, H:i') }}</td>
                               <td>
                                   <x-action-buttons
                                       deleteData="{{ route('categories.destroy', $category->id) }}"
                                       method="DELETE"
-                                      submit="true" {{-- Tombol hapus akan muncul --}}
+                                      submit="true"
                                       :dropdown="[ 
                                           ['href' => route('categories.edit', $category->id), 'label' => 'Edit'], 
                                       ]"

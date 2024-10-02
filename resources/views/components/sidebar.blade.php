@@ -59,11 +59,6 @@
                             </a>
                             <ul id="plants-attributes-subnav" class="nav-content collapse {{ Request::is('admin/attributes*') ? 'show' : '' }} ps-3" data-bs-parent="#plants-nav">
                                 <li>
-                                    <a class="{{ Request::is('admin/attributes/plant-attributes') ? 'active' : '' }}" href="{{ route('plantAttributes') }}">
-                                        <i class="bi bi-circle"></i><span>{{ __('Atribut Tanaman') }}</span>
-                                    </a>
-                                </li>
-                                <li>
                                     <a class="{{ Request::is('admin/attributes/categories*') ? 'active' : '' }}" href="{{ route('categories') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Kategori Tanaman') }}</span>
                                     </a>
@@ -76,6 +71,11 @@
                                 <li>
                                     <a class="{{ Request::is('admin/attributes/locations*') ? 'active' : '' }}" href="{{ route('locations') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Lokasi Penyimpanan') }}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="{{ Request::is('admin/attributes/plant-attributes') ? 'active' : '' }}" href="{{ route('plantAttributes') }}">
+                                        <i class="bi bi-circle"></i><span>{{ __('Atribut Tanaman') }}</span>
                                     </a>
                                 </li>
                             </ul>

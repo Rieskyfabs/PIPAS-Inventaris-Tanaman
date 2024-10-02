@@ -38,13 +38,12 @@
                               <table class="table table-bordered table-hover datatable">
                                   <thead>
                                       <tr>
-                                          <th>#</th>
-                                          <th>{{__('PLANT CODE')}}</th>
-                                          <th>{{__('PLANT NAME')}}</th>
-                                          <th>{{__('CATEGORY')}}</th>
-                                          <th>{{__('BENEFIT')}}</th>
-                                          <th>{{__('DESCRIPTION')}}</th>
-                                          {{-- <th>{{__('STATUS')}}</th> --}}
+                                          <th>NO</th>
+                                          <th>{{__('KODE TANAMAN')}}</th>
+                                          <th>{{__('NAMA TANAMAN')}}</th>
+                                          <th>{{__('KATEGORI')}}</th>
+                                          <th>{{__('MANFAAT')}}</th>
+                                          <th>{{__('DESKRIPSI')}}</th>
                                           <th>{{__('CREATED AT')}}</th>
                                           <th>{{__('ACTIONS')}}</th>
                                       </tr>
@@ -80,15 +79,6 @@
                                             <td>{{ $item->category->name ?? 'Kategori tidak ditemukan' }}</td>
                                             <td>{{ $item->benefit->name ?? 'Manfaat tidak ditemukan' }}</td>
                                             <td>{{ $item->description ?? 'No Description' }}</td>
-                                            {{-- <td>
-                                                @if($item->status == 'active')
-                                                    <span class="badge badge-soft-green">Active</span>
-                                                @elseif($item->status == 'inactive')
-                                                    <span class="badge badge-soft-gray">Inactive</span>
-                                                @else
-                                                    <span class="badge badge-soft-secondary">Unknown</span>
-                                                @endif
-                                            </td> --}}
                                             <td>{{ $item->created_at->format('d F Y, H:i') }}</td>
                                             <td>
                                             <x-action-buttons
