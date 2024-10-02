@@ -74,7 +74,7 @@ class HomeController extends Controller
         $recentPlants = Plant::with('plantAttribute') // Pastikan ada relasi yang sesuai
         ->orderBy('created_at', 'desc') // Mengurutkan berdasarkan tanggal dibuat
         ->take(5) // Mengambil 5 tanaman terbaru
-            ->get();
+        ->get();
 
         // Kirim data ke view
         return view('admin-dashboard', compact(

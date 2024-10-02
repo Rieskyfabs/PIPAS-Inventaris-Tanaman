@@ -285,10 +285,13 @@ class PlantController extends Controller
             ->where('harvest_status', '!=', 'belum panen')
             ->update(['harvest_status' => 'belum panen']);
 
-        // Retrieve all plant data
+        // Retrieve plants based on the plant code
         $plants = Plant::with('category', 'benefit', 'location')
-        ->orderBy('created_at', 'DESC')
-        ->get();
+        ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
+            $query->where('plant_code', $plantAttribute);
+        })
+            ->orderBy('created_at', 'DESC')
+            ->get();
 
         // Retrieve the specific plant based on the plant code for the detail title
         $plantDetail = Plant::with('category', 'benefit', 'location')
@@ -303,6 +306,7 @@ class PlantController extends Controller
 
         return view('admin.pages.plants.show', compact('plants', 'plantDetail'));
     }
+
 
     // Menandai tanaman sebagai sudah dipanen
     public function harvest($id)

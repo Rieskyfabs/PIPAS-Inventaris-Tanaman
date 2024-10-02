@@ -147,7 +147,7 @@
                                         >
                                         </path>
                                     </svg>
-                                    {{ __('Add Plant') }}
+                                    {{ __('TAMBAH DATA TANAMAN') }}
                                 </a>
                             </div>
 
