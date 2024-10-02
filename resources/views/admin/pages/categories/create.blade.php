@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', 'Add New Plant')
+@section('title', 'Add New Category')
 
 @section('contents')
     <div>
         <main id="main" class="main">
 
-            <x-breadcrumbs title="{{ __('Add New Plant') }}" :items="[
+            <x-breadcrumbs title="{{ __('Add New Categories') }}" :items="[
                 ['route' => 'home', 'label' => 'Home'],
                 ['route' => 'categories', 'label' => 'Categories'],
                 ['label' => 'Add New Category'],
