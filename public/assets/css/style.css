@@ -1558,3 +1558,24 @@ select[readonly]:focus {
   /* Light background to make header stand out */
   border-bottom: 1px solid #e9ecef;
 }
+
+.img-max-height {
+  max-height: 300px;
+  /* Menetapkan tinggi maksimum 100 piksel */
+  object-fit: cover;
+  /* Memastikan gambar tetap proporsional */
+  width: 100%;
+  /* Memastikan gambar memenuhi lebar */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Hitam dengan transparansi */
+  opacity: 0.5;
+  /* Tingkat transparansi overlay */
+}

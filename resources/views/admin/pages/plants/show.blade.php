@@ -22,15 +22,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ __('Plants Data Details : ') . $plantDetail->plantAttribute->plant_code }}</h5>
-
+                        
                         <div class="table-responsive">
                             <!-- Table with stripped rows -->
                             <table class="table table-bordered table-hover datatable">
                                 <thead>
                                     <tr>
-                                      {{-- <th>ID</th> --}}
                                       <th>{{__('GAMBAR')}}</th>
-                                      {{-- <th>{{__('KODE')}}</th> --}}
                                       <th>{{__('NAMA')}}</th>
                                       <th>{{__('KATEGORI')}}</th>
                                       <th>{{__('MANFAAT')}}</th>
@@ -46,7 +44,6 @@
                                 <tbody>
                                     @foreach ($plants as $plant)
                                         <tr>
-                                            {{-- <td>{{ $plant->id }}</td> --}}
                                             <td>
                                                 @if($plant->image)
                                                     <a href="{{ asset('storage/' . $plant->image) }}" target="_blank">
@@ -56,7 +53,6 @@
                                                     <img src="{{ asset('default-image.png') }}" alt="Default Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
                                                 @endif 
                                             </td>
-                                            {{-- <td>{{ $plant->plantAttribute ? $plant->plantAttribute->plant_code : 'Unknown' }}</td> --}}
                                             <td>
                                                 <div class="d-flex flex-column">
                                                     <a href="#" class="text-heading text-truncate">

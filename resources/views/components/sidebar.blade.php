@@ -64,17 +64,17 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="{{ Request::is('admin/attributes/categories') ? 'active' : '' }}" href="{{ route('categories') }}">
+                                    <a class="{{ Request::is('admin/attributes/categories*') ? 'active' : '' }}" href="{{ route('categories') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Kategori Tanaman') }}</span>
                                     </a>
                                 </li>   
                                 <li>
-                                    <a class="{{ Request::is('admin/attributes/benefits') ? 'active' : '' }}" href="{{ route('benefits') }}">
+                                    <a class="{{ Request::is('admin/attributes/benefits*') ? 'active' : '' }}" href="{{ route('benefits') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Manfaat Tanaman') }}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="{{ Request::is('admin/attributes/locations') ? 'active' : '' }}" href="{{ route('locations') }}">
+                                    <a class="{{ Request::is('admin/attributes/locations*') ? 'active' : '' }}" href="{{ route('locations') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Lokasi Penyimpanan') }}</span>
                                     </a>
                                 </li>
