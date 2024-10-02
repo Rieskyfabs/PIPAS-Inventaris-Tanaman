@@ -30,6 +30,7 @@
                     <thead>
                         <tr>
                           <th>{{__('NO')}}</th>
+                          <th>{{__('GAMBAR')}}</th>
                           <th>{{__('KODE TANAMAN MASUK')}}</th>
                           <th>{{__('KODE TANAMAN')}}</th>
                           <th>{{__('NAMA TANAMAN')}}</th>
@@ -41,9 +42,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($tanamanMasuk  as $item)
+                        @foreach ($tanamanMasuk as $item)
                             <tr>
                               <td>{{ $loop->iteration }}</td>
+                              <td>
+                                  @if($item->image)
+                                      <a href="{{ asset('storage/' . $item->image) }}" target="_blank">
+                                          <img src="{{ asset('storage/' . $item->image) }}" alt="Image of {{ $item->plantAttribute->name }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                      </a>
+                                  @else
+                                      <img src="{{ asset('default-image.png') }}" alt="Default Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                                  @endif 
+                              </td>
                               <td>{{ $item->kode_tanaman_masuk }}</td>
                               <td>{{ $item->plant->plantAttribute->plant_code }}</td>
                               <td>{{ $item->plant->plantAttribute->name }}</td>

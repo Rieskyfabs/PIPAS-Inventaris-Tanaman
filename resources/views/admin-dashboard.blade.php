@@ -150,7 +150,8 @@
                   <table class="table table-borderless table-hover datatable">
                     <thead>
                         <tr>
-                            <th scope="col">{{ __('KODE') }}</th>
+                            <th scope="col">{{ __('KODE TANAMAN MASUK') }}</th>
+                            <th scope="col">{{ __('KODE TANAMAN') }}</th>
                             <th scope="col">{{ __('NAMA TANAMAN') }}</th>
                             <th scope="col">{{ __('TIPE TANAMAN') }}</th>
                             <th scope="col">{{ __('KATEGORI TANAMAN') }}</th>
@@ -161,11 +162,15 @@
                     <tbody>
                         @foreach ($plants as $plant)
                             <tr>
+                                <td>{{ $plant->tanamanMasuk->kode_tanaman_masuk }}</td>
                                 <td>{{ $plant->plantAttribute->plant_code }}</td>
                                 <th scope="row">
-                                    <a href="{{ route('plants.show', ['plantAttribute' => $plant->plantAttribute->plant_code]) }}">
-                                        {{ $plant->plantAttribute->name }}
-                                    </a>
+                                    <div class="d-flex flex-column">
+                                        <a href="{{ route('plants.show', ['plantAttribute' => $plant->plantAttribute->plant_code]) }}">
+                                          {{ $plant->plantAttribute->name }}
+                                        </a>
+                                        <small>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</small>
+                                    </div>
                                 </th>
                                 <td>
                                     @if ($plant->type === 'Sayuran')

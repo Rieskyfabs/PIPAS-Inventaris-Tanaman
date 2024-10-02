@@ -267,7 +267,7 @@ class PlantController extends Controller
         
         Alert::success('Hapus Data Tanaman', 'Berhasil mengHapus data Tanaman');
 
-        return redirect()->route('plants');
+        return redirect()->back();
     }
 
     public function show($plantAttribute)

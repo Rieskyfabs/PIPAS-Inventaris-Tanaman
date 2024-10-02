@@ -30,7 +30,7 @@ class HomeController extends Controller
         $totalUsers = User::count();
 
         // Ambil data tanaman dengan pagination
-        $plants = Plant::with(['category', 'benefit', 'location', 'plantAttribute'])
+        $plants = Plant::with(['category', 'benefit', 'location', 'plantAttribute', 'tanamanMasuk'])
         ->orderBy('created_at', 'desc')
         ->paginate(5);
 
