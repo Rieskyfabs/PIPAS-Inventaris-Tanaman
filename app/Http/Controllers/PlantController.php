@@ -161,7 +161,7 @@ class PlantController extends Controller
         $seedingDate = $request->input('seeding_date');
 
         // Estimasi tanggal panen (misalnya 90 hari setelah tanam)
-        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days'));
+        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +7 days'));
 
         // Tentukan status panen secara otomatis
         $today = Carbon::now();
@@ -305,21 +305,6 @@ class PlantController extends Controller
         confirmDelete($title, $text);
 
         return view('admin.pages.plants.show', compact('plants', 'plantDetail'));
-    }
-
-
-    // Menandai tanaman sebagai sudah dipanen
-    public function harvest($id)
-    {
-        $plant = Plant::findOrFail($id);
-        $plant->status = 'sudah dipanen'; // Atur status tanaman
-        $plant->save();
-
-        // Memicu event PlantHarvested
-        event(new PlantHarvested($plant));
-
-        // Redirect atau return response
-        return redirect()->route('plants.index')->with('success', 'Tanaman berhasil dipanen!');
     }
 
 }

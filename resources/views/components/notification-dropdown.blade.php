@@ -14,19 +14,31 @@
       <hr class="dropdown-divider">
     </li>
 
-    @foreach ($notifications as $notification)
+    @if(empty($notifications))
       <li class="notification-item">
-        <i class="bi {{ $notification['icon'] }} {{ $notification['iconColor'] }}"></i>
+        <i class="bi bi-info-circle"></i>
         <div>
-          <h4>{{ $notification['title'] }}</h4>
-          <p>{{ $notification['message'] }}</p>
-          <p>{{ $notification['timeAgo'] }}</p>
+          <h4>{{__('TIdak Ada Notifikasi Terbaru')}}</h4>
+          <p>{{__('Anda Sudah Up-To Date!')}}</p>
         </div>
       </li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-    @endforeach
+    @else
+      @foreach ($notifications as $notification)
+        <li class="notification-item">
+          <i class="bi {{ $notification['icon'] }} {{ $notification['iconColor'] }}"></i>
+          <a href="{{ $notification['url'] }}">
+            <div>
+              <h4>{{ $notification['title'] }}</h4>
+              <p>{{ $notification['message'] }}</p>
+              <p>{{ $notification['timeAgo'] }}</p>
+            </div>
+          </a>
+        </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+      @endforeach
+    @endif
 
     <li class="dropdown-footer">
       <a href="#">Show all notifications</a>

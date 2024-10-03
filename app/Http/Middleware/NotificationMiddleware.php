@@ -29,9 +29,11 @@ class NotificationMiddleware
                 'icon' => 'bi-exclamation-circle',
                 'iconColor' => 'text-warning',
                 'title' => 'Tanaman Siap Panen',
-                'message' => 'Tanaman ' . $plant->name . ' di lokasi ' . $plant->location->name . ' siap dipanen.',
+                'message' => 'Tanaman dengan kode ' . $plant->plantAttribute->plant_code . ' siap panen.',
                 'timeAgo' => $plant->created_at->diffForHumans(),
+                'url' => route('plants.show', $plant->plantAttribute->plant_code)
             ];
+
         }
 
         view()->share('notificationCount', $notificationCount);

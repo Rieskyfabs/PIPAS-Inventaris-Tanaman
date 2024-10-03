@@ -45,12 +45,20 @@
 
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/inventaris*') || Request::is('admin/attributes*') ? '' : 'collapsed' }}" data-bs-target="#plants-nav" data-bs-toggle="collapse" href="#">
-                        <i class="ri-plant-line fs-5"></i><span>{{ __('Kelola Tanaman') }}</span><i class="bi bi-chevron-down ms-auto"></i>
+                        <i class="ri-plant-line fs-5"></i><span>{{ __('Kelola Tanaman') }}</span>
+                        @if($readyToHarvestCount > 0)
+                            <span class="notification-bubble"></span>
+                        @endif
+                        <i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="plants-nav" class="nav-content collapse {{ Request::is('admin/inventaris*') || Request::is('admin/attributes*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <li>
                             <a class="{{ Request::is('admin/inventaris/plants*') ? 'active' : '' }}" href="{{ route('plants') }}">
-                                <i class="bi bi-circle"></i><span>{{ __('List Tanaman') }}</span>
+                                <i class="bi bi-circle"></i>
+                                <span>{{ __('List Tanaman') }}</span>
+                                @if($readyToHarvestCount > 0)
+                                    <span class="notification-bubble"></span>
+                                @endif
                             </a>
                         </li>
                         <li class="nav-item">

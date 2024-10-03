@@ -1580,3 +1580,34 @@ select[readonly]:focus {
   opacity: 0.5;
   /* Tingkat transparansi overlay */
 }
+
+/* Bubble Notifikasi */
+.notification-bubble {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background-color: #ff9800;
+  border-radius: 50%;
+  margin-left: 8px;
+  /* Jarak antara teks dan bubble */
+  position: relative;
+  /* Relatif terhadap item menu */
+  /* Mengatur agar posisinya sejajar dengan teks */
+  animation: fadeInOut 1s infinite;
+  /* Efek animasi */
+}
+
+/* Animasi Muncul dan Memudar */
+@keyframes fadeInOut {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}

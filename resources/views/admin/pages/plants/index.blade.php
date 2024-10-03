@@ -192,7 +192,13 @@
                                                 <td>{{ $plant->category ? $plant->category->name : 'Unknown' }}</td>
                                                 <td>{{ $plant->benefit ? $plant->benefit->name : 'Unknown' }}</td>
                                                 {{-- <td>{{ $plant->total_quantity }}</td> --}}
-                                                <td><span class="badge bg-primary badge-number">{{ $plant->total_quantity }}</span></td>
+                                                <td>
+                                                    <span class="badge bg-primary badge-number">{{ $plant->total_quantity }}
+                                                        @if(isset($plant->harvest_status) && ($plant->harvest_status) === 'siap panen')
+                                                            <span class="notification-bubble"></span>
+                                                        @endif
+                                                    </span>
+                                                </td>
                                                 <td>
                                                     <x-action-buttons
                                                         viewData="{{ route('plants.show', $plant->plantAttribute->plant_code) }}"

@@ -21,11 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Share notifications with the header
         View::composer('components.header', function ($view) {
-            // Ambil data tanaman siap panen dan urutkan berdasarkan created_at terbaru
+            // Fetch plants ready for harvest, ordered by creation date
             $siapPanenPlants = Plant::where('harvest_status', 'siap panen')
-            ->orderBy('created_at', 'desc') // Urutkan berdasarkan created_at
-            ->get();
+                ->orderBy('created_at', 'desc')
+                ->get();
 
             $notificationCount = $siapPanenPlants->count();
 
@@ -35,8 +36,9 @@ class AppServiceProvider extends ServiceProvider
                     'icon' => 'bi-exclamation-circle',
                     'iconColor' => 'text-warning',
                     'title' => 'Tanaman Siap Panen',
-                    'message' => 'Tanaman ' . $plant->name . ' di lokasi ' . $plant->location->name . ' siap dipanen.',
+                    'message' => 'Tanaman dengan kode ' . $plant->plantAttribute->plant_code . ' siap panen.',
                     'timeAgo' => $plant->created_at->diffForHumans(),
+                    'url' => route('plants.show', $plant->plantAttribute->plant_code),
                 ];
             }
 
@@ -44,6 +46,11 @@ class AppServiceProvider extends ServiceProvider
                 'notificationCount' => $notificationCount,
                 'notifications' => $notifications,
             ]);
+        });
+
+        View::composer('components.sidebar', function ($view) {
+            $readyToHarvestCount = Plant::where('harvest_status', 'siap panen')->count();
+            $view->with('readyToHarvestCount', $readyToHarvestCount);
         });
     }
 }
