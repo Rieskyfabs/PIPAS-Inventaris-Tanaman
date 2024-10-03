@@ -194,7 +194,7 @@
                                                 {{-- <td>{{ $plant->total_quantity }}</td> --}}
                                                 <td>
                                                     <span class="badge bg-primary badge-number">{{ $plant->total_quantity }}
-                                                        @if(isset($plant->harvest_status) && ($plant->harvest_status) === 'siap panen')
+                                                        @if($plant->ready_to_harvest_count > 0)
                                                             <span class="notification-bubble"></span>
                                                         @endif
                                                     </span>

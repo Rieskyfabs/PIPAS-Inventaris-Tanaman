@@ -57,9 +57,9 @@ class PlantController extends Controller
             MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, 
             MIN(location_id) as location_id, MIN(status) as status, 
             MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, 
-            MAX(created_at) as created_at, MIN(harvest_status) as harvest_status
+            MAX(created_at) as created_at, MIN(harvest_status) as harvest_status,
+            SUM(CASE WHEN harvest_status = "siap panen" THEN 1 ELSE 0 END) as ready_to_harvest_count
         ')
-        // ->where('harvest_status', '!=', 'sudah dipanen')
         ->groupBy('plant_code_id')
         ->orderBy('created_at', 'desc')
         ->with(['plantAttribute', 'category', 'benefit', 'location'])
@@ -117,9 +117,7 @@ class PlantController extends Controller
             'chartData',
             'period',
         ));
-    }
-
-
+    }   
     public function create()
     {
         $categories = Category::all();
@@ -161,7 +159,7 @@ class PlantController extends Controller
         $seedingDate = $request->input('seeding_date');
 
         // Estimasi tanggal panen (misalnya 90 hari setelah tanam)
-        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +7 days'));
+        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days'));
 
         // Tentukan status panen secara otomatis
         $today = Carbon::now();

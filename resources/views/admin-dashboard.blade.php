@@ -300,7 +300,7 @@
 
                               new Chart(document.querySelector('#DataTanaman'), {
                                   type: 'bar',
-                                  data: {
+                                  data: {   
                                       labels: labels,
                                       datasets: [{
                                           label: 'Total',

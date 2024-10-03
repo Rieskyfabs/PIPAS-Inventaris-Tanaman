@@ -30,6 +30,8 @@
             <div>
               <h4>{{ $notification['title'] }}</h4>
               <p>{{ $notification['message'] }}</p>
+              {{-- <p>{{ $notification['subMessage'] }}</p> --}}
+              <p>{{ $notification['location'] }}</p>
               <p>{{ $notification['timeAgo'] }}</p>
             </div>
           </a>
