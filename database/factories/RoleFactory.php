@@ -12,7 +12,8 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word, // Nama role seperti 'admin', 'user', dll.
+            'name' => $this->faker->word,
+            'guard_name' => 'web',  // Atur guard_name default sebagai 'web'
         ];
     }
 }

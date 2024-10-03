@@ -38,9 +38,9 @@
                               <table class="table table-bordered table-hover datatable">
                                   <thead>
                                       <tr>
-                                          <th>#</th>
-                                          <th>{{__('LOCATIONS')}}</th>
-                                          <th>{{__('STATUS')}}</th>
+                                          <th>NO</th>
+                                          <th>{{__('NAA LOKASI')}}</th>
+                                          <th>{{__('CREATED AT')}}</th>
                                           <th>{{__('ACTIONS')}}</th>
                                       </tr>
                                   </thead>
@@ -49,20 +49,12 @@
                                           <tr>
                                               <td>{{ $loop->iteration }}</td>
                                               <td>{{ $location->name }}</td>
-                                              <td>
-                                                  @if($location->status == 'active')
-                                                      <span class="badge badge-soft-green">Active</span>
-                                                  @elseif($location->status == 'inactive')
-                                                      <span class="badge badge-soft-gray">Inactive</span>
-                                                  @else
-                                                      <span class="badge badge-soft-secondary">Unknown</span>
-                                                  @endif
-                                              </td>
+                                              <td>{{ $location->created_at->format('d F Y, H:i') }}</td>
                                               <td>
                                                   <x-action-buttons
                                                         deleteData="{{ route('locations.destroy', $location->id) }}"
                                                         method="DELETE"
-                                                        submit="true" {{-- Tombol hapus akan muncul --}}
+                                                        submit="true"
                                                         :dropdown="[ 
                                                             ['href' => route('locations.edit', $location->id), 'label' => 'Edit'], 
                                                         ]"

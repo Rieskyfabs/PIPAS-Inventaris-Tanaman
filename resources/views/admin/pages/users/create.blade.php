@@ -52,7 +52,7 @@
                         <select name="role_id" class="form-select" id="userRole" required>
                             <option value="" disabled selected>{{__('Silahkan pilih role')}}</option>
                             @foreach ($roles as $role)
-                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
                             @endforeach
                         </select>
                         <label for="userRole">{{__('User Role')}}</label>

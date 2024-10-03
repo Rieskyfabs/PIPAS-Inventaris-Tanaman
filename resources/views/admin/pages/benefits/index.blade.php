@@ -38,26 +38,18 @@
                 <table class="table table-bordered table-hover datatable">
                     <thead>
                         <tr>
-                          <th>{{__('ID')}}</th>
-                          <th>{{__('BENEFITS NAME')}}</th>
-                          <th>{{__('STATUS')}}</th>
+                          <th>{{__('NO')}}</th>
+                          <th>{{__('NAMA MANFAAT')}}</th>
+                          <th>{{__('CREATED AT')}}</th>
                           <th>{{__('ACTIONS')}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($benefits as $benefit)
                             <tr>
-                              <td>{{ $benefit->id }}</td>
+                              <td>{{ $loop->iteration }}</td>
                               <td>{{ $benefit->name }}</td>
-                              <td>
-                                  @if($benefit->status == 'active')
-                                      <span class="badge badge-soft-green">Active</span>
-                                  @elseif($benefit->status == 'inactive')
-                                      <span class="badge badge-soft-gray">Inactive</span>
-                                  @else
-                                      <span class="badge badge-soft-secondary">Unknown</span>
-                                  @endif
-                              </td>
+                              <td>{{ $benefit->created_at->format('d F Y, H:i') }}</td>
                               <td>
                                   <x-action-buttons
                                       deleteData="{{ route('benefits.destroy', $benefit->id) }}"

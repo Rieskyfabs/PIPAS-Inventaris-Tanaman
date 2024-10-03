@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PlantCreated;
+use App\Events\PlantHarvested;
+use App\Helpers\ActivityLogger;
+use App\Models\ActivityLog;
+use Intervention\Image\Facades\Image;
 use App\Models\Plant;
 use App\Models\Category;
 use App\Models\Benefit;
 use App\Models\Location;
-use App\Models\PlantCode;
+use App\Models\PlantAttributes;
+use App\Models\TanamanMasuk;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -42,30 +50,48 @@ class PlantController extends Controller
                 break;
         }
 
-        // Ambil data tanaman dan group berdasarkan kode tanaman
-        $plants = Plant::selectRaw('MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, MIN(location_id) as location_id, MIN(status) as status, MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, MAX(created_at) as created_at')
+        // Ambil data tanaman yang belum dipanen dan group berdasarkan kode tanaman
+        $plants = Plant::selectRaw('
+            MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, 
+            MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, 
+            MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, 
+            MIN(location_id) as location_id, MIN(status) as status, 
+            MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, 
+            MAX(created_at) as created_at, MIN(harvest_status) as harvest_status,
+            SUM(CASE WHEN harvest_status = "siap panen" THEN 1 ELSE 0 END) as ready_to_harvest_count
+        ')
         ->groupBy('plant_code_id')
         ->orderBy('created_at', 'desc')
-        ->with(['plantCode', 'category', 'benefit', 'location'])
+        ->with(['plantAttribute', 'category', 'benefit', 'location'])
         ->get();
 
-        // Hitung total tanaman
+        // Hitung total tanaman masuk (belum dipanen)
         $totalPlants = $plants->sum('total_quantity');
 
         // Hitung total tanaman pada periode sebelumnya
-        $previousTotalPlants = Plant::whereBetween('created_at', [$previousStartDate, $previousEndDate])->count();
+        $previousTotalPlants = Plant::where('harvest_status', '!=', 'sudah dipanen')
+        ->whereBetween('created_at', [$previousStartDate, $previousEndDate])
+        ->count();
 
-        // Hitung jumlah tanaman masuk berdasarkan seeding_date dan periode filter
-        $plantsIn = Plant::whereBetween('created_at', [$startDate, $endDate])->count();
+        // Hitung jumlah tanaman masuk (belum dipanen) berdasarkan seeding_date dan periode filter
+        $plantsIn = Plant::where('harvest_status', '!=', 'sudah dipanen')
+        ->whereBetween('created_at', [$startDate, $endDate])
+        ->count();
 
         // Hitung jumlah tanaman masuk pada periode sebelumnya
-        $previousPlantsIn = Plant::whereBetween('created_at', [$previousStartDate, $previousEndDate])->count();
+        $previousPlantsIn = Plant::where('harvest_status', '!=', 'sudah dipanen')
+        ->whereBetween('created_at', [$previousStartDate, $previousEndDate])
+        ->count();
 
-        // Hitung jumlah tanaman keluar berdasarkan harvest_date dan periode filter
-        $plantsOut = Plant::whereBetween('harvest_date', [$startDate, $endDate])->count();
+        // Hitung jumlah tanaman keluar (sudah dipanen) berdasarkan harvest_date dan periode filter
+        $plantsOut = Plant::where('harvest_status', 'sudah dipanen')
+        ->whereBetween('harvest_date', [$startDate, $endDate])
+        ->count();
 
         // Hitung jumlah tanaman keluar pada periode sebelumnya
-        $previousPlantsOut = Plant::whereBetween('harvest_date', [$previousStartDate, $previousEndDate])->count();
+        $previousPlantsOut = Plant::where('harvest_status', 'sudah dipanen')
+        ->whereBetween('harvest_date', [$previousStartDate, $previousEndDate])
+        ->count();
 
         // Hitung jumlah berdasarkan status tanaman
         $countByStatus = Plant::selectRaw('status, COUNT(*) as total_quantity')
@@ -77,30 +103,6 @@ class PlantController extends Controller
             'series' => $countByStatus->values()->toArray(),
             'labels' => $countByStatus->keys()->toArray()
         ];
-
-        // Hitung changePercent dan changeType untuk tanaman masuk
-        if ($previousPlantsIn > 0) {
-            $changePercentIn = (($plantsIn - $previousPlantsIn) / $previousPlantsIn) * 100;
-        } else {
-            $changePercentIn = $plantsIn > 0 ? 100 : 0;
-        }
-        $changeTypeIn = $changePercentIn >= 0 ? 'increase' : 'decrease';
-
-        // Hitung changePercent dan changeType untuk tanaman keluar
-        if ($previousPlantsOut > 0) {
-            $changePercentOut = (($plantsOut - $previousPlantsOut) / $previousPlantsOut) * 100;
-        } else {
-            $changePercentOut = $plantsOut > 0 ? 100 : 0;
-        }
-        $changeTypeOut = $changePercentOut >= 0 ? 'increase' : 'decrease';
-
-        // Hitung changePercent dan changeType untuk total tanaman
-        if ($previousTotalPlants > 0) {
-            $changePercentTotal = (($totalPlants - $previousTotalPlants) / $previousTotalPlants) * 100;
-        } else {
-            $changePercentTotal = $totalPlants > 0 ? 100 : 0;
-        }
-        $changeTypeTotal = $changePercentTotal >= 0 ? 'increase' : 'decrease';
 
         $title = 'Delete Plants!';
         $text = "Are you sure you want to delete?";
@@ -114,51 +116,99 @@ class PlantController extends Controller
             'countByStatus',
             'chartData',
             'period',
-            'changePercentIn',
-            'changeTypeIn',
-            'changePercentOut',
-            'changeTypeOut',
-            'changePercentTotal',
-            'changeTypeTotal'
         ));
-    }
-
-
-
+    }   
     public function create()
     {
         $categories = Category::all();
         $benefits = Benefit::all();
         $locations = Location::all();
-        $plantCodes  = PlantCode::all();
+        $plantAttributes  = PlantAttributes::all();
 
-        return view('admin.pages.plants.create', compact('categories', 'benefits', 'locations', 'plantCodes'));
+        return view('admin.pages.plants.create', compact('categories', 'benefits', 'locations', 'plantAttributes'));
+    }
+
+    // Function to generate unique numeric kode_tanaman_masuk
+    private function generateUniqueKodeTanamanMasuk()
+    {
+        do {
+            $kodeTanamanMasuk = random_int(100000000000, 999999999999); // Generate 12-digit numeric code
+        } while (TanamanMasuk::where('kode_tanaman_masuk', 'TM-' . $kodeTanamanMasuk)->exists());
+
+        return $kodeTanamanMasuk;
     }
 
     public function store(Request $request)
     {
+        // Validasi input
         $request->validate([
             'plant_name_id' => 'required',
             'plant_scientific_name_id' => 'required',
             'qr_code' => 'nullable|string|unique:plants,qr_code',
             'category_id' => 'required|exists:categories,id',
             'type' => 'required|in:Herbal,Sayuran',
-            'plant_code_id' => 'required|exists:plant_codes,id',
+            'plant_code_id' => 'required|exists:plant_attributes,id',
             'benefit_id' => 'required|exists:benefits,id',
             'location_id' => 'required|exists:locations,id',
             'status' => 'required|string|in:sehat,baik,layu,sakit',
             'seeding_date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
         ]);
 
+        // Ambil tanggal tanam
         $seedingDate = $request->input('seeding_date');
+
+        // Estimasi tanggal panen (misalnya 90 hari setelah tanam)
         $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days'));
 
-        Plant::create(array_merge($request->all(), ['harvest_date' => $harvestDate]));
+        // Tentukan status panen secara otomatis
+        $today = Carbon::now();
+        $harvestDateCarbon = Carbon::parse($harvestDate);
+
+        $harvestStatus = 'belum panen';
+
+        // Tentukan jika tanaman siap panen atau sudah dipanen
+        if ($harvestDateCarbon->isBefore($today)) {
+            $harvestStatus = 'sudah dipanen';
+        } elseif ($harvestDateCarbon->copy()->subDays(7)->lessThanOrEqualTo($today)) {
+            // 7 hari sebelum panen dianggap siap panen
+            $harvestStatus = 'siap panen';
+        }
+
+        // Proses upload gambar jika ada
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('plants', 'public'); // Menyimpan gambar di folder storage/app/public/plants
+        }
+
+        // Buat tanaman baru
+        $plant = Plant::create(array_merge(
+            $request->all(),
+            [
+                'harvest_date' => $harvestDate,
+                'harvest_status' => $harvestStatus,
+                'image' => $imagePath, // Menyimpan path gambar di database
+            ]
+        ));
+
+        // Generate unique kode_tanaman_masuk with 'TM-' prefix
+        $kodeTanamanMasuk = 'TM-' . $this->generateUniqueKodeTanamanMasuk();
+
+        // Store data in the tanaman_masuk table
+        TanamanMasuk::create([
+            'plant_id' => $plant->id,
+            'kode_tanaman_masuk' => $kodeTanamanMasuk,
+            'tanggal_masuk' => Carbon::now()->format('Y-m-d'),
+            'jumlah_masuk' => 1, // You can modify this based on your requirement
+        ]);
+
+        // Mencatat aktivitas
+        ActivityLogger::log('create', 'Created a new plant with code: ' . $request->plant_code_id);
 
         // Tampilkan pesan sukses
         Alert::success('Data Tanaman Ditambahkan', 'Berhasil menambahkan data Tanaman');
 
-        // Redirect ke halaman users
+        // Redirect ke halaman sebelumnya
         return redirect()->back();
     }
 
@@ -168,9 +218,9 @@ class PlantController extends Controller
         $categories = Category::all();
         $benefits = Benefit::all();
         $locations = Location::all();
-        $plantCodes = PlantCode::all();
+        $plantAttributes = plantAttributes::all();
 
-        return view('admin.pages.plants.edit', compact('plant', 'categories', 'benefits', 'locations', 'plantCodes'));
+        return view('admin.pages.plants.edit', compact('plant', 'categories', 'benefits', 'locations', 'plantAttributes'));
     }
 
     public function update(Request $request, $id)
@@ -181,7 +231,7 @@ class PlantController extends Controller
             'qr_code' => 'nullable|string|unique:plants,qr_code,' . $id,
             'category_id' => 'required|exists:categories,id',
             'type' => 'required|in:Herbal,Sayuran',
-            'plant_code_id' => 'required|exists:plant_codes,id',
+            'plant_code_id' => 'required|exists:plant_attributes,id',
             'benefit_id' => 'required|exists:benefits,id',
             'location_id' => 'required|exists:locations,id',
             'status' => 'required|string|in:sehat,baik,layu,sakit',
@@ -194,6 +244,8 @@ class PlantController extends Controller
         $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days'));
 
         $plant->update(array_merge($request->all(), ['harvest_date' => $harvestDate]));
+
+        ActivityLogger::log('update', 'Updated plant with ID: ' . $plant->id);
 
         // Tampilkan pesan sukses
         Alert::success('Data Tanaman DiUpdate', 'Berhasil mengUpdate data Tanaman');
@@ -208,25 +260,49 @@ class PlantController extends Controller
 
         // Hapus record tanaman dari database
         $plant->delete();
+
+        ActivityLogger::log('delete', 'Deleted plant with ID: ' . $plant->id);
         
         Alert::success('Hapus Data Tanaman', 'Berhasil mengHapus data Tanaman');
 
-        return redirect()->route('plants');
+        return redirect()->back();
     }
 
-    public function show($plantCode)
+    public function show($plantAttribute)
     {
+        $today = Carbon::today();
 
+        // Automatically update status to 'siap panen' if harvest_date is less than or equal to today and within the next 7 days
+        Plant::whereBetween('harvest_date', [$today, $today->copy()->addDays(7)])
+            ->where('harvest_status', '!=', 'siap panen')
+            ->where('harvest_status', '!=', 'sudah dipanen')  // Ensure we don't change 'sudah dipanen'
+            ->update(['harvest_status' => 'siap panen']);
+
+        // Update status to 'belum panen' if the harvest_date is further than 7 days in the future
+        Plant::where('harvest_date', '>', $today->copy()->addDays(7))
+            ->where('harvest_status', '!=', 'belum panen')
+            ->update(['harvest_status' => 'belum panen']);
+
+        // Retrieve plants based on the plant code
         $plants = Plant::with('category', 'benefit', 'location')
-            ->whereHas('plantCode', function ($query) use ($plantCode) {
-                $query->where('plant_code', $plantCode);
-            })->get();
+        ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
+            $query->where('plant_code', $plantAttribute);
+        })
+            ->orderBy('created_at', 'DESC')
+            ->get();
 
+        // Retrieve the specific plant based on the plant code for the detail title
+        $plantDetail = Plant::with('category', 'benefit', 'location')
+        ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
+            $query->where('plant_code', $plantAttribute);
+        })->first();
+
+        // Confirmation for deletion
         $title = 'Delete Plants!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        return view('admin.pages.plants.show', compact('plants'));
+        return view('admin.pages.plants.show', compact('plants', 'plantDetail'));
     }
 
 }

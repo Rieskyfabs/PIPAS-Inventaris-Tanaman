@@ -19,9 +19,11 @@ class UserSeeder extends Seeder
 
         // Membuat admin
         User::factory()->admin()->create();
+        
+        User::factory()->master()->create();
 
         // Membuat user
-        User::factory()->normalUser()->count(10)->create();
+        User::factory()->normalUser()->count(1)->create();
 
 
     }

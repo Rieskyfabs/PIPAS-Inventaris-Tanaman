@@ -6,23 +6,23 @@
   <div>
     <main id="main" class="main">
 
-      <x-breadcrumbs 
-        title="{{ __('Plants')}}" 
+      <x-breadcrumbs
+        title="{{ __('Plants')}}"
         :items="[
-          ['route' => 'home', 'label' => 'Home'],
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
           ['label' => 'Data Tanaman']
-        ]" 
+        ]"
       />
 
-        <section class="section dashboard"> 
+        <section class="section dashboard">
             <div class="row">
                 <form method="GET" action="{{ route('plants') }}">
                     <div class="mb-3">
-                        <label for="period" class="form-label">Filter Periode</label>
+                        <label for="period" class="form-label">{{__('Filter Periode')}}</label>
                         <select name="period" id="period" class="form-select" onchange="this.form.submit()">
-                            <option value="today" {{ $period == 'today' ? 'selected' : '' }}>Hari ini</option>
-                            <option value="this_month" {{ $period == 'this_month' ? 'selected' : '' }}>Bulan Ini</option>
-                            <option value="this_year" {{ $period == 'this_year' ? 'selected' : '' }}>Tahun Ini</option>
+                            <option value="today" {{ $period == 'today' ? 'selected' : '' }}>{{__('Hari ini')}}</option>
+                            <option value="this_month" {{ $period == 'this_month' ? 'selected' : '' }}>{{__('Bulan Ini')}}</option>
+                            <option value="this_year" {{ $period == 'this_year' ? 'selected' : '' }}>{{__('Tahun Ini')}}</option>
                         </select>
                     </div>
                 </form>
@@ -31,41 +31,27 @@
                 <x-card
                     type="plants"
                     title="Total Tanaman"
-                    :period="$period == 'today' ? 'Hari ini' : ($period == 'this_month' ? 'Bulan Ini' : 'Tahun Ini')"
                     icon="ri-seedling-fill"
                     :value="$totalPlants"
-                    :changePercent="$changePercentTotal" 
-                    :changeType="$changeTypeTotal"
-                    :filter="null"  {{-- Tidak ada filter --}}
                 />
 
                 <!-- Card Tanaman Masuk -->
                 <x-card
                     type="revenue"
                     title="Tanaman Masuk"
-                    :period="$period == 'today' ? 'Hari ini' : ($period == 'this_month' ? 'Bulan Ini' : 'Tahun Ini')"
                     icon="ri-inbox-archive-fill"
                     :value="$plantsIn"
-                    :changePercent="$changePercentIn"
-                    :changeType="$changeTypeIn"
-                    :filter="true"
-                    :filterOptions="['today' => 'Hari ini', 'this_month' => 'Bulan Ini', 'this_year' => 'Tahun Ini']"
                 />
 
                 <!-- Card Tanaman Keluar -->
                 <x-card
                     type="location"
                     title="Tanaman Keluar"
-                    :period="$period == 'today' ? 'Hari ini' : ($period == 'this_month' ? 'Bulan Ini' : 'Tahun Ini')"
                     icon="ri-inbox-unarchive-fill"
                     :value="$plantsOut"
-                    :changePercent="$changePercentOut"
-                    :changeType="$changeTypeOut"
-                    :filter="true"
-                    :filterOptions="['today' => 'Hari ini', 'this_month' => 'Bulan Ini', 'this_year' => 'Tahun Ini']"
                 />
                 <!-- End Summary Card -->
-                
+
                 <!-- Right side columns -->
                 <div class="row-lg-6">
                     <div class="card">
@@ -78,6 +64,12 @@
                             <script>
                                 document.addEventListener("DOMContentLoaded", () => {
                                     const chartData = @json($chartData);
+
+                                    // Check if there's no data
+                                    if (chartData.labels.length === 0 || chartData.series.length === 0) {
+                                        document.querySelector("#plantStatus").innerHTML = "<p class='text-center'>Tidak ada data</p>";
+                                        return; // Exit the script to avoid rendering the chart
+                                    }
 
                                     // Define a mapping of status to colors
                                     const colorMapping = {
@@ -128,6 +120,7 @@
                     </div>
                 </div>
 
+
                 <!-- End Right side columns -->
 
                 <div class="col-lg-12">
@@ -154,16 +147,16 @@
                                         >
                                         </path>
                                     </svg>
-                                    {{ __('Add Plant') }}
+                                    {{ __('TAMBAH DATA TANAMAN') }}
                                 </a>
                             </div>
-                            
+
                             <div class="table-responsive">
                                 <!-- Table with stripped rows -->
                                 <table class="table table-bordered table-hover datatable">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>NO</th>
                                             <th>{{__('KODE')}}</th>
                                             <th>{{__('NAMA TANAMAN')}}</th>
                                             <th>{{__('NAMA ILMIAH')}}</th>
@@ -178,9 +171,9 @@
                                         @foreach ($plants as $plant)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $plant->plantCode ? $plant->plantCode->plant_code : 'Unknown' }}</td>
-                                                <td>{{ $plant->plantCode->name }}</td>
-                                                <td>{{ $plant->plantCode->scientific_name ?? 'Unknown' }}</td>
+                                                <td>{{ $plant->plantAttribute ? $plant->plantAttribute->plant_code : 'Unknown' }}</td>
+                                                <td>{{ $plant->plantAttribute->name }}</td>
+                                                <td>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</td>
                                                 <td>
                                                     @if ($plant->type === 'Sayuran')
                                                         <span class="badge badge-soft-green">
@@ -198,11 +191,17 @@
                                                 </td>
                                                 <td>{{ $plant->category ? $plant->category->name : 'Unknown' }}</td>
                                                 <td>{{ $plant->benefit ? $plant->benefit->name : 'Unknown' }}</td>
-                                                <td>{{ $plant->total_quantity }}</td>
+                                                {{-- <td>{{ $plant->total_quantity }}</td> --}}
+                                                <td>
+                                                    <span class="badge bg-primary badge-number">{{ $plant->total_quantity }}
+                                                        @if($plant->ready_to_harvest_count > 0)
+                                                            <span class="notification-bubble"></span>
+                                                        @endif
+                                                    </span>
+                                                </td>
                                                 <td>
                                                     <x-action-buttons
-                                                        viewData="{{ route('plants.show', $plant->plantCode->plant_code) }}"
-                                                        :dropdown="[ ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'] ]"
+                                                        viewData="{{ route('plants.show', $plant->plantAttribute->plant_code) }}"
                                                     />
                                                 </td>
                                             </tr>
@@ -216,7 +215,7 @@
                 </div>
             </div>
         </section>
-    
+
     </main>
   </div>
 @endsection

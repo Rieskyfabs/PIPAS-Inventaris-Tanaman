@@ -65,11 +65,15 @@ class AuthController extends Controller
         Alert::success('Login Berhasil!', 'Selamat datang di dashboard anda.');
 
         // Redirect berdasarkan role_id
-        if ($user->role_id === Role::where('name', 'admin')->first()->id) {
+        // Redirect berdasarkan role_id
+        if ($user->role_id === Role::where('name', 'master')->first()->id) {
+            return redirect()->route('admin/dashboard');
+        } elseif ($user->role_id === Role::where('name', 'admin')->first()->id) {
             return redirect()->route('admin/dashboard');
         } else {
             return redirect()->route('dashboard');
         }
+
     }
 
     public function logout(Request $request)

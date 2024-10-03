@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,7 @@ class Plant extends Model
     use HasFactory;
 
     protected $fillable = [
+        'image',
         'plant_code_id',
         'plant_name_id',
         'plant_scientific_name_id',
@@ -22,7 +24,13 @@ class Plant extends Model
         'status',
         'seeding_date',
         'harvest_date',
+        'harvest_status',
     ];
+
+    public function isReadyToHarvest()
+    {
+        return Carbon::now()->greaterThanOrEqualTo($this->harvest_date);
+    }
 
     public function category()
     {
@@ -39,9 +47,14 @@ class Plant extends Model
         return $this->belongsTo(Location::class, 'location_id', 'id');
     }
 
-    public function plantCode()
+    public function plantAttribute()
     {
-        return $this->belongsTo(PlantCode::class, 'plant_code_id', 'id');
+        return $this->belongsTo(PlantAttributes::class, 'plant_code_id', 'id');
+    }
+
+    public function tanamanMasuk()
+    {
+        return $this->hasOne(TanamanMasuk::class, 'plant_id'); // Sesuaikan nama kolom foreign key
     }
 
     public function setTypeAttribute($value)

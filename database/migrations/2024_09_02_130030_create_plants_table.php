@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('plants', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('plant_code_id')->constrained('plant_codes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('plant_name_id')->constrained('plant_codes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('plant_scientific_name_id')->constrained('plant_codes')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('image')->nullable();
+            $table->foreignId('plant_code_id')->constrained('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('plant_name_id')->constrained('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('plant_scientific_name_id')->constrained('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('type', ['Herbal', 'Sayuran']);
             $table->string('qr_code')->nullable();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade')->onUpdate('cascade');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->enum('status', ['sehat', 'baik', 'layu', 'sakit']);
             $table->date('seeding_date')->nullable();
             $table->date('harvest_date')->nullable();
+            $table->enum('harvest_status', ['belum panen', 'siap panen', 'sudah dipanen'])->default('belum panen');
             $table->timestamps();
         });
     }

@@ -801,6 +801,28 @@ h6 {
 /* Info Cards */
 .dashboard .info-card {
   padding-bottom: 10px;
+  position: relative;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard .info-card::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: #A3D9A5;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 0 0 10px 10px;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.dashboard .info-card:hover::after {
+  background-color: #39FF14;
+
 }
 
 .dashboard .info-card h6 {
@@ -1535,4 +1557,57 @@ select[readonly]:focus {
   padding: 10px;
   /* Light background to make header stand out */
   border-bottom: 1px solid #e9ecef;
+}
+
+.img-max-height {
+  min-height: 300px;
+  max-height: 300px;
+  /* Menetapkan tinggi maksimum 100 piksel */
+  object-fit: cover;
+  /* Memastikan gambar tetap proporsional */
+  width: 100%;
+  /* Memastikan gambar memenuhi lebar */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Hitam dengan transparansi */
+  opacity: 0.5;
+  /* Tingkat transparansi overlay */
+}
+
+/* Bubble Notifikasi */
+.notification-bubble {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background-color: #ff9800;
+  border-radius: 50%;
+  margin-left: 8px;
+  /* Jarak antara teks dan bubble */
+  position: relative;
+  /* Relatif terhadap item menu */
+  /* Mengatur agar posisinya sejajar dengan teks */
+  animation: fadeInOut 1s infinite;
+  /* Efek animasi */
+}
+
+/* Animasi Muncul dan Memudar */
+@keyframes fadeInOut {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
 }

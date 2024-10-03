@@ -32,32 +32,32 @@
                     </div>
                 @endif
                 <!-- Advanced Form Elements -->
-                  <form action="{{ route('plants.store') }}" method="POST">
+                  <form action="{{ route('plants.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
                     <div class="form-floating mb-3">
-                        <select name="plant_code_id" class="form-select" id="plantCodes" required>
+                        <select name="plant_code_id" class="form-select" id="plantAttributes" required>
                             <option value="" disabled selected>Silahkan Pilih Kode Tanaman</option>
-                            @foreach ($plantCodes as $code)
-                                <option value="{{ $code->id }}" 
-                                        data-name="{{ $code->name }}" 
-                                        data-scientific-name="{{ $code->scientific_name }}" 
-                                        data-type="{{ $code->type }}"
-                                        data-category-id="{{ $code->category_id }}"
-                                        data-benefit-id="{{ $code->benefit_id }}">
-                                    {{ $code->plant_code }} : {{ $code->description }}
+                            @foreach ($plantAttributes as $item)
+                                <option value="{{ $item->id }}" 
+                                        data-name="{{ $item->name }}" 
+                                        data-scientific-name="{{ $item->scientific_name }}" 
+                                        data-type="{{ $item->type }}"
+                                        data-category-id="{{ $item->category_id }}"
+                                        data-benefit-id="{{ $item->benefit_id }}">
+                                    {{ $item->plant_code }} : {{ $item->description }}
                                 </option>
                             @endforeach
                         </select>
-                        <label for="plantCodes">Kode Tanaman</label>
+                        <label for="plantAttributes">Kode Tanaman</label>
                     </div>
                     
                     <!-- Nama Tanaman -->
                     <div class="form-floating mb-3">
                         <select name="plant_name_id" class="form-select" id="plantName" required>
                             <option value="" disabled selected>Nama Tanaman</option>
-                            @foreach ($plantCodes as $code)
-                                <option value="{{ $code->id }}">{{ $code->name }}</option>
+                            @foreach ($plantAttributes as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                         <label for="plantName">Nama Tanaman</label>
@@ -67,8 +67,8 @@
                     <div class="form-floating mb-3">
                         <select name="plant_scientific_name_id" class="form-select" id="scientificName" required>
                             <option value="" disabled selected>Nama Ilmiah</option>
-                            @foreach ($plantCodes as $code)
-                                <option value="{{ $code->id }}">{{ $code->scientific_name }}</option>
+                            @foreach ($plantAttributes as $item)
+                                <option value="{{ $item->id }}">{{ $item->scientific_name }}</option>
                             @endforeach
                         </select>
                         <label for="scientificName">Nama Ilmiah</label>
@@ -106,6 +106,17 @@
                         <label for="plantBenefits">Manfaat Tanaman</label>
                     </div>
 
+                    <!-- Input for Image -->
+                    <div class="form-group mb-3">
+                        <label for="plantImage">Upload Gambar Tanaman</label>
+                        <input type="file" name="image" class="form-control" id="plantImage" accept="image/*" onchange="previewImage(event)">
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="form-group mb-3">
+                        <img id="imagePreview" src="#" alt="Preview Gambar" style="display: none; width: 100px; height: 100px; object-fit: cover;" />
+                    </div>
+
                     <div class="form-floating mb-3">
                         <select name="location_id" class="form-select" id="plantLocations" required>
                             <option value="" disabled selected>Silahkan Pilih Lokasi Tanaman</option>
@@ -140,7 +151,7 @@
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         // Auto-fill logic when selecting plant code
-                        document.getElementById('plantCodes').addEventListener('change', function () {
+                        document.getElementById('plantAttributes').addEventListener('change', function () {
                         var selectedOption = this.options[this.selectedIndex];
 
                         // Mengambil data dari attribute 'data-*' di option yang dipilih
@@ -200,8 +211,20 @@
                         });
                     });
                 </script>
-
                 <!-- End JavaScript for Auto Fill -->
+
+                <!-- JavaScript for Previewing Image -->
+                <script>
+                    function previewImage(event) {
+                        var reader = new FileReader();
+                        reader.onload = function(){
+                            var output = document.getElementById('imagePreview');
+                            output.src = reader.result;
+                            output.style.display = 'block'; // Show the preview
+                        };
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+                </script>
 
               </div>
             </div>

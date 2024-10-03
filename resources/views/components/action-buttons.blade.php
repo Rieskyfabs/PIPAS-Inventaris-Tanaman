@@ -19,6 +19,8 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 @foreach($dropdown as $item)
                     <li><a class="dropdown-item" href="{{ $item['href'] }}">{{ $item['label'] }}</a></li>
+                    @csrf
+                    @method($method ?? 'POST')
                 @endforeach
             </ul>
         </div>
