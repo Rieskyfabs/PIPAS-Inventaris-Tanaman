@@ -7,9 +7,9 @@
     <main id="main" class="main">
 
       <x-breadcrumbs
-        title="{{ __('Plant Details')}}"
+        title="{{ __('List Tanaman ') . $plantDetail->plantAttribute->name}}"
         :items="[
-          ['route' => 'home', 'label' => 'Home'],
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
           ['route' => 'plants', 'label' => 'Data Tanaman'],
           ['label' => 'Detail Tanaman']
         ]"
@@ -21,7 +21,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ __('Plants Data Details : ') . $plantDetail->plantAttribute->plant_code }}</h5>
+                        <h5 class="card-title">{{ __('Detail Data Tanaman : ') . $plantDetail->plantAttribute->plant_code }}</h5>
                         <div class="add-btn-container">
                             <a href="{{ route('plants.create') }}" class="btn-add-item">
                                 <svg aria-hidden="true" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

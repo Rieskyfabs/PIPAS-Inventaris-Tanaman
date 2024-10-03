@@ -7,11 +7,11 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="{{ __('Add New Plant')}}" 
+        title="{{ __('Tambah Data Tanaman Baru')}}" 
         :items="[ 
-          ['route' => 'home', 'label' => 'Home'], 
-          ['route' => 'plants', 'label' => 'List Plants'], 
-          ['label' => 'Add New Plant'] 
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'], 
+          ['route' => 'plants', 'label' => 'List Tanaman'], 
+          ['label' => 'Tambah Data Tanaman Baru'] 
         ]" 
       />
 
@@ -20,8 +20,8 @@
           <div class="col-lg-8">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Tambahkan Tanaman Baru</h5>
-                <p class="mb-3">Untuk Menambahkan Data Tanaman, Pastikan Anda Sudah Menambahkan Attribute Dari Tanamannya Terlebih Dahulu.</p>
+                <h5 class="card-title">{{__('Tambahkan Tanaman Baru')}}</h5>
+                <p class="mb-3">{{__('Untuk Menambahkan Data Tanaman, Pastikan Anda Sudah Menambahkan Attribute Dari Tanamannya Terlebih Dahulu.')}}</p>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -37,7 +37,7 @@
                     
                     <div class="form-floating mb-3">
                         <select name="plant_code_id" class="form-select" id="plantAttributes" required>
-                            <option value="" disabled selected>Silahkan Pilih Kode Tanaman</option>
+                            <option value="" disabled selected>Pilih Kode Tanaman</option>
                             @foreach ($plantAttributes as $item)
                                 <option value="{{ $item->id }}" 
                                         data-name="{{ $item->name }}" 

@@ -65,80 +65,85 @@
           </div>
             <!-- Reports -->
             <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{__('Laporan Status Tanaman')}}</h5>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{__('Laporan Status Tanaman')}}</h5>
 
-                    <!-- Form untuk memilih tahun -->
+                        <!-- Form untuk memilih tahun -->
 
-                    <!-- Column Chart -->
-                    <div id="columnChart"></div>
+                        @if(empty($dataBelumDipanen) && empty($dataSiapDipanen) && empty($dataSudahDipanen))
+                            <p>{{ __('Tidak ada data tersedia.') }}</p>
+                        @else
+                            <!-- Column Chart -->
+                            <div id="columnChart"></div>
 
-                    <script>
-                        document.addEventListener("DOMContentLoaded", () => {
-                            new ApexCharts(document.querySelector("#columnChart"), {
-                                series: [{
-                                    name: 'Belum Panen',
-                                    data: @json($dataBelumDipanen) // Data dinamis berdasarkan ruangan
-                                }, {
-                                    name: 'Siap Dipanen',
-                                    data: @json($dataSiapDipanen) // Data dinamis berdasarkan ruangan
-                                }, {
-                                    name: 'Sudah Dipanen',
-                                    data: @json($dataSudahDipanen) // Data dinamis berdasarkan ruangan
-                                }],
-                                chart: {
-                                    type: 'bar',
-                                    height: 350
-                                },
-                                plotOptions: {
-                                    bar: {
-                                        horizontal: false,
-                                        columnWidth: '55%',
-                                        endingShape: 'rounded'
-                                    },
-                                },
-                                dataLabels: {
-                                    enabled: false
-                                },
-                                stroke: {
-                                    show: true,
-                                    width: 2,
-                                    colors: ['transparent']
-                                },
-                                xaxis: {
-                                    categories: @json($ruangan), // Ruangan dinamis
-                                    title: {
-                                        text: 'Lokasi Penyimpanan'
-                                    }
-                                },
-                                yaxis: {
-                                    title: {
-                                        text: 'Jumlah Tanaman'
-                                    }
-                                },
-                                fill: {
-                                    opacity: 1
-                                },
-                                tooltip: {
-                                    y: {
-                                        formatter: function(val) {
-                                            return val + " Tanaman"
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    new ApexCharts(document.querySelector("#columnChart"), {
+                                        series: [{
+                                            name: 'Belum Panen',
+                                            data: @json($dataBelumDipanen) // Data dinamis berdasarkan ruangan
+                                        }, {
+                                            name: 'Siap Dipanen',
+                                            data: @json($dataSiapDipanen) // Data dinamis berdasarkan ruangan
+                                        }, {
+                                            name: 'Sudah Dipanen',
+                                            data: @json($dataSudahDipanen) // Data dinamis berdasarkan ruangan
+                                        }],
+                                        chart: {
+                                            type: 'bar',
+                                            height: 350
+                                        },
+                                        plotOptions: {
+                                            bar: {
+                                                horizontal: false,
+                                                columnWidth: '55%',
+                                                endingShape: 'rounded'
+                                            },
+                                        },
+                                        dataLabels: {
+                                            enabled: false
+                                        },
+                                        stroke: {
+                                            show: true,
+                                            width: 2,
+                                            colors: ['transparent']
+                                        },
+                                        xaxis: {
+                                            categories: @json($ruangan), // Ruangan dinamis
+                                            title: {
+                                                text: 'Lokasi Penyimpanan'
+                                            }
+                                        },
+                                        yaxis: {
+                                            title: {
+                                                text: 'Jumlah Tanaman'
+                                            }
+                                        },
+                                        fill: {
+                                            opacity: 1
+                                        },
+                                        tooltip: {
+                                            y: {
+                                                formatter: function(val) {
+                                                    return val + " Tanaman"
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                            }).render();
-                        });
-                    </script>
-                    <!-- End Column Chart -->
+                                    }).render();
+                                });
+                            </script>
+                            <!-- End Column Chart -->
+                        @endif
+                    </div>
                 </div>
-              </div>
             </div>
+
 
             <!-- End Reports -->
 
-          <!-- Recent Plants -->
-          <div class="col-12">
+            <!-- Recent Plants -->
+            <div class="col-12">
               <div class="card recent-sales overflow-auto">
 
                 <div class="filter">
@@ -235,7 +240,7 @@
                 @empty
                   <div class="activity-item d-flex">
                     <div class="activity-content">
-                      {{ __('Tidak Ada Aktivitas') }}
+                      {{ __('Tidak Ada Aktivitas Terbaru') }}
                     </div>
                   </div><!-- End activity item-->
                 @endforelse
@@ -245,44 +250,49 @@
 
           <!-- End Recent Activity -->
 
-          <div class="col-lg-12">
-              <div class="card">
-                  <div class="card-body">
-                      <h5 class="card-title">{{ __('Galeri Tanaman Terbaru') }}</h5>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ __('Galeri Tanaman Terbaru') }}</h5>
 
-                      <!-- Slides with captions -->
-                      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                          <div class="carousel-indicators">
-                              @foreach($recentPlants as $index => $plant)
-                                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
-                              @endforeach
-                          </div>
-                          <div class="carousel-inner">
-                              @foreach($recentPlants as $index => $plant)
-                                  <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                      <img src="{{ asset('storage/' . $plant->image) }}" class="d-block w-100 img-max-height" alt="{{ $plant->plantAttribute->name }}">
-                                      <div class="overlay"></div> <!-- Overlay gelap -->
-                                      <div class="carousel-caption d-none d-md-block">
-                                          <h5>{{ $plant->plantAttribute->name }}</h5>
-                                          <p>{{ $plant->location->name ?? 'There Is No Location.' }}</p>
-                                      </div>
-                                  </div>
-                              @endforeach
-                          </div>
+                    @if($recentPlants->isEmpty())
+                        <p>{{ __('Tidak ada data tersedia.') }}</p>
+                    @else
+                        <!-- Slides with captions -->
+                        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                @foreach($recentPlants as $index => $plant)
+                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
+                                @endforeach
+                            </div>
+                            <div class="carousel-inner">
+                                @foreach($recentPlants as $index => $plant)
+                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                        <img src="{{ asset('storage/' . $plant->image) }}" class="d-block w-100 img-max-height" alt="{{ $plant->plantAttribute->name }}">
+                                        <div class="overlay"></div> <!-- Overlay gelap -->
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5>{{ $plant->plantAttribute->name }}</h5>
+                                            <p>{{ $plant->location->name ?? 'There Is No Location.' }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
 
-                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">{{__('Previous')}}</span>
-                          </button>
-                          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">{{__('Next')}}</span>
-                          </button>
-                      </div><!-- End Slides with captions -->
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">{{__('Previous')}}</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">{{__('Next')}}</span>
+                            </button>
+                        </div><!-- End Slides with captions -->
+                    @endif
 
-                  </div>
-              </div>
-          </div>
+                </div>
+            </div>
+        </div>
+
 
           <div class="card">
               <div class="card-body">

@@ -9,8 +9,8 @@
       <x-breadcrumbs 
         title="Plant Attributes" 
         :items="[
-          ['route' => 'home', 'label' => 'Home'],
-          ['label' => 'Plant Attributes']
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
+          ['label' => 'Atribut Tanaman']
         ]" 
       />
 
@@ -19,17 +19,11 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                          <h5 class="card-title">{{__('Plant Attributes')}}</h5>
+                          <h5 class="card-title">{{__('Atribut Tanaman')}}</h5>
                           <div class="add-btn-container">
                               <a href="{{ route('plantAttributes.create') }}" class="btn-add-item">
-                                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier"> 
-                                      <path d="M12 13V7M15 10.0008L9 10M19 10.2C19 14.1764 15.5 17.4 12 21C8.5 17.4 5 14.1764 5 10.2C5 6.22355 8.13401 3 12 3C15.866 3 19 6.22355 19 10.2Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
-                                    </g>
-                                  </svg>
-                                  {{ __('Add Plant Attributes') }}
+                                  +
+                                  {{ __('Tambah Atribut Tanaman') }}
                               </a>
                           </div>
                           
