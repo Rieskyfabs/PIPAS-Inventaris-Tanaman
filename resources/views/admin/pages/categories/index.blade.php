@@ -20,10 +20,10 @@
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">{{ __('Categories') }}</h5>
+                <h5 class="card-title">{{ __('KATEGORI TANAMAN') }}</h5>
                 <div class="add-btn-container">
                     <button type="button" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#createCategoryModal">
-                        + {{ __('Tambah Kategori Tanaman') }}
+                        + {{ __('TAMBAH') }}
                     </button>
                 </div>
 

@@ -23,7 +23,7 @@
                           <div class="add-btn-container">
                               <a href="{{ route('plantAttributes.create') }}" class="btn-add-item">
                                   +
-                                  {{ __('Tambah Atribut Tanaman') }}
+                                  {{ __('TAMBAH') }}
                               </a>
                           </div>
                           
