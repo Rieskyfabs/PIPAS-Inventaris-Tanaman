@@ -218,5 +218,5 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 });

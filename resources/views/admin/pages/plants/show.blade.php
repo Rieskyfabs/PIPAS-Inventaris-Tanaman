@@ -120,7 +120,7 @@
                                                     @elseif ($plant->harvest_status === 'siap panen') badge-soft-primary
                                                     @elseif ($plant->harvest_status === 'sudah dipanen') badge-soft-green
                                                     @endif">
-                                                    {{ ucfirst($plant->harvest_status) }}
+                                                    {{ Str::upper($plant->harvest_status) }}
                                                     @if($plant->harvest_status === 'siap panen')
                                                         <span class="notification-bubble"></span>
                                                     @endif

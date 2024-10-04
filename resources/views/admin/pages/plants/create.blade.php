@@ -129,13 +129,13 @@
 
                     <div class="form-floating mb-3">
                         <select name="status" class="form-select" id="plantStatus" required>
-                            <option value="" disabled selected>Silahkan Pilih Status Tanaman</option>
+                            <option value="" disabled selected>Silahkan Pilih Kondisi Tanaman</option>
                             <option value="sehat">Sehat</option>
                             <option value="baik">Baik</option>
                             <option value="layu">Layu</option>
                             <option value="sakit">Sakit</option>
                         </select>
-                        <label for="plantStatus">Status Tanaman</label>
+                        <label for="plantStatus">Kondisi Tanaman</label>
                     </div>
 
                     <div class="form-floating mb-3">

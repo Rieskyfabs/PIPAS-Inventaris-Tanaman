@@ -23,14 +23,10 @@
             </li>
             <!-- End Search Icon -->
 
-            @auth
-                @if (Auth::user()->role->name == 'admin')
-                    <x-notification-dropdown 
-                        :notificationCount="$notificationCount" 
-                        :notifications="$notifications" 
-                    />
-                @endif
-            @endauth
+            <x-notification-dropdown 
+                :notificationCount="$notificationCount" 
+                :notifications="$notifications" 
+            />
         
             <x-profile-dropdown 
                 profileImage="{{ Auth::user()->profile_image ?? Avatar::create(Auth::user()->username)->toBase64()  }}" 

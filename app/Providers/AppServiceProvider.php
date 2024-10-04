@@ -35,8 +35,8 @@ class AppServiceProvider extends ServiceProvider
                 $notifications[] = [
                     'icon' => 'bi-exclamation-circle',
                     'iconColor' => 'text-warning',
-                    'title' => 'Tanaman Siap Panen',
-                    'message' => 'Tanaman dengan kode ' . $plant->plantAttribute->plant_code . ' siap panen.',
+                    'title' => 'Ada tanaman siap panen nih!',
+                    'message' => 'Tanaman ' . $plant->plantAttribute->name . ' siap untuk dipanen!',
                     'subMessage' => 'Nama tanaman : ' . $plant->plantAttribute->name,
                     'location' => 'Lokasi tanaman : ' . $plant->location->name,
                     'timeAgo' => $plant->created_at->diffForHumans(),

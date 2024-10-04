@@ -159,7 +159,7 @@ class PlantController extends Controller
         $seedingDate = $request->input('seeding_date');
 
         // Estimasi tanggal panen (misalnya 90 hari setelah tanam)
-        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days'));
+        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +7 days'));
 
         // Tentukan status panen secara otomatis
         $today = Carbon::now();

@@ -8,8 +8,9 @@
   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
     <li class="dropdown-header">
       Kamu Memiliki {{ $notificationCount }} Notifikasi Baru
-      <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Lihat Semua</span></a>
+      <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">{{__('Lihat Semua')}}</span></a>
     </li>
+    
     <li>
       <hr class="dropdown-divider">
     </li>

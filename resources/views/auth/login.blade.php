@@ -68,7 +68,7 @@
               </form>
               <div class="button-underline"></div>
               <p class="note">
-                  Jika anda tidak mempunyai akun, sadarlah bahwa anda bukan murid wikrama. Namun jika anda wikrama beneran, maka mintalah data ke kesiswaan sekolah SMK Wikrama Bogor untuk pendataan.
+                <b>DAMASU - SIM Inventaris Tanaman</b>, adalah sebuah website / aplikasi yang bertujuan untuk <b>pemantauan, pengelolaan & pendataan tanaman</b>, menyediakan penyajian & pelaporan data yang baik dan mencegah hilangnya tanaman.
               </p>
           </div>
       </div>
