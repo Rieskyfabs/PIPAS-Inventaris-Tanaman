@@ -127,6 +127,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">{{__('Data Tanaman')}}</h5>
+                            <p>{{__('')}}</p>
                             <div class="add-btn-container">
                                 <a href="{{ route('plants.create') }}" class="btn-add-item">
                                     +
@@ -147,7 +148,7 @@
                                             <th>{{__('KATEGORI TANAMAN')}}</th>
                                             <th>{{__('MANFAAT TANAMAN')}}</th>
                                             <th>{{__('JUMLAH')}}</th>
-                                            <th>{{__('ACTIONS')}}</th>
+                                            <th>{{__('AKSI')}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -183,9 +184,12 @@
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <x-action-buttons
+                                                    {{-- <x-action-buttons
                                                         viewData="{{ route('plants.show', $plant->plantAttribute->plant_code) }}"
-                                                    />
+                                                    /> --}}
+                                                    <a href="{{ route('plants.show', $plant->plantAttribute->plant_code) }}" class="btn btn-primary">
+                                                        {{__('Lihat Tanaman')}}
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
