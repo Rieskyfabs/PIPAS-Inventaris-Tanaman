@@ -17,7 +17,7 @@
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ __('EDIT DATA TANAMAN : ') . $plant->plantAttribute->plant_code }}</h5>
+                                <h5 class="card-title">{{ __('Tanaman Yang Di Edit: ') . $plant->plantAttribute->name }}</h5>
 
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -118,14 +118,14 @@
                                     <div class="form-floating mb-3">
                                         <input type="date" name="seeding_date" class="form-control"
                                             value="{{ $plant->seeding_date }}" required>
-                                        <label for="seeding_date">{{ __('Tanggal Tanam') }}</label>
+                                        <label for="seeding_date">{{ __('TANGGAL TANAM') }}</label>
                                     </div>
 
                                     <!-- Harvest Date (editable) -->
                                     <div class="form-floating mb-3">
                                         <input type="date" name="harvest_date" class="form-control"
                                             value="{{ $plant->harvest_date }}" required>
-                                        <label for="harvest_date">{{ __('Estimasi Tanggal Panen') }}</label>
+                                        <label for="harvest_date">{{ __('ESTIMASI TANGGAL PANEN') }}</label>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>

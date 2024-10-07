@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('kode_tanaman_keluar'); // Kode unik untuk tanaman keluar
             $table->date('tanggal_keluar');  // Tanggal tanaman keluar
             $table->integer('jumlah_keluar');
-            $table->string('tujuan');
+            $table->string('tujuan')->nullable();
             $table->timestamps();
         });
     }

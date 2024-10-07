@@ -30,6 +30,7 @@
                     <thead>
                         <tr>
                           <th>{{__('NO')}}</th>
+                          <th>{{__('GAMBAR')}}</th>
                           <th>{{__('KODE TANAMAN KELUAR')}}</th>
                           <th>{{__('KODE TANAMAN')}}</th>
                           <th>{{__('NAMA TANAMAN')}}</th>
@@ -37,12 +38,22 @@
                           <th>{{__('JUMLAH KELUAR')}}</th>
                           <th>{{__('STATUS TANAMAN')}}</th>
                           {{-- <th>{{__('TUJUAN')}}</th> --}}
+                          <th>{{__('AKSI')}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($tanamanKeluar as $item)
                             <tr>
                               <td>{{ $loop->iteration }}</td>
+                              <td>
+                                  @if($item->plant->image)
+                                      <a href="{{ asset('storage/' . $item->plant->image) }}" target="_blank">
+                                          <img src="{{ asset('storage/' . $item->plant->image) }}" alt="Image of {{ $item->plant->name }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                      </a>
+                                  @else
+                                      <img src="{{ asset('default-image.png') }}" alt="Default Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                                  @endif 
+                              </td>
                               <td>{{ $item->kode_tanaman_keluar }}</td>
                               <td>{{ $item->plant->plantAttribute->plant_code }}</td>
                               <td>{{ $item->plant->plantAttribute->name }}</td>
@@ -50,6 +61,16 @@
                               <td>{{ $item->jumlah_keluar }}</td>
                               <td>{{ $item->plant->status }}</td>
                               {{-- <td>Dummy -> GreenRoof</td> --}}
+                              <td>
+                                  <x-action-buttons
+                                      deleteData="{{ route('categories.destroy', $item->id) }}"
+                                      method="DELETE"
+                                      submit="true"
+                                      :dropdown="[ 
+                                        ['href' => route('categories.edit', $item->id), 'label' => 'Edit'], 
+                                      ]"
+                                  />
+                              </td>
                             </tr>
                         @endforeach
                     </tbody>

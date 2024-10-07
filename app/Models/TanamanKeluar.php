@@ -16,7 +16,6 @@ class TanamanKeluar extends Model
         'tanggal_keluar',
         'jumlah_keluar',
     ];
-
     public function plant()
     {
         return $this->belongsTo(Plant::class);

@@ -6,6 +6,7 @@ use App\Events\PlantCreated;
 use App\Events\PlantHarvested;
 use App\Helpers\ActivityLogger;
 use App\Models\ActivityLog;
+use App\Models\TanamanKeluar;
 use Intervention\Image\Facades\Image;
 use App\Models\Plant;
 use App\Models\Category;
@@ -304,5 +305,41 @@ class PlantController extends Controller
 
         return view('admin.pages.plants.show', compact('plants', 'plantDetail'));
     }
+
+    private function generateUniqueKodeTanamanKeluar()
+    {
+        do {
+            $kodeTanamanKeluar = random_int(100000000000, 999999999999); // Generate 12-digit numeric code
+        } while (TanamanKeluar::where('kode_tanaman_keluar', 'TK-' . $kodeTanamanKeluar)->exists());
+
+        return $kodeTanamanKeluar;
+    }
+
+    public function panen($id)
+    {
+        $plant = Plant::findOrFail($id);
+
+        $kodeTanamanKeluar = 'TK-' . $this->generateUniqueKodeTanamanMasuk();
+
+        // Update status menjadi sudah dipanen
+        $plant->update([
+            'harvest_status' => 'sudah dipanen',
+        ]);
+
+        // Masukkan data ke tabel tanaman_keluar
+        TanamanKeluar::create([
+            'plant_id' => $plant->id,
+            'kode_tanaman_keluar' => $kodeTanamanKeluar,
+            'tanggal_keluar' => now(),
+            'jumlah_keluar' => 1, // Sesuaikan dengan field jumlah tanaman
+        ]);
+
+        ActivityLogger::log('Harvested', 'Tanaman DiPanen ' . $plant->name . $plant->id);
+
+        Alert::success('Tanaman DiPanen', 'Tanaman berhasil dipanen dan ditambahkan ke data tanaman keluar.');
+
+        return redirect()->back();
+    }
+
 
 }

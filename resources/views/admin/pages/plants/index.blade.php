@@ -188,7 +188,7 @@
                                                         viewData="{{ route('plants.show', $plant->plantAttribute->plant_code) }}"
                                                     /> --}}
                                                     <a href="{{ route('plants.show', $plant->plantAttribute->plant_code) }}" class="btn btn-primary">
-                                                        {{__('Lihat Tanaman')}}
+                                                        {{__('Lihat')}}
                                                     </a>
                                                 </td>
                                             </tr>

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Plant;
+use App\Observers\PlantObserver;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -54,5 +55,7 @@ class AppServiceProvider extends ServiceProvider
             $readyToHarvestCount = Plant::where('harvest_status', 'siap panen')->count();
             $view->with('readyToHarvestCount', $readyToHarvestCount);
         });
+
+        Plant::observe(PlantObserver::class);
     }
 }

@@ -140,14 +140,24 @@
                                               <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->name ?? 'Unknown' }}">
                                             </td>
                                             <td>
-                                                <x-action-buttons
-                                                    deleteData="{{ route('plants.destroy', $plant->id) }}"
-                                                    method="DELETE"
-                                                    submit="true" {{-- Tombol hapus akan muncul --}}
-                                                    :dropdown="[ 
-                                                        ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'],
-                                                    ]"
-                                                />
+                                                @if($plant->harvest_status === 'siap panen')
+                                                    <form action="{{ route('plants.panen', $plant->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" class="btn btn-success">
+                                                            {{ __('Panen') }}
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <x-action-buttons
+                                                        deleteData="{{ route('plants.destroy', $plant->id) }}"
+                                                        method="DELETE"
+                                                        submit="true"
+                                                        :dropdown="[ 
+                                                            ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'],
+                                                        ]"
+                                                    />
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

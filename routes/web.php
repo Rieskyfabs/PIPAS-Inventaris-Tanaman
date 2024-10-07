@@ -132,6 +132,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::get('/create', [PlantController::class, 'create'])->name('plants.create');
         Route::post('/store', [PlantController::class, 'store'])->name('plants.store');
         Route::get('/{plantAttribute}', [PlantController::class, 'show'])->name('plants.show');
+        Route::put('/plants/{plant}/panen', [PlantController::class, 'panen'])->name('plants.panen');
         Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
         Route::put('/{id}', [PlantController::class, 'update'])->name('plants.update');
         Route::delete('/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
