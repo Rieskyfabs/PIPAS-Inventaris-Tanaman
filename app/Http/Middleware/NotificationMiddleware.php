@@ -15,6 +15,7 @@ class NotificationMiddleware
         // Ambil data tanaman siap panen dan urutkan berdasarkan created_at terbaru
         $siapPanenPlants = Plant::where('harvest_status', 'siap panen')
             ->orderBy('created_at', 'desc')
+            ->take(5)
             ->get();
 
         foreach ($siapPanenPlants as $plant) {

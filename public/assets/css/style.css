@@ -1674,3 +1674,22 @@ select[readonly]:focus {
     /* Adjust scale for the animation effect */
   }
 }
+
+.notification-link {
+  color: inherit;
+  /* This will inherit the color from the parent element */
+}
+
+.scrollable-dropdown {
+  max-height: 300px;
+  /* Adjust this height as needed */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  overflow-x: hidden;
+  /* Hide horizontal overflow */
+}
+
+.notification-item {
+  padding: 10px;
+  /* Optional: Add some padding for better readability */
+}

@@ -12,7 +12,7 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word,
+            'name' => 'guest',
             'guard_name' => 'web',  // Atur guard_name default sebagai 'web'
         ];
     }

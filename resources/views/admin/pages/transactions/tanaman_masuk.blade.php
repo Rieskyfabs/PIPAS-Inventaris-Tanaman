@@ -38,7 +38,7 @@
                           <th>{{__('KONDISI TANAMAN')}}</th>
                           <th>{{__('TANGGAL MASUK')}}</th>
                           <th>{{__('JUMLAH MASUK')}}</th>
-                          <th>{{__('CREATED AT')}}</th>
+                          <th>{{__('MASUK PADA ')}}</th>
                           {{-- <th>{{__('ACTIONS')}}</th> --}}
                         </tr>
                     </thead>
