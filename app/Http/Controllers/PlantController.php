@@ -334,7 +334,7 @@ class PlantController extends Controller
             'jumlah_keluar' => 1, // Sesuaikan dengan field jumlah tanaman
         ]);
 
-        ActivityLogger::log('Harvested', 'Tanaman DiPanen ' . $plant->name . $plant->id);
+        ActivityLogger::log('Harvested', 'Tanaman DiPanen dengan ID: ' . $plant->id);
 
         Alert::success('Tanaman DiPanen', 'Tanaman berhasil dipanen dan ditambahkan ke data tanaman keluar.');
 
