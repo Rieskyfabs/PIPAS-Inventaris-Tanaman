@@ -6,22 +6,32 @@
   <div>
     <main id="main" class="main">
 
-      <x-breadcrumbs
-        title="{{ __('List Tanaman ') . $plantDetail->plantAttribute->name}}"
-        :items="[
-          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
-          ['route' => 'plants', 'label' => 'Data Tanaman'],
-          ['label' => 'Detail Tanaman']
-        ]"
-      />
+      @if($plantDetail)
+        <x-breadcrumbs
+          title="{{ __('List Tanaman ') . ($plantDetail->plantAttribute->name ?? '') }}"
+          :items="[ 
+            ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
+            ['route' => 'plants', 'label' => 'Data Tanaman'],
+            ['label' => 'Detail Tanaman']
+          ]"
+        />
+      @else
+        <x-breadcrumbs
+          title="{{ __('List Tanaman ') . '' }}"
+          :items="[ 
+            ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
+            ['route' => 'plants', 'label' => 'Data Tanaman'],
+            ['label' => 'Detail Tanaman']
+          ]"
+        />
+      @endif
 
       <section class="section dashboard">
         <div class="row">
-
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ __('Detail Data Tanaman : ') . $plantDetail->plantAttribute->plant_code }}</h5>
+                        <h5 class="card-title">{{ __('Detail Data Tanaman  ') . ($plantDetail->plantAttribute->name ?? '') }}</h5>
                         <div class="add-btn-container">
                             <a href="{{ route('plants.create') }}" class="btn-add-item">
                                 <svg aria-hidden="true" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -32,8 +42,8 @@
                                         d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125"
                                         stroke-linejoin="round"
                                         stroke-linecap="round"
-                                        ></path>
-                                        <path
+                                    ></path>
+                                    <path
                                         stroke-linejoin="round"
                                         stroke-linecap="round"
                                         stroke-width="2"
@@ -70,7 +80,7 @@
                                             <td>
                                                 @if($plant->image)
                                                     <a href="{{ asset('storage/' . $plant->image) }}" target="_blank">
-                                                        <img src="{{ asset('storage/' . $plant->image) }}" alt="Image of {{ $plant->plantAttribute->name }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                                        <img src="{{ asset('storage/' . $plant->image) }}" alt="Image of {{ $plant->plantAttribute->name ?? 'Unknown' }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
                                                     </a>
                                                 @else
                                                     <img src="{{ asset('default-image.png') }}" alt="Default Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
@@ -79,7 +89,7 @@
                                             <td>
                                                 <div class="d-flex flex-column">
                                                     <a href="#" class="text-heading text-truncate">
-                                                        <span class="fw-medium">{{ $plant->plantAttribute->name }}</span>
+                                                        <span class="fw-medium">{{ $plant->plantAttribute->name ?? 'Unknown' }}</span>
                                                     </a>
                                                     <small>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</small>
                                                     <small>
@@ -127,14 +137,14 @@
                                                 </span>
                                             </td>
                                             <td>
-                                              <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->name }}">
+                                              <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->name ?? 'Unknown' }}">
                                             </td>
                                             <td>
                                                 <x-action-buttons
                                                     deleteData="{{ route('plants.destroy', $plant->id) }}"
                                                     method="DELETE"
                                                     submit="true" {{-- Tombol hapus akan muncul --}}
-                                                    :dropdown="[
+                                                    :dropdown="[ 
                                                         ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'],
                                                     ]"
                                                 />

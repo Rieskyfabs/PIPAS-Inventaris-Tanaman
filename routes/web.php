@@ -7,6 +7,7 @@ use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PlantAttributesController;
 use App\Http\Controllers\PlantController;
@@ -166,7 +167,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::delete('/{id}', [LocationController::class, 'destroy'])->name('locations.destroy');
     });
 
-    // Lokasi
+    // Atribute Tanaman
     Route::prefix('admin/attributes/plant-attributes')->group(function () {
         Route::get('/', [PlantAttributesController::class, 'index'])->name('plantAttributes');
         Route::get('/create', [PlantAttributesController::class, 'create'])->name('plantAttributes.create');
@@ -202,6 +203,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::put('/{id}', [PermissionController::class, 'update'])->name('permissions.update');
         Route::delete('/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
     });
+
+    Route::get('admin/notifications', [NotificationController::class, 'index'])->name('notifications');
+    Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+
 
 
     // Roles

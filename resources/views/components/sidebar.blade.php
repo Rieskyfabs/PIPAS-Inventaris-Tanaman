@@ -193,6 +193,12 @@
                 <li class="nav-heading">{{ __('Others') }}</li>
 
                 <li class="nav-item">
+                    <a class="nav-link {{ Request::is('admin/notifications*') ? 'active' : '' }}" href="{{ route('notifications') }}">
+                        <i class="bx bxs-bell-ring fs-5"></i><span>{{ __('Notifikasi') }}</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/settings*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#">
                         <i class='bx bx-cog fs-5'></i><span>{{ __('Settings') }}</span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
