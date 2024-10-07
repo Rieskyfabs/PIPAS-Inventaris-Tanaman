@@ -20,7 +20,7 @@
                       <div class="card-header bg-primary text-white">
                           <h4 class="m-0">{{__('Notifikasi')}}</h4>
                       </div>
-                      <div class="card-body" style="max-height: 400px; overflow-y: auto;">                         
+                      <div class="card-body" style="max-height: 600px; overflow-y: auto;">                         
                           <ul class="list-group">
                               @forelse($notifications as $notification)
                                   <li class="list-group-item {{ $notification->is_read ? 'bg-light' : 'bg-light text-dark' }} border-0 rounded-0 mt-3">
@@ -32,6 +32,7 @@
                                                   @if ($notification->plant)
                                                     <p class="mb-1"><strong>Lokasi:</strong> {{ $notification->plant->location->name }}</p>
                                                   @endif
+                                                  <p class="mb-1"><strong>Perkiraan Tanggal Panen: </strong>{{ $notification->plant->harvest_date }}</p>
                                                   <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
                                                   @if(!$notification->is_read)
                                                       <span class="badge bg-warning text-dark">{{__('Belum dibaca')}}</span>

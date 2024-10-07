@@ -1,14 +1,15 @@
 <li class="nav-item dropdown">
   <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
     <i class="ri-notification-3-line"></i>
-    <span class="badge bg-primary badge-number">{{ $notificationCount }}</span>
+    <span class="notification-bubble-header"></span> <!-- Notification bubble without count -->
   </a>
+
   <!-- End Notification Icon -->
 
   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
     <li class="dropdown-header">
       Kamu Memiliki {{ $notificationCount }} Notifikasi Baru
-      <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">{{__('Lihat Semua')}}</span></a>
+      <a href="{{ route('notifications')}} "><span class="badge rounded-pill bg-primary p-2 ms-2">{{__('Lihat Semua')}}</span></a>
     </li>
     
     <li>
@@ -44,7 +45,7 @@
     @endif
 
     <li class="dropdown-footer">
-      <a href="#">{{__('Lihat Semua Notifikasi')}}</a>
+      <a href=" {{ route('notifications')}} ">{{__('Lihat Semua Notifikasi')}}</a>
     </li>
   </ul>
   <!-- End Notification Dropdown Items -->

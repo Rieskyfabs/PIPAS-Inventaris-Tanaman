@@ -194,7 +194,11 @@
 
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/notifications*') ? 'active' : '' }}" href="{{ route('notifications') }}">
-                        <i class="bx bxs-bell-ring fs-5"></i><span>{{ __('Notifikasi') }}</span>
+                        <i class="bx bxs-bell-ring fs-5"></i><span>{{ __('Notifikasi') }}  
+                            @if($notificationCount > 0)
+                                <span class="badge bg-warning">{{ $notificationCount }}</span>
+                            @endif
+                        </span>
                     </a>
                 </li>
 

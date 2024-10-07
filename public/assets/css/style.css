@@ -1611,3 +1611,66 @@ select[readonly]:focus {
     transform: scale(1.2);
   }
 }
+
+.notification-count {
+  display: flex;
+  align-items: center;
+}
+
+.badge.bg-warning {
+  background-color: #ffc107;
+  /* Yellow color */
+  color: white;
+}
+
+.badge.bg-danger {
+  background-color: #dc3545;
+  /* Red color for new notifications */
+  color: white;
+}
+
+.notification-list {
+  list-style-type: none;
+  /* Remove bullet points */
+  padding: 0;
+  /* Remove padding */
+  margin-top: 1em;
+  /* Add space above the list */
+}
+
+.notification-item {
+  padding: 0.5em 1em;
+  /* Padding for each notification item */
+  transition: background-color 0.3s ease;
+  /* Smooth transition for background color */
+}
+
+.notification-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  /* Light background on hover */
+}
+
+.notification-bubble-header {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: orange;
+  display: inline-block;
+  animation: bubble-animation 1s ease infinite;
+}
+
+@keyframes bubble-animation {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+    /* Adjust scale for the animation effect */
+  }
+}
