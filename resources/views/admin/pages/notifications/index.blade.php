@@ -15,7 +15,7 @@
 
         <section class="section dashboard">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-8 col-md-10 col-sm-12 mx-auto">
                     <div class="card shadow-sm">
                         <div class="card-header bg-primary text-white">
                             <h4 class="m-0">{{__('Notifikasi')}}</h4>
@@ -26,7 +26,7 @@
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">{{__('Semua')}}
                                         @if($notifications->where('is_read', false)->count() > 0)
-                                            <span class="badge bg-warning ">{{ $notifications->where('is_read', false)->count() }}</span>
+                                            <span class="badge bg-warning">{{ $notifications->where('is_read', false)->count() }}</span>
                                         @endif
                                     </a>
                                 </li>
