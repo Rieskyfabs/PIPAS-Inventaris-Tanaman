@@ -34,9 +34,9 @@
                           <th>{{__('KODE TANAMAN KELUAR')}}</th>
                           <th>{{__('KODE TANAMAN')}}</th>
                           <th>{{__('NAMA TANAMAN')}}</th>
+                          <th>{{__('KONDISI TANAMAN')}}</th>
                           <th>{{__('TANGGAL KELUAR')}}</th>
                           <th>{{__('JUMLAH KELUAR')}}</th>
-                          <th>{{__('STATUS TANAMAN')}}</th>
                           {{-- <th>{{__('TUJUAN')}}</th> --}}
                           <th>{{__('AKSI')}}</th>
                         </tr>
@@ -57,9 +57,18 @@
                               <td>{{ $item->kode_tanaman_keluar }}</td>
                               <td>{{ $item->plant->plantAttribute->plant_code }}</td>
                               <td>{{ $item->plant->plantAttribute->name }}</td>
+                              <td>
+                                  <span class="badge
+                                      @if ($item->plant->status === 'sehat') badge-soft-green <i class='bi bi-check-circle me-1'></i>
+                                      @elseif ($item->plant->status === 'baik') badge-soft-primary <i class='bi bi-star me-1'></i>
+                                      @elseif ($item->plant->status === 'layu') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
+                                      @elseif ($item->plant->status === 'sakit') badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
+                                      @else bg-secondary @endif">
+                                      {{ ucfirst($item->plant->status) }}
+                                  </span>
+                              </td>
                               <td>{{ $item->tanggal_keluar }}</td>
                               <td>{{ $item->jumlah_keluar }}</td>
-                              <td>{{ $item->plant->status }}</td>
                               {{-- <td>Dummy -> GreenRoof</td> --}}
                               <td>
                                   <x-action-buttons

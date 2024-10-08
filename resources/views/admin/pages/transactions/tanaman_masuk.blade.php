@@ -38,7 +38,6 @@
                           <th>{{__('KONDISI TANAMAN')}}</th>
                           <th>{{__('TANGGAL MASUK')}}</th>
                           <th>{{__('JUMLAH MASUK')}}</th>
-                          <th>{{__('MASUK PADA ')}}</th>
                           {{-- <th>{{__('ACTIONS')}}</th> --}}
                         </tr>
                     </thead>
@@ -71,7 +70,6 @@
                               </td>
                               <td>{{ $item->tanggal_masuk }}</td>
                               <td>{{ $item->jumlah_masuk }}</td>
-                              <td>{{ $item->created_at->translatedFormat('d F Y, H:i') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
