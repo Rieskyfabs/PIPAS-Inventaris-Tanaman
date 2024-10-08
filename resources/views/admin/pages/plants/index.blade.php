@@ -130,18 +130,17 @@
                             <p>{{__('')}}</p>
                             <div class="add-btn-container">
                                 <a href="{{ route('plants.create') }}" class="btn-add-item">
-                                    +
-                                    {{ __('TAMBAH DATA TANAMAN') }}
+                                    <i class="ri-add-fill"></i>
+                                    {{ __('TAMBAH') }}
                                 </a>
                             </div>
-
                             <div class="table-responsive">
                                 <!-- Table with stripped rows -->
                                 <table class="table table-bordered table-hover datatable">
                                     <thead>
                                         <tr>
                                             <th>NO</th>
-                                            <th>{{__('KODE')}}</th>
+                                            <th>{{__('KODE TANAMAN')}}</th>
                                             <th>{{__('NAMA TANAMAN')}}</th>
                                             <th>{{__('NAMA ILMIAH')}}</th>
                                             <th>{{__('TIPE TANAMAN')}}</th>

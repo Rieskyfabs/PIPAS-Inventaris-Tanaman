@@ -75,9 +75,11 @@ class PlantController extends Controller
         ->count();
 
         // Hitung jumlah tanaman masuk (belum dipanen) berdasarkan seeding_date dan periode filter
-        $plantsIn = Plant::where('harvest_status', '!=', 'sudah dipanen')
-        ->whereBetween('created_at', [$startDate, $endDate])
-        ->count();
+        // $plantsIn = Plant::where('harvest_status', '!=', 'sudah dipanen')
+        // ->whereBetween('created_at', [$startDate, $endDate])
+        // ->count();
+
+        $plantsIn = Plant::whereBetween('created_at', [$startDate, $endDate])->count();
 
         // Hitung jumlah tanaman masuk pada periode sebelumnya
         $previousPlantsIn = Plant::where('harvest_status', '!=', 'sudah dipanen')
@@ -85,8 +87,13 @@ class PlantController extends Controller
         ->count();
 
         // Hitung jumlah tanaman keluar (sudah dipanen) berdasarkan harvest_date dan periode filter
+        // $plantsOut = Plant::where('harvest_status', 'sudah dipanen')
+        // ->whereBetween('harvest_date', [$startDate, $endDate])
+        // ->count();
+
+        // Hitung jumlah tanaman keluar (sudah dipanen) berdasarkan updated_at
         $plantsOut = Plant::where('harvest_status', 'sudah dipanen')
-        ->whereBetween('harvest_date', [$startDate, $endDate])
+        ->whereBetween('updated_at', [$startDate, $endDate])
         ->count();
 
         // Hitung jumlah tanaman keluar pada periode sebelumnya
@@ -160,7 +167,7 @@ class PlantController extends Controller
         $seedingDate = $request->input('seeding_date');
 
         // Estimasi tanggal panen (misalnya 90 hari setelah tanam)
-        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +7 days'));
+        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days'));
 
         // Tentukan status panen secara otomatis
         $today = Carbon::now();

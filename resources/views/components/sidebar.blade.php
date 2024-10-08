@@ -153,42 +153,6 @@
                     </ul>
                 </li>
 
-                <li class="nav-heading">{{ __('Users') }}</li>
-              
-
-                    <!-- Kelola Pengguna -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('admin/users*') || Request::is('admin/role-permissions*') ? '' : 'collapsed' }}" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
-                            <i class="ri-admin-line fs-5"></i><span>{{ __('Kelola Pengguna') }}</span><i class="bi bi-chevron-down ms-auto"></i>
-                        </a>
-                        <ul id="users-nav" class="nav-content collapse {{ Request::is('admin/users*') || Request::is('admin/role-permissions*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
-                            <li>
-                                <a class="{{ Request::is('admin/users*') ? 'active' : '' }}" href="{{ route('users') }}">
-                                    <i class="bi bi-circle"></i><span>{{ __('List Pengguna') }}</span>
-                                </a>
-                            </li>
-
-                            <!-- Roles & Permissions as sub-menu -->
-                            <li class="nav-item">
-                                <a class="nav-link {{ Request::is('admin/role-permissions*') ? '' : 'collapsed' }}" data-bs-target="#roles-permissions-subnav" data-bs-toggle="collapse" href="#">
-                                    <i class="bi bi-circle-fill"></i><span>{{ __('Roles & Permissions') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
-                                </a>
-                                <ul id="roles-permissions-subnav" class="nav-content collapse {{ Request::is('admin/role-permissions*') ? 'show' : '' }} ps-3" data-bs-parent="#users-nav">
-                                    <li>
-                                        <a class="{{ Request::is('admin/role-permissions/permissions*') ? 'active' : '' }}" href="{{ route('permissions') }}">
-                                            <i class="bi bi-circle"></i><span>{{ __('Permissions') }}</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="{{ Request::is('admin/role-permissions/roles*') ? 'active' : '' }}" href="{{ route('roles') }}">
-                                            <i class="bi bi-circle"></i><span>{{ __('Roles') }}</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
                 <!-- End Users Page Nav -->
                 <li class="nav-heading">{{ __('Others') }}</li>
 
@@ -210,8 +174,38 @@
                     <ul id="settings-nav" class="nav-content collapse {{ Request::is('admin/settings*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <li>
                             <a class="{{ Request::is('admin/settings/profile-settings') ? 'active' : '' }}" href="#">
-                                <i class="bi bi-circle"></i><span>{{ __('My Profile') }}</span>
+                                <i class="bi bi-circle"></i><span>{{ __('Profil Saya') }}</span>
                             </a>
+                        </li>
+                        <!-- Kelola Pengguna -->
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('admin/settings/users*') || Request::is('admin/role-permissions*') ? '' : 'collapsed' }}" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
+                                <i class="bi bi-circle-fill"></i><span>{{ __('Pengguna') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
+                            </a>
+                            <ul id="users-nav" class="nav-content collapse {{ Request::is('admin/settings/users*') || Request::is('admin/settings/role-permissions*') ? 'show' : '' }} ps-3" data-bs-parent="#settings-nav">
+                                <li>
+                                    <a class="{{ Request::is('admin/settings/users*') ? 'active' : '' }}" href="{{ route('users') }}">
+                                        <i class="bi bi-circle"></i><span>{{ __('List Pengguna') }}</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::is('admin/settings/role-permissions*') ? '' : 'collapsed' }}" data-bs-target="#roles-permissions-subnav" data-bs-toggle="collapse" href="#">
+                                        <i class="bi bi-circle-fill"></i><span>{{ __('Roles & Permissions') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
+                                    </a>
+                                    <ul id="roles-permissions-subnav" class="nav-content collapse {{ Request::is('admin/settings/role-permissions*') ? 'show' : '' }} ps-3" data-bs-parent="#users-nav">
+                                        <li>
+                                            <a class="{{ Request::is('admin/settings/role-permissions/permissions*') ? 'active' : '' }}" href="{{ route('permissions') }}">
+                                                <i class="bi bi-circle"></i><span>{{ __('Permissions') }}</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="{{ Request::is('admin/settings/role-permissions/roles*') ? 'active' : '' }}" href="{{ route('roles') }}">
+                                                <i class="bi bi-circle"></i><span>{{ __('Roles') }}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>

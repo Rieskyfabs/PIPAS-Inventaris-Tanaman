@@ -7,10 +7,10 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="Laporan Tanaman Keluar" 
+        title="Transaksi Tanaman Keluar" 
         :items="[
-          ['route' => 'home', 'label' => 'Home'],
-          ['label' => 'Laporan Tanaman Keluar']
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
+          ['label' => 'Transaksi Tanaman Keluar']
         ]" 
       />
 
@@ -20,9 +20,9 @@
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">{{__('LAPORAN TANAMAN KELUAR')}}</h5>
+                <h5 class="card-title">{{__('TRANSAKSI TANAMAN KELUAR')}}</h5>
                 <div class="add-btn-container">
-
+                  
                 </div>
 
                 <!-- Table with stripped rows -->

@@ -185,7 +185,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     });
 
     // User Management
-    Route::prefix('admin/users')->group(function () {
+    Route::prefix('admin/settings/users')->group(function () {
         Route::get('/usersList', [UserController::class, 'index'])->name('users');
         Route::get('/create', [UserController::class, 'create'])->name('users.create');
         Route::post('/store', [UserController::class, 'store'])->name('users.store');
@@ -196,7 +196,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     });
 
     // Permissions
-    Route::prefix('admin/role-permissions/permissions')->group(function () {
+    Route::prefix('admin/settings/role-permissions/permissions')->group(function () {
         Route::get('/', [PermissionController::class, 'index'])->name('permissions');
         Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');
         Route::post('/store', [PermissionController::class, 'store'])->name('permissions.store');

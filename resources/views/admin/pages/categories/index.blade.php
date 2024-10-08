@@ -23,7 +23,8 @@
                 <h5 class="card-title">{{ __('KATEGORI TANAMAN') }}</h5>
                 <div class="add-btn-container">
                     <button type="button" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#createCategoryModal">
-                        + {{ __('TAMBAH') }}
+                        <i class="ri-add-fill"></i>
+                        {{ __('TAMBAH') }}
                     </button>
                 </div>
 
