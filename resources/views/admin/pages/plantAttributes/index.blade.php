@@ -7,7 +7,7 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="Plant Attributes" 
+        title="Atribut Tanaman" 
         :items="[
           ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
           ['label' => 'Atribut Tanaman']
@@ -38,8 +38,8 @@
                                           <th>{{__('KATEGORI')}}</th>
                                           <th>{{__('MANFAAT')}}</th>
                                           <th>{{__('DESKRIPSI')}}</th>
-                                          <th>{{__('CREATED AT')}}</th>
-                                          <th>{{__('ACTIONS')}}</th>
+                                          <th>{{__('DIBUAT PADA')}}</th>
+                                          <th>{{__('AKSI')}}</th>
                                       </tr>
                                   </thead>
                                   <tbody>

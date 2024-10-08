@@ -29,6 +29,23 @@
                     </a>
                 </li>
                 <!-- End Dashboard Nav -->
+                <li class="nav-heading">{{ __('MENU') }}</li>
+
+                <!-- My Plants Nav -->
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('my-plants') ? '' : 'collapsed' }}" href="#">
+                        <i class="bx bx-leaf"></i>
+                        <span>{{ __('Tanaman') }}</span>
+                    </a>
+                </li>
+
+                <!-- Reports Nav -->
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('reports*') ? '' : 'collapsed' }}" href="#">
+                        <i class='bx bx-file'></i>
+                        <span>{{ __('Laporan') }}</span>
+                    </a>
+                </li>
 
                 <li class="nav-heading">{{ __('Others') }}</li>
 

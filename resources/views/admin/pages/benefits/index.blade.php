@@ -34,8 +34,8 @@
                         <tr>
                           <th>{{__('NO')}}</th>
                           <th>{{__('NAMA MANFAAT')}}</th>
-                          <th>{{__('CREATED AT')}}</th>
-                          <th>{{__('ACTIONS')}}</th>
+                          <th>{{__('DIBUAT PADA')}}</th>
+                          <th>{{__('AKSI')}}</th>
                         </tr>
                     </thead>
                     <tbody>

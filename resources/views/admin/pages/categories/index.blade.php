@@ -29,13 +29,13 @@
                 </div>
 
                 <!-- Table with stripped rows -->
-                <table class="table datatable">
+                <table class="table table-bordered table-hover datatable">
                     <thead>
                         <tr>
                           <th>{{__('NO')}}</th>
                           <th>{{__('NAMA KATEGORI')}}</th>
-                          <th>{{__('CREATED AT')}}</th>
-                          <th>{{__('ACTIONS')}}</th>
+                          <th>{{__('DIBUAT PADA')}}</th>
+                          <th>{{__('AKSI')}}</th>
                         </tr>
                     </thead>
                     <tbody>
