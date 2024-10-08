@@ -67,7 +67,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/inventaris*') || Request::is('admin/attributes*') ? '' : 'collapsed' }}" data-bs-target="#plants-nav" data-bs-toggle="collapse" href="#">
-                        <i class="ri-plant-line fs-5"></i><span>{{ __('Kelola Tanaman') }}</span>
+                        <i class="ri-plant-line fs-5"></i><span>{{ __('Master Tanaman') }}</span>
                         @if($readyToHarvestCount > 0)
                             <span class="notification-bubble"></span>
                         @endif
