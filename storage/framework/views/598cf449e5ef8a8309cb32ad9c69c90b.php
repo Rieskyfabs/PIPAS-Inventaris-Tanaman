@@ -50,6 +50,7 @@
                           <th><?php echo e(__('TANGGAL KELUAR')); ?></th>
                           <th><?php echo e(__('JUMLAH KELUAR')); ?></th>
                           <th><?php echo e(__('STATUS TANAMAN')); ?></th>
+                          <th><?php echo e(__('TUJUAN')); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,6 +63,7 @@
                               <td><?php echo e($item->tanggal_keluar); ?></td>
                               <td><?php echo e($item->jumlah_keluar); ?></td>
                               <td><?php echo e($item->plant->status); ?></td>
+                              <td>Dummy -> GreenRoof</td>
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>

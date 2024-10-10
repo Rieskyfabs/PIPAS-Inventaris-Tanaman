@@ -47,7 +47,8 @@
                           <th><?php echo e(__('KODE TANAMAN MASUK')); ?></th>
                           <th><?php echo e(__('KODE TANAMAN')); ?></th>
                           <th><?php echo e(__('NAMA TANAMAN')); ?></th>
-                          
+                          <th><?php echo e(__('LOKASI TANAMAN')); ?></th>
+                          <th><?php echo e(__('KONDISI TANAMAN')); ?></th>
                           <th><?php echo e(__('TANGGAL MASUK')); ?></th>
                           <th><?php echo e(__('JUMLAH MASUK')); ?></th>
                           
@@ -60,7 +61,18 @@
                               <td><?php echo e($item->kode_tanaman_masuk); ?></td>
                               <td><?php echo e($item->plant->plantAttribute->plant_code); ?></td>
                               <td><?php echo e($item->plant->plantAttribute->name); ?></td>
-                              
+                              <td><?php echo e($item->plant->location->name); ?></td>
+                              <td>
+                                  <span class="badge
+                                      <?php if($item->plant->status === 'sehat'): ?> badge-soft-green <i class='bi bi-check-circle me-1'></i>
+                                      <?php elseif($item->plant->status === 'baik'): ?> badge-soft-primary <i class='bi bi-star me-1'></i>
+                                      <?php elseif($item->plant->status === 'layu'): ?> badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
+                                      <?php elseif($item->plant->status === 'sakit'): ?> badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
+                                      <?php else: ?> bg-secondary <?php endif; ?>">
+                                      <?php echo e(ucfirst($item->plant->status)); ?>
+
+                                  </span>
+                              </td>
                               <td><?php echo e($item->tanggal_masuk); ?></td>
                               <td><?php echo e($item->jumlah_masuk); ?></td>
 
