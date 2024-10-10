@@ -967,7 +967,7 @@ h6 {
 }
 
 .dashboard .recent-sales .table thead th {
-  border: 0;
+  /* border: 0; */
 }
 
 .dashboard .recent-sales .dataTable-top {
@@ -1557,4 +1557,139 @@ select[readonly]:focus {
   padding: 10px;
   /* Light background to make header stand out */
   border-bottom: 1px solid #e9ecef;
+}
+
+.img-max-height {
+  min-height: 300px;
+  max-height: 300px;
+  /* Menetapkan tinggi maksimum 100 piksel */
+  object-fit: cover;
+  /* Memastikan gambar tetap proporsional */
+  width: 100%;
+  /* Memastikan gambar memenuhi lebar */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Hitam dengan transparansi */
+  opacity: 0.5;
+  /* Tingkat transparansi overlay */
+}
+
+/* Bubble Notifikasi */
+.notification-bubble {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background-color: #ff9800;
+  border-radius: 50%;
+  margin-left: 8px;
+  /* Jarak antara teks dan bubble */
+  position: relative;
+  /* Relatif terhadap item menu */
+  /* Mengatur agar posisinya sejajar dengan teks */
+  animation: fadeInOut 1s infinite;
+  /* Efek animasi */
+}
+
+/* Animasi Muncul dan Memudar */
+@keyframes fadeInOut {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.notification-count {
+  display: flex;
+  align-items: center;
+}
+
+.badge.bg-warning {
+  background-color: #ffc107;
+  /* Yellow color */
+  color: white;
+}
+
+.badge.bg-danger {
+  background-color: #dc3545;
+  /* Red color for new notifications */
+  color: white;
+}
+
+.notification-list {
+  list-style-type: none;
+  /* Remove bullet points */
+  padding: 0;
+  /* Remove padding */
+  margin-top: 1em;
+  /* Add space above the list */
+}
+
+.notification-item {
+  padding: 0.5em 1em;
+  /* Padding for each notification item */
+  transition: background-color 0.3s ease;
+  /* Smooth transition for background color */
+}
+
+.notification-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  /* Light background on hover */
+}
+
+.notification-bubble-header {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: orange;
+  display: inline-block;
+  animation: bubble-animation 1s ease infinite;
+}
+
+@keyframes bubble-animation {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+    /* Adjust scale for the animation effect */
+  }
+}
+
+.notification-link {
+  color: inherit;
+  /* This will inherit the color from the parent element */
+}
+
+.scrollable-dropdown {
+  max-height: 300px;
+  /* Adjust this height as needed */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  overflow-x: hidden;
+  /* Hide horizontal overflow */
+}
+
+.notification-item {
+  padding: 10px;
+  /* Optional: Add some padding for better readability */
 }

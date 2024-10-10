@@ -7,7 +7,7 @@
     <main id="main" class="main">
 
       <x-breadcrumbs
-        title="{{ __('Plants')}}"
+        title="{{ __('Kelola Tanaman')}}"
         :items="[
           ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
           ['label' => 'Data Tanaman']
@@ -126,45 +126,28 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">{{__('Plants Data')}}</h5>
+                            <h5 class="card-title">{{__('Data Tanaman')}}</h5>
+                            <p>{{__('')}}</p>
                             <div class="add-btn-container">
                                 <a href="{{ route('plants.create') }}" class="btn-add-item">
-                                    <svg aria-hidden="true" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <!-- SVG content -->
-                                        <path
-                                            stroke-width="2"
-                                            stroke="#fffffff"
-                                            d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125"
-                                            stroke-linejoin="round"
-                                            stroke-linecap="round"
-                                            ></path>
-                                            <path
-                                            stroke-linejoin="round"
-                                            stroke-linecap="round"
-                                            stroke-width="2"
-                                            stroke="#fffffff"
-                                            d="M17 15V18M17 21V18M17 18H14M17 18H20"
-                                        >
-                                        </path>
-                                    </svg>
-                                    {{ __('Add Plant') }}
+                                    <i class="ri-add-fill"></i>
+                                    {{ __('TAMBAH') }}
                                 </a>
                             </div>
-
                             <div class="table-responsive">
                                 <!-- Table with stripped rows -->
                                 <table class="table table-bordered table-hover datatable">
                                     <thead>
                                         <tr>
                                             <th>NO</th>
-                                            <th>{{__('KODE')}}</th>
+                                            <th>{{__('KODE TANAMAN')}}</th>
                                             <th>{{__('NAMA TANAMAN')}}</th>
                                             <th>{{__('NAMA ILMIAH')}}</th>
                                             <th>{{__('TIPE TANAMAN')}}</th>
                                             <th>{{__('KATEGORI TANAMAN')}}</th>
                                             <th>{{__('MANFAAT TANAMAN')}}</th>
                                             <th>{{__('JUMLAH')}}</th>
-                                            <th>{{__('ACTIONS')}}</th>
+                                            <th>{{__('AKSI')}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -192,11 +175,20 @@
                                                 <td>{{ $plant->category ? $plant->category->name : 'Unknown' }}</td>
                                                 <td>{{ $plant->benefit ? $plant->benefit->name : 'Unknown' }}</td>
                                                 {{-- <td>{{ $plant->total_quantity }}</td> --}}
-                                                <td><span class="badge bg-primary badge-number">{{ $plant->total_quantity }}</span></td>
                                                 <td>
-                                                    <x-action-buttons
+                                                    <span class="badge bg-primary badge-number">{{ $plant->total_quantity }}
+                                                        @if($plant->ready_to_harvest_count > 0)
+                                                            <span class="notification-bubble"></span>
+                                                        @endif
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    {{-- <x-action-buttons
                                                         viewData="{{ route('plants.show', $plant->plantAttribute->plant_code) }}"
-                                                    />
+                                                    /> --}}
+                                                    <a href="{{ route('plants.show', $plant->plantAttribute->plant_code) }}" class="btn btn-primary">
+                                                        {{__('Lihat')}}
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach

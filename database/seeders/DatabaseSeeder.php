@@ -17,14 +17,14 @@ class DatabaseSeeder extends Seeder
     {
         // Menjalankan seeder untuk Location, Category, Benefit, dan User
         $this->call([
+            UserSeeder::class,
             LocationSeeder::class,
             CategorySeeder::class,
             BenefitSeeder::class,
             PlantAttributeSeeder::class,
-            UserSeeder::class,
         ]);
 
         // Mengisi tabel plants dengan 20 data dummy
-        Plant::factory()->count(6)->create();
+        // Plant::factory()->count(6)->create();
     }
 }

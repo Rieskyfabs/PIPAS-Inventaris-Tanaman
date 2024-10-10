@@ -23,11 +23,11 @@ class PlantAttributeSeeder extends Seeder
         $bumbuBenefitId = Benefit::where('name', 'Bumbu')->first()->id;
 
         $codes = [
-            ['plant_code' => 'SR', 'name' => 'Sereh', 'scientific_name' => 'Curcuma longa', 'category_id' => $tanamanRempahCategoryId, 'benefit_id' => $kesehatanBenefitId, 'description' => 'Kode Tanaman Sereh', 'status' => 'active', 'type' => 'Herbal'],
-            ['plant_code' => 'TL', 'name' => 'Tomat Lele', 'scientific_name' => 'Zingiber officinale', 'category_id' => $tanamanPanganCategoryId, 'benefit_id' => $pemanisBenefitId, 'description' => 'Kode Tanaman Tomat Lele', 'status' => 'active', 'type' => 'Sayuran'],
-            ['plant_code' => 'AL', 'name' => 'Aloe Vera', 'scientific_name' => 'Ocimum basilicum', 'category_id' => $tanamanRempahCategoryId, 'benefit_id' => $kesehatanBenefitId, 'description' => 'Kode Tanaman Aloe Vera', 'status' => 'active', 'type' => 'Herbal'],
-            ['plant_code' => 'FT', 'name' => 'Fittonia', 'scientific_name' => 'Amaranthus spinosus', 'category_id' => $tanamanPanganCategoryId, 'benefit_id' => $pengobatanBenefitId, 'description' => 'Kode Tanaman Fittonia', 'status' => 'active', 'type' => 'Sayuran'],
-            ['plant_code' => 'BM', 'name' => 'Bayam', 'scientific_name' => 'Brassica rapa', 'category_id' => $tanamanUmbiUmbianCategoryId, 'benefit_id' => $bumbuBenefitId, 'description' => 'Kode Tanaman Bayam', 'status' => 'active', 'type' => 'Sayuran']
+            ['plant_code' => 'SR-CCALGA', 'name' => 'Sereh', 'scientific_name' => 'Curcuma longa', 'category_id' => $tanamanRempahCategoryId, 'benefit_id' => $kesehatanBenefitId, 'description' => 'Kode Tanaman Sereh', 'status' => 'active', 'type' => 'Herbal'],
+            ['plant_code' => 'TL-ZGBRONE', 'name' => 'Tomat Lele', 'scientific_name' => 'Zingiber officinale', 'category_id' => $tanamanPanganCategoryId, 'benefit_id' => $pemanisBenefitId, 'description' => 'Kode Tanaman Tomat Lele', 'status' => 'active', 'type' => 'Sayuran'],
+            ['plant_code' => 'AL-OMMBLM', 'name' => 'Aloe Vera', 'scientific_name' => 'Ocimum basilicum', 'category_id' => $tanamanRempahCategoryId, 'benefit_id' => $kesehatanBenefitId, 'description' => 'Kode Tanaman Aloe Vera', 'status' => 'active', 'type' => 'Herbal'],
+            ['plant_code' => 'FT-AASSOS', 'name' => 'Fittonia', 'scientific_name' => 'Amaranthus spinosus', 'category_id' => $tanamanPanganCategoryId, 'benefit_id' => $pengobatanBenefitId, 'description' => 'Kode Tanaman Fittonia', 'status' => 'active', 'type' => 'Sayuran'],
+            ['plant_code' => 'BM-BSARPA', 'name' => 'Bayam', 'scientific_name' => 'Brassica rapa', 'category_id' => $tanamanUmbiUmbianCategoryId, 'benefit_id' => $bumbuBenefitId, 'description' => 'Kode Tanaman Bayam', 'status' => 'active', 'type' => 'Sayuran']
         ];
 
         foreach ($codes as $code) {

@@ -7,10 +7,10 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="Manfaat" 
+        title="Manfaat Tanaman" 
         :items="[
-          ['route' => 'home', 'label' => 'Home'],
-          ['label' => 'Manfaat']
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
+          ['label' => 'Manfaat Tanaman']
         ]" 
       />
 
@@ -20,17 +20,11 @@
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">{{__('BENEFITS')}}</h5>
+                <h5 class="card-title">{{__('DATA MANFAAT TANAMAN')}}</h5>
                 <div class="add-btn-container">
                     <a href="{{ route('benefits.create') }}" class="btn-add-item">
-                        <svg fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                          <g id="SVGRepo_iconCarrier">
-                            <path d="M18,22a1,1,0,0,0,1-1V8L12,2,5,8V21a1,1,0,0,0,1,1ZM12,7a2,2,0,1,1-2,2A2,2,0,0,1,12,7ZM9,16h2V14h2v2h2v2H13v2H11V18H9Z"></path>
-                          </g>
-                        </svg>
-                        {{ __('Add Benefits') }}
+                        +
+                        {{ __('TAMBAH') }}
                     </a>
                 </div>
 
@@ -38,27 +32,17 @@
                 <table class="table table-bordered table-hover datatable">
                     <thead>
                         <tr>
-                          <th>{{__('ID')}}</th>
-                          <th>{{__('BENEFITS NAME')}}</th>
-                          {{-- <th>{{__('STATUS')}}</th> --}}
-                          <th>{{__('CREATED AT')}}</th>
-                          <th>{{__('ACTIONS')}}</th>
+                          <th>{{__('NO')}}</th>
+                          <th>{{__('NAMA MANFAAT')}}</th>
+                          <th>{{__('DIBUAT PADA')}}</th>
+                          <th>{{__('AKSI')}}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($benefits as $benefit)
                             <tr>
-                              <td>{{ $benefit->id }}</td>
+                              <td>{{ $loop->iteration }}</td>
                               <td>{{ $benefit->name }}</td>
-                              {{-- <td>
-                                  @if($benefit->status == 'active')
-                                      <span class="badge badge-soft-green">Active</span>
-                                  @elseif($benefit->status == 'inactive')
-                                      <span class="badge badge-soft-gray">Inactive</span>
-                                  @else
-                                      <span class="badge badge-soft-secondary">Unknown</span>
-                                  @endif
-                              </td> --}}
                               <td>{{ $benefit->created_at->format('d F Y, H:i') }}</td>
                               <td>
                                   <x-action-buttons

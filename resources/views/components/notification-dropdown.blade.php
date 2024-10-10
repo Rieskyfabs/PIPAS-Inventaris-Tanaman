@@ -1,37 +1,52 @@
 <li class="nav-item dropdown">
   <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
     <i class="ri-notification-3-line"></i>
-    <span class="badge bg-primary badge-number">{{ $notificationCount }}</span>
+    @if($notificationCount > 0)
+        <span class="notification-bubble-header"></span> <!-- Notification bubble without count -->
+    @endif
   </a>
-  <!-- End Notification Icon -->
 
   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
     <li class="dropdown-header">
-      You have {{ $notificationCount }} new notifications
-      <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+      Kamu Memiliki {{ $notificationCount }} Notifikasi Baru
+      <a href="{{ route('notifications') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">{{ __('Lihat Semua') }}</span></a>
     </li>
+    
     <li>
       <hr class="dropdown-divider">
     </li>
 
-    @foreach ($notifications as $notification)
-      <li class="notification-item">
-        <i class="bi {{ $notification['icon'] }} {{ $notification['iconColor'] }}"></i>
-        <div>
-          <h4>{{ $notification['title'] }}</h4>
-          <p>{{ $notification['message'] }}</p>
-          <p>{{ $notification['timeAgo'] }}</p>
-        </div>
-      </li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-    @endforeach
+    <div class="scrollable-dropdown">
+      @if(empty($notifications))
+        <li class="notification-item">
+          <i class="bi bi-info-circle"></i>
+          <div>
+            <h4>{{ __('Tidak Ada Notifikasi Terbaru') }}</h4>
+            <p>{{ __('Anda Sudah Up-To-Date!') }}</p>
+          </div>
+        </li>
+      @else
+        @foreach ($notifications as $notification)
+          <li class="notification-item">
+            <i class="bi {{ $notification['icon'] }} {{ $notification['iconColor'] }}"></i>
+            <a href="{{ $notification['url'] }}">
+              <div>
+                <h4>{{ $notification['title'] }}</h4>
+                <p>{{ $notification['message'] }}</p>
+                <p>{{ $notification['location'] }}</p>
+                <p>{{ $notification['timeAgo'] }}</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+        @endforeach
+      @endif
+    </div>
 
     <li class="dropdown-footer">
-      <a href="#">Show all notifications</a>
+      <a href="{{ route('notifications') }}">{{ __('Lihat Semua Notifikasi') }}</a>
     </li>
   </ul>
-  <!-- End Notification Dropdown Items -->
 </li>
-<!-- End Notification Nav -->

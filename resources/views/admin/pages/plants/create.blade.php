@@ -7,11 +7,11 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="{{ __('Add New Plant')}}" 
+        title="{{ __('Tambah Data Tanaman Baru')}}" 
         :items="[ 
-          ['route' => 'home', 'label' => 'Home'], 
-          ['route' => 'plants', 'label' => 'List Plants'], 
-          ['label' => 'Add New Plant'] 
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'], 
+          ['route' => 'plants', 'label' => 'List Tanaman'], 
+          ['label' => 'Tambah Data Tanaman Baru'] 
         ]" 
       />
 
@@ -20,8 +20,8 @@
           <div class="col-lg-8">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Tambahkan Tanaman Baru</h5>
-                <p class="mb-3">Untuk Menambahkan Data Tanaman, Pastikan Anda Sudah Menambahkan Attribute Dari Tanamannya Terlebih Dahulu.</p>
+                <h5 class="card-title">{{__('Tambahkan Tanaman Baru')}}</h5>
+                <p class="mb-3">{{__('Untuk Menambahkan Data Tanaman, Pastikan Anda Sudah Menambahkan Attribute Dari Tanamannya Terlebih Dahulu.')}}</p>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -32,12 +32,12 @@
                     </div>
                 @endif
                 <!-- Advanced Form Elements -->
-                  <form action="{{ route('plants.store') }}" method="POST">
+                  <form action="{{ route('plants.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
                     <div class="form-floating mb-3">
                         <select name="plant_code_id" class="form-select" id="plantAttributes" required>
-                            <option value="" disabled selected>Silahkan Pilih Kode Tanaman</option>
+                            <option value="" disabled selected>Pilih Kode Tanaman</option>
                             @foreach ($plantAttributes as $item)
                                 <option value="{{ $item->id }}" 
                                         data-name="{{ $item->name }}" 
@@ -106,6 +106,17 @@
                         <label for="plantBenefits">Manfaat Tanaman</label>
                     </div>
 
+                    <!-- Input for Image -->
+                    <div class="form-group mb-3">
+                        <label for="plantImage">Upload Gambar Tanaman</label>
+                        <input type="file" name="image" class="form-control" id="plantImage" accept="image/*" onchange="previewImage(event)">
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="form-group mb-3">
+                        <img id="imagePreview" src="#" alt="Preview Gambar" style="display: none; width: 100px; height: 100px; object-fit: cover;" />
+                    </div>
+
                     <div class="form-floating mb-3">
                         <select name="location_id" class="form-select" id="plantLocations" required>
                             <option value="" disabled selected>Silahkan Pilih Lokasi Tanaman</option>
@@ -118,13 +129,13 @@
 
                     <div class="form-floating mb-3">
                         <select name="status" class="form-select" id="plantStatus" required>
-                            <option value="" disabled selected>Silahkan Pilih Status Tanaman</option>
+                            <option value="" disabled selected>Silahkan Pilih Kondisi Tanaman</option>
                             <option value="sehat">Sehat</option>
                             <option value="baik">Baik</option>
                             <option value="layu">Layu</option>
                             <option value="sakit">Sakit</option>
                         </select>
-                        <label for="plantStatus">Status Tanaman</label>
+                        <label for="plantStatus">Kondisi Tanaman</label>
                     </div>
 
                     <div class="form-floating mb-3">
@@ -200,8 +211,20 @@
                         });
                     });
                 </script>
-
                 <!-- End JavaScript for Auto Fill -->
+
+                <!-- JavaScript for Previewing Image -->
+                <script>
+                    function previewImage(event) {
+                        var reader = new FileReader();
+                        reader.onload = function(){
+                            var output = document.getElementById('imagePreview');
+                            output.src = reader.result;
+                            output.style.display = 'block'; // Show the preview
+                        };
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+                </script>
 
               </div>
             </div>

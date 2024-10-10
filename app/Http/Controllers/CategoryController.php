@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -10,9 +11,9 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('created_at', 'desc')->get();
 
-        $title = 'Apakah anda yakin ingin menghapus kategori ini?';
+        $title = 'Apakah anda yakin?';
         $text = "semua data tanaman dengan kategori ini akan terhapus juga";
         confirmDelete($title, $text);
 
@@ -33,7 +34,13 @@ class CategoryController extends Controller
 
         Category::create($request->all());
 
-        return redirect()->route('categories')->with('success', 'Category added successfully.');
+        // Mencatat aktivitas
+        ActivityLogger::log('create', 'Created a new categories with name: ' . $request->name);
+
+        // Tampilkan pesan sukses
+        Alert::success('Data Ditambahkan', 'Berhasil menambahkan data kategori!');
+
+        return redirect()->back();
     }
 
     public function edit($id)
@@ -52,7 +59,13 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->update($request->all());
 
-        return redirect()->route('categories')->with('success', 'Category updated successfully.');
+        // Mencatat aktivitas
+        ActivityLogger::log('update', 'Updated a categories data with name: ' . $request->name);
+
+        // Tampilkan pesan sukses
+        Alert::success('Data DiUpdate', 'Berhasil mengupdate data kategori!');
+
+        return redirect()->route('categories');
     }
 
     public function destroy($id)
@@ -60,7 +73,12 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        Alert::success('Hapus Data categories', 'Berhasil mengHapus data categories');
-        return redirect()->route('categories');
+        // Mencatat aktivitas
+        ActivityLogger::log('delete', 'Deleted a categories data with ID: ' . $id);
+
+        // Tampilkan pesan sukses
+        Alert::success('Hapus data kategori', 'Berhasil menghapus data kategori');
+
+        return redirect()->back();
     }
 }

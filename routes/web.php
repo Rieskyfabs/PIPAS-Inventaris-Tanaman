@@ -7,6 +7,7 @@ use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PlantAttributesController;
 use App\Http\Controllers\PlantController;
@@ -131,6 +132,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::get('/create', [PlantController::class, 'create'])->name('plants.create');
         Route::post('/store', [PlantController::class, 'store'])->name('plants.store');
         Route::get('/{plantAttribute}', [PlantController::class, 'show'])->name('plants.show');
+        Route::put('/plants/{plant}/panen', [PlantController::class, 'panen'])->name('plants.panen');
         Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
         Route::put('/{id}', [PlantController::class, 'update'])->name('plants.update');
         Route::delete('/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
@@ -166,7 +168,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::delete('/{id}', [LocationController::class, 'destroy'])->name('locations.destroy');
     });
 
-    // Lokasi
+    // Atribute Tanaman
     Route::prefix('admin/attributes/plant-attributes')->group(function () {
         Route::get('/', [PlantAttributesController::class, 'index'])->name('plantAttributes');
         Route::get('/create', [PlantAttributesController::class, 'create'])->name('plantAttributes.create');
@@ -183,7 +185,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     });
 
     // User Management
-    Route::prefix('admin/users')->group(function () {
+    Route::prefix('admin/settings/users')->group(function () {
         Route::get('/usersList', [UserController::class, 'index'])->name('users');
         Route::get('/create', [UserController::class, 'create'])->name('users.create');
         Route::post('/store', [UserController::class, 'store'])->name('users.store');
@@ -194,7 +196,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     });
 
     // Permissions
-    Route::prefix('admin/role-permissions/permissions')->group(function () {
+    Route::prefix('admin/settings/role-permissions/permissions')->group(function () {
         Route::get('/', [PermissionController::class, 'index'])->name('permissions');
         Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');
         Route::post('/store', [PermissionController::class, 'store'])->name('permissions.store');
@@ -202,6 +204,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::put('/{id}', [PermissionController::class, 'update'])->name('permissions.update');
         Route::delete('/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
     });
+
+    Route::get('admin/notifications', [NotificationController::class, 'index'])->name('notifications');
+    Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+
 
 
     // Roles
@@ -218,5 +224,5 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 });

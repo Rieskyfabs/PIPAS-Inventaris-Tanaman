@@ -17,7 +17,7 @@
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ __('Edit Plant Data') }}</h5>
+                                <h5 class="card-title">{{ __('Tanaman Yang Di Edit: ') . $plant->plantAttribute->name }}</h5>
 
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -43,7 +43,7 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        <label for="plantName">{{ __('Nama Tanaman') }}</label>
+                                        <label for="plantName">{{ __('NAMA TANAMAN') }}</label>
                                     </div>
 
                                     <!-- Plant Scientific Name (hidden) -->
@@ -66,7 +66,7 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        <label for="plantCategories">{{ __('Kategori Tanaman') }}</label>
+                                        <label for="plantCategories">{{ __('KATEGORI TANAMAN') }}</label>
                                     </div>
 
                                     <!-- Benefit Selection (readonly) -->
@@ -79,7 +79,7 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        <label for="plantBenefits">{{ __('Manfaat Tanaman') }}</label>
+                                        <label for="plantBenefits">{{ __('MANFAAT TANAMAN') }}</label>
                                     </div>
 
                                     <!-- Location Selection (readonly) -->
@@ -92,36 +92,40 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        <label for="plantLocations">{{ __('Lokasi Tanaman') }}</label>
+                                        <label for="plantLocations">{{ __('LOKASI TANAMAN') }}</label>
                                     </div>
 
                                     <!-- Status (editable) -->
                                     <div class="form-floating mb-3">
                                         <select name="status" class="form-select" required>
-                                            <option value="sehat" {{ $plant->status == 'sehat' ? 'selected' : '' }}>Sehat
+                                            <option value="sehat" {{ $plant->status == 'sehat' ? 'selected' : '' }}>
+                                                {{__('Sehat')}}
                                             </option>
-                                            <option value="baik" {{ $plant->status == 'baik' ? 'selected' : '' }}>Baik
+                                            <option value="baik" {{ $plant->status == 'baik' ? 'selected' : '' }}>
+                                                {{__('Baik')}}
                                             </option>
-                                            <option value="layu" {{ $plant->status == 'layu' ? 'selected' : '' }}>Layu
+                                            <option value="layu" {{ $plant->status == 'layu' ? 'selected' : '' }}>
+                                                {{__('Layu')}}
                                             </option>
-                                            <option value="sakit" {{ $plant->status == 'sakit' ? 'selected' : '' }}>Sakit
+                                            <option value="sakit" {{ $plant->status == 'sakit' ? 'selected' : '' }}>
+                                                {{__('Sakit')}}
                                             </option>
                                         </select>
-                                        <label for="status">{{ __('Status Tanaman') }}</label>
+                                        <label for="status">{{ __('KONDISI TANAMAN') }}</label>
                                     </div>
 
                                     <!-- Seeding Date (editable) -->
                                     <div class="form-floating mb-3">
                                         <input type="date" name="seeding_date" class="form-control"
                                             value="{{ $plant->seeding_date }}" required>
-                                        <label for="seeding_date">{{ __('Tanggal Tanam') }}</label>
+                                        <label for="seeding_date">{{ __('TANGGAL TANAM') }}</label>
                                     </div>
 
                                     <!-- Harvest Date (editable) -->
                                     <div class="form-floating mb-3">
                                         <input type="date" name="harvest_date" class="form-control"
                                             value="{{ $plant->harvest_date }}" required>
-                                        <label for="harvest_date">{{ __('Tanggal Panen') }}</label>
+                                        <label for="harvest_date">{{ __('ESTIMASI TANGGAL PANEN') }}</label>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>

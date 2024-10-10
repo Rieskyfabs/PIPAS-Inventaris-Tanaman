@@ -7,7 +7,7 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="User Dashboard" 
+        title="Dashboard" 
         :items="[
             ['route' => 'home', 'label' => 'Home'],
             ['label' => 'Dashboard']

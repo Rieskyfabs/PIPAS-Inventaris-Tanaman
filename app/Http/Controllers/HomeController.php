@@ -30,7 +30,7 @@ class HomeController extends Controller
         $totalUsers = User::count();
 
         // Ambil data tanaman dengan pagination
-        $plants = Plant::with(['category', 'benefit', 'location', 'plantAttribute'])
+        $plants = Plant::with(['category', 'benefit', 'location', 'plantAttribute', 'tanamanMasuk'])
         ->orderBy('created_at', 'desc')
         ->paginate(5);
 
@@ -70,6 +70,12 @@ class HomeController extends Controller
 
         $activityLogs = ActivityLog::latest()->limit(4)->get();
 
+        // Ambil 5 tanaman terbaru untuk galeri
+        $recentPlants = Plant::with('plantAttribute') // Pastikan ada relasi yang sesuai
+        ->orderBy('created_at', 'desc') // Mengurutkan berdasarkan tanggal dibuat
+        ->take(5) // Mengambil 5 tanaman terbaru
+        ->get();
+
         // Kirim data ke view
         return view('admin-dashboard', compact(
             'plants',
@@ -81,9 +87,11 @@ class HomeController extends Controller
             'dataBelumDipanen',
             'dataSiapDipanen',
             'dataSudahDipanen',
-            'activityLogs'
+            'activityLogs',
+            'recentPlants' // Tambahkan recentPlants ke view
         ));
     }
+
 
     /**
      * Helper function untuk mengisi data tanaman per ruangan (lokasi).

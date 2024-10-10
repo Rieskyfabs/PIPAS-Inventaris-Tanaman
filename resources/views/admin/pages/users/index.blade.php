@@ -7,10 +7,10 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="{{ __('Users')}}" 
+        title="{{ __('Pengguna')}}" 
         :items="[
-          ['route' => 'home', 'label' => 'Home'],
-          ['label' => 'Users']
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
+          ['label' => 'Data Pengguna']
         ]" 
       />
 
@@ -61,13 +61,11 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">{{ __('Users Data') }}</h5>
+                <h5 class="card-title">{{ __('Data Pengguna') }}</h5>
                 <div class="add-btn-container">
                   <a href="{{ route('users.create') }}" class="btn-add-item">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                    </svg>
-                    {{ __('Add Users') }}
+                    <i class="ri-add-fill"></i>
+                    {{ __('TAMBAH') }}
                   </a>
                 </div>
               <div class="table-responsive">
@@ -75,10 +73,10 @@
                 <table class="table table-bordered table-hover datatable">
                   <thead>
                       <tr>
-                        <th>{{__('USER')}}</th>
+                        <th>{{__('PENGGUNA')}}</th>
                         <th>{{__('ROLE')}}</th>
                         <th>{{__('STATUS')}}</th>
-                        <th>{{__('ACTIONS')}}</th>
+                        <th>{{__('AKSI')}}</th>
                       </tr>
                   </thead>
                   <tbody>

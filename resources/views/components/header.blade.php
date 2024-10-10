@@ -8,7 +8,7 @@
     <!-- End Logo -->
 
     <x-sidebar-search 
-        {{-- actionUrl="{{ route('search') }}"  --}}
+        {{--  actionUrl="{{ route('search') }}"  --}}
         actionUrl="#" 
     />
     <!-- End Search Bar -->
@@ -23,19 +23,10 @@
             </li>
             <!-- End Search Icon -->
 
-            @auth
-                @if (Auth::user()->role->name == 'admin')
-                    <x-notification-dropdown 
-                        :notificationCount="4" 
-                        :notifications="[
-                            ['icon' => 'bi-exclamation-circle', 'iconColor' => 'text-warning', 'title' => 'Lorem Ipsum', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '30 min. ago'],
-                            ['icon' => 'bi-x-circle', 'iconColor' => 'text-danger', 'title' => 'Atque rerum nesciunt', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '1 hr. ago'],
-                            ['icon' => 'bi-check-circle', 'iconColor' => 'text-success', 'title' => 'Sit rerum fuga', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '2 hrs. ago'],
-                            ['icon' => 'bi-info-circle', 'iconColor' => 'text-primary', 'title' => 'Dicta reprehenderit', 'message' => 'Quae dolorem earum veritatis oditseno', 'timeAgo' => '4 hrs. ago']
-                        ]" 
-                    />
-                @endif
-            @endauth
+            <x-notification-dropdown 
+                :notificationCount="$notificationCount" 
+                :notifications="$notifications" 
+            />
         
             <x-profile-dropdown 
                 profileImage="{{ Auth::user()->profile_image ?? Avatar::create(Auth::user()->username)->toBase64()  }}" 

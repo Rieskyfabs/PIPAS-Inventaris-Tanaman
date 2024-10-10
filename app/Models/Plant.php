@@ -11,6 +11,7 @@ class Plant extends Model
     use HasFactory;
 
     protected $fillable = [
+        'image',
         'plant_code_id',
         'plant_name_id',
         'plant_scientific_name_id',
@@ -49,6 +50,11 @@ class Plant extends Model
     public function plantAttribute()
     {
         return $this->belongsTo(PlantAttributes::class, 'plant_code_id', 'id');
+    }
+
+    public function tanamanMasuk()
+    {
+        return $this->hasOne(TanamanMasuk::class, 'plant_id'); // Sesuaikan nama kolom foreign key
     }
 
     public function setTypeAttribute($value)

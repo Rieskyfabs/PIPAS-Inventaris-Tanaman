@@ -7,10 +7,10 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="Locations" 
+        title="Lokasi Penyimpanan" 
         :items="[
-          ['route' => 'home', 'label' => 'Home'],
-          ['label' => 'Locations']
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
+          ['label' => 'Lokasi Penyimpanan']
         ]" 
       />
 
@@ -19,17 +19,11 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                          <h5 class="card-title">{{__('Locations Data')}}</h5>
+                          <h5 class="card-title">{{__('DATA LOKASI PENYIMPANAN')}}</h5>
                           <div class="add-btn-container">
                               <a href="{{ route('locations.create') }}" class="btn-add-item">
-                                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier"> 
-                                      <path d="M12 13V7M15 10.0008L9 10M19 10.2C19 14.1764 15.5 17.4 12 21C8.5 17.4 5 14.1764 5 10.2C5 6.22355 8.13401 3 12 3C15.866 3 19 6.22355 19 10.2Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
-                                    </g>
-                                  </svg>
-                                  {{ __('Add Locations') }}
+                                  +
+                                  {{ __('TAMBAH') }}
                               </a>
                           </div>
                           
@@ -38,11 +32,10 @@
                               <table class="table table-bordered table-hover datatable">
                                   <thead>
                                       <tr>
-                                          <th>#</th>
-                                          <th>{{__('LOCATIONS')}}</th>
-                                          {{-- <th>{{__('STATUS')}}</th> --}}
-                                          <th>{{__('CREATED AT')}}</th>
-                                          <th>{{__('ACTIONS')}}</th>
+                                          <th>NO</th>
+                                          <th>{{__('NAMA LOKASI')}}</th>
+                                          <th>{{__('DIBUAT PADA')}}</th>
+                                          <th>{{__('AKSI')}}</th>
                                       </tr>
                                   </thead>
                                   <tbody>
@@ -50,21 +43,12 @@
                                           <tr>
                                               <td>{{ $loop->iteration }}</td>
                                               <td>{{ $location->name }}</td>
-                                              {{-- <td>
-                                                  @if($location->status == 'active')
-                                                      <span class="badge badge-soft-green">Active</span>
-                                                  @elseif($location->status == 'inactive')
-                                                      <span class="badge badge-soft-gray">Inactive</span>
-                                                  @else
-                                                      <span class="badge badge-soft-secondary">Unknown</span>
-                                                  @endif
-                                              </td> --}}
                                               <td>{{ $location->created_at->format('d F Y, H:i') }}</td>
                                               <td>
                                                   <x-action-buttons
                                                         deleteData="{{ route('locations.destroy', $location->id) }}"
                                                         method="DELETE"
-                                                        submit="true" {{-- Tombol hapus akan muncul --}}
+                                                        submit="true"
                                                         :dropdown="[ 
                                                             ['href' => route('locations.edit', $location->id), 'label' => 'Edit'], 
                                                         ]"
