@@ -106,80 +106,85 @@
           </div>
             <!-- Reports -->
             <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo e(__('Laporan Status Tanaman')); ?></h5>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo e(__('Laporan Status Tanaman')); ?></h5>
 
-                    <!-- Form untuk memilih tahun -->
+                        <!-- Form untuk memilih tahun -->
 
-                    <!-- Column Chart -->
-                    <div id="columnChart"></div>
+                        <?php if(empty($dataBelumDipanen) && empty($dataSiapDipanen) && empty($dataSudahDipanen)): ?>
+                            <p><?php echo e(__('Tidak ada data tersedia.')); ?></p>
+                        <?php else: ?>
+                            <!-- Column Chart -->
+                            <div id="columnChart"></div>
 
-                    <script>
-                        document.addEventListener("DOMContentLoaded", () => {
-                            new ApexCharts(document.querySelector("#columnChart"), {
-                                series: [{
-                                    name: 'Belum Panen',
-                                    data: <?php echo json_encode($dataBelumDipanen, 15, 512) ?> // Data dinamis berdasarkan ruangan
-                                }, {
-                                    name: 'Siap Dipanen',
-                                    data: <?php echo json_encode($dataSiapDipanen, 15, 512) ?> // Data dinamis berdasarkan ruangan
-                                }, {
-                                    name: 'Sudah Dipanen',
-                                    data: <?php echo json_encode($dataSudahDipanen, 15, 512) ?> // Data dinamis berdasarkan ruangan
-                                }],
-                                chart: {
-                                    type: 'bar',
-                                    height: 350
-                                },
-                                plotOptions: {
-                                    bar: {
-                                        horizontal: false,
-                                        columnWidth: '55%',
-                                        endingShape: 'rounded'
-                                    },
-                                },
-                                dataLabels: {
-                                    enabled: false
-                                },
-                                stroke: {
-                                    show: true,
-                                    width: 2,
-                                    colors: ['transparent']
-                                },
-                                xaxis: {
-                                    categories: <?php echo json_encode($ruangan, 15, 512) ?>, // Ruangan dinamis
-                                    title: {
-                                        text: 'Lokasi Penyimpanan'
-                                    }
-                                },
-                                yaxis: {
-                                    title: {
-                                        text: 'Jumlah Tanaman'
-                                    }
-                                },
-                                fill: {
-                                    opacity: 1
-                                },
-                                tooltip: {
-                                    y: {
-                                        formatter: function(val) {
-                                            return val + " Tanaman"
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    new ApexCharts(document.querySelector("#columnChart"), {
+                                        series: [{
+                                            name: 'Belum Panen',
+                                            data: <?php echo json_encode($dataBelumDipanen, 15, 512) ?> // Data dinamis berdasarkan ruangan
+                                        }, {
+                                            name: 'Siap Dipanen',
+                                            data: <?php echo json_encode($dataSiapDipanen, 15, 512) ?> // Data dinamis berdasarkan ruangan
+                                        }, {
+                                            name: 'Sudah Dipanen',
+                                            data: <?php echo json_encode($dataSudahDipanen, 15, 512) ?> // Data dinamis berdasarkan ruangan
+                                        }],
+                                        chart: {
+                                            type: 'bar',
+                                            height: 350
+                                        },
+                                        plotOptions: {
+                                            bar: {
+                                                horizontal: false,
+                                                columnWidth: '55%',
+                                                endingShape: 'rounded'
+                                            },
+                                        },
+                                        dataLabels: {
+                                            enabled: false
+                                        },
+                                        stroke: {
+                                            show: true,
+                                            width: 2,
+                                            colors: ['transparent']
+                                        },
+                                        xaxis: {
+                                            categories: <?php echo json_encode($ruangan, 15, 512) ?>, // Ruangan dinamis
+                                            title: {
+                                                text: 'Lokasi Penyimpanan'
+                                            }
+                                        },
+                                        yaxis: {
+                                            title: {
+                                                text: 'Jumlah Tanaman'
+                                            }
+                                        },
+                                        fill: {
+                                            opacity: 1
+                                        },
+                                        tooltip: {
+                                            y: {
+                                                formatter: function(val) {
+                                                    return val + " Tanaman"
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                            }).render();
-                        });
-                    </script>
-                    <!-- End Column Chart -->
+                                    }).render();
+                                });
+                            </script>
+                            <!-- End Column Chart -->
+                        <?php endif; ?>
+                    </div>
                 </div>
-              </div>
             </div>
+
 
             <!-- End Reports -->
 
-          <!-- Recent Plants -->
-          <div class="col-12">
+            <!-- Recent Plants -->
+            <div class="col-12">
               <div class="card recent-sales overflow-auto">
 
                 <div class="filter">
@@ -191,7 +196,8 @@
                   <table class="table table-borderless table-hover datatable">
                     <thead>
                         <tr>
-                            <th scope="col"><?php echo e(__('KODE')); ?></th>
+                            <th scope="col"><?php echo e(__('KODE TANAMAN MASUK')); ?></th>
+                            <th scope="col"><?php echo e(__('KODE TANAMAN')); ?></th>
                             <th scope="col"><?php echo e(__('NAMA TANAMAN')); ?></th>
                             <th scope="col"><?php echo e(__('TIPE TANAMAN')); ?></th>
                             <th scope="col"><?php echo e(__('KATEGORI TANAMAN')); ?></th>
@@ -202,12 +208,16 @@
                     <tbody>
                         <?php $__currentLoopData = $plants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
+                                <td><?php echo e($plant->tanamanMasuk->kode_tanaman_masuk); ?></td>
                                 <td><?php echo e($plant->plantAttribute->plant_code); ?></td>
                                 <th scope="row">
-                                    <a href="<?php echo e(route('plants.show', ['plantAttribute' => $plant->plantAttribute->plant_code])); ?>">
-                                        <?php echo e($plant->plantAttribute->name); ?>
+                                    <div class="d-flex flex-column">
+                                        <a href="<?php echo e(route('plants.show', ['plantAttribute' => $plant->plantAttribute->plant_code])); ?>">
+                                          <?php echo e($plant->plantAttribute->name); ?>
 
-                                    </a>
+                                        </a>
+                                        <small><?php echo e($plant->plantAttribute->scientific_name ?? 'Unknown'); ?></small>
+                                    </div>
                                 </th>
                                 <td>
                                     <?php if($plant->type === 'Sayuran'): ?>
@@ -278,7 +288,7 @@
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                   <div class="activity-item d-flex">
                     <div class="activity-content">
-                      <?php echo e(__('Tidak Ada Aktivitas')); ?>
+                      <?php echo e(__('Tidak Ada Aktivitas Terbaru')); ?>
 
                     </div>
                   </div><!-- End activity item-->
@@ -289,56 +299,49 @@
 
           <!-- End Recent Activity -->
 
-          <div class="col-lg-12">
+        <div class="col-lg-12">
             <div class="card">
-              <div class="card-body">
-                <h5 class="card-title"><?php echo e(__('Galeri Tanaman Terbaru')); ?></h5>
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo e(__('Galeri Tanaman Terbaru')); ?></h5>
 
-                <!-- Slides with captions -->
-                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                  <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                  </div>
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <img src="/assets/img/pipas/slide-2.jpg" class="d-block w-100" alt="...">
-                      <div class="carousel-caption d-none d-md-block">
-                        <h5>First slide label</h5>
-                        <p>Lorem Ipsum Sit Dolor Amet Lorem Ipsum Sit Dolor Amet Lorem.</p>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <img src="/assets/img/pipas/slide-2.jpg" class="d-block w-100" alt="...">
-                      <div class="carousel-caption d-none d-md-block">
-                        <h5>Second slide label</h5>
-                        <p>Lorem Ipsum Sit Dolor Amet Lorem Ipsum Sit Dolor Amet Lorem.</p>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <img src="/assets/img/pipas/slide-2.jpg" class="d-block w-100" alt="...">
-                      <div class="carousel-caption d-none d-md-block">
-                        <h5>Third slide label</h5>
-                        <p>Lorem Ipsum Sit Dolor Amet Lorem Ipsum Sit Dolor Amet Lorem.</p>
-                      </div>
-                    </div>
-                  </div>
+                    <?php if($recentPlants->isEmpty()): ?>
+                        <p><?php echo e(__('Tidak ada data tersedia.')); ?></p>
+                    <?php else: ?>
+                        <!-- Slides with captions -->
+                        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <?php $__currentLoopData = $recentPlants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $plant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<?php echo e($index); ?>" class="<?php echo e($index === 0 ? 'active' : ''); ?>" aria-current="<?php echo e($index === 0 ? 'true' : 'false'); ?>" aria-label="Slide <?php echo e($index + 1); ?>"></button>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+                            <div class="carousel-inner">
+                                <?php $__currentLoopData = $recentPlants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $plant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="carousel-item <?php echo e($index === 0 ? 'active' : ''); ?>">
+                                        <img src="<?php echo e(asset('storage/' . $plant->image)); ?>" class="d-block w-100 img-max-height" alt="<?php echo e($plant->plantAttribute->name); ?>">
+                                        <div class="overlay"></div> <!-- Overlay gelap -->
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5><?php echo e($plant->plantAttribute->name); ?></h5>
+                                            <p><?php echo e($plant->location->name ?? 'There Is No Location.'); ?></p>
+                                        </div>
+                                    </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
 
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                  </button>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden"><?php echo e(__('Previous')); ?></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden"><?php echo e(__('Next')); ?></span>
+                            </button>
+                        </div><!-- End Slides with captions -->
+                    <?php endif; ?>
 
-                </div><!-- End Slides with captions -->
-
-              </div>
+                </div>
             </div>
-          </div>
+        </div>
+
 
           <div class="card">
               <div class="card-body">
@@ -356,7 +359,7 @@
 
                               new Chart(document.querySelector('#DataTanaman'), {
                                   type: 'bar',
-                                  data: {
+                                  data: {   
                                       labels: labels,
                                       datasets: [{
                                           label: 'Total',

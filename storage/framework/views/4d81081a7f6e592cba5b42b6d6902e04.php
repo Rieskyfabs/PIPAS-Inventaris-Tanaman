@@ -44,6 +44,7 @@
                     <thead>
                         <tr>
                           <th><?php echo e(__('NO')); ?></th>
+                          <th><?php echo e(__('GAMBAR')); ?></th>
                           <th><?php echo e(__('KODE TANAMAN MASUK')); ?></th>
                           <th><?php echo e(__('KODE TANAMAN')); ?></th>
                           <th><?php echo e(__('NAMA TANAMAN')); ?></th>
@@ -58,6 +59,15 @@
                         <?php $__currentLoopData = $tanamanMasuk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
                               <td><?php echo e($loop->iteration); ?></td>
+                              <td>
+                                  <?php if($item->plant->image): ?>
+                                      <a href="<?php echo e(asset('storage/' . $item->plant->image)); ?>" target="_blank">
+                                          <img src="<?php echo e(asset('storage/' . $item->plant->image)); ?>" alt="Image of <?php echo e($item->plant->name); ?>" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                      </a>
+                                  <?php else: ?>
+                                      <img src="<?php echo e(asset('default-image.png')); ?>" alt="Default Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                                  <?php endif; ?> 
+                              </td>
                               <td><?php echo e($item->kode_tanaman_masuk); ?></td>
                               <td><?php echo e($item->plant->plantAttribute->plant_code); ?></td>
                               <td><?php echo e($item->plant->plantAttribute->name); ?></td>
@@ -75,7 +85,6 @@
                               </td>
                               <td><?php echo e($item->tanggal_masuk); ?></td>
                               <td><?php echo e($item->jumlah_masuk); ?></td>
-
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
