@@ -7,7 +7,7 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="Dashboard" 
+        title="Halo, {{Auth::user()->username}}!" 
         :items="[
             ['route' => 'home', 'label' => 'Home'],
             ['label' => 'Dashboard']

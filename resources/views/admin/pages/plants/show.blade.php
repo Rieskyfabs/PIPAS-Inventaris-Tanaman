@@ -35,7 +35,7 @@
                         <div class="add-btn-container">
                             <a href="{{ route('plants.create') }}" class="btn-add-item">
                                 +
-                                {{ __('TAMBAH DATA') }}
+                                {{ __('TAMBAH') }}
                             </a>
                         </div>
 
