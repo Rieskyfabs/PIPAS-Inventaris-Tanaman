@@ -32,115 +32,142 @@
                     </div>
                 @endif
                 <!-- Advanced Form Elements -->
-                  <form action="{{ route('plants.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('plants.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    
-                    <div class="form-floating mb-3">
-                        <select name="plant_code_id" class="form-select" id="plantAttributes" required>
-                            <option value="" disabled selected>Pilih Kode Tanaman</option>
-                            @foreach ($plantAttributes as $item)
-                                <option value="{{ $item->id }}" 
-                                        data-name="{{ $item->name }}" 
-                                        data-scientific-name="{{ $item->scientific_name }}" 
-                                        data-type="{{ $item->type }}"
-                                        data-category-id="{{ $item->category_id }}"
-                                        data-benefit-id="{{ $item->benefit_id }}">
-                                    {{ $item->plant_code }} : {{ $item->description }}
-                                </option>
-                            @endforeach
-                        </select>
-                        <label for="plantAttributes">Kode Tanaman</label>
-                    </div>
-                    
-                    <!-- Nama Tanaman -->
-                    <div class="form-floating mb-3">
-                        <select name="plant_name_id" class="form-select" id="plantName" required>
-                            <option value="" disabled selected>Nama Tanaman</option>
-                            @foreach ($plantAttributes as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                        <label for="plantName">Nama Tanaman</label>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <select name="plant_code_id" class="form-select" id="plantAttributes" required>
+                                    <option value="" disabled selected>Pilih Kode Tanaman</option>
+                                    @foreach ($plantAttributes as $item)
+                                        <option value="{{ $item->id }}" 
+                                                data-name="{{ $item->name }}" 
+                                                data-scientific-name="{{ $item->scientific_name }}" 
+                                                data-type="{{ $item->type }}"
+                                                data-category-id="{{ $item->category_id }}"
+                                                data-benefit-id="{{ $item->benefit_id }}">
+                                            {{ $item->plant_code }} : {{ $item->description }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <label for="plantAttributes">Kode Tanaman</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <select name="plant_name_id" class="form-select" id="plantName" required>
+                                    <option value="" disabled selected>Nama Tanaman</option>
+                                    @foreach ($plantAttributes as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="plantName">Nama Tanaman</label>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Nama Ilmiah -->
-                    <div class="form-floating mb-3">
-                        <select name="plant_scientific_name_id" class="form-select" id="scientificName" required>
-                            <option value="" disabled selected>Nama Ilmiah</option>
-                            @foreach ($plantAttributes as $item)
-                                <option value="{{ $item->id }}">{{ $item->scientific_name }}</option>
-                            @endforeach
-                        </select>
-                        <label for="scientificName">Nama Ilmiah</label>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <select name="plant_scientific_name_id" class="form-select" id="scientificName" required>
+                                    <option value="" disabled selected>Nama Ilmiah</option>
+                                    @foreach ($plantAttributes as $item)
+                                        <option value="{{ $item->id }}">{{ $item->scientific_name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="scientificName">Nama Ilmiah</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <select name="type" class="form-control" id="plantType" required>
+                                    <option value="" disabled selected>Silahkan Pilih Tipe Tanaman</option>
+                                    <option value="Herbal">Herbal</option>
+                                    <option value="Sayuran">Sayuran</option>
+                                </select>
+                                <label for="plantType">Tipe Tanaman</label>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Tipe Tanaman -->
-                    <div class="form-floating mb-3">
-                        <select name="type" class="form-control" id="plantType" required>
-                            <option value="" disabled selected>Silahkan Pilih Tipe Tanaman</option>
-                            <option value="Herbal">Herbal</option>
-                            <option value="Sayuran">Sayuran</option>
-                        </select>
-                        <label for="plantType">Tipe Tanaman</label>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <select name="category_id" class="form-select" id="plantCategories" required>
+                                    <option value="" disabled selected>Silahkan Pilih Kategori Tanaman</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="plantCategories">Kategori Tanaman</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <select name="benefit_id" class="form-select" id="plantBenefits" required>
+                                    <option value="" disabled selected>Silahkan Pilih Manfaat Tanaman</option>
+                                    @foreach ($benefits as $benefit)
+                                        <option value="{{ $benefit->id }}">{{ $benefit->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="plantBenefits">Manfaat Tanaman</label>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Kategori Tanaman -->
-                    <div class="form-floating mb-3">
-                        <select name="category_id" class="form-select" id="plantCategories" required>
-                            <option value="" disabled selected>Silahkan Pilih Kategori Tanaman</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                        <label for="plantCategories">Kategori Tanaman</label>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="plantImage">Upload Gambar Tanaman</label>
+                                <input type="file" name="image" class="form-control" id="plantImage" accept="image/*" onchange="previewImage(event)">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <img id="imagePreview" src="#" alt="Preview Gambar" style="display: none; width: 100px; height: 100px; object-fit: cover;" />
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Manfaat Tanaman -->
-                    <div class="form-floating mb-3">
-                        <select name="benefit_id" class="form-select" id="plantBenefits" required>
-                            <option value="" disabled selected>Silahkan Pilih Manfaat Tanaman</option>
-                            @foreach ($benefits as $benefit)
-                                <option value="{{ $benefit->id }}">{{ $benefit->name }}</option>
-                            @endforeach
-                        </select>
-                        <label for="plantBenefits">Manfaat Tanaman</label>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <select name="location_id" class="form-select" id="plantLocations" required>
+                                    <option value="" disabled selected>Silahkan Pilih Lokasi Tanaman</option>
+                                    @foreach ($locations as $location)
+                                        <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="plantLocations">Lokasi Tanaman</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <select name="status" class="form-select" id="plantStatus" required>
+                                    <option value="" disabled selected>Silahkan Pilih Kondisi Tanaman</option>
+                                    <option value="sehat">Sehat</option>
+                                    <option value="baik">Baik</option>
+                                    <option value="layu">Layu</option>
+                                    <option value="sakit">Sakit</option>
+                                </select>
+                                <label for="plantStatus">Kondisi Tanaman</label>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Input for Image -->
-                    <div class="form-group mb-3">
-                        <label for="plantImage">Upload Gambar Tanaman</label>
-                        <input type="file" name="image" class="form-control" id="plantImage" accept="image/*" onchange="previewImage(event)">
-                    </div>
-
-                    <!-- Image Preview -->
-                    <div class="form-group mb-3">
-                        <img id="imagePreview" src="#" alt="Preview Gambar" style="display: none; width: 100px; height: 100px; object-fit: cover;" />
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <select name="location_id" class="form-select" id="plantLocations" required>
-                            <option value="" disabled selected>Silahkan Pilih Lokasi Tanaman</option>
-                            @foreach ($locations as $location)
-                                <option value="{{ $location->id }}">{{ $location->name }}</option>
-                            @endforeach
-                        </select>
-                        <label for="plantLocations">Lokasi Tanaman</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <select name="status" class="form-select" id="plantStatus" required>
-                            <option value="" disabled selected>Silahkan Pilih Kondisi Tanaman</option>
-                            <option value="sehat">Sehat</option>
-                            <option value="baik">Baik</option>
-                            <option value="layu">Layu</option>
-                            <option value="sakit">Sakit</option>
-                        </select>
-                        <label for="plantStatus">Kondisi Tanaman</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="date" name="seeding_date" class="form-control" id="seedingDate" placeholder="Seeding Date" required>
-                        <label for="seedingDate">Tanggal Penyemaian</label>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input type="date" name="seeding_date" class="form-control" id="seedingDate" placeholder="Seeding Date" required>
+                                <label for="seedingDate">Tanggal Penyemaian</label>
+                            </div>
+                        </div>
                     </div>
 
                     <hr>
