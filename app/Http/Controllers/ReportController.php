@@ -112,7 +112,7 @@ class ReportController extends Controller
       }
 
       $laporanTanamanMasuk = $laporanTanamanMasuk->get();
-      $pdf = PDF::loadView('reports.tanaman-masuk-pdf', compact('laporanTanamanMasuk'));
+      $pdf = PDF::loadView('exports.laporan_tanaman_masuk_pdf', compact('laporanTanamanMasuk'));
 
       return $pdf->download("laporan_tanaman_masuk_{$date}.pdf");
     } elseif ($type === 'keluar') {
@@ -120,10 +120,10 @@ class ReportController extends Controller
 
       if ($startDate && $endDate) {
         $laporanTanamanKeluar = $laporanTanamanKeluar->whereBetween('tanggal_keluar', [$startDate, $endDate]);
-      }
+      } 
 
       $laporanTanamanKeluar = $laporanTanamanKeluar->get();
-      $pdf = PDF::loadView('reports.tanaman-keluar-pdf', compact('laporanTanamanKeluar'));
+      $pdf = PDF::loadView('exports.laporan_tanaman_keluar_pdf', compact('laporanTanamanKeluar'));
 
       return $pdf->download("laporan_tanaman_keluar_{$date}.pdf");
     }

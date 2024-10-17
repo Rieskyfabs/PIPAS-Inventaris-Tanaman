@@ -197,7 +197,7 @@
                                 <td>
                                     <span class="badge 
                                         @if ($plant->harvest_status === 'sudah dipanen') badge-soft-green <i class='bi bi-check-circle me-1'></i>
-                                        @elseif ($plant->harvest_status === 'siap dipanen') badge-soft-primary <i class='bi bi-star me-1'></i>
+                                        @elseif ($plant->harvest_status === 'siap panen') badge-soft-primary <i class='bi bi-star me-1'></i>
                                         @elseif ($plant->harvest_status === 'belum panen') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
                                         @else bg-secondary @endif">
                                         {{ $plant->harvest_status }}
