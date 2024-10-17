@@ -2,16 +2,23 @@
 
 namespace App\Exports;
 
-use App\Models\TanamanMasuk;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
 class LaporanTanamanMasukExport implements FromCollection, WithHeadings, WithMapping
 {
+    protected $data;
+
+    // Tambahkan konstruktor untuk menerima data
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
     public function collection()
     {
-        return TanamanMasuk::with('plant.plantAttribute')->get();
+        return $this->data; // Kembalikan data yang sudah difilter
     }
 
     public function map($item): array

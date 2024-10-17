@@ -9,9 +9,17 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 
 class LaporanTanamanKeluarExport implements FromCollection, WithHeadings, WithMapping
 {
+    protected $data;
+
+    // Tambahkan konstruktor untuk menerima data
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
     public function collection()
     {
-        return TanamanKeluar::with('plant.plantAttribute')->get();
+        return $this->data; // Kembalikan data yang sudah difilter
     }
 
     public function map($item): array

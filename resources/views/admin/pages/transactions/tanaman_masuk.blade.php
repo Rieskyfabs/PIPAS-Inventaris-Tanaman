@@ -20,7 +20,7 @@
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">{{__('TANAMAN MASUK')}}</h5>
+                <h5 class="card-title">{{__('TRANSAKSI TANAMAN MASUK')}}</h5>
                 <div class="add-btn-container">
                   
                 </div>
