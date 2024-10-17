@@ -196,12 +196,11 @@
                                 <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
                                 <td>
                                     <span class="badge 
-                                        @if ($plant->status === 'sehat') badge-soft-green <i class='bi bi-check-circle me-1'></i>
-                                        @elseif ($plant->status === 'baik') badge-soft-primary <i class='bi bi-star me-1'></i>
-                                        @elseif ($plant->status === 'layu') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
-                                        @elseif ($plant->status === 'sakit') badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
+                                        @if ($plant->harvest_status === 'sudah dipanen') badge-soft-green <i class='bi bi-check-circle me-1'></i>
+                                        @elseif ($plant->harvest_status === 'siap dipanen') badge-soft-primary <i class='bi bi-star me-1'></i>
+                                        @elseif ($plant->harvest_status === 'belum panen') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
                                         @else bg-secondary @endif">
-                                        {{ $plant->status }}
+                                        {{ $plant->harvest_status }}
                                     </span>
                                 </td>
                             </tr>

@@ -283,7 +283,7 @@
    */
   const datatables = select(".datatable", true);
   datatables.forEach((datatable) => {
-      new simpleDatatables.DataTable(datatable, {
+      const dataTableInstance = new simpleDatatables.DataTable(datatable, {
           perPageSelect: [5, 10, 15, ["All", -1]],
           scrollable: true,
           columns: [
@@ -307,6 +307,13 @@
               noRows: "Data tidak tersedia",
               info: "Menampilkan {start} sampai {end} dari {rows} data",
           },
+      });
+
+      // Inisialisasi TableExport.js
+      new TableExport(datatable, {
+          formats: ["xlsx", "pdf", "csv"], // Format yang tersedia
+          filename: "laporan_tanaman_keluar", // Nama file yang di-export
+          exportButtons: true, // Menampilkan tombol export
       });
   });
 

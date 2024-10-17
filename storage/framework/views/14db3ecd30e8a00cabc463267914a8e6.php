@@ -1,1 +1,0 @@
-<?php /**PATH /home/daffy/Documents/Projects/PIPAS Invetaris Tanaman/PIPAS-Inventaris-Tanaman/resources/views/admin/pages/benefits/create.blade.php ENDPATH**/ ?>

@@ -186,6 +186,22 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
             Route::get('/tanaman-keluar', [TransactionController::class, 'tanamanKeluar'])->name('transactions.tanaman-keluar');
         });
 
+        // Laporan
+        Route::prefix('/reports')->group(function () {
+            Route::get('/tanaman-masuk', [ReportController::class, 'laporanTanamanMasuk'])->name('reports.tanaman-masuk');
+            Route::get('/tanaman-keluar', [ReportController::class, 'laporanTanamanKeluar'])->name('reports.tanaman-keluar');
+
+            // Export routes
+            Route::get('/tanaman-masuk/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-masuk.export.excel');
+            Route::get('/tanaman-masuk/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-masuk.export.pdf');
+            Route::get('/tanaman-masuk/print', [ReportController::class, 'print'])->name('reports.tanaman-masuk.print');
+
+            Route::get('/tanaman-keluar/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-keluar.export.excel');
+            Route::get('/tanaman-keluar/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-keluar.export.pdf');
+            Route::get('/tanaman-keluar/print', [ReportController::class, 'print'])->name('reports.tanaman-keluar.print');
+        });
+
+
         // User Management
         Route::prefix('/settings/users')->group(function () {
             Route::get('/usersList', [UserController::class, 'index'])->name('users');
@@ -207,11 +223,6 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
             Route::delete('/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
         });
 
-        Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
-        Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
-
-
-
         // Roles
         Route::prefix('/role-permissions/roles')->group(function () {
             Route::get('/', [RoleController::class, 'index'])->name('roles');
@@ -222,6 +233,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
             Route::put('/{id}', [RoleController::class, 'update'])->name('roles.update');
             Route::delete('/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
         });
+
+        Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
+        Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+
     });
 
 });

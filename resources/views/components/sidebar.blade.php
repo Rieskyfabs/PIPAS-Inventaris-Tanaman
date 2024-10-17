@@ -153,18 +153,18 @@
                 <li class="nav-heading">{{ __('LAPORAN') }}</li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('admin/report*') ? '' : 'collapsed' }}" data-bs-target="#plants-report-nav" data-bs-toggle="collapse" href="#">
+                    <a class="nav-link {{ Request::is('admin/reports*') ? '' : 'collapsed' }}" data-bs-target="#plants-report-nav" data-bs-toggle="collapse" href="#">
                         <i class='bx bx-printer fs-5'></i><span>{{ __('Kelola Laporan') }}</span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
-                    <ul id="plants-report-nav" class="nav-content collapse {{ Request::is('admin/report*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                    <ul id="plants-report-nav" class="nav-content collapse {{ Request::is('admin/reports*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <li>
-                            <a class="{{ Request::is('admin/reports/tanaman-masuk') ? 'active' : '' }}" href="#">
-                                <i class="bi bi-circle"></i><span>{{ __('Laporan Tanaman Masuk') }}</span>
+                            <a class="{{ Request::is('admin/reports/tanaman-masuk') ? 'active' : '' }}" href="{{ route('reports.tanaman-masuk') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Lap. Tanaman Masuk') }}</span>
                             </a>
                         </li>
                         <li>
-                            <a class="{{ Request::is('admin/reports/tanaman-keluar') ? 'active' : '' }}" href="#">
-                                <i class="bi bi-circle"></i><span>{{ __('Laporan Tanaman Keluar') }}</span>
+                            <a class="{{ Request::is('admin/reports/tanaman-keluar') ? 'active' : '' }}" href="{{ route('reports.tanaman-keluar') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Lap. Tanaman Keluar') }}</span>
                             </a>
                         </li>
                     </ul>
