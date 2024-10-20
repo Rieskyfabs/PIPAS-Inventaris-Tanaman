@@ -128,12 +128,12 @@
                         <div class="card-body">
                             <h5 class="card-title">{{__('Data Tanaman')}}</h5>
                             <p>{{__('')}}</p>
-                            <div class="add-btn-container">
+                            {{-- <div class="add-btn-container">
                                 <a href="{{ route('users.plants.create') }}" class="btn-add-item">
                                     <i class="ri-add-fill"></i>
                                     {{ __('TAMBAH') }}
                                 </a>
-                            </div>
+                            </div> --}}
                             <div class="table-responsive">
                                 <!-- Table with stripped rows -->
                                 <table class="table table-bordered table-hover datatable">

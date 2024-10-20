@@ -43,7 +43,7 @@ class NotificationMiddleware
             ->get()
             ->map(function ($notification) {
                 // Periksa apakah pengguna adalah 'user'
-                if (Auth::user()->role->name == 'user') {
+                if (Auth::check() && Auth::user()->role->name == 'user') {
                     $notificationUrl = route('users.plants.show', $notification->plant->plantAttribute->plant_code);
                 } else {
                     $notificationUrl = route('plants.show', $notification->plant->plantAttribute->plant_code);

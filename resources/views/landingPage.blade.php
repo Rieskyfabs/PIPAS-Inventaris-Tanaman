@@ -49,7 +49,7 @@
                                 @elseif (Auth::user()->role->name == 'master')
                                     <a href="{{ route('master/dashboard') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> {{__('Master Dashboard')}}</a>
                                 @else
-                                    <a href="{{ route('dashboard') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> {{__('User Dashboard')}}</a>
+                                    <a href="{{ route('dashboard') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> {{__('Dashboard')}}</a>
                                 @endif
                             @else
                                 <a href="{{ route('login') }}" class="btn-login"><i class="fas fa-sign-in-alt"></i> {{__('Login')}}</a>
