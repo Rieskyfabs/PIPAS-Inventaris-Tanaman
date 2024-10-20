@@ -34,7 +34,7 @@ class ReportController extends Controller
     // Urutkan hasil query dan tambahkan pagination
     $laporanTanamanMasuk = $laporanTanamanMasuk->orderBy('created_at', 'desc')->paginate(10);
 
-    return view('admin.pages.reports.tanaman_masuk', compact('laporanTanamanMasuk'));
+    return view('reports.tanaman_masuk', compact('laporanTanamanMasuk'));
   }
 
   // Menampilkan laporan tanaman keluar
@@ -63,7 +63,7 @@ class ReportController extends Controller
     // Urutkan hasil query dan ambil data
     $laporanTanamanKeluar = $laporanTanamanKeluar->orderBy('created_at', 'desc')->get();
 
-    return view('admin.pages.reports.tanaman_keluar', compact('laporanTanamanKeluar'));
+    return view('reports.tanaman_keluar', compact('laporanTanamanKeluar'));
   }
 
 
@@ -147,7 +147,7 @@ class ReportController extends Controller
 
       $laporanTanamanMasuk = $laporanTanamanMasuk->get();
 
-      return view('admin.pages.reports.tanaman-masuk-print', compact('laporanTanamanMasuk'));
+      return view('reports.tanaman-masuk-print', compact('laporanTanamanMasuk'));
     } elseif ($type === 'keluar') {
       $laporanTanamanKeluar = TanamanKeluar::with('plant.plantAttribute')->orderBy('created_at', 'desc');
 
@@ -157,7 +157,7 @@ class ReportController extends Controller
 
       $laporanTanamanKeluar = $laporanTanamanKeluar->get();
 
-      return view('admin.pages.reports.tanaman-keluar-print', compact('laporanTanamanKeluar'));
+      return view('reports.tanaman-keluar-print', compact('laporanTanamanKeluar'));
     }
 
     return back()->with('error', 'Tipe laporan tidak dikenali.');

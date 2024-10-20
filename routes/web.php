@@ -243,4 +243,31 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+
+    // Tanaman
+    Route::prefix('/inventaris/list-tanaman')->group(function () {
+        Route::get('/', [PlantController::class, 'userIndex'])->name('users.plants');
+        Route::get('/create', [PlantController::class, 'create'])->name('users.plants.create');
+        Route::post('/store', [PlantController::class, 'store'])->name('users.plants.store');
+        Route::get('/{plantAttribute}', [PlantController::class, 'userShow'])->name('users.plants.show');
+        Route::put('/plants/{plant}/panen', [PlantController::class, 'panen'])->name('users.plants.panen');
+        Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('users.plants.edit');
+        Route::put('/{id}', [PlantController::class, 'update'])->name('users.plants.update');
+        Route::delete('/{id}', [PlantController::class, 'destroy'])->name('users.plants.destroy');
+    });
+
+    // Laporan
+    Route::prefix('/reports')->group(function () {
+        Route::get('/tanaman-masuk', [ReportController::class, 'laporanTanamanMasuk'])->name('users.reports.tanaman-masuk');
+        Route::get('/tanaman-keluar', [ReportController::class, 'laporanTanamanKeluar'])->name('users.reports.tanaman-keluar');
+
+        // Export routes
+        Route::get('/tanaman-masuk/export-excel', [ReportController::class, 'exportExcel'])->name('users.reports.tanaman-masuk.export.excel');
+        Route::get('/tanaman-masuk/export-pdf', [ReportController::class, 'exportPdf'])->name('users.reports.tanaman-masuk.export.pdf');
+        Route::get('/tanaman-masuk/print', [ReportController::class, 'print'])->name('users.reports.tanaman-masuk.print');
+
+        Route::get('/tanaman-keluar/export-excel', [ReportController::class, 'exportExcel'])->name('users.reports.tanaman-keluar.export.excel');
+        Route::get('/tanaman-keluar/export-pdf', [ReportController::class, 'exportPdf'])->name('users.reports.tanaman-keluar.export.pdf');
+        Route::get('/tanaman-keluar/print', [ReportController::class, 'print'])->name('users.reports.tanaman-keluar.print');
+    });
 });

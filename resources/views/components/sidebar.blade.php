@@ -33,7 +33,7 @@
 
                 <!-- My Plants Nav -->
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('my-plants') ? '' : 'collapsed' }}" href="#">
+                    <a class="nav-link {{ Request::is('inventaris/list-tanaman*') ? '' : 'collapsed' }}" href="{{ route('users.plants') }}">
                         <i class="bx bx-leaf"></i>
                         <span>{{ __('Tanaman') }}</span>
                     </a>
@@ -41,15 +41,26 @@
 
                 <!-- Reports Nav -->
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('reports*') ? '' : 'collapsed' }}" href="#">
-                        <i class='bx bx-file'></i>
-                        <span>{{ __('Laporan') }}</span>
+                    <a class="nav-link {{ Request::is('/reports*') ? '' : 'collapsed' }}" data-bs-target="#plants-report-nav" data-bs-toggle="collapse" href="#">
+                        <i class='bx bx-printer fs-5'></i><span>{{ __('Laporan') }}</span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
+                    <ul id="plants-report-nav" class="nav-content collapse {{ Request::is('reports*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a class="{{ Request::is('reports/tanaman-masuk') ? 'active' : '' }}" href="{{ route('users.reports.tanaman-masuk') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Lap. Tanaman Masuk') }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{{ Request::is('reports/tanaman-keluar') ? 'active' : '' }}" href="{{ route('users.reports.tanaman-keluar') }}">
+                                <i class="bi bi-circle"></i><span>{{ __('Lap. Tanaman Keluar') }}</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
-                <li class="nav-heading">{{ __('Others') }}</li>
+                <li class="nav-heading">{{ __('Lainnya') }}</li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ Request::is('settings*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#">
                         <i class='bx bx-cog fs-5'></i><span>{{ __('Settings') }}</span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
@@ -60,7 +71,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="{{ route('logout') }}">

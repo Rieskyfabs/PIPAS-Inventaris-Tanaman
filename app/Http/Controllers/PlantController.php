@@ -349,4 +349,141 @@ class PlantController extends Controller
     }
 
 
+    // USERS 
+    public function userIndex(Request $request)
+    {
+        // Ambil nilai filter periode dari request, default 'today'
+        $period = $request->input('period', 'today');
+
+        // Tentukan tanggal awal dan akhir berdasarkan periode yang dipilih
+        $startDate = Carbon::today(); // Default untuk 'Hari ini'
+        $endDate = Carbon::now(); // Hari ini adalah batas akhir
+
+        // Tentukan periode sebelumnya
+        $previousStartDate = Carbon::yesterday();
+        $previousEndDate = Carbon::yesterday();
+
+        switch ($period) {
+            case 'this_month':
+                $startDate = Carbon::now()->startOfMonth();
+                $previousStartDate = Carbon::now()->subMonth()->startOfMonth();
+                $previousEndDate = Carbon::now()->subMonth()->endOfMonth();
+                break;
+            case 'this_year':
+                $startDate = Carbon::now()->startOfYear();
+                $previousStartDate = Carbon::now()->subYear()->startOfYear();
+                $previousEndDate = Carbon::now()->subYear()->endOfYear();
+                break;
+        }
+
+        // Ambil data tanaman yang belum dipanen dan group berdasarkan kode tanaman
+        $plants = Plant::selectRaw('
+            MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, 
+            MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, 
+            MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, 
+            MIN(location_id) as location_id, MIN(status) as status, 
+            MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, 
+            MAX(created_at) as created_at, MIN(harvest_status) as harvest_status,
+            SUM(CASE WHEN harvest_status = "siap panen" THEN 1 ELSE 0 END) as ready_to_harvest_count
+        ')
+            ->groupBy('plant_code_id')
+            ->orderBy('created_at', 'desc')
+            ->with(['plantAttribute', 'category', 'benefit', 'location'])
+            ->get();
+
+        // Hitung total tanaman masuk (belum dipanen)
+        $totalPlants = $plants->sum('total_quantity');
+
+        // Hitung total tanaman pada periode sebelumnya
+        $previousTotalPlants = Plant::where('harvest_status', '!=', 'sudah dipanen')
+            ->whereBetween('created_at', [$previousStartDate, $previousEndDate])
+            ->count();
+
+        // Hitung jumlah tanaman masuk (belum dipanen) berdasarkan seeding_date dan periode filter
+        // $plantsIn = Plant::where('harvest_status', '!=', 'sudah dipanen')
+        // ->whereBetween('created_at', [$startDate, $endDate])
+        // ->count();
+
+        $plantsIn = Plant::whereBetween('created_at', [$startDate, $endDate])->count();
+
+        // Hitung jumlah tanaman masuk pada periode sebelumnya
+        $previousPlantsIn = Plant::where('harvest_status', '!=', 'sudah dipanen')
+            ->whereBetween('created_at', [$previousStartDate, $previousEndDate])
+            ->count();
+
+        // Hitung jumlah tanaman keluar (sudah dipanen) berdasarkan harvest_date dan periode filter
+        // $plantsOut = Plant::where('harvest_status', 'sudah dipanen')
+        // ->whereBetween('harvest_date', [$startDate, $endDate])
+        // ->count();
+
+        // Hitung jumlah tanaman keluar (sudah dipanen) berdasarkan updated_at
+        $plantsOut = Plant::where('harvest_status', 'sudah dipanen')
+            ->whereBetween('updated_at', [$startDate, $endDate])
+            ->count();
+
+        // Hitung jumlah tanaman keluar pada periode sebelumnya
+        $previousPlantsOut = Plant::where('harvest_status', 'sudah dipanen')
+            ->whereBetween('harvest_date', [$previousStartDate, $previousEndDate])
+            ->count();
+
+        // Hitung jumlah berdasarkan status tanaman
+        $countByStatus = Plant::selectRaw('status, COUNT(*) as total_quantity')
+            ->groupBy('status')
+            ->pluck('total_quantity', 'status');
+
+        // Data untuk chart
+        $chartData = [
+            'series' => $countByStatus->values()->toArray(),
+            'labels' => $countByStatus->keys()->toArray()
+        ];
+
+        return view('pages.plants.index', compact(
+            'plants',
+            'totalPlants',
+            'plantsIn',
+            'plantsOut',
+            'countByStatus',
+            'chartData',
+            'period',
+        ));
+    }
+
+    public function userShow($plantAttribute)
+    {
+        $today = Carbon::today();
+
+        // Automatically update status to 'siap panen' if harvest_date is less than or equal to today and within the next 7 days
+        Plant::whereBetween('harvest_date', [$today, $today->copy()->addDays(7)])
+            ->where('harvest_status', '!=', 'siap panen')
+            ->where('harvest_status', '!=', 'sudah dipanen')  // Ensure we don't change 'sudah dipanen'
+            ->update(['harvest_status' => 'siap panen']);
+
+        // Update status to 'belum panen' if the harvest_date is further than 7 days in the future
+        Plant::where('harvest_date', '>', $today->copy()->addDays(7))
+            ->where('harvest_status', '!=', 'belum panen')
+            ->update(['harvest_status' => 'belum panen']);
+
+        // Retrieve plants based on the plant code
+        $plants = Plant::with('category', 'benefit', 'location')
+        ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
+            $query->where('plant_code', $plantAttribute);
+        })
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        // Retrieve the specific plant based on the plant code for the detail title
+        $plantDetail = Plant::with('category', 'benefit', 'location')
+        ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
+            $query->where('plant_code', $plantAttribute);
+        })->first();
+
+        // Confirmation for deletion
+        $title = 'Delete Plants!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
+        return view('pages.plants.show', compact('plants', 'plantDetail'));
+    }
+
+
 }
