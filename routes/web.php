@@ -270,4 +270,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
         Route::get('/tanaman-keluar/export-pdf', [ReportController::class, 'exportPdf'])->name('users.reports.tanaman-keluar.export.pdf');
         Route::get('/tanaman-keluar/print', [ReportController::class, 'print'])->name('users.reports.tanaman-keluar.print');
     });
+
+    Route::get('/notifications', [NotificationController::class, 'userIndex'])->name('users.notifications');
+    Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'usersMarkAsRead'])->name('users.notifications.markAsRead');
 });

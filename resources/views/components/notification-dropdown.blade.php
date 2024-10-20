@@ -9,7 +9,16 @@
   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
     <li class="dropdown-header">
       Kamu Memiliki {{ $notificationCount }} Notifikasi Baru
-      <a href="{{ route('notifications') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">{{ __('Lihat Semua') }}</span></a>
+      
+      @if(Auth::user()->role->name == 'user')
+        <a href="{{ route('users.notifications') }}">
+          <span class="badge rounded-pill bg-primary p-2 ms-2">{{ __('Lihat Semua') }}</span>
+        </a>
+      @else
+        <a href="{{ route('notifications') }}">
+          <span class="badge rounded-pill bg-primary p-2 ms-2">{{ __('Lihat Semua') }}</span>
+        </a>
+      @endif
     </li>
     
     <li>
@@ -46,7 +55,11 @@
     </div>
 
     <li class="dropdown-footer">
-      <a href="{{ route('notifications') }}">{{ __('Lihat Semua Notifikasi') }}</a>
+      @if(Auth::user()->role->name == 'user')
+        <a href="{{ route('users.notifications') }}">{{ __('Lihat Semua Notifikasi') }}</a>
+      @else
+        <a href="{{ route('notifications') }}">{{ __('Lihat Semua Notifikasi') }}</a>
+      @endif
     </li>
   </ul>
 </li>

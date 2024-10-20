@@ -7,6 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Plant;
+use Illuminate\Support\Facades\Auth;
 
 class NotificationMiddleware
 {
@@ -41,6 +42,13 @@ class NotificationMiddleware
             ->take(5) // Batasi jumlah notifikasi yang ditampilkan di header
             ->get()
             ->map(function ($notification) {
+                // Periksa apakah pengguna adalah 'user'
+                if (Auth::user()->role->name == 'user') {
+                    $notificationUrl = route('users.plants.show', $notification->plant->plantAttribute->plant_code);
+                } else {
+                    $notificationUrl = route('plants.show', $notification->plant->plantAttribute->plant_code);
+                }
+
                 return [
                     'icon' => 'bi-exclamation-circle',
                     'iconColor' => $notification->is_read ? 'text-secondary' : 'text-warning', // Set color based on read status
@@ -49,14 +57,14 @@ class NotificationMiddleware
                     'subMessage' => 'Nama tanaman: ' . $notification->plant->plantAttribute->name,
                     'location' => 'Lokasi tanaman: ' . $notification->plant->location->name,
                     'timeAgo' => $notification->created_at->diffForHumans(),
-                    'url' => route('plants.show', $notification->plant->plantAttribute->plant_code),
+                    'url' => $notificationUrl,
                 ];
             });
 
+        // Bagikan notifikasi dan jumlah ke semua views
         view()->share('notificationCount', $notificationCount);
         view()->share('notifications', $notifications);
 
         return $next($request);
     }
 }
-    

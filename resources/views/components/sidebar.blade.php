@@ -74,6 +74,17 @@
                 </li> --}}
 
                 <li class="nav-item">
+                    <a class="nav-link {{ Request::is('notifications*') ? '' : 'collapsed' }}" href="{{ route('users.notifications') }}">
+                        <i class="bx bxs-bell-ring fs-5"></i>
+                        <span>{{ __('Notifikasi') }}  
+                            @if($notificationCount > 0)
+                                <span class="badge bg-warning">{{ $notificationCount }}</span>
+                            @endif
+                        </span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link collapsed" href="{{ route('logout') }}">
                     <i class='bx bx-log-out-circle fs-5'></i>
                     <span>{{__('Logout')}}</span>
