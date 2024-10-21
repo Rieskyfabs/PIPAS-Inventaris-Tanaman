@@ -49,7 +49,7 @@
                                 <?php elseif(Auth::user()->role->name == 'master'): ?>
                                     <a href="<?php echo e(route('master/dashboard')); ?>" class="btn-login"><i class="fas fa-sign-in-alt"></i> <?php echo e(__('Master Dashboard')); ?></a>
                                 <?php else: ?>
-                                    <a href="<?php echo e(route('dashboard')); ?>" class="btn-login"><i class="fas fa-sign-in-alt"></i> <?php echo e(__('User Dashboard')); ?></a>
+                                    <a href="<?php echo e(route('dashboard')); ?>" class="btn-login"><i class="fas fa-sign-in-alt"></i> <?php echo e(__('Dashboard')); ?></a>
                                 <?php endif; ?>
                             <?php else: ?>
                                 <a href="<?php echo e(route('login')); ?>" class="btn-login"><i class="fas fa-sign-in-alt"></i> <?php echo e(__('Login')); ?></a>
