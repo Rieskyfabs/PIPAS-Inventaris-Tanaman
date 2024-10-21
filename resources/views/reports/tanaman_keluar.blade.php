@@ -24,18 +24,18 @@
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="add-btn-container d-flex">
-                        <a href="{{ route('users.reports.tanaman-keluar.export.excel', ['start_date' => request('start_date'), 'end_date' => request('end_date'), 'type' => 'keluar']) }}" class="btn btn-success me-2" data-bs-toggle="tooltip" title="Export to Excel">
+                        <a href="{{ route('reports.tanaman-keluar.export.excel', ['start_date' => request('start_date'), 'end_date' => request('end_date'), 'type' => 'keluar']) }}" class="btn btn-success me-2" data-bs-toggle="tooltip" title="Export to Excel">
                             <i class="bi bi-file-earmark-excel"></i> Export Excel
                         </a>
-                        <a href="{{ route('users.reports.tanaman-keluar.export.pdf', ['start_date' => request('start_date'), 'end_date' => request('end_date'), 'type' => 'keluar']) }}" class="btn btn-danger me-2" data-bs-toggle="tooltip" title="Export to PDF">
+                        <a href="{{ route('reports.tanaman-keluar.export.pdf', ['start_date' => request('start_date'), 'end_date' => request('end_date'), 'type' => 'keluar']) }}" class="btn btn-danger me-2" data-bs-toggle="tooltip" title="Export to PDF">
                             <i class="bi bi-file-earmark-pdf"></i> Export PDF
                         </a>
-                        <a href="{{ route('users.reports.tanaman-keluar.print', ['start_date' => request('start_date'), 'end_date' => request('end_date'), 'type' => 'keluar']) }}" class="btn btn-secondary" data-bs-toggle="tooltip" title="Print">
+                        <a href="{{ route('reports.tanaman-keluar.print', ['start_date' => request('start_date'), 'end_date' => request('end_date'), 'type' => 'keluar']) }}" class="btn btn-secondary" data-bs-toggle="tooltip" title="Print">
                             <i class="bi bi-printer"></i> Print
                         </a>
                     </div>
 
-                    <form method="GET" action="{{ route('users.reports.tanaman-keluar') }}" class="d-flex align-items-end">
+                    <form method="GET" action="{{ route('reports.tanaman-keluar') }}" class="d-flex align-items-end">
                         <div class="d-flex">
                             <div class="me-2">
                                 <label for="start_date" class="form-label">Tanggal Awal</label>
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary me-2">{{ __('Filter') }}</button>
-                        <a href="{{ route('users.reports.tanaman-keluar') }}" class="btn btn-secondary">{{ __('Reset') }}</a>
+                        <a href="{{ route('reports.tanaman-keluar') }}" class="btn btn-secondary">{{ __('Reset') }}</a>
                     </form>
                 </div>
 

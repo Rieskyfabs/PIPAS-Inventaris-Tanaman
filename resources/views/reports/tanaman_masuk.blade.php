@@ -23,6 +23,8 @@
                 <h5 class="card-title">{{__('LAPORAN TANAMAN MASUK')}}</h5>
                 
                 <div class="d-flex justify-content-between align-items-center mb-3">
+
+                  @auth
                     <div class="add-btn-container d-flex">
                         <a href="{{ route('reports.tanaman-masuk.export.excel', ['start_date' => request('start_date'), 'end_date' => request('end_date'), 'type' => 'masuk']) }}" class="btn btn-success me-2" data-bs-toggle="tooltip" title="Export to Excel">
                             <i class="bi bi-file-earmark-excel"></i> Export Excel
@@ -34,6 +36,7 @@
                             <i class="bi bi-printer"></i> Print
                         </a>
                     </div>
+                  @endauth
 
                     <form method="GET" action="{{ route('reports.tanaman-masuk') }}" class="d-flex align-items-end">
                         <div class="d-flex">
