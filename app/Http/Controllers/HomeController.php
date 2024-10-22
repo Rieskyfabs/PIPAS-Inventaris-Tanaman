@@ -191,6 +191,41 @@ class HomeController extends Controller
         ->orderBy('created_at', 'desc')
         ->paginate(5);
 
+        // Ambil data tanaman berdasarkan ruangan dan status panen
+        $belumDipanen = Plant::select('location_id', DB::raw('count(*) as count'))
+        ->where('harvest_status', 'belum panen')
+        ->groupBy('location_id')
+        ->pluck('count', 'location_id')
+        ->toArray();
+
+        $siapDipanen = Plant::select('location_id', DB::raw('count(*) as count'))
+        ->where('harvest_status', 'siap panen')
+        ->groupBy('location_id')
+        ->pluck('count', 'location_id')
+        ->toArray();
+
+        $sudahDipanen = Plant::select('location_id', DB::raw('count(*) as count'))
+        ->where('harvest_status', 'sudah dipanen')
+        ->groupBy('location_id')
+        ->pluck('count', 'location_id')
+        ->toArray();
+
+        // Ambil semua nama ruangan (lokasi) secara dinamis
+        $ruangan = Location::pluck('name')->toArray();
+
+        // Ambil 5 tanaman terbaru untuk galeri
+        $recentPlants = Plant::with('plantAttribute') // Pastikan ada relasi yang sesuai
+        ->orderBy('created_at', 'desc') // Mengurutkan berdasarkan tanggal dibuat
+        ->take(5) // Mengambil 5 tanaman terbaru
+        ->get();
+
+        // Mengisi data tanaman per ruangan
+        $dataBelumDipanen = $this->fillLocationData($ruangan, $belumDipanen);
+        $dataSiapDipanen = $this->fillLocationData($ruangan, $siapDipanen);
+        $dataSudahDipanen = $this->fillLocationData($ruangan, $sudahDipanen);
+
+        $activityLogs = ActivityLog::latest()->limit(4)->get();
+
         // Ambil data tanaman per lokasi
         $dataPerLocation = Plant::select('locations.name as location_name', DB::raw('count(*) as count'))
         ->join('locations', 'plants.location_id', '=', 'locations.id')
@@ -199,7 +234,19 @@ class HomeController extends Controller
         ->toArray();
 
         // Kirim data ke view
-        return view('master-dashboard', compact('plants', 'totalPlantsQuantity', 'totalLocations', 'totalUsers', 'dataPerLocation'));
+        return view('master-dashboard', compact(
+            'plants',
+            'totalPlantsQuantity',
+            'totalLocations',
+            'totalUsers',
+            'dataPerLocation',
+            'ruangan',
+            'dataBelumDipanen',
+            'dataSiapDipanen',
+            'dataSudahDipanen',
+            'activityLogs',
+            'recentPlants'
+        ));
     }
 
 }
