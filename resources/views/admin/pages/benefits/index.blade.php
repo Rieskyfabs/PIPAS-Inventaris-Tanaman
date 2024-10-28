@@ -22,7 +22,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{__('DATA MANFAAT TANAMAN')}}</h5>
                 <div class="add-btn-container">
-                    <a href="{{ route('benefits.create') }}" class="btn-add-item">
+                    <a href="{{ route('benefits.create') }}" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#Benefit">
                         +
                         {{ __('TAMBAH') }}
                     </a>
@@ -44,22 +44,23 @@
                               <td>{{ $loop->iteration }}</td>
                               <td>{{ $benefit->name }}</td>
                               <td>{{ $benefit->created_at->format('d F Y, H:i') }}</td>
-                              <td>
+                              <td style="display: flex; align-items: center;">
+                                      <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditBenefit{{ $benefit->id }}">
+                                      <i class='bx bx-edit'></i>
+                                  </button>
                                   <x-action-buttons
                                       deleteData="{{ route('benefits.destroy', $benefit->id) }}"
                                       method="DELETE"
-                                      submit="true" {{-- Tombol hapus akan muncul --}}
-                                      :dropdown="[ 
-                                          ['href' => route('benefits.edit', $benefit->id), 'label' => 'Edit'], 
-                                      ]"
+                                      submit="true"
                                   />
                               </td>
+                              @include('modals.edit_benefit_modal')
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <!-- End Table with stripped rows -->
-
+                @include('modals.create_benefit_modal')
               </div>
             </div>
           </div>

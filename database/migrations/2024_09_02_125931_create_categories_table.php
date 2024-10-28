@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('id')->primary(); // Ubah id menjadi uuid
             $table->string('name')->unique();
             $table->text('description')->nullable();
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            // $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

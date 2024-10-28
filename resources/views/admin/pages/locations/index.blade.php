@@ -56,17 +56,13 @@
                                                 />
                                             </td>
                                           </tr>
-                                            <!-- Include Edit Location Modal -->
                                             @include('modals.edit_location_modal')
                                       @endforeach
                                   </tbody>
                               </table>
                               <!-- End Table with stripped rows -->
                           </div>
-
-                        <!-- Include Create Location Modal -->
                         @include('modals.create_location_modal')
-
                       </div>
                   </div>
               </div>

@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->uuid('id')->primary(); // Menggunakan UUID sebagai Primary Key
             $table->string('name')->unique();
-            $table->enum('status', ['active', 'inactive'])
-                ->default('active');
+            // $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

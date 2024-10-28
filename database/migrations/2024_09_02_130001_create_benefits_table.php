@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('benefits', function (Blueprint $table) {
             $table->uuid('id')->primary(); // Menggunakan UUID sebagai Primary Key
             $table->text('name');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            // $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }
