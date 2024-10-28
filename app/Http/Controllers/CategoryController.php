@@ -35,7 +35,7 @@ class CategoryController extends Controller
         Category::create($request->all());
 
         // Mencatat aktivitas
-        ActivityLogger::log('create', 'Created a new categories with name: ' . $request->name);
+        ActivityLogger::log('create', 'Menambahkan data kategori baru dengan nama: ' . $request->name);
 
         // Tampilkan pesan sukses
         Alert::success('Data Ditambahkan', 'Berhasil menambahkan data kategori!');
@@ -60,10 +60,10 @@ class CategoryController extends Controller
         $category->update($request->all());
 
         // Mencatat aktivitas
-        ActivityLogger::log('update', 'Updated a categories data with name: ' . $request->name);
+        ActivityLogger::log('update', 'Memperbarui data kategori dengan nama: ' . $request->name);
 
         // Tampilkan pesan sukses
-        Alert::success('Data DiUpdate', 'Berhasil mengupdate data kategori!');
+        Alert::success('Data DiUpdate', 'Berhasil memperbarui data kategori!');
 
         return redirect()->route('categories');
     }
@@ -74,7 +74,7 @@ class CategoryController extends Controller
         $category->delete();
 
         // Mencatat aktivitas
-        ActivityLogger::log('delete', 'Deleted a categories data with ID: ' . $id);
+        ActivityLogger::log('delete', 'Menghapus data kategori dengan ID: ' . $id);
 
         // Tampilkan pesan sukses
         Alert::success('Hapus data kategori', 'Berhasil menghapus data kategori');

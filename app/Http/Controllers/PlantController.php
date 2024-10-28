@@ -163,6 +163,9 @@ class PlantController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
         ]);
 
+        // Ambil nama lokasi berdasarkan location_id
+        $location = Location::find($request->location_id);
+
         // Ambil tanggal tanam
         $seedingDate = $request->input('seeding_date');
 
@@ -210,8 +213,12 @@ class PlantController extends Controller
             'jumlah_masuk' => 1, // You can modify this based on your requirement
         ]);
 
-        // Mencatat aktivitas
-        ActivityLogger::log('create', 'Created a new plant with code: ' . $request->plant_code_id);
+        // Mencatat aktivitas dengan nama lokasi
+        if ($location) {
+            ActivityLogger::log('create', 'Menambahkan data tanaman baru di ' . $location->name . ' dengan kode: ' . $request->plant_code_id);
+        } else {
+            ActivityLogger::log('create', 'Menambahkan data tanaman baru di lokasi tidak ditemukan dengan kode: ' . $request->plant_code_id);
+        }
 
         // Tampilkan pesan sukses
         Alert::success('Data Tanaman Ditambahkan', 'Berhasil menambahkan data Tanaman');
@@ -219,6 +226,7 @@ class PlantController extends Controller
         // Redirect ke halaman sebelumnya
         return redirect()->back();
     }
+
 
     public function edit($id)
     {
@@ -248,12 +256,20 @@ class PlantController extends Controller
 
         $plant = Plant::findOrFail($id);
 
+        // Ambil nama lokasi berdasarkan location_id
+        $location = Location::find($request->location_id);
+
         $seedingDate = $request->input('seeding_date');
         $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days'));
 
         $plant->update(array_merge($request->all(), ['harvest_date' => $harvestDate]));
 
-        ActivityLogger::log('update', 'Updated plant with ID: ' . $plant->id);
+        // Mencatat aktivitas dengan nama lokasi
+        if ($location) {
+            ActivityLogger::log('update', 'Mengupdate tanaman dengan ID: ' . $plant->id);
+        } else {
+            ActivityLogger::log('update', 'Mengupdate tanaman dengan ID: ' . $plant->id);
+        }
 
         // Tampilkan pesan sukses
         Alert::success('Data Tanaman DiUpdate', 'Berhasil mengUpdate data Tanaman');
@@ -269,7 +285,7 @@ class PlantController extends Controller
         // Hapus record tanaman dari database
         $plant->delete();
 
-        ActivityLogger::log('delete', 'Deleted plant with ID: ' . $plant->id);
+        ActivityLogger::log('delete', 'Data tanaman di hapus dengan ID: ' . $plant->id);
         
         Alert::success('Hapus Data Tanaman', 'Berhasil mengHapus data Tanaman');
 
