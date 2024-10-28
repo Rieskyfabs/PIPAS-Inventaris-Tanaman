@@ -28,7 +28,7 @@
                               </button>
                           </div>
 
-                          <div class="table-responsive">
+                            <div class="table-responsive">
                               <!-- Table with stripped rows -->
                               <table class="table table-bordered table-hover datatable">
                                   <thead>

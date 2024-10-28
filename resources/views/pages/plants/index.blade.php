@@ -126,7 +126,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">{{__('Data Tanaman')}}</h5>
+                            <h5 class="card-title">{{__('Koleksi Data Tanaman')}}</h5>
                             <p>{{__('')}}</p>
                             {{-- <div class="add-btn-container">
                                 <a href="{{ route('users.plants.create') }}" class="btn-add-item">

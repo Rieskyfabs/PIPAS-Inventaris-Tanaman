@@ -68,11 +68,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{__('Laporan Status Tanaman')}}</h5>
-
-                        <!-- Form untuk memilih tahun -->
-
                         @if(empty($dataBelumDipanen) && empty($dataSiapDipanen) && empty($dataSudahDipanen))
-                            <p>{{ __('Tidak ada data tersedia.') }}</p>
+                            <p>{{ __('Tidak ada data lokasi yang tersedia.') }}</p>
                         @else
                             <!-- Column Chart -->
                             <div id="columnChart"></div>
@@ -82,13 +79,13 @@
                                     new ApexCharts(document.querySelector("#columnChart"), {
                                         series: [{
                                             name: 'Belum Panen',
-                                            data: @json($dataBelumDipanen) // Data dinamis berdasarkan ruangan
+                                            data: @json($dataBelumDipanen)
                                         }, {
                                             name: 'Siap Dipanen',
-                                            data: @json($dataSiapDipanen) // Data dinamis berdasarkan ruangan
+                                            data: @json($dataSiapDipanen)
                                         }, {
                                             name: 'Sudah Dipanen',
-                                            data: @json($dataSudahDipanen) // Data dinamis berdasarkan ruangan
+                                            data: @json($dataSudahDipanen)
                                         }],
                                         chart: {
                                             type: 'bar',
@@ -110,7 +107,7 @@
                                             colors: ['transparent']
                                         },
                                         xaxis: {
-                                            categories: @json($ruangan), // Ruangan dinamis
+                                            categories: @json(array_values($ruangan)),
                                             title: {
                                                 text: 'Lokasi Penyimpanan'
                                             }
@@ -138,8 +135,6 @@
                     </div>
                 </div>
             </div>
-
-
             <!-- End Reports -->
 
             <!-- Recent Plants -->

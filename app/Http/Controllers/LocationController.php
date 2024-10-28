@@ -13,7 +13,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::all();
+        $locations = Location::orderBy('created_at', 'desc')->get();
 
         $title = 'Apakah anda yakin ingin menghapus lokasi ini?';
         $text = "Semua data tanaman dengan lokasi ini akan terhapus juga";

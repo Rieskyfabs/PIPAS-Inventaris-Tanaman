@@ -73,6 +73,11 @@
 	/* Mengubah warna border saat fokus */
 }
 
+.datatable-input {
+	padding: 6px 12px;
+	float: right;
+}
+
 .datatable-top,
 .datatable-bottom {
 	padding: 8px 10px;
@@ -96,10 +101,7 @@
 	padding: 6px;
 }
 
-.datatable-input {
-	padding: 6px 12px;
-	float: right;
-}
+
 
 .datatable-info {
 	margin: 7px 0;

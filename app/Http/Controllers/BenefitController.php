@@ -10,7 +10,7 @@ class BenefitController extends Controller
 {
     public function index()
     {
-        $benefits = Benefit::all();
+        $benefits = Benefit::orderBy('created_at', 'desc')->get();
 
         $title = 'Apakah anda yakin ingin menghapus manfaat ini?';
         $text = "semua data tanaman dengan manfaat ini akan terhapus juga";
