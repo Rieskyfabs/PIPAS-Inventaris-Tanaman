@@ -22,10 +22,10 @@
               <div class="card-body">
                 <h5 class="card-title">{{__('DATA MANFAAT TANAMAN')}}</h5>
                 <div class="add-btn-container">
-                    <a href="{{ route('benefits.create') }}" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#Benefit">
+                    <button type="button" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#Benefit">
                         +
                         {{ __('TAMBAH') }}
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Table with stripped rows -->
