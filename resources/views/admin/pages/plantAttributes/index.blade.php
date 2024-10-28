@@ -6,15 +6,15 @@
   <div>
     <main id="main" class="main">
 
-      <x-breadcrumbs 
-        title="Atribut Tanaman" 
+      <x-breadcrumbs
+        title="Atribut Tanaman"
         :items="[
           ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
           ['label' => 'Atribut Tanaman']
-        ]" 
+        ]"
       />
 
-      <section class="section dashboard"> 
+      <section class="section dashboard">
           <div class="row">
               <div class="col-lg-12">
                   <div class="card">
@@ -26,7 +26,7 @@
                                   {{ __('TAMBAH') }}
                               </a>
                           </div>
-                          
+
                           <div class="table-responsive">
                               <!-- Table with stripped rows -->
                               <table class="table table-bordered table-hover datatable">
@@ -79,8 +79,8 @@
                                                 deleteData="{{ route('plantAttributes.destroy', $item->id) }}"
                                                 method="DELETE"
                                                 submit="true" {{-- Tombol hapus akan muncul --}}
-                                                :dropdown="[ 
-                                                    ['href' => route('plantAttributes.edit', $item->id), 'label' => 'Edit'], 
+                                                :dropdown="[
+                                                    ['href' => route('plantAttributes.edit', $item->id), 'label' => 'Edit'],
                                                 ]"
                                             />
                                             </td>
@@ -95,7 +95,7 @@
               </div>
           </div>
       </section>
-      
+
     </main>
   </div>
 @endsection
