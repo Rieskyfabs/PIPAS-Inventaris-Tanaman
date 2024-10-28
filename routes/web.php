@@ -187,19 +187,19 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         });
 
         // Laporan
-        Route::prefix('/reports')->group(function () {
-            Route::get('/tanaman-masuk', [ReportController::class, 'laporanTanamanMasuk'])->name('reports.tanaman-masuk');
-            Route::get('/tanaman-keluar', [ReportController::class, 'laporanTanamanKeluar'])->name('reports.tanaman-keluar');
+        // Route::prefix('/reports')->group(function () {
+        //     Route::get('/tanaman-masuk', [ReportController::class, 'laporanTanamanMasuk'])->name('reports.tanaman-masuk');
+        //     Route::get('/tanaman-keluar', [ReportController::class, 'laporanTanamanKeluar'])->name('reports.tanaman-keluar');
 
-            // Export routes
-            Route::get('/tanaman-masuk/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-masuk.export.excel');
-            Route::get('/tanaman-masuk/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-masuk.export.pdf');
-            Route::get('/tanaman-masuk/print', [ReportController::class, 'print'])->name('reports.tanaman-masuk.print');
+        //     // Export routes
+        //     Route::get('/tanaman-masuk/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-masuk.export.excel');
+        //     Route::get('/tanaman-masuk/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-masuk.export.pdf');
+        //     Route::get('/tanaman-masuk/print', [ReportController::class, 'print'])->name('reports.tanaman-masuk.print');
 
-            Route::get('/tanaman-keluar/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-keluar.export.excel');
-            Route::get('/tanaman-keluar/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-keluar.export.pdf');
-            Route::get('/tanaman-keluar/print', [ReportController::class, 'print'])->name('reports.tanaman-keluar.print');
-        });
+        //     Route::get('/tanaman-keluar/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-keluar.export.excel');
+        //     Route::get('/tanaman-keluar/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-keluar.export.pdf');
+        //     Route::get('/tanaman-keluar/print', [ReportController::class, 'print'])->name('reports.tanaman-keluar.print');
+        // });
 
 
         // User Management
@@ -256,21 +256,21 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
         Route::delete('/{id}', [PlantController::class, 'destroy'])->name('users.plants.destroy');
     });
 
-    // Laporan
-    Route::prefix('/reports')->group(function () {
-        Route::get('/tanaman-masuk', [ReportController::class, 'laporanTanamanMasuk'])->name('reports.tanaman-masuk');
-        Route::get('/tanaman-keluar', [ReportController::class, 'laporanTanamanKeluar'])->name('reports.tanaman-keluar');
-
-        // Export routes
-        Route::get('/tanaman-masuk/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-masuk.export.excel');
-        Route::get('/tanaman-masuk/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-masuk.export.pdf');
-        Route::get('/tanaman-masuk/print', [ReportController::class, 'print'])->name('reports.tanaman-masuk.print');
-
-        Route::get('/tanaman-keluar/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-keluar.export.excel');
-        Route::get('/tanaman-keluar/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-keluar.export.pdf');
-        Route::get('/tanaman-keluar/print', [ReportController::class, 'print'])->name('reports.tanaman-keluar.print');
-    });
-
     Route::get('/notifications', [NotificationController::class, 'userIndex'])->name('users.notifications');
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'usersMarkAsRead'])->name('users.notifications.markAsRead');
+});
+
+// Laporan
+Route::prefix('/reports')->group(function () {
+    Route::get('/tanaman-masuk', [ReportController::class, 'laporanTanamanMasuk'])->name('reports.tanaman-masuk');
+    Route::get('/tanaman-keluar', [ReportController::class, 'laporanTanamanKeluar'])->name('reports.tanaman-keluar');
+
+    // Export routes
+    Route::get('/tanaman-masuk/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-masuk.export.excel');
+    Route::get('/tanaman-masuk/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-masuk.export.pdf');
+    Route::get('/tanaman-masuk/print', [ReportController::class, 'print'])->name('reports.tanaman-masuk.print');
+
+    Route::get('/tanaman-keluar/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-keluar.export.excel');
+    Route::get('/tanaman-keluar/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-keluar.export.pdf');
+    Route::get('/tanaman-keluar/print', [ReportController::class, 'print'])->name('reports.tanaman-keluar.print');
 });

@@ -203,7 +203,7 @@
                                   <img src="{{ asset('/images/daur1.jpg') }}" alt="Kegiatan Kepedulian">
                                   <h3>Daffy Fauzan</h3>
                                   <p>BackEnd Developer</p>
-                                  <p class="description">With a passion for color and a love for clean lines, Riesky brings all our wildest design dreams to life.</p>
+                                  <p class="description">With a passion for color and a love for clean lines, Daffy brings all our wildest design dreams to life.</p>
                                   <div class="social-links">
                                       <a href="https://instagram.com/rieskyfabs" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
                                       <a href="https://facebook.com/rieskyfabs" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -214,7 +214,7 @@
                               <div class="card">
                                   <img src="{{ asset('/images/daur1.jpg') }}" alt="Kegiatan Kerja Sama">
                                   <h3>Riesky Fabiansyah</h3>
-                                  <p>FrontEnd Developer</p>
+                                  <p>FullStack Developer</p>
                                   <p class="description">With a passion for color and a love for clean lines, Riesky brings all our wildest design dreams to life.</p>
                                   <div class="social-links">
                                       <a href="https://instagram.com/rieskyfabs" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
@@ -228,7 +228,7 @@
                                   <div class="card-text">
                                       <h3>Sultan Said</h3>
                                       <p>BackEnd Developer</p>
-                                      <p class="description">With a passion for color and a love for clean lines, Riesky brings all our wildest design dreams to life.</p>
+                                      <p class="description">With a passion for color and a love for clean lines, Sultan brings all our wildest design dreams to life.</p>
                                       <div class="social-links">
                                           <a href="https://instagram.com/rieskyfabs" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
                                           <a href="https://facebook.com/rieskyfabs" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
