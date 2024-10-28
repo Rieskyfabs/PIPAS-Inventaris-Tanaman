@@ -44,15 +44,17 @@
                               <td>{{ $loop->iteration }}</td>
                               <td>{{ $benefit->name }}</td>
                               <td>{{ $benefit->created_at->format('d F Y, H:i') }}</td>
-                              <td style="display: flex; align-items: center;">
+                              <td>
+                                  <div style="display: flex; align-items: center;">
                                       <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditBenefit{{ $benefit->id }}">
-                                      <i class='bx bx-edit'></i>
-                                  </button>
-                                  <x-action-buttons
-                                      deleteData="{{ route('benefits.destroy', $benefit->id) }}"
-                                      method="DELETE"
-                                      submit="true"
-                                  />
+                                          <i class='bx bx-edit'></i>
+                                      </button>
+                                      <x-action-buttons
+                                          deleteData="{{ route('benefits.destroy', $benefit->id) }}"
+                                          method="DELETE"
+                                          submit="true"
+                                      />
+                                  </div>
                               </td>
                               @include('modals.edit_benefit_modal')
                             </tr>

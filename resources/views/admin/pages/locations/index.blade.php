@@ -45,15 +45,17 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $location->name }}</td>
                                             <td>{{ $location->created_at->format('d F Y, H:i') }}</td>
-                                            <td style="display: flex; align-items: center;">
+                                            <td>
+                                                <div style="display: flex; align-items: center;">
                                                     <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditLocation{{ $location->id }}">
-                                                    <i class='bx bx-edit'></i>
-                                                </button>
-                                                <x-action-buttons
-                                                    deleteData="{{ route('locations.destroy', $location->id) }}"
-                                                    method="DELETE"
-                                                    submit="true"
-                                                />
+                                                        <i class='bx bx-edit'></i>
+                                                    </button>
+                                                    <x-action-buttons
+                                                        deleteData="{{ route('locations.destroy', $location->id) }}"
+                                                        method="DELETE"
+                                                        submit="true"
+                                                    />
+                                                </div>
                                             </td>
                                           </tr>
                                             @include('modals.edit_location_modal')

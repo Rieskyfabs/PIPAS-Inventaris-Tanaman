@@ -51,15 +51,17 @@
                                   </div>
                               </td>
                               <td>{{ $category->created_at->format('d F Y, H:i') }}</td>
-                              <td style="display: flex; align-items: center;">
-                                  <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditCategory{{ $category->id }}">
-                                    <i class='bx bx-edit'></i>
-                                  </button>
-                                  <x-action-buttons
-                                      deleteData="{{ route('categories.destroy', $category->id) }}"
-                                      method="DELETE"
-                                      submit="true"
-                                  />
+                              <td>
+                                  <div style="display: flex; align-items: center;">
+                                      <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditCategory{{ $category->id }}">
+                                          <i class='bx bx-edit'></i>
+                                      </button>
+                                      <x-action-buttons
+                                          deleteData="{{ route('categories.destroy', $category->id) }}"
+                                          method="DELETE"
+                                          submit="true"
+                                      />
+                                  </div>
                               </td>
                             </tr>
                             @include('modals.edit_category_modal')

@@ -24,7 +24,7 @@
             <!-- Plant Card -->
             <x-card
               type="plants"
-              title="Total Tanaman"
+              title="Tanaman"
               period="Hari ini"
               icon="ri-plant-line"
               value="{{ $totalPlantsQuantity }}"
@@ -38,7 +38,7 @@
             <!-- Location Card -->
             <x-card
               type="location"
-              title="Total Lokasi Inventaris"
+              title="Lokasi Inventaris"
               period="Hari ini"
               icon="ri-map-pin-line"
               value="{{ $totalLocations }}"
@@ -52,7 +52,7 @@
             <!-- Total Users Card -->
             <x-card
               type="revenue"
-              title="Total Pengguna"
+              title="Pengguna"
               period="Hari ini"
               icon="ri-group-line"
               value="{{ $totalUsers }}"

@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('plant_attributes', function (Blueprint $table) {
-            $table->id(); // ID auto-incrementnggunakan UUID sebagai Primary Key
+            $table->uuid('id')->primary(); // Menggunakan UUID sebagai primary key
             $table->string('plant_code')->unique();
             $table->string('name')->unique();
             $table->string('scientific_name')->unique();
             $table->enum('type', ['Herbal', 'Sayuran']);
-            $table->uuid('category_id'); // Ubah foreignId menjadi uuid
+            $table->uuid('category_id'); // Menggunakan UUID untuk foreign key
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->uuid('benefit_id'); // Ubah foreignId menjadi uuid
+            $table->uuid('benefit_id'); // Menggunakan UUID untuk foreign key
             $table->foreign('benefit_id')->references('id')->on('benefits')->onDelete('cascade')->onUpdate('cascade');
             $table->text('description');
             $table->enum('status', ['active', 'inactive'])->default('active');
@@ -33,7 +33,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('plant_attributes', function (Blueprint $table) {
-            // Hapus foreign key terlebih dahulu
             $table->dropForeign(['category_id']);
             $table->dropForeign(['benefit_id']);
         });

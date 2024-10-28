@@ -41,7 +41,7 @@
 
                 <!-- Reports Nav -->
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('/reports*') ? '' : 'collapsed' }}" data-bs-target="#plants-report-nav" data-bs-toggle="collapse" href="#">
+                    <a class="nav-link {{ Request::is('/laporan*') ? '' : 'collapsed' }}" data-bs-target="#plants-report-nav" data-bs-toggle="collapse" href="#">
                         <i class='bx bx-printer fs-5'></i><span>{{ __('Laporan') }}</span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="plants-report-nav" class="nav-content collapse {{ Request::is('laporan*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">

@@ -37,32 +37,41 @@ class HomeController extends Controller
         ->pluck('count', 'location_name')
         ->toArray();
 
-        // Ambil semua nama ruangan (lokasi) secara dinamis
-        $ruangan = Location::pluck('name')->toArray();
+        // Fetch room names (locations) along with UUIDs as keys
+        $ruangan = Location::pluck('name', 'id')->toArray();
 
-        // Ambil data tanaman berdasarkan ruangan dan status panen
+        // Retrieve plant data grouped by `location_id` with UUIDs
         $belumDipanen = Plant::select('location_id', DB::raw('count(*) as count'))
         ->where('harvest_status', 'belum panen')
-        ->groupBy('location_id')
-        ->pluck('count', 'location_id')
-        ->toArray();
+            ->groupBy('location_id')
+            ->pluck(
+                'count',
+                'location_id'
+            )
+            ->toArray();
 
         $siapDipanen = Plant::select('location_id', DB::raw('count(*) as count'))
         ->where('harvest_status', 'siap panen')
-        ->groupBy('location_id')
-        ->pluck('count', 'location_id')
-        ->toArray();
+            ->groupBy('location_id')
+            ->pluck(
+                'count',
+                'location_id'
+            )
+            ->toArray();
 
         $sudahDipanen = Plant::select('location_id', DB::raw('count(*) as count'))
         ->where('harvest_status', 'sudah dipanen')
         ->groupBy('location_id')
-        ->pluck('count', 'location_id')
+        ->pluck(
+            'count',
+            'location_id'
+        )
         ->toArray();
 
-        // Mengisi data tanaman per ruangan
-        $dataBelumDipanen = $this->fillLocationData($ruangan, $belumDipanen);
-        $dataSiapDipanen = $this->fillLocationData($ruangan, $siapDipanen);
-        $dataSudahDipanen = $this->fillLocationData($ruangan, $sudahDipanen);
+        // Populate data using the updated helper function
+        $dataBelumDipanen = $this->fillLocationData(array_keys($ruangan), $belumDipanen);
+        $dataSiapDipanen = $this->fillLocationData(array_keys($ruangan), $siapDipanen);
+        $dataSudahDipanen = $this->fillLocationData(array_keys($ruangan), $sudahDipanen);
 
         $activityLogs = ActivityLog::latest()->limit(4)->get();
 

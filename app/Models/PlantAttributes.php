@@ -4,10 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Support\Str;
 
 class PlantAttributes extends Model
 {
     use HasFactory;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
         'plant_code',
@@ -19,6 +24,16 @@ class PlantAttributes extends Model
         'description',
         'status',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Generate UUID for the primary key
+        static::creating(function ($model) {
+            $model->id = (string) Str::uuid();
+        });
+    }
 
     public function plants()
     {
@@ -35,4 +50,3 @@ class PlantAttributes extends Model
         return $this->belongsTo(Benefit::class, 'benefit_id', 'id');
     }
 }
-

@@ -3,12 +3,17 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Plant extends Model
 {
     use HasFactory;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
         'image',
@@ -27,6 +32,15 @@ class Plant extends Model
         'harvest_status',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Generate UUID for the primary key
+        static::creating(function ($model) {
+            $model->id = (string) Str::uuid();
+        });
+    }
     public function isReadyToHarvest()
     {
         return Carbon::now()->greaterThanOrEqualTo($this->harvest_date);

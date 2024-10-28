@@ -12,18 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('plants', function (Blueprint $table) {
-            $table->id(); // ID auto-increment
+            $table->uuid('id')->primary(); // ID auto-increment
             $table->string('image')->nullable();
-            $table->foreignId('plant_code_id')->constrained('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('plant_name_id')->constrained('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('plant_scientific_name_id')->constrained('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
+            $table->uuid('plant_code_id'); // Ubah foreignId menjadi uuid
+            $table->foreign('plant_code_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
+            $table->uuid('plant_name_id'); // Ubah foreignId menjadi uuid
+            $table->foreign('plant_name_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
+            $table->uuid('plant_scientific_name_id'); // Ubah foreignId menjadi uuid
+            $table->foreign('plant_scientific_name_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('type', ['Herbal', 'Sayuran']);
             $table->string('qr_code')->nullable();
-            $table->uuid('category_id'); // Menggunakan UUID untuk category_id
+            $table->uuid('category_id'); // UUID untuk category_id
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->uuid('benefit_id'); // Menggunakan UUID untuk benefit_id
+            $table->uuid('benefit_id'); // UUID untuk benefit_id
             $table->foreign('benefit_id')->references('id')->on('benefits')->onDelete('cascade')->onUpdate('cascade');
-            $table->uuid('location_id'); // Menggunakan UUID untuk location_id
+            $table->uuid('location_id'); // UUID untuk location_id
             $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('status', ['sehat', 'baik', 'layu', 'sakit']);
             $table->date('seeding_date')->nullable();
@@ -39,7 +42,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('plants', function (Blueprint $table) {
-            // Hapus foreign key terlebih dahulu
             $table->dropForeign(['plant_code_id']);
             $table->dropForeign(['plant_name_id']);
             $table->dropForeign(['plant_scientific_name_id']);
