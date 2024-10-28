@@ -29,15 +29,22 @@ class LocationController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:locations',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255|unique:locations',
+            ]);
 
-        Location::create($request->all());
+            Location::create($request->all());
 
-        Alert::success('Data Ditambahkan', 'Berhasil menambahkan lokasi baru!');
+            Alert::success('Data Ditambahkan', 'Berhasil menambahkan lokasi baru!');
+            return redirect()->back();
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Jika validasi gagal, ambil pesan error
+            $errors = $e->validator->errors();
+            Alert::error('Error', $errors->first('name')); 
 
-        return redirect()->back();
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
     }
 
     public function show($id)
@@ -56,16 +63,23 @@ class LocationController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:locations,name,' . $id,
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255|unique:locations,name,' . $id,
+            ]);
 
-        $location = Location::findOrFail($id);
-        $location->update($request->all());
+            $location = Location::findOrFail($id);
+            $location->update($request->all());
 
-        Alert::success('Data Diupdate', 'Berhasil memperbarui lokasi!');
+            Alert::success('Data Diupdate', 'Berhasil memperbarui lokasi!');
+            return redirect()->route('locations');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Jika validasi gagal, ambil pesan error
+            $errors = $e->validator->errors();
+            Alert::error('Error', $errors->first('name')); // Tampilkan pesan error
 
-        return redirect()->route('locations');
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
     }
 
     public function destroy($id)

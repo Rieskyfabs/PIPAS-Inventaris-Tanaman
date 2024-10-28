@@ -143,7 +143,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="{{ Request::is('admin/atribut-tanaman/atribut-tanaman') ? 'active' : '' }}" href="{{ route('plantAttributes') }}">
+                                    <a class="{{ Request::is('admin/atribut-tanaman/list-atribut-tanaman') ? 'active' : '' }}" href="{{ route('plantAttributes') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Atribut Tanaman') }}</span>
                                     </a>
                                 </li>

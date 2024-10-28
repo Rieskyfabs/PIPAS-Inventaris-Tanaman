@@ -42,57 +42,30 @@
                                   <tbody>
                                       @foreach ($locations as $location)
                                           <tr>
-                                              <td>{{ $loop->iteration }}</td>
-                                              <td>{{ $location->name }}</td>
-                                              <td>{{ $location->created_at->format('d F Y, H:i') }}</td>
-                                              <td>
-                                                  <x-action-buttons
-                                                        deleteData="{{ route('locations.destroy', $location->id) }}"
-                                                        method="DELETE"
-                                                        submit="true"
-                                                        :dropdown="[
-                                                            ['href' => route('locations.edit', $location->id), 'label' => 'Edit'],
-                                                        ]"
-                                                    />
-                                              </td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $location->name }}</td>
+                                            <td>{{ $location->created_at->format('d F Y, H:i') }}</td>
+                                            <td style="display: flex; align-items: center;">
+                                                    <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditLocation{{ $location->id }}">
+                                                    <i class='bx bx-edit'></i>
+                                                </button>
+                                                <x-action-buttons
+                                                    deleteData="{{ route('locations.destroy', $location->id) }}"
+                                                    method="DELETE"
+                                                    submit="true"
+                                                />
+                                            </td>
                                           </tr>
+                                            <!-- Include Edit Location Modal -->
+                                            @include('modals.edit_location_modal')
                                       @endforeach
                                   </tbody>
                               </table>
                               <!-- End Table with stripped rows -->
                           </div>
 
-                          <!-- Create Locations Modal -->
-                          <div class="modal fade" id="Location" tabindex="-1" aria-labelledby="LocationLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-dialog-centered">
-                                  <div class="modal-content">
-                                      <div class="modal-header">
-                                          <h5 class="modal-title" id="LocationLabel">{{ __('Tambahkan Lokasi Baru') }}</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                      <div class="modal-body">
-                                          @if ($errors->any())
-                                              <div class="alert alert-danger">
-                                                  <ul>
-                                                      @foreach ($errors->all() as $error)
-                                                          <li>{{ $error }}</li>
-                                                      @endforeach
-                                                  </ul>
-                                              </div>
-                                          @endif
-                                          <form action="{{ route('locations.store') }}" method="POST">
-                                              @csrf
-                                              <div class="form-floating mb-3">
-                                                  <input type="text" name="name" class="form-control" id="floatingInputName" placeholder="name" required>
-                                                  <label for="floatingInputName">{{ __('Nama Lokasi') }}</label>
-                                              </div>
-                                              <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
-                                          </form>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <!-- End Locations Modal -->
+                        <!-- Include Create Location Modal -->
+                        @include('modals.create_location_modal')
 
                       </div>
                   </div>

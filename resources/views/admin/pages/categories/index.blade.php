@@ -6,12 +6,12 @@
   <div>
     <main id="main" class="main">
 
-      <x-breadcrumbs
-        title="Kategori"
+      <x-breadcrumbs 
+        title="Kategori" 
         :items="[
           ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
           ['label' => 'Kategori']
-        ]"
+        ]" 
       />
 
       <section class="section">
@@ -56,8 +56,8 @@
                                       deleteData="{{ route('categories.destroy', $category->id) }}"
                                       method="DELETE"
                                       submit="true"
-                                      :dropdown="[
-                                        ['href' => route('categories.edit', $category->id), 'label' => 'Edit'],
+                                      :dropdown="[ 
+                                        ['href' => route('categories.edit', $category->id), 'label' => 'Edit'], 
                                       ]"
                                   />
                               </td>
@@ -108,7 +108,7 @@
           </div>
         </div>
       </section>
-
+      
     </main>
   </div>
 @endsection
