@@ -8,7 +8,6 @@
     <!-- End Logo -->
 
     <x-sidebar-search 
-        {{--  actionUrl="{{ route('search') }}"  --}}
         actionUrl="#" 
     />
     <!-- End Search Bar -->

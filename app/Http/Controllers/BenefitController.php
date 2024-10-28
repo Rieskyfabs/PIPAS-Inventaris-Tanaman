@@ -27,7 +27,7 @@ class BenefitController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'description' => 'required|string',
+            'name' => 'required|string', // Perbaiki validasi untuk field name
         ]);
 
         Benefit::create($request->all());
@@ -44,7 +44,7 @@ class BenefitController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'description' => 'required|string',
+            'name' => 'required|string', // Perbaiki validasi untuk field name
         ]);
 
         $benefit = Benefit::findOrFail($id);
@@ -58,8 +58,7 @@ class BenefitController extends Controller
         $benefit = Benefit::findOrFail($id);
         $benefit->delete();
 
-        Alert::success('Hapus Data benefits', 'Berhasil mengHapus data benefits');
+        Alert::success('Hapus Data Benefits', 'Berhasil menghapus data benefits');
         return redirect()->route('benefits');
     }
 }
-

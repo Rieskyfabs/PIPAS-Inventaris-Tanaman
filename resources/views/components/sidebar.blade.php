@@ -105,16 +105,16 @@
                 
 
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('admin/inventaris*') || Request::is('admin/attributes*') ? '' : 'collapsed' }}" data-bs-target="#plants-nav" data-bs-toggle="collapse" href="#">
+                    <a class="nav-link {{ Request::is('admin/inventaris*') || Request::is('admin/atribut*') ? '' : 'collapsed' }}" data-bs-target="#plants-nav" data-bs-toggle="collapse" href="#">
                         <i class="ri-plant-line fs-5"></i><span>{{ __('Master Tanaman') }}</span>
                         @if($readyToHarvestCount > 0)
                             <span class="notification-bubble"></span>
                         @endif
                         <i class="bi bi-chevron-down ms-auto"></i>
                     </a>
-                    <ul id="plants-nav" class="nav-content collapse {{ Request::is('admin/inventaris*') || Request::is('admin/attributes*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                    <ul id="plants-nav" class="nav-content collapse {{ Request::is('admin/inventaris*') || Request::is('admin/atribut*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <li>
-                            <a class="{{ Request::is('admin/inventaris/plants*') ? 'active' : '' }}" href="{{ route('plants') }}">
+                            <a class="{{ Request::is('admin/inventaris/tanaman*') ? 'active' : '' }}" href="{{ route('plants') }}">
                                 <i class="bi bi-circle"></i>
                                 <span>{{ __('List Tanaman') }}</span>
                                 @if($readyToHarvestCount > 0)
@@ -123,27 +123,27 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('admin/attributes*') ? '' : 'collapsed' }}" data-bs-target="#plants-attributes-subnav" data-bs-toggle="collapse" href="#">
+                            <a class="nav-link {{ Request::is('admin/atribut*') ? '' : 'collapsed' }}" data-bs-target="#plants-attributes-subnav" data-bs-toggle="collapse" href="#">
                                 <i class="bi bi-circle-fill"></i><span>{{ __('Kelola Atribut') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
                             </a>
-                            <ul id="plants-attributes-subnav" class="nav-content collapse {{ Request::is('admin/attributes*') ? 'show' : '' }} ps-3" data-bs-parent="#plants-nav">
+                            <ul id="plants-attributes-subnav" class="nav-content collapse {{ Request::is('admin/atribut*') ? 'show' : '' }} ps-3" data-bs-parent="#plants-nav">
                                 <li>
-                                    <a class="{{ Request::is('admin/attributes/categories*') ? 'active' : '' }}" href="{{ route('categories') }}">
+                                    <a class="{{ Request::is('admin/atribut-tanaman/kategori-tanaman*') ? 'active' : '' }}" href="{{ route('categories') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Kategori Tanaman') }}</span>
                                     </a>
                                 </li>   
                                 <li>
-                                    <a class="{{ Request::is('admin/attributes/benefits*') ? 'active' : '' }}" href="{{ route('benefits') }}">
+                                    <a class="{{ Request::is('admin/atribut-tanaman/manfaat-tanaman*') ? 'active' : '' }}" href="{{ route('benefits') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Manfaat Tanaman') }}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="{{ Request::is('admin/attributes/locations*') ? 'active' : '' }}" href="{{ route('locations') }}">
+                                    <a class="{{ Request::is('admin/atribut-tanaman/lokasi-inventaris*') ? 'active' : '' }}" href="{{ route('locations') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Lokasi Penyimpanan') }}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="{{ Request::is('admin/attributes/plant-attributes') ? 'active' : '' }}" href="{{ route('plantAttributes') }}">
+                                    <a class="{{ Request::is('admin/atribut-tanaman/atribut-tanaman') ? 'active' : '' }}" href="{{ route('plantAttributes') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Atribut Tanaman') }}</span>
                                     </a>
                                 </li>
@@ -211,11 +211,6 @@
                         <i class='bx bx-cog fs-5'></i><span>{{ __('Settings') }}</span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="settings-nav" class="nav-content collapse {{ Request::is('admin/settings*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a class="{{ Request::is('admin/settings/profile-settings') ? 'active' : '' }}" href="#">
-                                <i class="bi bi-circle"></i><span>{{ __('Profil Saya') }}</span>
-                            </a>
-                        </li>
                         <!-- Kelola Pengguna -->
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('admin/settings/users*') || Request::is('admin/role-permissions*') ? '' : 'collapsed' }}" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">

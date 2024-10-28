@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Category')
+@section('title', 'Edit Kategori')
 
 @section('contents')
     <div>
         <main id="main" class="main">
 
-            <x-breadcrumbs title="{{ __('Edit Category') }}" :items="[
+            <x-breadcrumbs title="{{ __('Edit Kategori') }}" :items="[
                 ['route' => 'home', 'label' => 'Home'],
-                ['route' => 'categories', 'label' => 'Categories'],
-                ['label' => 'Edit Category'],
+                ['route' => 'categories', 'label' => 'Kategori'],
+                ['label' => 'Edit Kategori'],
             ]" />
 
             <section class="section dashboard">
@@ -17,7 +17,7 @@
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ __('Edit Category') }}</h5>
+                                <h5 class="card-title">{{ __('Edit Kategori') }}</h5>
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>

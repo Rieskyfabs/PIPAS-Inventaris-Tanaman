@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->uuid('user_id'); // Use UUID for the foreign key
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Define foreign key constraint
             $table->string('action'); // Store the action type like 'create', 'update', 'delete'
             $table->text('description')->nullable(); // Detailed description of the activity
             $table->timestamp('performed_at'); // The time of the activity
