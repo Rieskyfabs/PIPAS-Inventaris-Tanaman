@@ -15,7 +15,7 @@
                     <!-- Display the logged-in user's username -->
                     <h6>{{ Auth::user()->username }}</h6>
                     <!-- Display the user's role -->
-                    <span>{{ Auth::user()->role->name }}</span>
+                    <span>{{ Auth::user()->email }}</span>
                 </div>
             </div>
 
@@ -132,9 +132,14 @@
                                         <i class="bi bi-circle"></i><span>{{ __('Kategori Tanaman') }}</span>
                                     </a>
                                 </li>   
-                                <li>
+                                {{-- <li>
                                     <a class="{{ Request::is('admin/atribut-tanaman/manfaat-tanaman*') ? 'active' : '' }}" href="{{ route('benefits') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('Manfaat Tanaman') }}</span>
+                                    </a>
+                                </li> --}}
+                                <li>
+                                    <a class="{{ Request::is('admin/atribut-tanaman/tipe-tanaman*') ? 'active' : '' }}" href="{{ route('plantTypes') }}">
+                                        <i class="bi bi-circle"></i><span>{{ __('Tipe Tanaman') }}</span>
                                     </a>
                                 </li>
                                 <li>
@@ -223,17 +228,17 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('admin/pengaturan/role-permissions*') ? '' : 'collapsed' }}" data-bs-target="#roles-permissions-subnav" data-bs-toggle="collapse" href="#">
+                                    <a class="nav-link {{ Request::is('admin/pengaturan/pengguna/role-permissions*') ? '' : 'collapsed' }}" data-bs-target="#roles-permissions-subnav" data-bs-toggle="collapse" href="#">
                                         <i class="bi bi-circle-fill"></i><span>{{ __('Roles & Permissions') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
                                     </a>
-                                    <ul id="roles-permissions-subnav" class="nav-content collapse {{ Request::is('admin/pengaturan/role-permissions*') ? 'show' : '' }} ps-3" data-bs-parent="#users-nav">
+                                    <ul id="roles-permissions-subnav" class="nav-content collapse {{ Request::is('admin/pengaturan/pengguna/role-permissions*') ? 'show' : '' }} ps-3" data-bs-parent="#users-nav">
                                         <li>
-                                            <a class="{{ Request::is('admin/pengaturan/role-permissions/permissions*') ? 'active' : '' }}" href="{{ route('permissions') }}">
+                                            <a class="{{ Request::is('admin/pengaturan/pengguna/role-permissions/permissions*') ? 'active' : '' }}" href="{{ route('permissions') }}">
                                                 <i class="bi bi-circle"></i><span>{{ __('Permissions') }}</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="{{ Request::is('admin/pengaturan/role-permissions/roles*') ? 'active' : '' }}" href="{{ route('roles') }}">
+                                            <a class="{{ Request::is('admin/pengaturan/pengguna/role-permissions/roles*') ? 'active' : '' }}" href="{{ route('roles') }}">
                                                 <i class="bi bi-circle"></i><span>{{ __('Roles') }}</span>
                                             </a>
                                         </li>

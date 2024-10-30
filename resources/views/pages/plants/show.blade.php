@@ -72,28 +72,21 @@
                                             <td>
                                                 <div class="d-flex flex-column">
                                                     <a href="#" class="text-heading text-truncate">
-                                                        <span class="fw-medium">{{ $plant->plantAttribute->name ?? 'Unknown' }}</span>
+                                                        <!-- Nama tanaman dibuat bold -->
+                                                        <span class="fw-bold">{{ $plant->plantAttribute->name }}</span>
                                                     </a>
-                                                    <small>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</small>
+                                                    <!-- Nama ilmiah dibuat pudar dan italic -->
+                                                    <small class="text-muted fst-italic">{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</small>
+                                                    <!-- Tipe tanaman dengan background warna smooth -->
                                                     <small>
-                                                        @if ($plant->type === 'Sayuran')
-                                                            <span class="badge badge-soft-green">
-                                                                <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                                            </span>
-                                                        @elseif ($plant->type === 'Herbal')
-                                                            <span class="badge badge-soft-warning">
-                                                                <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                                            </span>
-                                                        @else
-                                                            <span class="badge badge-soft-gray">
-                                                                {{ $plant->type ?? 'Unknown' }}
-                                                            </span>
-                                                        @endif
+                                                        <span class="badge" style="background-color: #e0f7df; color: #388e3c;">
+                                                            <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->plantType->name }}
+                                                        </span>
                                                     </small>
                                                 </div>
                                             </td>
                                             <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                                            <td>{{ $plant->benefit->name ?? 'Manfaat tidak ditemukan' }}</td>
+                                            <td>{{ $plant->plantAttribute ? $plant->plantAttribute->benefit : 'Unknown' }}</td>
                                             <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
                                             <td>
                                                 <span class="badge
@@ -120,7 +113,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                              <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->name ?? 'Unknown' }}">
+                                                <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->plantAttribute->name ?? 'Unknown' }}">
                                             </td>
                                             <td>
                                                 @if($plant->harvest_status === 'siap panen')

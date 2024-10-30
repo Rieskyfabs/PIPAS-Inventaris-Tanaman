@@ -227,16 +227,18 @@
                     </div>
                     <i class='bi bi-circle-fill activity-badge text-success me-3'></i>
                     <div class="activity-content">
-                      <strong>{{ $log->action }}</strong> - {{ $log->description }}
-                      <br><small class="text-muted">{{ __('Oleh') }}: {{ $log->user->username }}</small>
+                        <strong>{{ $log->action }}</strong> - {!! $log->description !!}
+                        <br><small class="text-muted">{{ __('Oleh') }}: {{ $log->user->username }}</small>
                     </div>
-                  </div><!-- End activity item-->
+                  </div>
+                  <!-- End activity item-->
                 @empty
                   <div class="activity-item d-flex">
                     <div class="activity-content">
                       {{ __('Tidak Ada Aktivitas Terbaru') }}
                     </div>
-                  </div><!-- End activity item-->
+                  </div>
+                  <!-- End activity item-->
                 @endforelse
               </div>
             </div>

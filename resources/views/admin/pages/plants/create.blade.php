@@ -36,22 +36,26 @@
                                 @csrf
 
                                 <div class="mb-3">
-                                    <label for="plantAttributes" class="form-label">Kode Tanaman</label>
-                                    <select name="plant_code_id" class="form-select" id="plantAttributes" required>
-                                        <option value="" disabled selected>Pilih Kode Tanaman</option>
-                                        @foreach ($plantAttributes as $item)
-                                            <option value="{{ $item->id }}" 
-                                                    data-name="{{ $item->name }}" 
-                                                    data-scientific-name="{{ $item->scientific_name }}" 
-                                                    data-type="{{ $item->type }}"
-                                                    data-category-id="{{ $item->category_id }}"
-                                                    data-benefit-id="{{ $item->benefit_id }}">
-                                                {{ $item->plant_code }} : {{ $item->description }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <label for="plantAttributes" class="form-label">{{ __('Kode Tanaman') }}</label>
+                                    <div class="input-group">
+                                        <select name="plant_code_id" class="form-select" id="plantAttributes" required>
+                                            <option value="" disabled selected>Pilih Kode Tanaman</option>
+                                            @foreach ($plantAttributes as $item)
+                                                <option value="{{ $item->id }}" 
+                                                        data-name="{{ $item->name }}" 
+                                                        data-scientific-name="{{ $item->scientific_name }}" 
+                                                        data-type-id="{{ $item->type_id }}" 
+                                                        data-category-id="{{ $item->category_id }}"
+                                                        data-benefit="{{ $item->benefit }}">
+                                                    {{ $item->plant_code }} : {{ $item->description }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <a href="{{ url('admin/atribut-tanaman/list-atribut-tanaman') }}" class="btn btn-outline-secondary btn-add-item">
+                                            {{ __('+') }}
+                                        </a>
+                                    </div>
                                 </div>
-
                                 <div id="additionalFields" class="d-none">
                                     <div class="row mb-3">
                                         <div class="col-md-6">
@@ -73,14 +77,14 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label for="plantType" class="form-label">Tipe Tanaman</label>
-                                            <select name="type" class="form-select" id="plantType" required>
+                                            <select name="type_id" class="form-select" id="plantType" required>
                                                 <option value="" disabled selected>Silahkan Pilih Tipe Tanaman</option>
-                                                <option value="Herbal">Herbal</option>
-                                                <option value="Sayuran">Sayuran</option>
+                                                @foreach ($plantTypes as $types)
+                                                    <option value="{{ $types->id }}">{{ $types->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -93,35 +97,37 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="row mb-3">
                                         <div class="col-md-6">
-                                            <label for="plantBenefits" class="form-label">Manfaat Tanaman</label>
-                                            <select name="benefit_id" class="form-select" id="plantBenefits" required>
+                                            <label for="plantBenefit" class="form-label">Manfaat Tanaman</label>
+                                            <select name="benefit_id" class="form-select" id="plantBenefit" required>
                                                 <option value="" disabled selected>Silahkan Pilih Manfaat Tanaman</option>
-                                                @foreach ($benefits as $benefit)
-                                                    <option value="{{ $benefit->id }}">{{ $benefit->name }}</option>
+                                                @foreach ($plantAttributes as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->benefit }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="plantImage" class="form-label">Upload Gambar Tanaman</label>
                                     <input type="file" name="image" class="form-control" id="plantImage" accept="image/*" onchange="previewImage(event)">
-                                    <img id="imagePreview" src="#" alt="Preview Gambar" style="display: none; width: 100px; height: 100px; object-fit: cover;" />
+                                    <img id="imagePreview" src="#" alt="Preview Gambar" style="display: none; width: 100px; height: 100px; object-fit: cover;" class="mt-3"/>
                                 </div>
-
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="plantLocations" class="form-label">Lokasi Tanaman</label>
-                                        <select name="location_id" class="form-select" id="plantLocations" required>
-                                            <option value="" disabled selected>Silahkan Pilih Lokasi Tanaman</option>
-                                            @foreach ($locations as $location)
-                                                <option value="{{ $location->id }}">{{ $location->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="plantLocations" class="form-label">{{ __('Lokasi Tanaman') }}</label>
+                                        <div class="input-group">
+                                            <select name="location_id" class="form-select" id="plantLocations" required>
+                                                <option value="" disabled selected>Pilih Lokasi Tanaman</option>
+                                                @foreach ($locations as $location)
+                                                    <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <button type="button" class="btn btn-outline-secondary btn-add-item" data-bs-toggle="modal" data-bs-target="#addNewLocationModal">
+                                                +
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="plantStatus" class="form-label">Kondisi Tanaman</label>
@@ -134,7 +140,6 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="mb-3">
                                     <label for="seedingDate" class="form-label">Tanggal Penyemaian</label>
                                     <input type="date" name="seeding_date" class="form-control" id="seedingDate" required>
@@ -154,9 +159,9 @@
                                         // Mengambil data dari attribute 'data-*' di option yang dipilih
                                         var plantName = selectedOption.getAttribute('data-name');
                                         var scientificName = selectedOption.getAttribute('data-scientific-name');
-                                        var plantType = selectedOption.getAttribute('data-type');
+                                        var plantTypeId = selectedOption.getAttribute('data-type-id');
                                         var categoryId = selectedOption.getAttribute('data-category-id');
-                                        var benefitId = selectedOption.getAttribute('data-benefit-id');
+                                        var plantBenefit = selectedOption.getAttribute('data-benefit');
 
                                         // Pilih option di select 'plantName' sesuai nama tanaman
                                         var plantNameSelect = document.getElementById('plantName');
@@ -176,10 +181,19 @@
                                             }
                                         }
 
+                                        // Pilih option di select 'benefit' sesuai nama benefit
+                                        var benefitSelect = document.getElementById('plantBenefit');
+                                        for (var i = 0; i < benefitSelect.options.length; i++) {
+                                            if (benefitSelect.options[i].text === plantBenefit) {
+                                                benefitSelect.selectedIndex = i;
+                                                break;
+                                            }
+                                        }
+
                                         // Isi otomatis field lainnya
-                                        document.getElementById('plantType').value = plantType || '';
+                                        document.getElementById('plantType').value = plantTypeId || '';
                                         document.getElementById('plantCategories').value = categoryId || '';
-                                        document.getElementById('plantBenefits').value = benefitId || '';
+                                        // document.getElementById('plantBenefits').value = benefitId || '';
 
                                         // Tampilkan additional fields
                                         document.getElementById('additionalFields').classList.remove('d-none');
@@ -188,9 +202,9 @@
                                         if (plantName && scientificName && plantType) {
                                             plantNameSelect.setAttribute('readonly', 'readonly');
                                             scientificNameSelect.setAttribute('readonly', 'readonly');
+                                            benefitSelect.setAttribute('readonly', 'readonly');
                                             document.getElementById('plantType').setAttribute('readonly', 'readonly');
                                             document.getElementById('plantCategories').setAttribute('readonly', 'readonly');
-                                            document.getElementById('plantBenefits').setAttribute('readonly', 'readonly');
                                         }
                                     });
                                 });
@@ -201,11 +215,70 @@
                                     imagePreview.src = URL.createObjectURL(event.target.files[0]);
                                     imagePreview.style.display = 'block';
                                 }
+
+                                document.addEventListener('DOMContentLoaded', function() {
+                                // Open modal when "Tambah Lokasi Tanaman Baru" button is clicked
+                                document.getElementById('plantLocations').addEventListener('change', function() {
+                                    if (this.value === 'add_new_location') {
+                                        // Show the modal for adding a new location
+                                        new bootstrap.Modal(document.getElementById('addNewLocationModal')).show();
+                                        this.value = ''; // Reset dropdown
+                                    }
+                                });
+
+                                // AJAX submission for adding a new location
+                                document.getElementById('addNewLocationForm').addEventListener('submit', function(event) {
+                                    event.preventDefault();
+                                    let formData = new FormData(this);
+
+                                    // Check if location name already exists in the select options
+                                    let existingLocationNames = Array.from(document.querySelectorAll('#plantLocations option'))
+                                        .map(option => option.text);
+
+                                    if (existingLocationNames.includes(formData.get('name'))) {
+                                        alert('Nama lokasi sudah ada. Silakan gunakan nama lain.');
+                                        return; // Stop submission if the location already exists
+                                    }
+
+                                    fetch("{{ route('addNewLocation') }}", {
+                                        method: "POST",
+                                        headers: {
+                                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+                                        },
+                                        body: formData
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.success) {
+                                            let select = document.getElementById('plantLocations');
+                                            let option = new Option(data.name, data.id);
+                                            select.add(option, select.options[select.options.length - 1]); // Add before 'Add New' option
+
+                                            // Set the select value to the newly added location
+                                            select.value = data.id; // Automatically select the new location
+
+                                            // Close the modal after successfully adding the location
+                                            let newLocationModal = bootstrap.Modal.getInstance(document.getElementById('addNewLocationModal'));
+                                            newLocationModal.hide();
+
+                                            // Show the previous modal again
+                                            new bootstrap.Modal(document.getElementById('plantAttribute')).show();
+
+                                            // Reset the form for the next entry
+                                            this.reset(); // Reset form fields
+                                        } else {
+                                            alert(data.message || "Error adding location");
+                                        }
+                                    })
+                                    .catch(error => console.error('Error in AJAX request:', error));
+                                });
+                            });
                             </script>
                         </div>
                     </div>
                 </div>
             </div>
+            @include('modals.add_new_location')
         </section>
     </main>
 </div>

@@ -26,7 +26,7 @@
                         <input type="text" name="description" class="form-control" id="floatingInputDescription" placeholder="deskripsi">
                         <label for="floatingInputDescription">{{ __('Deskripsi Kategori') }}</label>
                     </div>
-                    <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Tambah') }}</button>
                 </form>
             </div>
         </div>

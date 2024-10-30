@@ -7,6 +7,8 @@ use App\Events\PlantHarvested;
 use App\Helpers\ActivityLogger;
 use App\Models\ActivityLog;
 use App\Models\TanamanKeluar;
+use App\Models\TipeTanaman;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use App\Models\Plant;
 use App\Models\Category;
@@ -21,6 +23,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\HtmlString;
 
 
 class PlantController extends Controller
@@ -54,7 +57,7 @@ class PlantController extends Controller
         // Ambil data tanaman yang belum dipanen dan group berdasarkan kode tanaman
         $plants = Plant::selectRaw('
             MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, 
-            MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, 
+            MIN(plant_scientific_name_id) as scientific_name, MIN(type_id) as type_id, 
             MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, 
             MIN(location_id) as location_id, MIN(status) as status, 
             MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, 
@@ -63,7 +66,7 @@ class PlantController extends Controller
         ')
         ->groupBy('plant_code_id')
         ->orderBy('created_at', 'desc')
-        ->with(['plantAttribute', 'category', 'benefit', 'location'])
+        ->with(['plantAttribute', 'category', 'location', 'plantType'])
         ->get();
 
         // Hitung total tanaman masuk (belum dipanen)
@@ -129,11 +132,12 @@ class PlantController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $benefits = Benefit::all();
+        // $benefits = Benefit::all();
         $locations = Location::all();
+        $plantTypes = TipeTanaman::all();
         $plantAttributes  = PlantAttributes::all();
 
-        return view('admin.pages.plants.create', compact('categories', 'benefits', 'locations', 'plantAttributes'));
+        return view('admin.pages.plants.create', compact('categories', 'plantTypes', 'locations', 'plantAttributes'));
     }
 
     // Function to generate unique numeric kode_tanaman_masuk
@@ -154,17 +158,14 @@ class PlantController extends Controller
             'plant_scientific_name_id' => 'required',
             'qr_code' => 'nullable|string|unique:plants,qr_code',
             'category_id' => 'required|exists:categories,id',
-            'type' => 'required|in:Herbal,Sayuran',
+            'type_id' => 'required|exists:tipe_tanaman,id',
             'plant_code_id' => 'required|exists:plant_attributes,id',
-            'benefit_id' => 'required|exists:benefits,id',
+            'benefit_id' => 'required|exists:plant_attributes,id',
             'location_id' => 'required|exists:locations,id',
             'status' => 'required|string|in:sehat,baik,layu,sakit',
             'seeding_date' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
         ]);
-
-        // Ambil nama lokasi berdasarkan location_id
-        $location = Location::find($request->location_id);
 
         // Ambil tanggal tanam
         $seedingDate = $request->input('seeding_date');
@@ -213,12 +214,14 @@ class PlantController extends Controller
             'jumlah_masuk' => 1, // You can modify this based on your requirement
         ]);
 
-        // Mencatat aktivitas dengan nama lokasi
-        if ($location) {
-            ActivityLogger::log('create', 'Menambahkan data tanaman baru di ' . $location->name . ' dengan kode: ' . $request->plant_code_id);
-        } else {
-            ActivityLogger::log('create', 'Menambahkan data tanaman baru di lokasi tidak ditemukan dengan kode: ' . $request->plant_code_id);
-        }
+        $location = Location::find($request->location_id);
+        $locationName = $location ? $location->name : 'Lokasi tidak ditemukan';
+
+        ActivityLogger::log(
+            'Create',
+            'Menambahkan data tanaman di lokasi: <b>' . e($locationName) . '</b>'
+        );
+
 
         // Tampilkan pesan sukses
         Alert::success('Data Tanaman Ditambahkan', 'Berhasil menambahkan data Tanaman');
@@ -232,11 +235,11 @@ class PlantController extends Controller
     {
         $plant = Plant::findOrFail($id);
         $categories = Category::all();
-        $benefits = Benefit::all();
+        $plantTypes = TipeTanaman::all();
         $locations = Location::all();
         $plantAttributes = plantAttributes::all();
 
-        return view('admin.pages.plants.edit', compact('plant', 'categories', 'benefits', 'locations', 'plantAttributes'));
+        return view('admin.pages.plants.edit', compact('plant', 'categories', 'plantTypes', 'locations', 'plantAttributes'));
     }
 
     public function update(Request $request, $id)
@@ -246,9 +249,9 @@ class PlantController extends Controller
             'plant_scientific_name_id' => 'required|string|max:255',
             'qr_code' => 'nullable|string|unique:plants,qr_code,' . $id,
             'category_id' => 'required|exists:categories,id',
-            'type' => 'required|in:Herbal,Sayuran',
+            'type_id' => 'required|exists:tipe_tanaman,id',
             'plant_code_id' => 'required|exists:plant_attributes,id',
-            'benefit_id' => 'required|exists:benefits,id',
+            'benefit_id' => 'required|exists:plant_attributes,id',
             'location_id' => 'required|exists:locations,id',
             'status' => 'required|string|in:sehat,baik,layu,sakit',
             'seeding_date' => 'required|date',
@@ -308,7 +311,7 @@ class PlantController extends Controller
             ->update(['harvest_status' => 'belum panen']);
 
         // Retrieve plants based on the plant code
-        $plants = Plant::with('category', 'benefit', 'location')
+        $plants = Plant::with('category', 'plantType', 'location')
         ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
             $query->where('plant_code', $plantAttribute);
         })
@@ -316,7 +319,7 @@ class PlantController extends Controller
             ->get();
 
         // Retrieve the specific plant based on the plant code for the detail title
-        $plantDetail = Plant::with('category', 'benefit', 'location')
+        $plantDetail = Plant::with('category', 'plantType', 'location')
         ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
             $query->where('plant_code', $plantAttribute);
         })->first();
@@ -357,12 +360,47 @@ class PlantController extends Controller
             'jumlah_keluar' => 1, // Sesuaikan dengan field jumlah tanaman
         ]);
 
-        ActivityLogger::log('Harvested', 'Tanaman DiPanen dengan ID: ' . $plant->id);
+        // Cek apakah relasi plantAttribute dan location tersedia
+        $namaTanaman = $plant->plantAttribute->name ?? 'Nama tanaman tidak tersedia';
+        $namaLokasi = $plant->location->name ?? 'Lokasi tidak tersedia';
 
-        Alert::success('Tanaman DiPanen', 'Tanaman berhasil dipanen dan ditambahkan ke data tanaman keluar.');
+        // Catat aktivitas panen ke log dengan nama tanaman dan lokasi dalam format bold
+        ActivityLogger::log(
+            'Harvested',
+            new HtmlString('Tanaman <b>' . $namaTanaman . '</b> dipanen di lokasi: <b>' . $namaLokasi . '</b>')
+        );
+
+        Alert::success('Tanaman Dipanen', 'Tanaman berhasil dipanen dan ditambahkan ke data tanaman keluar.');
 
         return redirect()->back();
     }
+
+    public function addNewLocation(Request $request)
+    {
+        // Validasi nama lokasi
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|unique:locations,name',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ], 422);
+        }
+
+        // Menyimpan data lokasi baru
+        $location = Location::create([
+            'name' => $request->input('name')
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'id' => $location->id,
+            'name' => $location->name
+        ]);
+    }
+
 
 
     // USERS 

@@ -22,7 +22,7 @@
                         <input type="text" name="name" class="form-control" id="floatingInputName" placeholder="name" required>
                         <label for="floatingInputName">{{ __('Deskripsi Manfaat') }}</label>
                     </div>
-                    <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Tambah') }}</button>
                 </form>
             </div>
         </div>

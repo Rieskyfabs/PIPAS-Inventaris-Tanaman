@@ -18,9 +18,9 @@ class PlantAttributes extends Model
         'plant_code',
         'name',
         'scientific_name',
-        'type',
+        'type_id',
         'category_id',
-        'benefit_id',
+        'benefit',
         'description',
         'status',
     ];
@@ -45,8 +45,8 @@ class PlantAttributes extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    public function benefit()
+    public function plantType()
     {
-        return $this->belongsTo(Benefit::class, 'benefit_id', 'id');
+        return $this->belongsTo(TipeTanaman::class, 'type_id');
     }
 }

@@ -87,7 +87,7 @@ class LocationController extends Controller
         $location = Location::findOrFail($id);
         $location->delete();
 
-        Alert::success('Hapus Data Locations', 'Berhasil menghapus data lokasi');
+        Alert::success('Hapus Data Lokasi', 'Berhasil menghapus data lokasi!');
         return redirect()->route('locations');
     }
 }

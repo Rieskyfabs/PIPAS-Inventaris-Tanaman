@@ -40,18 +40,25 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      @foreach ($locations as $location)
+                                      @foreach ($locations as $item)
                                           <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $location->name }}</td>
-                                            <td>{{ $location->created_at->format('d F Y, H:i') }}</td>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-heading text-truncate">
+                                                      <span class="fw-medium">{{ $item->name }}</span>
+                                                    </div>
+                                                    <small>{{ $item->description ?? 'Tidak Ada Deskripsi' }}</small>
+                                                </div>
+                                            </td>
+                                            <td>{{ $item->created_at->format('d F Y, H:i') }}</td>
                                             <td>
                                                 <div style="display: flex; align-items: center;">
-                                                    <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditLocation{{ $location->id }}">
+                                                    <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditLocation{{ $item->id }}">
                                                         <i class='bx bx-edit'></i>
                                                     </button>
                                                     <x-action-buttons
-                                                        deleteData="{{ route('locations.destroy', $location->id) }}"
+                                                        deleteData="{{ route('locations.destroy', $item->id) }}"
                                                         method="DELETE"
                                                         submit="true"
                                                     />

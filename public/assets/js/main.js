@@ -312,6 +312,7 @@
         const dataTableInstance = new simpleDatatables.DataTable(datatable, {
             perPageSelect: [5, 10, 15, ["All", -1]],
             scrollable: true,
+            responsive: true,
             columns: [
                 {
                     select: 2,
@@ -349,6 +350,5 @@
             }).observe(mainContainer);
         }, 200);
     }
-
     
 })();

@@ -20,10 +20,9 @@ class Plant extends Model
         'plant_code_id',
         'plant_name_id',
         'plant_scientific_name_id',
-        'type',
+        'type_id',
         'qr_code',
         'category_id',
-        // 'quantity',
         'benefit_id',
         'location_id',
         'status',
@@ -41,9 +40,15 @@ class Plant extends Model
             $model->id = (string) Str::uuid();
         });
     }
+    
     public function isReadyToHarvest()
     {
         return Carbon::now()->greaterThanOrEqualTo($this->harvest_date);
+    }
+
+    public function plantType()
+    {
+        return $this->belongsTo(TipeTanaman::class, 'type_id');
     }
 
     public function category()
@@ -53,7 +58,7 @@ class Plant extends Model
 
     public function benefit()
     {
-        return $this->belongsTo(Benefit::class, 'benefit_id', 'id');
+        return $this->belongsTo(PlantAttributes::class, 'benefit_id');
     }
 
     public function location()

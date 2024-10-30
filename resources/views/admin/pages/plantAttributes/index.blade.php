@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{__('Atribut Tanaman')}}</h5>
                         <div class="add-btn-container">
-                            <button type="button" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#plant-attribute">
+                            <button type="button" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#plantAttribute">
                                 +
                                 {{ __('TAMBAH') }}
                             </button>
@@ -50,28 +50,21 @@
                                             <td>
                                                 <div class="d-flex flex-column">
                                                     <a href="#" class="text-heading text-truncate">
-                                                        <span class="fw-medium">{{ $item->name }}</span>
+                                                        <!-- Nama tanaman dibuat bold -->
+                                                        <span class="fw-bold">{{ $item->name }}</span>
                                                     </a>
-                                                    <small>{{ $item->scientific_name ?? 'Unknown' }}</small>
+                                                    <!-- Nama ilmiah dibuat pudar dan italic -->
+                                                    <small class="text-muted fst-italic">{{ $item->scientific_name ?? 'Unknown' }}</small>
+                                                    <!-- Tipe tanaman dengan background warna smooth -->
                                                     <small>
-                                                        @if ($item->type === 'Sayuran')
-                                                            <span class="badge badge-soft-green">
-                                                                <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $item->type }}
-                                                            </span>
-                                                        @elseif ($item->type === 'Herbal')
-                                                            <span class="badge badge-soft-warning">
-                                                                <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $item->type }}
-                                                            </span>
-                                                        @else
-                                                            <span class="badge badge-soft-gray">
-                                                                {{ $item->type ?? 'Unknown' }}
-                                                            </span>
-                                                        @endif
+                                                        <span class="badge" style="background-color: #e0f7df; color: #388e3c;">
+                                                            <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $item->plantType->name }}
+                                                        </span>
                                                     </small>
                                                 </div>
                                             </td>
                                             <td>{{ $item->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                                            <td>{{ $item->benefit->name ?? 'Manfaat tidak ditemukan' }}</td>
+                                            <td>{{ $item->benefit ?? 'Manfaat tidak ditemukan' }}</td>
                                             <td>{{ $item->description ?? 'No Description' }}</td>
                                             <td>{{ $item->created_at->format('d F Y, H:i') }}</td>
                                             <td style="text-align: center;">
@@ -86,11 +79,13 @@
                                                     />
                                                 </div>
                                             </td>
+                                            @include('modals.edit_plantAttributes_modal')
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             <!-- End Table with stripped rows -->
+                            @include('modals.create_plantAttributes_modal')
                         </div>
                     </div>
                 </div>

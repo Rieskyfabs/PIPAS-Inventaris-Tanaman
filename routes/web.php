@@ -11,6 +11,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PlantAttributesController;
 use App\Http\Controllers\PlantController;
+use App\Http\Controllers\PlantTypeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TransactionController;
@@ -138,6 +139,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
             Route::get('/{id}/edit-data-tanaman', [PlantController::class, 'edit'])->name('plants.edit');
             Route::put('/{id}/update-data-tanaman', [PlantController::class, 'update'])->name('plants.update');
             Route::delete('/{id}/hapus-data-tanaman', [PlantController::class, 'destroy'])->name('plants.destroy');
+
+            Route::post('/add-new-location', [PlantController::class, 'addNewLocation'])->name('addNewLocation');
         });
 
         // Kategori
@@ -170,6 +173,16 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
             Route::delete('/{id}', [LocationController::class, 'destroy'])->name('locations.destroy');
         });
 
+        // Tipe Tanaman 
+        Route::prefix('/atribut-tanaman/tipe-tanaman')->group(function () {
+            Route::get('/', [PlantTypeController::class, 'index'])->name('plantTypes');
+            Route::get('/tambah-data-tipe-tanaman', [PlantTypeController::class, 'create'])->name('plantTypes.create');
+            Route::post('/', [PlantTypeController::class, 'store'])->name('plantTypes.store');
+            Route::get('/{id}/edit-data-tipe-tanaman', [PlantTypeController::class, 'edit'])->name('plantTypes.edit');
+            Route::put('/{id}/update-data-tipe-tanaman', [PlantTypeController::class, 'update'])->name('plantTypes.update');
+            Route::delete('/{id}', [PlantTypeController::class, 'destroy'])->name('plantTypes.destroy');
+        });
+
         // Atribute Tanaman
         Route::prefix('/atribut-tanaman/list-atribut-tanaman')->group(function () {
             Route::get('/', action: [PlantAttributesController::class, 'index'])->name('plantAttributes');
@@ -178,6 +191,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
             Route::get('/{id}/edit-data-atribut', [PlantAttributesController::class, 'edit'])->name('plantAttributes.edit');
             Route::put('/{id}/update-data-atribut', [PlantAttributesController::class, 'update'])->name('plantAttributes.update');
             Route::delete('/{id}', [PlantAttributesController::class, 'destroy'])->name('plantAttributes.destroy');
+            
+            Route::post('/add-new-category', [PlantAttributesController::class, 'addNewCategory'])->name('addNewCategory');
+            Route::post('/add-new-type', [PlantAttributesController::class, 'addNewType'])->name('addNewType');
+
         });
 
         // Transaksi
