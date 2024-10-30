@@ -30,29 +30,31 @@
                         <input type="text" name="scientific_name" class="form-control" id="floatingInputScientificName" placeholder="Nama Ilmiah Tanaman" required>
                         <label for="floatingInputScientificName">{{ __('Nama Ilmiah Tanaman') }}</label>
                     </div>
-                    <div class="form-floating mb-3 d-flex align-items-center">
-                        <select name="type_id" class="form-control custom-select me-2" id="floatingInputType" required>
-                            <option value="" disabled selected>Pilih Tipe Tanaman</option>
-                            @foreach ($plantTypes as $type)
-                                <option value="{{ $type->id }}">{{ $type->name }}</option>
-                            @endforeach
-                        </select>
-                        <button type="button" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#addNewTypeModal">
-                            +
-                        </button>
-                        <label for="floatingInputType">{{ __('Tipe Tanaman') }}</label>
+                    <div class="form-floating mb-3">
+                        <div class="input-group">
+                            <select name="type_id" class="form-select" id="floatingInputType" required>
+                                <option value="" disabled selected>Pilih Tipe Tanaman</option>
+                                @foreach ($plantTypes as $type)
+                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                @endforeach
+                            </select>
+                            <button type="button" class="btn btn-outline-secondary btn-add-item" data-bs-toggle="modal" data-bs-target="#addNewTypeModal">
+                                +
+                            </button>
+                        </div>
                     </div>
-                    <div class="form-floating mb-3 d-flex align-items-center">
-                        <select name="category_id" class="form-control custom-select me-2" id="floatingInputCategory" required>
-                            <option value="" disabled selected>Pilih Kategori</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                        <button type="button" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#addNewCategoryModal">
-                            +
-                        </button>
-                        <label for="floatingInputCategory">{{ __('Kategori Tanaman') }}</label>
+                    <div class="form-floating mb-3">
+                        <div class="input-group">
+                            <select name="category_id" class="form-select" id="floatingInputCategory" required>
+                                <option value="" disabled selected>Pilih Kategori</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            <button type="button" class="btn btn-outline-secondary btn-add-item" data-bs-toggle="modal" data-bs-target="#addNewCategoryModal">
+                                +
+                            </button>
+                        </div>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" name="benefit" class="form-control" id="floatingInputBenefit" placeholder="Manfaat Tanaman" required>

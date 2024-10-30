@@ -23,6 +23,10 @@ class PlantAttributesController extends Controller
         $categories = Category::all();
         $plantTypes = TipeTanaman::all(); // Fetch plant types for the view
 
+        $title = 'Apakah anda yakin?';
+        $text = "semua data tanaman dengan kategori ini akan terhapus juga";
+        confirmDelete($title, $text);
+
         return view('admin.pages.plantAttributes.index', compact('plantAttributes', 'categories', 'plantTypes'));
     }
 
