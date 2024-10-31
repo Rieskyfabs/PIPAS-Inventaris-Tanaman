@@ -52,7 +52,6 @@
                                         <th>{{__('TANGGAL TANAM')}}</th>
                                         <th>{{__('EST. TANGGAL PANEN')}}</th>
                                         <th>{{__('STATUS')}}</th>
-                                        <th>{{__('QR CODE')}}</th>
                                         <th>{{__('AKSI')}}</th>
                                     </tr>
                                 </thead>
@@ -114,9 +113,6 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->plantAttribute->name ?? 'Unknown' }}">
-                                            </td>
-                                            <td>
                                                 @if($plant->harvest_status === 'siap panen')
                                                     <form action="{{ route('users.plants.panen', $plant->id) }}" method="POST">
                                                         @csrf
@@ -126,14 +122,14 @@
                                                         </button>
                                                     </form>
                                                 @else
-                                                    <x-action-buttons
-                                                        deleteData="{{ route('users.plants.destroy', $plant->id) }}"
-                                                        method="DELETE"
-                                                        submit="true"
-                                                        :dropdown="[ 
-                                                            ['href' => route('users.plants.edit', $plant->id), 'label' => 'Edit'],
-                                                        ]"
-                                                    />
+                                                    <div style="display: flex; align-items: center;">
+                                                        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#QrCode" tooltip>
+                                                            <i class='bx bx-qr-scan'></i>
+                                                        </button>
+                                                        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditPlant{{ $plant->id }}">
+                                                            <i class='bx bx-edit'></i>
+                                                        </button>
+                                                    </div>
                                                 @endif
                                             </td>
                                         </tr>

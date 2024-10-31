@@ -220,10 +220,10 @@
                     <ul id="settings-nav" class="nav-content collapse {{ Request::is('admin/pengaturan*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                         <!-- Kelola Pengguna -->
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('admin/pengaturan/pengguna*') || Request::is('admin/role-permissions*') ? '' : 'collapsed' }}" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
+                            <a class="nav-link {{ Request::is('admin/pengaturan/pengguna*') || Request::is('admin/pengaturan/pengguna*') ? '' : 'collapsed' }}" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
                                 <i class="bi bi-circle-fill"></i><span>{{ __('Pengguna') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
                             </a>
-                            <ul id="users-nav" class="nav-content collapse {{ Request::is('admin/pengaturan/users*') || Request::is('admin/pengaturan/role-permissions*') ? 'show' : '' }} ps-3" data-bs-parent="#settings-nav">
+                            <ul id="users-nav" class="nav-content collapse {{ Request::is('admin/pengaturan/pengguna*') || Request::is('adminpengaturan/pengguna*') ? 'show' : '' }} ps-3" data-bs-parent="#settings-nav">
                                 <li>
                                     <a class="{{ Request::is('admin/pengaturan/pengguna*') ? 'active' : '' }}" href="{{ route('users') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('List Pengguna') }}</span>
