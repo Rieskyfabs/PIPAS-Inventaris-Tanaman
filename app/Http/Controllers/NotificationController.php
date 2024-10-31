@@ -21,7 +21,11 @@ class NotificationController extends Controller
 
     public function userIndex()
     {
-        $notifications = Notification::with('plant')->latest()->get();
+        $notifications = Notification::with('plant')
+        ->where('user_id', Auth::id()) // Ambil berdasarkan user_id
+            ->latest()
+            ->get();
+
         return view('pages.notifications.index', compact('notifications'));
     }
 
@@ -41,10 +45,12 @@ class NotificationController extends Controller
     
     public function usersMarkAsRead($id)
     {
-        // Find the notification by ID
-        $notification = Notification::with('plant')->findOrFail($id);
+        // Temukan notifikasi berdasarkan ID dan user_id
+        $notification = Notification::where('id', $id)
+            ->where('user_id', Auth::id()) // Cek berdasarkan user_id
+            ->firstOrFail();
 
-        // Update the specific notification to mark it as read
+        // Update notifikasi yang ditandai sebagai dibaca
         $notification->update(['is_read' => true]);
 
         // Redirect to the plant show page using plant_code
