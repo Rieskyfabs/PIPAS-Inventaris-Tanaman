@@ -15,26 +15,29 @@ class NotificationMiddleware
     {
         // Ambil data tanaman siap panen dan urutkan berdasarkan created_at terbaru
         $siapPanenPlants = Plant::where('harvest_status', 'siap panen')
-            ->orderBy('created_at', 'desc')
-            ->take(5)
+        ->orderBy('created_at', 'desc')
+        ->take(5)
             ->get();
 
         foreach ($siapPanenPlants as $plant) {
-            // Cek apakah notifikasi sudah ada di database
-            $exists = Notification::where('plant_id', $plant->id)->exists();
+            // Cek apakah notifikasi sudah ada di database untuk pengguna yang sama
+            $exists = Notification::where('plant_id', $plant->id)
+                ->where('user_id', Auth::id()) // Cek berdasarkan user_id
+                ->exists();
 
             if (!$exists) {
-                // Simpan notifikasi baru ke database
+                // Simpan notifikasi baru ke database dengan user_id
                 Notification::create([
                     'plant_id' => $plant->id,
+                    'user_id' => Auth::id(), // Simpan user_id
                     'title' => 'Ada tanaman siap panen nih!',
                     'message' => 'Tanaman ' . $plant->plantAttribute->name . ' siap untuk dipanen.',
                 ]);
             }
         }
 
-        // Hitung jumlah notifikasi
-        $notificationCount = Notification::where('is_read', false)->count();
+        // Hitung jumlah notifikasi untuk pengguna saat ini
+        $notificationCount = Notification::where('user_id', Auth::id())->where('is_read', false)->count();
 
         // Ambil notifikasi dari database
         $notifications = Notification::with('plant')

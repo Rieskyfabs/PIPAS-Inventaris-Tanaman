@@ -13,7 +13,7 @@ class Notification extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
-    protected $fillable = ['plant_id', 'title', 'message', 'is_read'];
+    protected $fillable = ['plant_id', 'title', 'message', 'is_read', 'user_id']; // Tambahkan user_id
 
     protected static function boot()
     {
@@ -28,5 +28,10 @@ class Notification extends Model
     public function plant()
     {
         return $this->belongsTo(Plant::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class); // Relasi dengan User
     }
 }
