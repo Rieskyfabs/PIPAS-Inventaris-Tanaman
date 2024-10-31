@@ -157,23 +157,11 @@
                                                 <td>{{ $plant->plantAttribute ? $plant->plantAttribute->plant_code : 'Unknown' }}</td>
                                                 <td>{{ $plant->plantAttribute->name }}</td>
                                                 <td>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</td>
-                                                <td>
-                                                    @if ($plant->type === 'Sayuran')
-                                                        <span class="badge badge-soft-green">
-                                                            <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                                        </span>
-                                                    @elseif ($plant->type === 'Herbal')
-                                                        <span class="badge badge-soft-warning">
-                                                            <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                                        </span>
-                                                    @else
-                                                        <span class="badge badge-soft-gray">
-                                                            {{ $plant->type ?? 'Unknown' }}
-                                                        </span>
-                                                    @endif
-                                                </td>
+                                                <td>{{ $plant->plantType->name }}</td>
                                                 <td>{{ $plant->category ? $plant->category->name : 'Unknown' }}</td>
-                                                <td>{{ $plant->benefit ? $plant->benefit->name : 'Unknown' }}</td>
+                                                <td style="white-space: normal; word-wrap: break-word;">
+                                                    {{ $plant->plantAttribute ? $plant->plantAttribute->benefit : 'Unknown' }}
+                                                </td>
                                                 {{-- <td>{{ $plant->total_quantity }}</td> --}}
                                                 <td>
                                                     <span class="badge bg-primary badge-number">{{ $plant->total_quantity }}

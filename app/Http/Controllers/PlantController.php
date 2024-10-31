@@ -115,8 +115,8 @@ class PlantController extends Controller
             'labels' => $countByStatus->keys()->toArray()
         ];
 
-        $title = 'Delete Plants!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Hapus Data Tanaman';
+        $text = "Apakah anda yakin ingin menghapus data tanaman ini?";
         confirmDelete($title, $text);
 
         return view('admin.pages.plants.index', compact(
@@ -164,72 +164,43 @@ class PlantController extends Controller
             'location_id' => 'required|exists:locations,id',
             'status' => 'required|string|in:sehat,baik,layu,sakit',
             'seeding_date' => 'required|date',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
+            'harvest_date' => 'required|date', // Tanggal panen diinput manual
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
-        // Ambil tanggal tanam
-        $seedingDate = $request->input('seeding_date');
-
-        // Estimasi tanggal panen (misalnya 90 hari setelah tanam)
-        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +7 days'));
-
-        // Tentukan status panen secara otomatis
-        $today = Carbon::now();
-        $harvestDateCarbon = Carbon::parse($harvestDate);
-
-        $harvestStatus = 'belum panen';
-
-        // Tentukan jika tanaman siap panen atau sudah dipanen
-        if ($harvestDateCarbon->isBefore($today)) {
-            $harvestStatus = 'sudah dipanen';
-        } elseif ($harvestDateCarbon->copy()->subDays(7)->lessThanOrEqualTo($today)) {
-            // 7 hari sebelum panen dianggap siap panen
-            $harvestStatus = 'siap panen';
-        }
 
         // Proses upload gambar jika ada
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('plants', 'public'); // Menyimpan gambar di folder storage/app/public/plants
+            $imagePath = $request->file('image')->store('plants', 'public');
         }
 
-        // Buat tanaman baru
+        // Buat tanaman baru tanpa logika tanggal panen otomatis
         $plant = Plant::create(array_merge(
             $request->all(),
-            [
-                'harvest_date' => $harvestDate,
-                'harvest_status' => $harvestStatus,
-                'image' => $imagePath, // Menyimpan path gambar di database
-            ]
+            ['image' => $imagePath]
         ));
 
-        // Generate unique kode_tanaman_masuk with 'TM-' prefix
+        // Kode Tanaman Masuk
         $kodeTanamanMasuk = 'TM-' . $this->generateUniqueKodeTanamanMasuk();
-
-        // Store data in the tanaman_masuk table
         TanamanMasuk::create([
             'plant_id' => $plant->id,
             'kode_tanaman_masuk' => $kodeTanamanMasuk,
             'tanggal_masuk' => Carbon::now()->format('Y-m-d'),
-            'jumlah_masuk' => 1, // You can modify this based on your requirement
+            'jumlah_masuk' => 1,
         ]);
 
+        // Log aktivitas
         $location = Location::find($request->location_id);
         $locationName = $location ? $location->name : 'Lokasi tidak ditemukan';
-
         ActivityLogger::log(
             'Create',
             'Menambahkan data tanaman di lokasi: <b>' . e($locationName) . '</b>'
         );
 
-
         // Tampilkan pesan sukses
         Alert::success('Data Tanaman Ditambahkan', 'Berhasil menambahkan data Tanaman');
-
-        // Redirect ke halaman sebelumnya
         return redirect()->back();
     }
-
 
     public function edit($id)
     {
@@ -255,6 +226,7 @@ class PlantController extends Controller
             'location_id' => 'required|exists:locations,id',
             'status' => 'required|string|in:sehat,baik,layu,sakit',
             'seeding_date' => 'required|date',
+            'harvest_date' => 'required|date', // Tanggal panen diinput manual
         ]);
 
         $plant = Plant::findOrFail($id);
@@ -262,24 +234,21 @@ class PlantController extends Controller
         // Ambil nama lokasi berdasarkan location_id
         $location = Location::find($request->location_id);
 
-        $seedingDate = $request->input('seeding_date');
-        $harvestDate = date('Y-m-d', strtotime($seedingDate . ' +90 days'));
+        // Update data tanaman tanpa logika tanggal panen otomatis
+        $plant->update($request->all());
 
-        $plant->update(array_merge($request->all(), ['harvest_date' => $harvestDate]));
-
-        // Mencatat aktivitas dengan nama lokasi
-        if ($location) {
-            ActivityLogger::log('update', 'Mengupdate tanaman dengan ID: ' . $plant->id);
-        } else {
-            ActivityLogger::log('update', 'Mengupdate tanaman dengan ID: ' . $plant->id);
-        }
+        // Log aktivitas
+        ActivityLogger::log(
+            'update',
+            'Mengupdate tanaman dengan ID: ' . $plant->id
+        );
 
         // Tampilkan pesan sukses
         Alert::success('Data Tanaman DiUpdate', 'Berhasil mengUpdate data Tanaman');
 
-        // Redirect ke halaman users
         return redirect()->route('plants');
     }
+
 
     public function destroy($id)
     {
@@ -401,8 +370,6 @@ class PlantController extends Controller
         ]);
     }
 
-
-
     // USERS 
     public function userIndex(Request $request)
     {
@@ -433,7 +400,7 @@ class PlantController extends Controller
         // Ambil data tanaman yang belum dipanen dan group berdasarkan kode tanaman
         $plants = Plant::selectRaw('
             MIN(id) as id, plant_code_id, MIN(plant_name_id) as name, 
-            MIN(plant_scientific_name_id) as scientific_name, MIN(type) as type, 
+            MIN(plant_scientific_name_id) as scientific_name, MIN(type_id) as type_id, 
             MIN(category_id) as category_id, MIN(benefit_id) as benefit_id, 
             MIN(location_id) as location_id, MIN(status) as status, 
             MIN(seeding_date) as seeding_date, COUNT(*) as total_quantity, 
@@ -442,7 +409,7 @@ class PlantController extends Controller
         ')
             ->groupBy('plant_code_id')
             ->orderBy('created_at', 'desc')
-            ->with(['plantAttribute', 'category', 'benefit', 'location'])
+            ->with(['plantAttribute', 'category', 'plantType', 'location'])
             ->get();
 
         // Hitung total tanaman masuk (belum dipanen)

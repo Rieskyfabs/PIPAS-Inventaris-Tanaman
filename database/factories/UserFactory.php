@@ -72,8 +72,8 @@ class UserFactory extends Factory
             );
 
             return [
-                'username' => 'admin',
-                'email' => 'admin@gmail.com',
+                'username' => 'Staff Pipas',
+                'email' => 'staffpipas@smkwikrama.sch.id',
                 'password' => Hash::make('password'),
                 'role_id' => $adminRole->id,
                 'status' => 'active',
@@ -96,7 +96,7 @@ class UserFactory extends Factory
 
             return [
                 'username' => 'Riesky Fabiansyah',
-                'email' => 'user@gmail.com',
+                'email' => 'rieskyfabiansyah@smkwikrama.sch.id',
                 'password' => Hash::make('password'),
                 'role_id' => $userRole->id,
                 'status' => 'active',

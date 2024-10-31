@@ -37,7 +37,6 @@
 	border-radius: 5px;
 	padding: 8px 12px;
 	background-color: #fff;
-	width: 300px;
 	transition: border-color 0.3s ease, box-shadow 0.3s ease;
 	/* Tambahkan transisi halus */
 }
@@ -313,4 +312,107 @@ table.datatable-table:focus tr.datatable-cursor > td:first-child {
 table.datatable-table:focus {
 	outline: solid 1px black;
     outline-offset: -1px;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+	.datatable-wrapper {
+    overflow-x: auto; /* Enable horizontal scroll */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+  }
+  /* Stack elements vertically on smaller screens */
+	.datatable-top {
+		flex-direction: column;
+		align-items: stretch;
+		padding: 5px;
+		height: 110px;
+	}
+
+	/* Full width for search input and entries selector on mobile */
+	.datatable-selector,
+	.datatable-search {
+			width: 100%;
+			margin-bottom: 8px; /* Add spacing between elements */
+	}
+
+	/* Align elements in datatable-top for mobile */
+	.datatable-selector select, 
+	.datatable-input {
+			width: 100%;
+			padding: 8px 10px;
+	}
+
+	/* Adjust font size to ensure better readability on mobile */
+	.datatable-top, .datatable-input, .datatable-selector select {
+			font-size: 0.9rem;
+	}
+}
+
+/* General adjustments for all screen sizes to improve layout */
+.datatable-top {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	border: 1px solid #d9d9d9;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 480px) {
+	.datatable-wrapper {
+    overflow-x: auto; /* Enable horizontal scroll */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+  }
+
+	/* Make datatable top and bottom sections more compact */
+	.datatable-top, .datatable-bottom {
+		padding: 5px;
+		font-size: 0.8rem;
+		flex-direction: column; /* Stack elements vertically */
+		align-items: stretch;
+	}
+
+	/* Make datatable-top width dynamic */
+  .datatable-top {
+    display: inline-block; /* Allow width to adjust based on table content */
+  }
+
+	/* Ensure table is also inline-block to maintain natural width */
+  .datatable-table {
+    display: inline-block; /* Maintain natural width without forcing a specific min-width */
+  }
+
+	/* Adjust pagination buttons */
+	.datatable-pagination a, .datatable-pagination button {
+		padding: 5px 10px;
+		font-size: 0.8rem;
+		margin: 2px 0; /* Add space between pagination buttons */
+	}
+
+	/* Adjust search input placeholder font size */
+	.datatable-search input::placeholder {
+		font-size: 0.75rem;
+	}
+
+	/* Make search input and entries selector take full width */
+	.datatable-selector,
+	.datatable-search {
+		width: 100%;
+		margin-bottom: 8px; /* Add space between elements */
+	}
+
+	/* Full width for dropdown and input fields */
+	.datatable-selector select, 
+	.datatable-input {
+		width: 100%;
+		padding: 8px;
+		font-size: 0.8rem; /* Adjust font size */
+		border-radius: 4px; /* Slightly rounded corners for better look */
+	}
+
+	/* Center align pagination for better mobile experience */
+	.datatable-pagination {
+		text-align: center;
+	}
 }

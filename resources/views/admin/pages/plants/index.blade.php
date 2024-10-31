@@ -159,7 +159,9 @@
                                                 <td>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</td>
                                                 <td>{{ $plant->plantType->name }}</td>
                                                 <td>{{ $plant->category ? $plant->category->name : 'Unknown' }}</td>
-                                                <td>{{ $plant->plantAttribute ? $plant->plantAttribute->benefit : 'Unknown' }}</td>
+                                                <td style="white-space: normal; word-wrap: break-word;">
+                                                    {{ Str::limit($plant->plantAttribute ? $plant->plantAttribute->benefit : 'Unknown', 20) }}
+                                                </td>
                                                 {{-- <td>{{ $plant->total_quantity }}</td> --}}
                                                 <td>
                                                     <span class="badge bg-primary badge-number">{{ $plant->total_quantity }}

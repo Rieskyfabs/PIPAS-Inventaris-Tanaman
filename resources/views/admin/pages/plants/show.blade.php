@@ -53,7 +53,7 @@
                                       <th>{{__('TANGGAL TANAM')}}</th>
                                       <th>{{__('EST. TANGGAL PANEN')}}</th>
                                       <th>{{__('STATUS')}}</th>
-                                      <th>{{__('QR CODE')}}</th>
+                                      {{-- <th>{{__('QR CODE')}}</th> --}}
                                       <th>{{__('AKSI')}}</th>
                                     </tr>
                                 </thead>
@@ -86,7 +86,9 @@
                                                 </div>
                                             </td>
                                             <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                                            <td>{{ $plant->plantAttribute ? $plant->plantAttribute->benefit : 'Unknown' }}</td>
+                                            <td style="white-space: normal; word-wrap: break-word;">
+                                                {{ Str::limit($plant->plantAttribute ? $plant->plantAttribute->benefit : 'Unknown', 20) }}
+                                            </td>
                                             <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
                                             <td>
                                                 <span class="badge
@@ -112,27 +114,34 @@
                                                     @endif
                                                 </span>
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->plantAttribute->name ?? 'Unknown' }}">
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 @if($plant->harvest_status === 'siap panen')
-                                                    <form action="{{ route('plants.panen', $plant->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit" class="btn btn-success">
-                                                            {{ __('Panen') }}
-                                                        </button>
-                                                    </form>
+                                                    <div style="display: flex; align-items: center;">
+                                                        <form action="{{ route('plants.panen', $plant->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <button type="submit" class="btn btn-success">
+                                                                {{ __('Panen') }}
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 @else
-                                                    <x-action-buttons
-                                                        deleteData="{{ route('plants.destroy', $plant->id) }}"
-                                                        method="DELETE"
-                                                        submit="true"
-                                                        :dropdown="[ 
-                                                            ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'],
-                                                        ]"
-                                                    />
+                                                    <div style="display: flex; align-items: center;">
+                                                        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#QrCode" tooltip>
+                                                            <i class='bx bx-qr-scan'></i>
+                                                        </button>
+                                                        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditPlant{{ $plant->id }}">
+                                                            <i class='bx bx-edit'></i>
+                                                        </button>
+                                                        <x-action-buttons
+                                                            deleteData="{{ route('plants.destroy', $plant->id) }}"
+                                                            method="DELETE"
+                                                            submit="true"
+                                                        />
+                                                    </div>
                                                 @endif
                                             </td>
                                         </tr>

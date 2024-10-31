@@ -153,7 +153,7 @@
                             <th scope="col">{{ __('KODE TANAMAN MASUK') }}</th>
                             <th scope="col">{{ __('KODE TANAMAN') }}</th>
                             <th scope="col">{{ __('NAMA TANAMAN') }}</th>
-                            <th scope="col">{{ __('TIPE TANAMAN') }}</th>
+                            {{-- <th scope="col">{{ __('TIPE TANAMAN') }}</th> --}}
                             <th scope="col">{{ __('KATEGORI TANAMAN') }}</th>
                             <th scope="col">{{ __('LOKASI TANAMAN') }}</th>
                             <th scope="col">{{ __('STATUS') }}</th>
@@ -172,21 +172,11 @@
                                         <small>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</small>
                                     </div>
                                 </th>
-                                <td>
-                                    @if ($plant->type === 'Sayuran')
-                                        <span class="badge badge-soft-green">
-                                            <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                        </span>
-                                    @elseif ($plant->type === 'Herbal')
-                                        <span class="badge badge-soft-warning">
-                                            <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                        </span>
-                                    @else
-                                        <span class="badge badge-soft-gray">
-                                            {{ $plant->type }}
-                                        </span>
-                                    @endif
-                                </td>
+                                {{-- <td>
+                                    <span class="badge badge-soft-green">
+                                        {{ $plant->plantType->name }}
+                                    </span>
+                                </td> --}}
                                 <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
                                 <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
                                 <td>

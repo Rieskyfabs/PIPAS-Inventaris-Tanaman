@@ -38,23 +38,22 @@
                                 {{ __('TAMBAH') }}
                             </a>
                         </div>
-
                         <div class="table-responsive">
                             <!-- Table with stripped rows -->
                             <table class="table table-bordered table-hover datatable">
                                 <thead>
                                     <tr>
-                                      <th>{{__('GAMBAR')}}</th>
-                                      <th>{{__('NAMA')}}</th>
-                                      <th>{{__('KATEGORI')}}</th>
-                                      <th>{{__('MANFAAT')}}</th>
-                                      <th>{{__('LOKASI')}}</th>
-                                      <th>{{__('KONDISI')}}</th>
-                                      <th>{{__('TANGGAL TANAM')}}</th>
-                                      <th>{{__('EST. TANGGAL PANEN')}}</th>
-                                      <th>{{__('STATUS')}}</th>
-                                      <th>{{__('QR CODE')}}</th>
-                                      <th>{{__('AKSI')}}</th>
+                                        <th>{{__('GAMBAR')}}</th>
+                                        <th>{{__('NAMA')}}</th>
+                                        <th>{{__('KATEGORI')}}</th>
+                                        <th>{{__('MANFAAT')}}</th>
+                                        <th>{{__('LOKASI')}}</th>
+                                        <th>{{__('KONDISI')}}</th>
+                                        <th>{{__('TANGGAL TANAM')}}</th>
+                                        <th>{{__('EST. TANGGAL PANEN')}}</th>
+                                        <th>{{__('STATUS')}}</th>
+                                        <th>{{__('QR CODE')}}</th>
+                                        <th>{{__('AKSI')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,7 +85,9 @@
                                                 </div>
                                             </td>
                                             <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                                            <td>{{ $plant->plantAttribute ? $plant->plantAttribute->benefit : 'Unknown' }}</td>
+                                            <td style="white-space: normal; word-wrap: break-word;">
+                                                {{ Str::limit($plant->plantAttribute ? $plant->plantAttribute->benefit : 'Unknown', 20) }}
+                                            </td>
                                             <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
                                             <td>
                                                 <span class="badge
@@ -141,13 +142,11 @@
                             </table>
                             <!-- End Table with stripped rows -->
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-      </section>
-
+    </section>
     </main>
-  </div>
+</div>
 @endsection
