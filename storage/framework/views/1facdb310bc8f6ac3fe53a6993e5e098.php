@@ -46,12 +46,12 @@
                     </a>
                     <ul id="plants-report-nav" class="nav-content collapse <?php echo e(Request::is('reports*') ? 'show' : ''); ?>" data-bs-parent="#sidebar-nav">
                         <li>
-                            <a class="<?php echo e(Request::is('reports/tanaman-masuk') ? 'active' : ''); ?>" href="<?php echo e(route('users.reports.tanaman-masuk')); ?>">
+                            <a class="<?php echo e(Request::is('reports/tanaman-masuk') ? 'active' : ''); ?>" href="<?php echo e(route('reports.tanaman-masuk')); ?>">
                                 <i class="bi bi-circle"></i><span><?php echo e(__('Lap. Tanaman Masuk')); ?></span>
                             </a>
                         </li>
                         <li>
-                            <a class="<?php echo e(Request::is('reports/tanaman-keluar') ? 'active' : ''); ?>" href="<?php echo e(route('users.reports.tanaman-keluar')); ?>">
+                            <a class="<?php echo e(Request::is('reports/tanaman-keluar') ? 'active' : ''); ?>" href="<?php echo e(route('reports.tanaman-keluar')); ?>">
                                 <i class="bi bi-circle"></i><span><?php echo e(__('Lap. Tanaman Keluar')); ?></span>
                             </a>
                         </li>

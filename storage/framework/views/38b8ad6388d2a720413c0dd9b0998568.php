@@ -5,5 +5,4 @@
   </a>
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div>
-<!-- End Logo -->
-<?php /**PATH /home/daffy/Documents/Projects/PIPAS Invetaris Tanaman/PIPAS-Inventaris-Tanaman/resources/views/components/logo-sidebar.blade.php ENDPATH**/ ?>
+<!-- End Logo --><?php /**PATH /home/daffy/Documents/Projects/PIPAS Invetaris Tanaman/PIPAS-Inventaris-Tanaman/resources/views/components/logo-sidebar.blade.php ENDPATH**/ ?>
