@@ -53,7 +53,7 @@
                                       <th>{{__('TANGGAL TANAM')}}</th>
                                       <th>{{__('EST. TANGGAL PANEN')}}</th>
                                       <th>{{__('STATUS')}}</th>
-                                      <th>{{__('QR CODE')}}</th>
+                                      {{-- <th>{{__('QR CODE')}}</th> --}}
                                       <th>{{__('AKSI')}}</th>
                                     </tr>
                                 </thead>
@@ -72,28 +72,23 @@
                                             <td>
                                                 <div class="d-flex flex-column">
                                                     <a href="#" class="text-heading text-truncate">
-                                                        <span class="fw-medium">{{ $plant->plantAttribute->name ?? 'Unknown' }}</span>
+                                                        <!-- Nama tanaman dibuat bold -->
+                                                        <span class="fw-bold">{{ $plant->plantAttribute->name }}</span>
                                                     </a>
-                                                    <small>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</small>
+                                                    <!-- Nama ilmiah dibuat pudar dan italic -->
+                                                    <small class="text-muted fst-italic">{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</small>
+                                                    <!-- Tipe tanaman dengan background warna smooth -->
                                                     <small>
-                                                        @if ($plant->type === 'Sayuran')
-                                                            <span class="badge badge-soft-green">
-                                                                <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                                            </span>
-                                                        @elseif ($plant->type === 'Herbal')
-                                                            <span class="badge badge-soft-warning">
-                                                                <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                                            </span>
-                                                        @else
-                                                            <span class="badge badge-soft-gray">
-                                                                {{ $plant->type ?? 'Unknown' }}
-                                                            </span>
-                                                        @endif
+                                                        <span class="badge" style="background-color: #e0f7df; color: #388e3c;">
+                                                            <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->plantType->name }}
+                                                        </span>
                                                     </small>
                                                 </div>
                                             </td>
                                             <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                                            <td>{{ $plant->benefit->name ?? 'Manfaat tidak ditemukan' }}</td>
+                                            <td style="white-space: normal; word-wrap: break-word;">
+                                                {{ Str::limit($plant->plantAttribute ? $plant->plantAttribute->benefit : 'Unknown', 20) }}
+                                            </td>
                                             <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
                                             <td>
                                                 <span class="badge
@@ -119,27 +114,34 @@
                                                     @endif
                                                 </span>
                                             </td>
-                                            <td>
-                                              <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->name ?? 'Unknown' }}">
-                                            </td>
+                                            {{-- <td>
+                                                <img src="{{ asset('storage/' . $plant->qr_code) }}" alt="QR Code for {{ $plant->plantAttribute->name ?? 'Unknown' }}">
+                                            </td> --}}
                                             <td>
                                                 @if($plant->harvest_status === 'siap panen')
-                                                    <form action="{{ route('plants.panen', $plant->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit" class="btn btn-success">
-                                                            {{ __('Panen') }}
-                                                        </button>
-                                                    </form>
+                                                    <div style="display: flex; align-items: center;">
+                                                        <form action="{{ route('plants.panen', $plant->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <button type="submit" class="btn btn-success">
+                                                                {{ __('Panen') }}
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 @else
-                                                    <x-action-buttons
-                                                        deleteData="{{ route('plants.destroy', $plant->id) }}"
-                                                        method="DELETE"
-                                                        submit="true"
-                                                        :dropdown="[ 
-                                                            ['href' => route('plants.edit', $plant->id), 'label' => 'Edit'],
-                                                        ]"
-                                                    />
+                                                    <div style="display: flex; align-items: center;">
+                                                        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#QrCode" tooltip>
+                                                            <i class='bx bx-qr-scan'></i>
+                                                        </button>
+                                                        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditPlant{{ $plant->id }}">
+                                                            <i class='bx bx-edit'></i>
+                                                        </button>
+                                                        <x-action-buttons
+                                                            deleteData="{{ route('plants.destroy', $plant->id) }}"
+                                                            method="DELETE"
+                                                            submit="true"
+                                                        />
+                                                    </div>
                                                 @endif
                                             </td>
                                         </tr>

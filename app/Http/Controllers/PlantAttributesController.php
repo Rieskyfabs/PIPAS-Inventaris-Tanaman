@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\PlantAttributes;
-use App\Models\Category; // Add this to use categories
-use App\Models\Benefit;  // Add this to use benefits
+use App\Models\Category;
+use App\Models\TipeTanaman; // Use this for plant types
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PlantAttributesController extends Controller
@@ -15,13 +17,17 @@ class PlantAttributesController extends Controller
      */
     public function index()
     {
-        $plantAttributes = PlantAttributes::with(['category', 'benefit'])->get();
+        $plantAttributes = PlantAttributes::with(['category', 'plantType']) // Ensure you're fetching the type too
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $categories = Category::all();
+        $plantTypes = TipeTanaman::all(); // Fetch plant types for the view
 
-        $title = 'Delete Plant Attributes!';
-        $text = "Are you sure you want to delete?";
+        $title = 'Apakah anda yakin?';
+        $text = "semua data tanaman dengan kategori ini akan terhapus juga";
         confirmDelete($title, $text);
 
-        return view('admin.pages.plantAttributes.index', compact('plantAttributes'));
+        return view('admin.pages.plantAttributes.index', compact('plantAttributes', 'categories', 'plantTypes'));
     }
 
     /**
@@ -29,11 +35,10 @@ class PlantAttributesController extends Controller
      */
     public function create()
     {
-        // Fetch categories and benefits to populate select options
         $categories = Category::all();
-        $benefits = Benefit::all();
+        $plantTypes = TipeTanaman::all(); // Fetch plant types
 
-        return view('admin.pages.plantAttributes.create', compact('categories', 'benefits'));
+        return view('admin.pages.plantAttributes.create', compact('categories', 'plantTypes'));
     }
 
     /**
@@ -42,20 +47,31 @@ class PlantAttributesController extends Controller
     public function store(Request $request)
     {
         // Validate the incoming data
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'plant_code' => 'required|string|max:9|unique:plant_attributes',
             'name' => 'required|string|max:255',
-            'type' => 'required',
+            'type_id' => 'required|exists:tipe_tanaman,id', // Ensure this exists
             'category_id' => 'required|exists:categories,id',
-            'benefit_id' => 'required|exists:benefits,id',
+            'benefit' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
 
+        // Check if validation fails
+        if ($validator->fails()) {
+            Alert::error('Error', 'Terjadi kesalahan: ' . $validator->errors()->first());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         // Create new plant attribute
-        PlantAttributes::create($request->all());
+        $plantAttribute = PlantAttributes::create($request->all());
 
-        Alert::success('Tambah Atribut Tanaman', 'Berhasil menambahkan atribut tanaman baru');
+        // Log activity
+        ActivityLogger::log(
+            'Create',
+            'Menambahkan data tanaman dengan kode: <b>' . e($plantAttribute->plant_code) . '</b>'
+        );
 
+        Alert::success('Data Tanaman Ditambahkan', 'Berhasil menambahkan data Tanaman');
         return redirect()->route('plantAttributes');
     }
 
@@ -66,8 +82,9 @@ class PlantAttributesController extends Controller
     {
         $plantAttribute = PlantAttributes::findOrFail($id);
         $categories = Category::all();
-        $benefits = Benefit::all();
-        return view('admin.pages.plantAttributes.edit', compact('plantAttribute', 'categories', 'benefits'));
+        $plantTypes = TipeTanaman::all(); // Fetch plant types
+
+        return view('admin.pages.plantAttributes.edit', compact('plantAttribute', 'categories', 'plantTypes'));
     }
 
     /**
@@ -75,35 +92,75 @@ class PlantAttributesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'plant_code' => 'required|string|max:9|unique:plant_attributes,plant_code,' . $id,
             'name' => 'required|string|max:255',
-            'type' => 'required',
+            'type_id' => 'required|exists:tipe_tanaman,id', // Ensure this exists
             'category_id' => 'required|exists:categories,id',
-            'benefit_id' => 'required|exists:benefits,id',
+            'benefit' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
 
-        $plantAttribute = PlantAttributes::findOrFail($id);
+        if ($validator->fails()) {
+            Alert::error('Error', 'Terjadi kesalahan: ' . $validator->errors()->first());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
+        $plantAttribute = PlantAttributes::findOrFail($id);
         $plantAttribute->update($request->all());
 
-        Alert::success('Update Atribut Tanaman', 'Berhasil memperbarui atribut tanaman');
+        ActivityLogger::log(
+            'Update',
+            'Memperbarui data tanaman dengan kode: <b>' . e($plantAttribute->plant_code) . '</b>'
+        );
 
+        Alert::success('Data Tanaman Diperbarui', 'Berhasil memperbarui data Tanaman');
         return redirect()->route('plantAttributes');
     }
-
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        $plantAttributes = PlantAttributes::findOrFail($id);
-        $plantAttributes->delete();
+        $plantAttribute = PlantAttributes::findOrFail($id);
 
-        Alert::success('Hapus Data Attribute Tanaman', 'Berhasil menghapus data Attribute Tanaman');
+        ActivityLogger::log(
+            'Delete',
+            'Menghapus data Atribut tanaman dengan kode: <b>' . e($plantAttribute->plant_code) . '</b>'
+        );
 
+        $plantAttribute->delete();
+
+        Alert::success('Data Atribut Tanaman Dihapus', 'Berhasil menghapus data atribut tanaman');
         return redirect()->back();
     }
+
+    public function addNewCategory(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name',
+        ]);
+
+        $category = new Category();
+        $category->name = $request->name;
+        $category->save();
+
+        return response()->json(['success' => true, 'id' => $category->id, 'name' => $category->name]);
+    }
+
+    public function addNewType(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255', // Validasi nama harus unik
+        ]);
+
+        // Jika validasi lulus, tambahkan tipe tanaman baru
+        $plantType = new TipeTanaman();
+        $plantType->name = $request->name;
+        $plantType->save();
+
+        return response()->json(['success' => true, 'id' => $plantType->id, 'name' => $plantType->name]);
+    }
+
 }

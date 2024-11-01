@@ -24,7 +24,7 @@
             <!-- Plant Card -->
             <x-card
               type="plants"
-              title="Total Tanaman"
+              title="Tanaman"
               period="Hari ini"
               icon="ri-plant-line"
               value="{{ $totalPlantsQuantity }}"
@@ -38,7 +38,7 @@
             <!-- Location Card -->
             <x-card
               type="location"
-              title="Total Lokasi Inventaris"
+              title="Lokasi Inventaris"
               period="Hari ini"
               icon="ri-map-pin-line"
               value="{{ $totalLocations }}"
@@ -52,7 +52,7 @@
             <!-- Total Users Card -->
             <x-card
               type="revenue"
-              title="Total Pengguna"
+              title="Pengguna"
               period="Hari ini"
               icon="ri-group-line"
               value="{{ $totalUsers }}"
@@ -68,11 +68,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{__('Laporan Status Tanaman')}}</h5>
-
-                        <!-- Form untuk memilih tahun -->
-
                         @if(empty($dataBelumDipanen) && empty($dataSiapDipanen) && empty($dataSudahDipanen))
-                            <p>{{ __('Tidak ada data tersedia.') }}</p>
+                            <p>{{ __('Tidak ada data lokasi yang tersedia.') }}</p>
                         @else
                             <!-- Column Chart -->
                             <div id="columnChart"></div>
@@ -82,13 +79,13 @@
                                     new ApexCharts(document.querySelector("#columnChart"), {
                                         series: [{
                                             name: 'Belum Panen',
-                                            data: @json($dataBelumDipanen) // Data dinamis berdasarkan ruangan
+                                            data: @json($dataBelumDipanen)
                                         }, {
                                             name: 'Siap Dipanen',
-                                            data: @json($dataSiapDipanen) // Data dinamis berdasarkan ruangan
+                                            data: @json($dataSiapDipanen)
                                         }, {
                                             name: 'Sudah Dipanen',
-                                            data: @json($dataSudahDipanen) // Data dinamis berdasarkan ruangan
+                                            data: @json($dataSudahDipanen)
                                         }],
                                         chart: {
                                             type: 'bar',
@@ -110,7 +107,7 @@
                                             colors: ['transparent']
                                         },
                                         xaxis: {
-                                            categories: @json($ruangan), // Ruangan dinamis
+                                            categories: @json(array_values($ruangan)),
                                             title: {
                                                 text: 'Lokasi Penyimpanan'
                                             }
@@ -138,8 +135,6 @@
                     </div>
                 </div>
             </div>
-
-
             <!-- End Reports -->
 
             <!-- Recent Plants -->
@@ -158,7 +153,7 @@
                             <th scope="col">{{ __('KODE TANAMAN MASUK') }}</th>
                             <th scope="col">{{ __('KODE TANAMAN') }}</th>
                             <th scope="col">{{ __('NAMA TANAMAN') }}</th>
-                            <th scope="col">{{ __('TIPE TANAMAN') }}</th>
+                            {{-- <th scope="col">{{ __('TIPE TANAMAN') }}</th> --}}
                             <th scope="col">{{ __('KATEGORI TANAMAN') }}</th>
                             <th scope="col">{{ __('LOKASI TANAMAN') }}</th>
                             <th scope="col">{{ __('STATUS') }}</th>
@@ -177,21 +172,11 @@
                                         <small>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</small>
                                     </div>
                                 </th>
-                                <td>
-                                    @if ($plant->type === 'Sayuran')
-                                        <span class="badge badge-soft-green">
-                                            <i class="fa fa-carrot" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                        </span>
-                                    @elseif ($plant->type === 'Herbal')
-                                        <span class="badge badge-soft-warning">
-                                            <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $plant->type }}
-                                        </span>
-                                    @else
-                                        <span class="badge badge-soft-gray">
-                                            {{ $plant->type }}
-                                        </span>
-                                    @endif
-                                </td>
+                                {{-- <td>
+                                    <span class="badge badge-soft-green">
+                                        {{ $plant->plantType->name }}
+                                    </span>
+                                </td> --}}
                                 <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
                                 <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
                                 <td>
@@ -232,16 +217,18 @@
                     </div>
                     <i class='bi bi-circle-fill activity-badge text-success me-3'></i>
                     <div class="activity-content">
-                      <strong>{{ $log->action }}</strong> - {{ $log->description }}
-                      <br><small class="text-muted">{{ __('Oleh') }}: {{ $log->user->username }}</small>
+                        <strong>{{ $log->action }}</strong> - {!! $log->description !!}
+                        <br><small class="text-muted">{{ __('Oleh') }}: {{ $log->user->username }}</small>
                     </div>
-                  </div><!-- End activity item-->
+                  </div>
+                  <!-- End activity item-->
                 @empty
                   <div class="activity-item d-flex">
                     <div class="activity-content">
                       {{ __('Tidak Ada Aktivitas Terbaru') }}
                     </div>
-                  </div><!-- End activity item-->
+                  </div>
+                  <!-- End activity item-->
                 @endforelse
               </div>
             </div>

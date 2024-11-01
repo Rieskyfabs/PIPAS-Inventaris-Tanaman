@@ -18,23 +18,27 @@
                 <div class="col-lg-8 col-md-10 col-sm-12 mx-auto">
                     <div class="card shadow-sm">
                         <div class="card-header bg-primary text-white">
-                            <h4 class="m-0">{{__('Notifikasi')}}</h4>
+                            <h4 class="m-0">{{ __('Notifikasi') }}</h4>
                         </div>
                         <div class="card-body mt-3">
                             <!-- Tabs -->
                             <ul class="nav nav-tabs" id="notificationTabs" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">{{__('Semua')}}
+                                    <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">{{ __('Semua') }}
                                         @if($notifications->where('is_read', false)->count() > 0)
                                             <span class="badge bg-warning">{{ $notifications->where('is_read', false)->count() }}</span>
                                         @endif
                                     </a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="seen-tab" data-bs-toggle="tab" href="#seen" role="tab" aria-controls="seen" aria-selected="false">{{__('Dibaca')}}</a>
+                                    <a class="nav-link" id="seen-tab" data-bs-toggle="tab" href="#seen" role="tab" aria-controls="seen" aria-selected="false">{{ __('Dibaca') }}</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="unseen-tab" data-bs-toggle="tab" href="#unseen" role="tab" aria-controls="unseen" aria-selected="false">{{__('Belum dibaca')}}</a>
+                                    <a class="nav-link" id="unseen-tab" data-bs-toggle="tab" href="#unseen" role="tab" aria-controls="unseen" aria-selected="false">{{ __('Belum dibaca') }}
+                                        @if($notifications->where('is_read', false)->count() > 0)
+                                            <span class="badge bg-warning">{{ $notifications->where('is_read', false)->count() }}</span>
+                                        @endif
+                                    </a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="notificationTabContent" style="max-height: 550px; overflow-y: auto;">
@@ -62,15 +66,13 @@
                                                 </a>
                                                 <div class="position-absolute top-0 end-0 mt-0 p-3">
                                                     @if(!$notification->is_read)
-                                                        <span class="badge bg-danger">{{__('Baru')}}</span>
-                                                    @endif
-                                                    @if(!$notification->is_read)
-                                                        <span class="badge bg-warning text-dark">{{__('Belum dibaca')}}</span>
+                                                        <span class="badge bg-danger">{{ __('Baru') }}</span>
+                                                        <span class="badge bg-warning text-dark">{{ __('Belum dibaca') }}</span>
                                                     @endif
                                                 </div>
                                             </li>
                                         @empty
-                                            <li class="mt-3 list-group-item text-center">{{__('Tidak ada notifikasi terbaru.')}}</li>
+                                            <li class="mt-3 list-group-item text-center">{{ __('Tidak ada notifikasi terbaru.') }}</li>
                                         @endforelse
                                     </ul>
                                 </div>
@@ -96,7 +98,7 @@
                                                 </a>
                                             </li>
                                         @empty
-                                            <li class="mt-3 list-group-item text-center">{{__('Tidak ada notifikasi dibaca.')}}</li>
+                                            <li class="mt-3 list-group-item text-center">{{ __('Tidak ada notifikasi dibaca.') }}</li>
                                         @endforelse
                                     </ul>
                                 </div>
@@ -121,16 +123,12 @@
                                                     </div>
                                                 </a>
                                                 <div class="position-absolute top-0 end-0 mt-0 p-3">
-                                                    @if(!$notification->is_read)
-                                                        <span class="badge bg-danger">{{__('Baru')}}</span>
-                                                    @endif
-                                                    @if(!$notification->is_read)
-                                                        <span class="badge bg-warning text-dark">{{__('Belum dibaca')}}</span>
-                                                    @endif
+                                                    <span class="badge bg-danger">{{ __('Baru') }}</span>
+                                                    <span class="badge bg-warning text-dark">{{ __('Belum dibaca') }}</span>
                                                 </div>
                                             </li>
                                         @empty
-                                            <li class="mt-3 list-group-item text-center">{{__('Tidak ada notifikasi belum dibaca.')}}</li>
+                                            <li class="mt-3 list-group-item text-center">{{ __('Tidak ada notifikasi belum dibaca.') }}</li>
                                         @endforelse
                                     </ul>
                                 </div>

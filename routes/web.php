@@ -11,6 +11,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PlantAttributesController;
 use App\Http\Controllers\PlantController;
+use App\Http\Controllers\PlantTypeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TransactionController;
@@ -129,97 +130,112 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::get('/dashboard', [HomeController::class, 'adminDashboard'])->name('admin/dashboard');
 
         // Tanaman
-        Route::prefix('/inventaris/plants')->group(function () {
-            Route::get('/', [PlantController::class, 'index'])->name('plants');
-            Route::get('/create', [PlantController::class, 'create'])->name('plants.create');
-            Route::post('/store', [PlantController::class, 'store'])->name('plants.store');
-            Route::get('/{plantAttribute}', [PlantController::class, 'show'])->name('plants.show');
-            Route::put('/plants/{plant}/panen', [PlantController::class, 'panen'])->name('plants.panen');
-            Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('plants.edit');
-            Route::put('/{id}', [PlantController::class, 'update'])->name('plants.update');
-            Route::delete('/{id}', [PlantController::class, 'destroy'])->name('plants.destroy');
+        Route::prefix('/inventaris/tanaman')->group(function () {
+            Route::get('/list-tanaman', [PlantController::class, 'index'])->name('plants');
+            Route::get('/tambah-data-tanaman', [PlantController::class, 'create'])->name('plants.create');
+            Route::post('/store-tanaman', [PlantController::class, 'store'])->name('plants.store');
+            Route::get('/lihat-detail/{plantAttribute}', [PlantController::class, 'show'])->name('plants.show');
+            Route::put('/tanaman/{plant}/panen', [PlantController::class, 'panen'])->name('plants.panen');
+            Route::get('/{id}/edit-data-tanaman', [PlantController::class, 'edit'])->name('plants.edit');
+            Route::put('/{id}/update-data-tanaman', [PlantController::class, 'update'])->name('plants.update');
+            Route::delete('/{id}/hapus-data-tanaman', [PlantController::class, 'destroy'])->name('plants.destroy');
+
+            Route::post('/add-new-location', [PlantController::class, 'addNewLocation'])->name('addNewLocation');
         });
 
         // Kategori
-        Route::prefix('/attributes/categories')->group(function () {
+        Route::prefix('/atribut-tanaman/kategori-tanaman')->group(function () {
             Route::get('/', [CategoryController::class, 'index'])->name('categories');
-            Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
+            Route::get('/tambah-kategori', [CategoryController::class, 'create'])->name('categories.create');
             Route::post('/', [CategoryController::class, 'store'])->name('categories.store');
-            Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-            Route::put('/{id}', [CategoryController::class, 'update'])->name('categories.update');
+            Route::get('/{id}/edit-data-kategori', [CategoryController::class, 'edit'])->name('categories.edit');
+            Route::put('/{id}/update-data-kategori', [CategoryController::class, 'update'])->name('categories.update');
             Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
         });
 
         // Manfaat
-        Route::prefix('/attributes/benefits')->group(function () {
+        Route::prefix('/atribut-tanaman/manfaat-tanaman')->group(function () {
             Route::get('/', [BenefitController::class, 'index'])->name('benefits');
-            Route::get('/create', [BenefitController::class, 'create'])->name('benefits.create');
+            Route::get('/tambah-manfaat', [BenefitController::class, 'create'])->name('benefits.create');
             Route::post('/', [BenefitController::class, 'store'])->name('benefits.store');
-            Route::get('/{id}/edit', [BenefitController::class, 'edit'])->name('benefits.edit');
+            Route::get('/{id}/edit',[BenefitController::class, 'edit'])->name('benefits.edit');
             Route::put('/{id}', [BenefitController::class, 'update'])->name('benefits.update');
             Route::delete('/{id}', [BenefitController::class, 'destroy'])->name('benefits.destroy');
         });
 
         // Lokasi
-        Route::prefix('/attributes/locations')->group(function () {
+        Route::prefix('/atribut-tanaman/lokasi-inventaris')->group(function () {
             Route::get('/', [LocationController::class, 'index'])->name('locations');
-            Route::get('/create', [LocationController::class, 'create'])->name('locations.create');
+            Route::get('/tambah-data-lokasi', [LocationController::class, 'create'])->name('locations.create');
             Route::post('/', [LocationController::class, 'store'])->name('locations.store');
-            Route::get('/{id}/edit', [LocationController::class, 'edit'])->name('locations.edit');
-            Route::put('/{id}', [LocationController::class, 'update'])->name('locations.update');
+            Route::get('/{id}/edit-data-lokasi', [LocationController::class, 'edit'])->name('locations.edit');
+            Route::put('/{id}/update-data-lokasi', [LocationController::class, 'update'])->name('locations.update');
             Route::delete('/{id}', [LocationController::class, 'destroy'])->name('locations.destroy');
         });
 
+        // Tipe Tanaman 
+        Route::prefix('/atribut-tanaman/tipe-tanaman')->group(function () {
+            Route::get('/', [PlantTypeController::class, 'index'])->name('plantTypes');
+            Route::get('/tambah-data-tipe-tanaman', [PlantTypeController::class, 'create'])->name('plantTypes.create');
+            Route::post('/', [PlantTypeController::class, 'store'])->name('plantTypes.store');
+            Route::get('/{id}/edit-data-tipe-tanaman', [PlantTypeController::class, 'edit'])->name('plantTypes.edit');
+            Route::put('/{id}/update-data-tipe-tanaman', [PlantTypeController::class, 'update'])->name('plantTypes.update');
+            Route::delete('/{id}', [PlantTypeController::class, 'destroy'])->name('plantTypes.destroy');
+        });
+
         // Atribute Tanaman
-        Route::prefix('/attributes/plant-attributes')->group(function () {
-            Route::get('/', [PlantAttributesController::class, 'index'])->name('plantAttributes');
-            Route::get('/create', [PlantAttributesController::class, 'create'])->name('plantAttributes.create');
+        Route::prefix('/atribut-tanaman/list-atribut-tanaman')->group(function () {
+            Route::get('/', action: [PlantAttributesController::class, 'index'])->name('plantAttributes');
+            Route::get('/tambah-data-atribut', [PlantAttributesController::class, 'create'])->name('plantAttributes.create');
             Route::post('/', [PlantAttributesController::class, 'store'])->name('plantAttributes.store');
-            Route::get('/{id}/edit', [PlantAttributesController::class, 'edit'])->name('plantAttributes.edit');
-            Route::put('/{id}', [PlantAttributesController::class, 'update'])->name('plantAttributes.update');
+            Route::get('/{id}/edit-data-atribut', [PlantAttributesController::class, 'edit'])->name('plantAttributes.edit');
+            Route::put('/{id}/update-data-atribut', [PlantAttributesController::class, 'update'])->name('plantAttributes.update');
             Route::delete('/{id}', [PlantAttributesController::class, 'destroy'])->name('plantAttributes.destroy');
+            
+            Route::post('/add-new-category', [PlantAttributesController::class, 'addNewCategory'])->name('addNewCategory');
+            Route::post('/add-new-type', [PlantAttributesController::class, 'addNewType'])->name('addNewType');
+
         });
 
         // Transaksi
-        Route::prefix('/transactions')->group(function () {
+        Route::prefix('/transaksi')->group(function () {
             Route::get('/tanaman-masuk', [TransactionController::class, 'tanamanMasuk'])->name('transactions.tanaman-masuk');
             Route::get('/tanaman-keluar', [TransactionController::class, 'tanamanKeluar'])->name('transactions.tanaman-keluar');
         });
 
         // Laporan
-        Route::prefix('/reports')->group(function () {
-            Route::get('/tanaman-masuk', [ReportController::class, 'laporanTanamanMasuk'])->name('reports.tanaman-masuk');
-            Route::get('/tanaman-keluar', [ReportController::class, 'laporanTanamanKeluar'])->name('reports.tanaman-keluar');
+        // Route::prefix('/reports')->group(function () {
+        //     Route::get('/tanaman-masuk', [ReportController::class, 'laporanTanamanMasuk'])->name('reports.tanaman-masuk');
+        //     Route::get('/tanaman-keluar', [ReportController::class, 'laporanTanamanKeluar'])->name('reports.tanaman-keluar');
 
-            // Export routes
-            Route::get('/tanaman-masuk/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-masuk.export.excel');
-            Route::get('/tanaman-masuk/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-masuk.export.pdf');
-            Route::get('/tanaman-masuk/print', [ReportController::class, 'print'])->name('reports.tanaman-masuk.print');
+        //     // Export routes
+        //     Route::get('/tanaman-masuk/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-masuk.export.excel');
+        //     Route::get('/tanaman-masuk/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-masuk.export.pdf');
+        //     Route::get('/tanaman-masuk/print', [ReportController::class, 'print'])->name('reports.tanaman-masuk.print');
 
-            Route::get('/tanaman-keluar/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-keluar.export.excel');
-            Route::get('/tanaman-keluar/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-keluar.export.pdf');
-            Route::get('/tanaman-keluar/print', [ReportController::class, 'print'])->name('reports.tanaman-keluar.print');
-        });
-
+        //     Route::get('/tanaman-keluar/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-keluar.export.excel');
+        //     Route::get('/tanaman-keluar/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-keluar.export.pdf');
+        //     Route::get('/tanaman-keluar/print', [ReportController::class, 'print'])->name('reports.tanaman-keluar.print');
+        // });
 
         // User Management
-        Route::prefix('/settings/users')->group(function () {
-            Route::get('/usersList', [UserController::class, 'index'])->name('users');
+        Route::prefix('/pengaturan/pengguna')->group(function () {
+            Route::get('/list-pengguna', [UserController::class, 'index'])->name('users');
             Route::get('/create', [UserController::class, 'create'])->name('users.create');
             Route::post('/store', [UserController::class, 'store'])->name('users.store');
-            Route::get('/{id}', [UserController::class, 'show'])->name('users.show');
-            Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-            Route::put('/{id}', [UserController::class, 'update'])->name('users.update');
-            Route::delete('/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+            Route::get('/{user}', [UserController::class, 'show'])->name('users.show');
+            Route::get('/{user}/edit-data-pengguna', [UserController::class, 'edit'])->name('users.edit');
+            Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
+            Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
         });
 
         // Permissions
-        Route::prefix('/settings/role-permissions/permissions')->group(function () {
+        Route::prefix('/pengaturan/role-permissions/permissions')->group(function () {
             Route::get('/', [PermissionController::class, 'index'])->name('permissions');
-            Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');
+            Route::get('/tambah-data-permissions', [PermissionController::class, 'create'])->name('permissions.create');
             Route::post('/store', [PermissionController::class, 'store'])->name('permissions.store');
-            Route::get('/{id}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
-            Route::put('/{id}', [PermissionController::class, 'update'])->name('permissions.update');
+            Route::get('/{id}/edit-permissions', [PermissionController::class, 'edit'])->name('permissions.edit');
+            Route::put('/{id}/update-permissions', [PermissionController::class, 'update'])->name('permissions.update');
             Route::delete('/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
         });
 
@@ -229,13 +245,13 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
             Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
             Route::post('/roles/store', [RoleController::class, 'store'])->name('roles.store');
             Route::get('/{id}', [RoleController::class, 'show'])->name('roles.show');
-            Route::get('/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+            Route::get('/{id}/edit-role', [RoleController::class, 'edit'])->name('roles.edit');
             Route::put('/{id}', [RoleController::class, 'update'])->name('roles.update');
             Route::delete('/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
         });
 
-        Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications');
-        Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+        Route::get('/notifikasi', [NotificationController::class, 'index'])->name('notifications');
+        Route::post('/notifikasi/{id}/tandai-telah-dibaca', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
     });
 
@@ -247,30 +263,31 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     // Tanaman
     Route::prefix('/inventaris/list-tanaman')->group(function () {
         Route::get('/', [PlantController::class, 'userIndex'])->name('users.plants');
-        Route::get('/create', [PlantController::class, 'create'])->name('users.plants.create');
+        Route::get('/tambah-data-tanaman', [PlantController::class, 'create'])->name('users.plants.create');
         Route::post('/store', [PlantController::class, 'store'])->name('users.plants.store');
-        Route::get('/{plantAttribute}', [PlantController::class, 'userShow'])->name('users.plants.show');
+        Route::get('lihat-detail/{plantAttribute}', [PlantController::class, 'userShow'])->name('users.plants.show');
         Route::put('/plants/{plant}/panen', [PlantController::class, 'panen'])->name('users.plants.panen');
-        Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('users.plants.edit');
+        Route::get('/{id}/edit-data-tanaman', [PlantController::class, 'edit'])->name('users.plants.edit');
         Route::put('/{id}', [PlantController::class, 'update'])->name('users.plants.update');
         Route::delete('/{id}', [PlantController::class, 'destroy'])->name('users.plants.destroy');
     });
 
-    // Laporan
-    Route::prefix('/reports')->group(function () {
-        Route::get('/tanaman-masuk', [ReportController::class, 'laporanTanamanMasuk'])->name('reports.tanaman-masuk');
-        Route::get('/tanaman-keluar', [ReportController::class, 'laporanTanamanKeluar'])->name('reports.tanaman-keluar');
-
-        // Export routes
-        Route::get('/tanaman-masuk/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-masuk.export.excel');
-        Route::get('/tanaman-masuk/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-masuk.export.pdf');
-        Route::get('/tanaman-masuk/print', [ReportController::class, 'print'])->name('reports.tanaman-masuk.print');
-
-        Route::get('/tanaman-keluar/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-keluar.export.excel');
-        Route::get('/tanaman-keluar/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-keluar.export.pdf');
-        Route::get('/tanaman-keluar/print', [ReportController::class, 'print'])->name('reports.tanaman-keluar.print');
-    });
-
-    Route::get('/notifications', [NotificationController::class, 'userIndex'])->name('users.notifications');
-    Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'usersMarkAsRead'])->name('users.notifications.markAsRead');
+    Route::get('/notifikasi', [NotificationController::class, 'userIndex'])->name('users.notifications');
+    Route::post('/notifikasi/{id}/tandai-telah-dibaca', [NotificationController::class, 'usersMarkAsRead'])->name('users.notifications.markAsRead');
 });
+
+// Laporan
+Route::prefix('/laporan')->group(function () {
+    Route::get('/tanaman-masuk', [ReportController::class, 'laporanTanamanMasuk'])->name('reports.tanaman-masuk');
+    Route::get('/tanaman-keluar', [ReportController::class, 'laporanTanamanKeluar'])->name('reports.tanaman-keluar');
+
+    // Export routes
+    Route::get('/tanaman-masuk/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-masuk.export.excel');
+    Route::get('/tanaman-masuk/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-masuk.export.pdf');
+    Route::get('/tanaman-masuk/print', [ReportController::class, 'print'])->name('reports.tanaman-masuk.print');
+
+    Route::get('/tanaman-keluar/export-excel', [ReportController::class, 'exportExcel'])->name('reports.tanaman-keluar.export.excel');
+    Route::get('/tanaman-keluar/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.tanaman-keluar.export.pdf');
+    Route::get('/tanaman-keluar/print', [ReportController::class, 'print'])->name('reports.tanaman-keluar.print');
+});
+

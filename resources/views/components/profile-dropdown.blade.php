@@ -24,7 +24,8 @@
       <!-- User Info -->
       <div class="custom-user-info">
         <h6 class="custom-username">{{ $username }}</h6>
-        <span class="custom-role">{{ $role }}</span>
+        <span class="custom-role">{{ $email }}</span>
+        {{-- <span class="custom-role">{{ $role }}</span> --}}
       </div>
     </li>
     <li><hr class="dropdown-divider"></li>

@@ -35,7 +35,7 @@
           <div class="image-container">
               <a href="{{ route('home') }}" class="back-button">
                   <i class="fas fa-arrow-left"></i>
-                  <span class="back-button-text">Kembali Ke Home</span>
+                  <span class="back-button-text">Home</span>
               </a>
           </div>
           <div class="login-form">

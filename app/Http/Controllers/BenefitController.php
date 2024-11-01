@@ -10,7 +10,7 @@ class BenefitController extends Controller
 {
     public function index()
     {
-        $benefits = Benefit::all();
+        $benefits = Benefit::orderBy('created_at', 'desc')->get();
 
         $title = 'Apakah anda yakin ingin menghapus manfaat ini?';
         $text = "semua data tanaman dengan manfaat ini akan terhapus juga";
@@ -26,13 +26,23 @@ class BenefitController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'description' => 'required|string',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255|unique:benefits',
+            ]);
 
-        Benefit::create($request->all());
+            Benefit::create($request->all());
 
-        return redirect()->route('benefits')->with('success', 'Benefit added successfully.');
+            Alert::success('Data Ditambahkan', 'Berhasil menambahkan deskripsi manfaat baru!');
+            return redirect()->back();
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Jika validasi gagal, ambil pesan error
+            $errors = $e->validator->errors();
+            Alert::error('Error', $errors->first('name'));
+
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
     }
 
     public function edit($id)
@@ -43,14 +53,23 @@ class BenefitController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'description' => 'required|string',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255|unique:benefits,name,' . $id,
+            ]);
 
-        $benefit = Benefit::findOrFail($id);
-        $benefit->update($request->all());
+            $benefit = Benefit::findOrFail($id);
+            $benefit->update($request->all());
 
-        return redirect()->route('benefits')->with('success', 'Benefit updated successfully.');
+            Alert::success('Data Diupdate', 'Berhasil memperbarui deskripsi!');
+            return redirect()->route('benefits');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Jika validasi gagal, ambil pesan error
+            $errors = $e->validator->errors();
+            Alert::error('Error', $errors->first('name')); // Tampilkan pesan error
+
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
     }
 
     public function destroy($id)
@@ -58,8 +77,7 @@ class BenefitController extends Controller
         $benefit = Benefit::findOrFail($id);
         $benefit->delete();
 
-        Alert::success('Hapus Data benefits', 'Berhasil mengHapus data benefits');
+        Alert::success('Hapus Data Benefits', 'Berhasil menghapus data benefits');
         return redirect()->route('benefits');
     }
 }
-

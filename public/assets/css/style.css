@@ -1411,23 +1411,24 @@ h6 {
   background: none;
   color: #6c757d;
   font-size: 1.2rem;
-  padding: 0.5rem;
+  padding: 0.5rem; /* Padding yang konsisten */
   cursor: pointer;
   transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   transform-origin: center;
-  /* Menyelaraskan pusat pembesaran pada ikon */
+  display: flex; /* Menambahkan Flexbox untuk pengaturan yang lebih baik */
+  align-items: center; /* Menyelaraskan item secara vertikal */
+  justify-content: center; /* Menyelaraskan item secara horizontal */
 }
 
 .icon-button:hover {
-  color: #007bff;
-  /* Warna biru saat hover */
-  transform: translateY(-4px) scale(1);
-  /* Menggeser ikon ke atas dan sedikit membesar */
+  color: #007bff; /* Warna biru saat hover */
+  transform: translateY(-4px) scale(1); /* Sedikit memperbesar ikon saat hover */
 }
 
 .icon-button i {
-  font-size: 1.3 rem;
+  font-size: 1.3rem; /* Perbaiki spasi di sini */
 }
+
 
 .role-label {
   display: inline-block;

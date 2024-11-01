@@ -8,7 +8,6 @@
     <!-- End Logo -->
 
     <x-sidebar-search 
-        {{--  actionUrl="{{ route('search') }}"  --}}
         actionUrl="#" 
     />
     <!-- End Search Bar -->
@@ -31,7 +30,7 @@
             <x-profile-dropdown 
                 profileImage="{{ Auth::user()->profile_image ?? Avatar::create(Auth::user()->username)->toBase64()  }}" 
                 username="{{ Auth::user()->username }}" 
-                email="{{ Auth::user()->email }}" 
+                email="{{ Auth::user()->email }}"
                 role="{{ Auth::user()->role->name }}"
                 profileUrl="users-profile.html" 
                 helpUrl="pages-faq.html" 

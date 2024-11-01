@@ -12,14 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('plant_id')->constrained()->onDelete('cascade');
+            $table->uuid('id')->primary(); // Menggunakan UUID sebagai primary key
+            $table->uuid('plant_id'); // Menggunakan UUID untuk foreign key plant_id
+
+            $table->foreign('plant_id')->references('id')->on('plants')->onDelete('cascade'); // Foreign key ke tabel plants
+
             $table->string('title');
             $table->string('message');
-            $table->boolean('is_read')->default(false); // Untuk menandai apakah notifikasi sudah dibaca
+            $table->boolean('is_read')->default(false); // Menandai apakah notifikasi sudah dibaca
             $table->timestamps();
         });
-
     }
 
     /**

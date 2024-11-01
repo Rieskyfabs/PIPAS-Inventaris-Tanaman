@@ -126,9 +126,9 @@
                                   deleteData="{{ route('users.destroy', $user->id) }}"
                                   method="DELETE"
                                   submit="true" {{-- Tombol hapus akan muncul --}}
-                                  :dropdown="[ 
-                                      ['href' => route('users.edit', $user->id), 'label' => 'Edit'], 
-                                      ['href' => '#', 'label' => 'Suspend User'] 
+                                  :dropdown="[
+                                      ['href' => route('users.edit', $user->id), 'label' => 'Edit'],
+                                      ['href' => '#', 'label' => 'Suspend User']
                                   ]"
                               />
                           </td>
