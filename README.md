@@ -16,11 +16,13 @@
     COPY PASTE .ENV : https://pastebin.com/tK0yvPx4
 6. Jangan lupa untuk mengetik composer update, lalu composer install (buat laravel)
 7. lalu ketik command di terminal "php artisan migrate:fresh --seed"
+8. Untuk menampilkan gambar ketik dalam terminal "php artisan storage:link"
 8. setelah itu bisa di jalankan dengan command "php artisan serve"
 
 ## Penggunaan Website PIPAS Inventaris Tanaman
 
-### Sebagai role User (siswa)
+
+### Sebagai role Guest
 
 ### Sebagai role Admin
 
