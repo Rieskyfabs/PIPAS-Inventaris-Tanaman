@@ -1,9 +1,9 @@
 # PIPAS Inventaris Tanaman
 
-![screenshot](assets/landingpage.png)
-![screenshot](assets/login.png)
-![screenshot](assets/dashboard.png)
-![screenshot](assets/dashboard2.png)
+![screenshot](public/assets/img/readme/imglandingpage.png)
+![screenshot](public/assets/img/readme/imglogin.png)
+![screenshot](public/assets/img/readme/dashboard.png)
+![screenshot](public/assets/img/readme/dashboard2.png)
 
 ## Paduan Installasi Project
 
