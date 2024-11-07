@@ -1,9 +1,9 @@
 # PIPAS Inventaris Tanaman
 
-![screenshot](assets/landingpage.png)
-![screenshot](assets/login.png)
-![screenshot](assets/dashboard.png)
-![screenshot](assets/dashboard2.png)
+![screenshot](public/assets/img/readme/imglandingpage.png)
+![screenshot](public/assets/img/readme/imglogin.png)
+![screenshot](public/assets/img/readme/dashboard.png)
+![screenshot](public/assets/img/readme/dashboard2.png)
 
 ## Paduan Installasi Project
 
@@ -16,11 +16,13 @@
     COPY PASTE .ENV : https://pastebin.com/tK0yvPx4
 6. Jangan lupa untuk mengetik composer update, lalu composer install (buat laravel)
 7. lalu ketik command di terminal "php artisan migrate:fresh --seed"
+8. Untuk menampilkan gambar ketik dalam terminal "php artisan storage:link"
 8. setelah itu bisa di jalankan dengan command "php artisan serve"
 
 ## Penggunaan Website PIPAS Inventaris Tanaman
 
-### Sebagai role User (siswa)
+
+### Sebagai role Guest
 
 ### Sebagai role Admin
 
