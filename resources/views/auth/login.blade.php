@@ -45,16 +45,16 @@
                   {{ session('error') }}
                 </div>
               @endif
-              <p class="subHeading">Pastikan Data Email / Nama dan <br> Password Harus Benar</p>
+              <p class="subHeading">{{__('Pastikan Data Email dan Password Harus Bena')}}r</p>
               <form method="post" action="{{ route('login.action') }}">
                 @csrf
                   <div class="input-group">
-                    <label for="email">Email</label>
+                    <label for="email">{{__('Email')}}</label>
                     @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                     <input type="text" id="email" name="email" placeholder="emailanda@gmail.com" required>   
                   </div>
                   <div class="input-group password-group">
-                      <label for="password">Password</label>
+                      <label for="password">{{__('Password')}}</label>
                       @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                       <input type="password" id="password" name="password" placeholder="********" required>
                       <span class="toggle-password" onclick="togglePassword()">
@@ -63,12 +63,12 @@
                   </div>
                   <div class="button-container">
                       {{-- <button type="submit" class="login-button">Login</button> --}}
-                      <button type="submit" class="login-button">Login</button>
+                      <button type="submit" class="login-button">{{__('Login')}}</button>
                   </div>
               </form>
               <div class="button-underline"></div>
               <p class="note">
-                <b>DAMASU - SIM Inventaris Tanaman</b>, adalah sebuah website / aplikasi yang bertujuan untuk <b>pemantauan, pengelolaan & pendataan tanaman</b>, menyediakan penyajian & pelaporan data yang baik dan mencegah hilangnya tanaman.
+                <b>{{__('DAMASU - SIM Inventaris Tanaman')}}</b>{{__(', adalah sebuah website / aplikasi yang bertujuan untuk ')}}<b>{{__('pemantauan, pengelolaan & pendataan tanaman')}}</b>{{__(', menyediakan penyajian & pelaporan data yang baik dan mencegah hilangnya tanaman.')}}
               </p>
           </div>
       </div>

@@ -64,7 +64,7 @@
                                                 </div>
                                             </td>
                                             <td>{{ $item->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                                            <td>{{ Str::limit($item->benefit ?? 'Manfaat tidak ditemukan', 20)}}</td>
+                                            <td>{{ Str::limit($item->benefit ?? 'Manfaat tidak ditemukan', 30)}}</td>
                                             <td>{{ $item->description ?? 'No Description' }}</td>
                                             <td>{{ $item->created_at->format('d F Y, H:i') }}</td>
                                             <td style="text-align: center;">

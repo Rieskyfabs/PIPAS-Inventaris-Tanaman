@@ -22,6 +22,17 @@
       'Image' => 'Intervention\\Image\\Facades\\Image',
     ),
   ),
+  'kevincobain2000/laravel-erd' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Kevincobain2000\\LaravelERD\\LaravelERDServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'LaravelERD' => 'Kevincobain2000\\LaravelERD\\LaravelERDFacade',
+    ),
+  ),
   'laravel/sail' => 
   array (
     'providers' => 

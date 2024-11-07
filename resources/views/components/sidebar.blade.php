@@ -37,7 +37,11 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('inventaris/list-tanaman*') ? '' : 'collapsed' }}" href="{{ route('users.plants') }}">
                         <i class="bx bx-leaf"></i>
-                        <span>{{ __('Tanaman') }}</span>
+                        <span>{{ __('Tanaman') }}
+                            @if($readyToHarvestCount > 0)
+                                <span class="notification-bubble"></span>
+                            @endif
+                        </span>
                     </a>
                 </li>
 
@@ -223,13 +227,13 @@
                             <a class="nav-link {{ Request::is('admin/pengaturan/pengguna*') || Request::is('admin/pengaturan/pengguna*') ? '' : 'collapsed' }}" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
                                 <i class="bi bi-circle-fill"></i><span>{{ __('Pengguna') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
                             </a>
-                            <ul id="users-nav" class="nav-content collapse {{ Request::is('admin/pengaturan/pengguna*') || Request::is('adminpengaturan/pengguna*') ? 'show' : '' }} ps-3" data-bs-parent="#settings-nav">
+                            <ul id="users-nav" class="nav-content collapse {{ Request::is('admin/pengaturan/pengguna*') || Request::is('admin/pengaturan/pengguna*') ? 'show' : '' }} ps-3" data-bs-parent="#settings-nav">
                                 <li>
-                                    <a class="{{ Request::is('admin/pengaturan/pengguna*') ? 'active' : '' }}" href="{{ route('users') }}">
+                                    <a class="{{ Request::is('admin/pengaturan/pengguna/list-pengguna') ? 'active' : '' }}" href="{{ route('users') }}">
                                         <i class="bi bi-circle"></i><span>{{ __('List Pengguna') }}</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link {{ Request::is('admin/pengaturan/pengguna/role-permissions*') ? '' : 'collapsed' }}" data-bs-target="#roles-permissions-subnav" data-bs-toggle="collapse" href="#">
                                         <i class="bi bi-circle-fill"></i><span>{{ __('Roles & Permissions') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
                                     </a>
@@ -245,7 +249,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                     </ul>

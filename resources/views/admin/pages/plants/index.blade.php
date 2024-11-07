@@ -171,9 +171,14 @@
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('plants.show', $plant->plantAttribute->plant_code) }}" class="btn btn-primary">
-                                                        {{__('Lihat')}}
-                                                    </a>
+                                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                                        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#ShowPlant{{ $plant->id }}">
+                                                            <i class="ri-eye-line"></i>
+                                                        </button>
+                                                        <a href="{{ route('plants.show', $plant->plantAttribute->plant_code) }}" class="btn btn-primary">
+                                                            {{__('Lihat')}}
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach

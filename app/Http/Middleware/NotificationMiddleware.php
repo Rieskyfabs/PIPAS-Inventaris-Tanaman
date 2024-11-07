@@ -13,10 +13,15 @@ class NotificationMiddleware
 {
     public function handle($request, Closure $next)
     {
+        if (!Auth::check()) {
+            // Skip notification creation if the user is not authenticated
+            return $next($request);
+        }
+
         // Ambil data tanaman siap panen dan urutkan berdasarkan created_at terbaru
         $siapPanenPlants = Plant::where('harvest_status', 'siap panen')
-        ->orderBy('created_at', 'desc')
-        ->take(5)
+            ->orderBy('created_at', 'desc')
+            ->take(5)
             ->get();
 
         foreach ($siapPanenPlants as $plant) {

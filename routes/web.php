@@ -30,9 +30,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('landingPage');
-})->name('home');
+    return redirect()->route('beranda');
+});
 
+Route::get('/beranda', function () {
+    return view('landingPage');
+})->name('beranda');
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('register', 'register')->name('register');
@@ -230,7 +233,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         });
 
         // Permissions
-        Route::prefix('/pengaturan/role-permissions/permissions')->group(function () {
+        Route::prefix('/pengaturan/pengguna/role-permissions/permissions')->group(function () {
             Route::get('/', [PermissionController::class, 'index'])->name('permissions');
             Route::get('/tambah-data-permissions', [PermissionController::class, 'create'])->name('permissions.create');
             Route::post('/store', [PermissionController::class, 'store'])->name('permissions.store');
@@ -240,7 +243,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         });
 
         // Roles
-        Route::prefix('/role-permissions/roles')->group(function () {
+        Route::prefix('/pengaturan/pengguna/role-permissions/roles')->group(function () {
             Route::get('/', [RoleController::class, 'index'])->name('roles');
             Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
             Route::post('/roles/store', [RoleController::class, 'store'])->name('roles.store');

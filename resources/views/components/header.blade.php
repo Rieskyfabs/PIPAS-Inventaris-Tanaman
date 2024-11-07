@@ -32,8 +32,8 @@
                 username="{{ Auth::user()->username }}" 
                 email="{{ Auth::user()->email }}"
                 role="{{ Auth::user()->role->name }}"
-                profileUrl="users-profile.html" 
-                helpUrl="pages-faq.html" 
+                profileUrl="#" 
+                helpUrl="#" 
             />
 
         </ul>
