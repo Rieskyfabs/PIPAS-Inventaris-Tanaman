@@ -30,12 +30,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('beranda');
+    return redirect()->route('home');
 });
 
 Route::get('/beranda', function () {
     return view('landingPage');
-})->name('beranda');
+})->name('home');
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('register', 'register')->name('register');

@@ -34,6 +34,7 @@ section {
   max-width: 1500px;
 }
 
+/* NAVIGATION */ 
 .navbar {
   background-color: #F8F9FF;
   position: fixed;
@@ -153,6 +154,7 @@ section {
   border-color: #E5F4F2;
   /* Border color on hover */
 }
+/* END NAVIGATION */ 
 
 /* HERO, HOME SECTION */
 .home {
@@ -509,7 +511,6 @@ section {
 }
 /* END GALERI SECTION */
 
-
 /* TEAM SECTION */
 .team .team-wrapper {
   margin: auto;
@@ -625,7 +626,6 @@ section {
 .team-wrapper .row2 .card-team .card .description {
   margin-top: 30px;
 }
-
 
 .team-wrapper .row2 .card-team .card:hover {
   transform: translateY(-10px);
@@ -749,7 +749,6 @@ section {
 /* END HIGHTLIGHTED-CTA */
 
 /* CONTACT-FROM */
-
 .contact-form .contact-form-wrapper {
   background-color: #ffffff;
   position: relative;
@@ -984,7 +983,6 @@ section {
   background-color: rgba(255, 255, 255, 0.3);
   /* Efek hover pada ikon */
 }
-
 /* END FOOTER */
 
 /* DEKSTOP VERSION */
