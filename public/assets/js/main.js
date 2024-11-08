@@ -313,21 +313,6 @@
             perPageSelect: [5, 10, 15, ["All", -1]],
             scrollable: true,
             responsive: true,
-            columns: [
-                {
-                    select: 2,
-                    sortSequence: ["desc", "asc"],
-                },
-                {
-                    select: 3,
-                    sortSequence: ["desc"],
-                },
-                {
-                    select: 4,
-                    cellClass: "green",
-                    headerClass: "red",
-                },
-            ],
             labels: {
                 placeholder: "Cari...",
                 perPage: "data per halaman",
@@ -350,5 +335,5 @@
             }).observe(mainContainer);
         }, 200);
     }
-    
+
 })();
