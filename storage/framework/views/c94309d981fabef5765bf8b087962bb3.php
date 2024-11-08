@@ -80,7 +80,7 @@
                                                 </div>
                                             </td>
                                             <td><?php echo e($item->category->name ?? 'Kategori tidak ditemukan'); ?></td>
-                                            <td><?php echo e(Str::limit($item->benefit ?? 'Manfaat tidak ditemukan', 20)); ?></td>
+                                            <td><?php echo e(Str::limit($item->benefit ?? 'Manfaat tidak ditemukan', 30)); ?></td>
                                             <td><?php echo e($item->description ?? 'No Description'); ?></td>
                                             <td><?php echo e($item->created_at->format('d F Y, H:i')); ?></td>
                                             <td style="text-align: center;">

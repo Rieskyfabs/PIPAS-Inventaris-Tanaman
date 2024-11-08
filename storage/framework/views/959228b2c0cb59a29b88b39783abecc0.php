@@ -230,10 +230,15 @@
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <a href="<?php echo e(route('plants.show', $plant->plantAttribute->plant_code)); ?>" class="btn btn-primary">
-                                                        <?php echo e(__('Lihat')); ?>
+                                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                                        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#ShowPlant<?php echo e($plant->id); ?>">
+                                                            <i class="ri-eye-line"></i>
+                                                        </button>
+                                                        <a href="<?php echo e(route('plants.show', $plant->plantAttribute->plant_code)); ?>" class="btn btn-primary">
+                                                            <?php echo e(__('Lihat')); ?>
 
-                                                    </a>
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

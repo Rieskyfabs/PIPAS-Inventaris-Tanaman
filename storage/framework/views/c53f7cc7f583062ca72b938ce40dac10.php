@@ -122,7 +122,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="plantImage" class="form-label">Upload Gambar Tanaman</label>
+                                    <label for="plantImage" class="form-label">Upload Gambar Tanaman (jpeg, png, jpg, gif)</label>
                                     <input type="file" name="image" class="form-control" id="plantImage" accept="image/*" onchange="previewImage(event)">
                                     <img id="imagePreview" src="#" alt="Preview Gambar" style="display: none; width: 100px; height: 100px; object-fit: cover;" class="mt-3"/>
                                 </div>

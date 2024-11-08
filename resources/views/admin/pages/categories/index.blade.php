@@ -6,12 +6,12 @@
   <div>
     <main id="main" class="main">
 
-      <x-breadcrumbs 
-        title="Kategori" 
+      <x-breadcrumbs
+        title="Kategori"
         :items="[
           ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
           ['label' => 'Kategori']
-        ]" 
+        ]"
       />
 
       <section class="section">
@@ -75,7 +75,7 @@
           </div>
         </div>
       </section>
-      
+
     </main>
   </div>
 @endsection
