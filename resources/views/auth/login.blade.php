@@ -51,7 +51,7 @@
                   <div class="input-group">
                     <label for="email">{{__('Email')}}</label>
                     @error('email') <span class="text-danger">{{ $message }}</span> @enderror
-                    <input type="text" id="email" name="email" placeholder="emailanda@gmail.com" required>   
+                    <input type="text" id="email" name="email" placeholder="emailanda@gmail.com" required>
                   </div>
                   <div class="input-group password-group">
                       <label for="password">{{__('Password')}}</label>

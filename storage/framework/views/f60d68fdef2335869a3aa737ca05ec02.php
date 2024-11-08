@@ -34,23 +34,16 @@
     <li>
       <a class="dropdown-item d-flex align-items-center" href="<?php echo e($profileUrl); ?>">
         <i class="bi bi-person"></i>
-        <span><?php echo e(__('My Profile')); ?></span>
+        <span><?php echo e(__('Profile Saya')); ?></span>
       </a>
     </li>
-
-    
-
-    
-
     <li>
       <a class="dropdown-item d-flex align-items-center" href="#">
         <i class="bi bi-question-circle"></i>
         <span><?php echo e(__('FAQ')); ?></span>
       </a>
     </li>
-
     <li><hr class="dropdown-divider"></li>
-
     <!-- Logout -->
     <li>
       <a class="dropdown-item d-flex align-items-center" href="<?php echo e(route('logout')); ?>">

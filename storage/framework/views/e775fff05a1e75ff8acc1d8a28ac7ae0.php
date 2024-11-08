@@ -78,7 +78,7 @@
         
             <?php if (isset($component)) { $__componentOriginalac2c439a70dfd4c1cdc14ad708110032 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalac2c439a70dfd4c1cdc14ad708110032 = $attributes; } ?>
-<?php $component = App\View\Components\ProfileDropdown::resolve(['profileImage' => ''.e(Auth::user()->profile_image ?? Avatar::create(Auth::user()->username)->toBase64()).'','username' => ''.e(Auth::user()->username).'','email' => ''.e(Auth::user()->email).'','role' => ''.e(Auth::user()->role->name).'','profileUrl' => 'users-profile.html','helpUrl' => 'pages-faq.html'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = App\View\Components\ProfileDropdown::resolve(['profileImage' => ''.e(Auth::user()->profile_image ?? Avatar::create(Auth::user()->username)->toBase64()).'','username' => ''.e(Auth::user()->username).'','email' => ''.e(Auth::user()->email).'','role' => ''.e(Auth::user()->role->name).'','profileUrl' => '#','helpUrl' => '#'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('profile-dropdown'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>

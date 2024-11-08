@@ -30,12 +30,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('beranda');
+    return redirect()->route('home');
 });
 
-Route::get('/beranda', function () {
+Route::get('/home', function () {
     return view('landingPage');
-})->name('beranda');
+})->name('home');
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('register', 'register')->name('register');
@@ -176,7 +176,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
             Route::delete('/{id}', [LocationController::class, 'destroy'])->name('locations.destroy');
         });
 
-        // Tipe Tanaman 
+        // Tipe Tanaman
         Route::prefix('/atribut-tanaman/tipe-tanaman')->group(function () {
             Route::get('/', [PlantTypeController::class, 'index'])->name('plantTypes');
             Route::get('/tambah-data-tipe-tanaman', [PlantTypeController::class, 'create'])->name('plantTypes.create');
@@ -194,7 +194,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
             Route::get('/{id}/edit-data-atribut', [PlantAttributesController::class, 'edit'])->name('plantAttributes.edit');
             Route::put('/{id}/update-data-atribut', [PlantAttributesController::class, 'update'])->name('plantAttributes.update');
             Route::delete('/{id}', [PlantAttributesController::class, 'destroy'])->name('plantAttributes.destroy');
-            
+
             Route::post('/add-new-category', [PlantAttributesController::class, 'addNewCategory'])->name('addNewCategory');
             Route::post('/add-new-type', [PlantAttributesController::class, 'addNewType'])->name('addNewType');
 

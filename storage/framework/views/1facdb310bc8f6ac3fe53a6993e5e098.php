@@ -38,7 +38,12 @@
                 <li class="nav-item">
                     <a class="nav-link <?php echo e(Request::is('inventaris/list-tanaman*') ? '' : 'collapsed'); ?>" href="<?php echo e(route('users.plants')); ?>">
                         <i class="bx bx-leaf"></i>
-                        <span><?php echo e(__('Tanaman')); ?></span>
+                        <span><?php echo e(__('Tanaman')); ?>
+
+                            <?php if($readyToHarvestCount > 0): ?>
+                                <span class="notification-bubble"></span>
+                            <?php endif; ?>
+                        </span>
                     </a>
                 </li>
 
@@ -209,29 +214,13 @@
                             <a class="nav-link <?php echo e(Request::is('admin/pengaturan/pengguna*') || Request::is('admin/pengaturan/pengguna*') ? '' : 'collapsed'); ?>" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
                                 <i class="bi bi-circle-fill"></i><span><?php echo e(__('Pengguna')); ?></span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
                             </a>
-                            <ul id="users-nav" class="nav-content collapse <?php echo e(Request::is('admin/pengaturan/pengguna*') || Request::is('adminpengaturan/pengguna*') ? 'show' : ''); ?> ps-3" data-bs-parent="#settings-nav">
+                            <ul id="users-nav" class="nav-content collapse <?php echo e(Request::is('admin/pengaturan/pengguna*') || Request::is('admin/pengaturan/pengguna*') ? 'show' : ''); ?> ps-3" data-bs-parent="#settings-nav">
                                 <li>
-                                    <a class="<?php echo e(Request::is('admin/pengaturan/pengguna*') ? 'active' : ''); ?>" href="<?php echo e(route('users')); ?>">
+                                    <a class="<?php echo e(Request::is('admin/pengaturan/pengguna/list-pengguna') ? 'active' : ''); ?>" href="<?php echo e(route('users')); ?>">
                                         <i class="bi bi-circle"></i><span><?php echo e(__('List Pengguna')); ?></span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link <?php echo e(Request::is('admin/pengaturan/pengguna/role-permissions*') ? '' : 'collapsed'); ?>" data-bs-target="#roles-permissions-subnav" data-bs-toggle="collapse" href="#">
-                                        <i class="bi bi-circle-fill"></i><span><?php echo e(__('Roles & Permissions')); ?></span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
-                                    </a>
-                                    <ul id="roles-permissions-subnav" class="nav-content collapse <?php echo e(Request::is('admin/pengaturan/pengguna/role-permissions*') ? 'show' : ''); ?> ps-3" data-bs-parent="#users-nav">
-                                        <li>
-                                            <a class="<?php echo e(Request::is('admin/pengaturan/pengguna/role-permissions/permissions*') ? 'active' : ''); ?>" href="<?php echo e(route('permissions')); ?>">
-                                                <i class="bi bi-circle"></i><span><?php echo e(__('Permissions')); ?></span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="<?php echo e(Request::is('admin/pengaturan/pengguna/role-permissions/roles*') ? 'active' : ''); ?>" href="<?php echo e(route('roles')); ?>">
-                                                <i class="bi bi-circle"></i><span><?php echo e(__('Roles')); ?></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                
                             </ul>
                         </li>
                     </ul>

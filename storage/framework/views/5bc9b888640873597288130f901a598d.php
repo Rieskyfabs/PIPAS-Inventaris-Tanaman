@@ -46,11 +46,11 @@
 
                 </div>
               <?php endif; ?>
-              <p class="subHeading">Pastikan Data Email / Nama dan <br> Password Harus Benar</p>
+              <p class="subHeading"><?php echo e(__('Pastikan Data Email dan Password Harus Bena')); ?>r</p>
               <form method="post" action="<?php echo e(route('login.action')); ?>">
                 <?php echo csrf_field(); ?>
                   <div class="input-group">
-                    <label for="email">Email</label>
+                    <label for="email"><?php echo e(__('Email')); ?></label>
                     <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -59,10 +59,10 @@ $message = $__bag->first($__errorArgs[0]); ?> <span class="text-danger"><?php ec
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                    <input type="text" id="email" name="email" placeholder="emailanda@gmail.com" required>   
+                    <input type="text" id="email" name="email" placeholder="emailanda@gmail.com" required>
                   </div>
                   <div class="input-group password-group">
-                      <label for="password">Password</label>
+                      <label for="password"><?php echo e(__('Password')); ?></label>
                       <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -78,12 +78,13 @@ unset($__errorArgs, $__bag); ?>
                   </div>
                   <div class="button-container">
                       
-                      <button type="submit" class="login-button">Login</button>
+                      <button type="submit" class="login-button"><?php echo e(__('Login')); ?></button>
                   </div>
               </form>
               <div class="button-underline"></div>
               <p class="note">
-                <b>DAMASU - SIM Inventaris Tanaman</b>, adalah sebuah website / aplikasi yang bertujuan untuk <b>pemantauan, pengelolaan & pendataan tanaman</b>, menyediakan penyajian & pelaporan data yang baik dan mencegah hilangnya tanaman.
+                <b><?php echo e(__('DAMASU - SIM Inventaris Tanaman')); ?></b><?php echo e(__(', adalah sebuah website / aplikasi yang bertujuan untuk ')); ?><b><?php echo e(__('pemantauan, pengelolaan & pendataan tanaman')); ?></b><?php echo e(__(', menyediakan penyajian & pelaporan data yang baik dan mencegah hilangnya tanaman.')); ?>
+
               </p>
           </div>
       </div>
