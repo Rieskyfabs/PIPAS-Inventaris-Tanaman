@@ -1,4 +1,4 @@
-<section class="about bg-gray-100 py-16 pt-20" id="about">
+<section class="about py-16 pt-20" id="about">
     <div class="container mx-auto flex flex-wrap justify-between px-8">
         <div class="content-left w-full lg:w-1/2 flex justify-center lg:justify-start">
             <div class="img-wrapper relative lg:left-20 lg:-top-10">

@@ -7,82 +7,72 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 	<meta name="description" content="This is meta description">
 	<meta name="author" content="Themefisher">
-	<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
-	<link href="/images/wikrama-logo.png" rel="icon">
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-	<!-- # Google Fonts -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-	<!-- #Main Style Sheet -->
-	<link rel="stylesheet" href="{{ asset('css/login.css') }}">
-
-  <!-- SweetAlert2 CSS -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+	<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+	@vite('resources/css/app.css')
 </head>
 
-  <body>
-    <main>
-      <div class="container">
-          <div class="image-container">
-              <a href="{{ route('home') }}" class="back-button">
-                  <i class="fas fa-arrow-left"></i>
-                  <span class="back-button-text">Home</span>
-              </a>
+<body class="flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('/images/BG-Login2.png');">
+	<main class="w-full max-w-md sm:max-w-screen-sm lg:max-w-screen-lg flex flex-col lg:flex-row bg-white shadow-2xl rounded-xl overflow-hidden mx-4 sm:mx-6 lg:mx-0">
+	  
+    <!-- Image Section -->
+    <div class="hidden lg:flex flex-1 bg-cover bg-center relative" style="background-image: url('/images/bg-login-ai.png');">
+      <!-- Tombol Home -->
+      <a href="{{ route('home') }}" class="absolute top-4 left-4 bg-white bg-opacity-80 hover:bg-opacity-100 transition-all duration-200 px-3 py-2 rounded-md text-gray-800 text-sm font-semibold flex items-center space-x-2 shadow-lg">
+        <i class="fas fa-arrow-left"></i><span>Home</span>
+      </a>
+    </div>
+
+    <!-- Form Section -->
+    <div class="flex-1 flex flex-col items-center p-8 sm:p-12 lg:p-16">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-4 lg:mb-6">Login</h1>
+      <p class="text-center text-sm sm:text-base text-gray-600 mb-6 lg:mb-8">Pastikan Data Email dan Password Harus Benar</p>
+
+      <form method="post" action="{{ route('login.action') }}" class="w-full max-w-sm">
+        @csrf
+        <div class="mb-6 lg:mb-8">
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+          <input type="email" id="email" name="email" placeholder="emailanda@gmail.com" required class="w-full p-3 sm:p-4 border rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none transition duration-200">
+        </div>
+
+        <div class="mb-6 lg:mb-8 relative">
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+          
+          <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-green-500">
+            <input type="password" id="password" name="password" placeholder="********" required class="w-full p-3 sm:p-4 border-none rounded-l-lg focus:outline-none">
+            
+            <!-- Divider -->
+            <div class="w-px h-5 sm:h-6 bg-gray-300 mx-2"></div>
+            
+            <!-- Eye Icon -->
+            <span class="p-4 pl-2 mt-1 text-xl cursor-pointer text-gray-400 hover:text-gray-600 transition duration-200" onclick="togglePassword()">
+              <i class="fas fa-eye" id="eye-icon"></i>
+            </span>
           </div>
-          <div class="login-form">
-              <h1>Login</h1>
-              @if (session()->has('error'))
-                <div class="alert alert-danger">
-                  {{ session('error') }}
-                </div>
-              @endif
-              <p class="subHeading">{{__('Pastikan Data Email dan Password Harus Bena')}}r</p>
-              <form method="post" action="{{ route('login.action') }}">
-                @csrf
-                  <div class="input-group">
-                    <label for="email">{{__('Email')}}</label>
-                    @error('email') <span class="text-danger">{{ $message }}</span> @enderror
-                    <input type="text" id="email" name="email" placeholder="emailanda@gmail.com" required>
-                  </div>
-                  <div class="input-group password-group">
-                      <label for="password">{{__('Password')}}</label>
-                      @error('password') <span class="text-danger">{{ $message }}</span> @enderror
-                      <input type="password" id="password" name="password" placeholder="********" required>
-                      <span class="toggle-password" onclick="togglePassword()">
-                          <i class="fas fa-eye" id="eye-icon"></i>
-                      </span>
-                  </div>
-                  <div class="button-container">
-                      {{-- <button type="submit" class="login-button">Login</button> --}}
-                      <button type="submit" class="login-button">{{__('Login')}}</button>
-                  </div>
-              </form>
-              <div class="button-underline"></div>
-              <p class="note">
-                <b>{{__('DAMASU - SIM Inventaris Tanaman')}}</b>{{__(', adalah sebuah website / aplikasi yang bertujuan untuk ')}}<b>{{__('pemantauan, pengelolaan & pendataan tanaman')}}</b>{{__(', menyediakan penyajian & pelaporan data yang baik dan mencegah hilangnya tanaman.')}}
-              </p>
-          </div>
-      </div>
-    </main>
+        </div>
 
-    <!-- # JS Plugins -->
-    <script src="{{ asset('front/plugins/jquery/jquery.min.js')}}"></script>
-    <script src="{{ asset('front/plugins/bootstrap/bootstrap.min.js')}}"></script>
+        <div class="mt-6 lg:mt-10 flex justify-center">
+          <button type="submit" class="w-full sm:w-3/4 bg-green-600 text-white py-2 sm:py-3 rounded-lg font-semibold shadow-lg hover:bg-green-700 transition duration-300 transform hover:-translate-y-1">
+            Login
+          </button>
+        </div>
+      </form>
 
-    <!-- Main Script -->
-    <script src="{{ asset('js/LoginScript.js') }}"></script>
+      <div class="w-full h-px my-6 lg:my-8 bg-gray-300"></div>
 
-    @include('sweetalert::alert')
+      <p class="text-xs sm:text-sm text-gray-500 text-center leading-5 px-4 lg:px-6">
+        <b>DAMASU - SIM Inventaris Tanaman</b>, adalah sebuah website / aplikasi yang bertujuan untuk <b>pemantauan, pengelolaan & pendataan tanaman</b>, menyediakan penyajian & pelaporan data yang baik dan mencegah hilangnya tanaman.
+      </p>
+    </div>
+  </main>
 
-  </body>
+	<script src="{{ asset('js/LoginScript.js') }}"></script>
+	@include('sweetalert::alert')
+</body>
 
 </html>

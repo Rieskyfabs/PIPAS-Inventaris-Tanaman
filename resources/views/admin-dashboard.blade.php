@@ -23,43 +23,43 @@
 
             <!-- Plant Card -->
             <x-card
-              type="plants"
-              title="Tanaman"
-              period="Hari ini"
-              icon="ri-plant-line"
-              value="{{ $totalPlantsQuantity }}"
-              changePercent="12"
-              changeType="increase"
-              :filter="true"
-              :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+                type="plants"
+                title="Tanaman"
+                period="Hari ini"
+                icon="ri-plant-line"
+                value="{{ $totalPlantsQuantity }}"
+                changePercent="12"
+                changeType="increase"
+                :filter="true"
+                :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
             />
             <!-- End Plant Card -->
 
             <!-- Location Card -->
             <x-card
-              type="location"
-              title="Lokasi Inventaris"
-              period="Hari ini"
-              icon="ri-map-pin-line"
-              value="{{ $totalLocations }}"
-              changePercent="12"
-              changeType="increase"
-              :filter="true"
-              :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+                type="location"
+                title="Lokasi Inventaris"
+                period="Hari ini"
+                icon="ri-map-pin-line"
+                value="{{ $totalLocations }}"
+                changePercent="12"
+                changeType="increase"
+                :filter="true"
+                :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
             />
             <!-- End Location Card -->
 
             <!-- Total Users Card -->
             <x-card
-              type="revenue"
-              title="Pengguna"
-              period="Hari ini"
-              icon="ri-group-line"
-              value="{{ $totalUsers }}"
-              changePercent="12"
-              changeType="increase"
-              :filter="true"
-              :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
+                type="revenue"
+                title="Pengguna"
+                period="Hari ini"
+                icon="ri-group-line"
+                value="{{ $totalUsers }}"
+                changePercent="12"
+                changeType="increase"
+                :filter="true"
+                :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
             />
             <!-- End Total Users Card -->
           </div>
@@ -254,7 +254,7 @@
                             <div class="carousel-inner">
                                 @foreach($recentPlants as $index => $plant)
                                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                        <img src="{{ asset('storage/' . $plant->image) }}" class="d-block w-100 img-max-height" alt="{{ $plant->plantAttribute->name }}">
+                                        <img src="{{ asset('storage/'    . $plant->image) }}" class="d-block w-100 img-max-height" alt="{{ $plant->plantAttribute->name }}">
                                         <div class="overlay"></div> <!-- Overlay gelap -->
                                         <div class="carousel-caption d-none d-md-block">
                                             <h5>{{ $plant->plantAttribute->name }}</h5>

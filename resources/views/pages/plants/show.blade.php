@@ -33,10 +33,6 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ __('Detail Data Tanaman  ') . ($plantDetail->plantAttribute->name ?? '') }}</h5>
                         <div class="add-btn-container">
-                            <a href="{{ route('plants.create') }}" class="btn-add-item">
-                                +
-                                {{ __('TAMBAH') }}
-                            </a>
                         </div>
                         <div class="table-responsive">
                             <!-- Table with stripped rows -->

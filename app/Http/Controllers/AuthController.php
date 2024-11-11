@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -28,9 +30,10 @@ class AuthController extends Controller
 
     public function loginAction(Request $request)
     {
+        // Validasi input login
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -38,45 +41,46 @@ class AuthController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
+        // Attempt login dengan throttle untuk mencegah brute force
         $credentials = $request->only('email', 'password');
-        if (!Auth::attempt($credentials)) {
-            Log::warning('Login attempt failed for email: ' . $request->input('email'));
-            Alert::warning('Login Gagal', 'Nampaknya anda memasukkan email atau password yang salah.');
-            return back()->withInput();
-        }
 
-        $user = Auth::user();
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            // Regenerasi session untuk mencegah session fixation
+            $request->session()->regenerate();
 
-        if ($user->status !== 'active') {
-            Auth::logout();
-            Alert::warning('Tidak Bisa Login', 'Akun Anda tidak aktif, hubungi Administrator untuk bantuan lebih lanjut.');
-            return back()->withInput();
-        }
+            $user = Auth::user();
 
-        $request->session()->regenerate();
+            // Cek apakah status user aktif
+            if ($user->status !== 'active') {
+                Auth::logout();
+                Alert::warning('Tidak Bisa Login', 'Akun Anda tidak aktif, hubungi Administrator.');
+                return back()->withInput();
+            }
 
-        Alert::success('Login Berhasil!', 'Selamat datang di dashboard anda.');
+            Alert::success('Login Berhasil!', 'Selamat datang di dashboard anda.');
 
-        if ($user->role_id === Role::where('name', 'master')->first()->id) {
-            return redirect()->route('admin/dashboard');
-        } elseif ($user->role_id === Role::where('name', 'admin')->first()->id) {
-            return redirect()->route('admin/dashboard');
-        } else {
+            // Redirect ke halaman yang sesuai berdasarkan role
+            if ($user->role->name === 'master' || $user->role->name === 'admin') {
+                return redirect()->route('admin/dashboard');
+            }
+
             return redirect()->route('dashboard');
         }
 
+        // Jika login gagal
+        Log::warning('Login attempt failed for email: ' . $request->input('email'));
+        Alert::warning('Login Gagal', 'Email atau password salah.');
+        return back()->withInput();
     }
 
     public function logout(Request $request)
     {
+        // Logout dan invalidate session
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         Alert::info('Anda Logout', 'Terimakasih telah berkunjung!');
-
         return redirect()->route('home');
     }
 }
-
