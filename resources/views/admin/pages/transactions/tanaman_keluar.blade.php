@@ -37,8 +37,6 @@
                           <th>{{__('KONDISI TANAMAN')}}</th>
                           <th>{{__('TANGGAL KELUAR')}}</th>
                           <th>{{__('JUMLAH KELUAR')}}</th>
-                          {{-- <th>{{__('TUJUAN')}}</th> --}}
-                          <th>{{__('AKSI')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,17 +67,6 @@
                               </td>
                               <td>{{ $item->tanggal_keluar }}</td>
                               <td>{{ $item->jumlah_keluar }}</td>
-                              {{-- <td>Dummy -> GreenRoof</td> --}}
-                              <td>
-                                  <x-action-buttons
-                                      deleteData="{{ route('categories.destroy', $item->id) }}"
-                                      method="DELETE"
-                                      submit="true"
-                                      :dropdown="[ 
-                                        ['href' => route('categories.edit', $item->id), 'label' => 'Edit'], 
-                                      ]"
-                                  />
-                              </td>
                             </tr>
                         @endforeach
                     </tbody>
