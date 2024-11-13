@@ -42,7 +42,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'registerSave')->name('registerSave');
 
     Route::get('login', 'login')->name('login');
-    Route::post('login', 'loginAction')->name('login.action');
+    Route::post('login', 'loginAction')->middleware('throttle:5,1')->name('login.action'); // 5 percakapan per menit
 
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
