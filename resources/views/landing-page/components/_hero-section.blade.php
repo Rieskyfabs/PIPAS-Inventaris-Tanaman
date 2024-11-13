@@ -9,11 +9,19 @@
                 Bakar semangatmu dengan mengikuti <span class="font-medium text-[#009379]">Pendidikan Ilmu Pengetahuan Alam dan Sosial</span> yang diadakan di sekolah sebagai ajang bagi dirimu untuk meningkatkan nilai dan sikap bagi para siswa.
             </p>
             <div class="box-wrapper flex flex-wrap gap-5 justify-center lg:justify-start">
-                <div class="box flex items-center gap-4">
-                    <a href="{{ route('login') }}" class="inline-block bg-[#009379] text-white font-semibold py-3 px-6 sm:px-8 rounded-lg transition hover:bg-opacity-90">
-                        <i class="fas fa-sign-in-alt mr-2"></i> Login Sekarang
-                    </a>
-                </div>
+                @if (Route::has('login'))
+                    <div class="box flex items-center gap-4">
+                        @auth
+                            <a href="{{ Auth::user()->role->name == 'admin' ? route('admin/dashboard') : (Auth::user()->role->name == 'master' ? route('master/dashboard') : route('dashboard')) }}" class="inline-block bg-[#009379] text-white font-semibold py-3 px-6 sm:px-8 rounded-lg transition hover:bg-opacity-90">
+                                <i class="fas fa-sign-in-alt"></i> {{ Auth::user()->role->name == 'admin' ? __('Dashboard') : (Auth::user()->role->name == 'master' ? __('Dashboard') : __('Dashboard')) }}
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" class="inline-block bg-[#009379] text-white font-semibold py-3 px-6 sm:px-8 rounded-lg transition hover:bg-opacity-90">
+                                <i class="fas fa-sign-in-alt mr-2"></i> Login Sekarang
+                            </a>
+                        @endauth
+                    </div>
+                @endif
                 <div class="box flex items-center gap-4">
                     <a href="#about" class="btn-about flex items-center text-[#009379] font-semibold bg-[#F8F9FF] px-6 py-3 rounded-lg border-2 border-[#009379] transition duration-300 hover:bg-[#009379] hover:text-[#F8F9FF]">
                         <i class="fas fa-info-circle mr-2"></i> Tentang PIPAS

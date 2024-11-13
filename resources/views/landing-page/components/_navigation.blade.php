@@ -13,52 +13,27 @@
         <div class="hidden lg:flex gap-8">
             <ul class="flex items-center space-x-8" id="navbar">
                 <li>
-                    <a href="#home" class="nav-link relative text-base font-semibold text-[#009379] hover:underline decoration-[#009379] decoration-2 transition duration-300">Home</a>
+                    <a href="#" class="nav-link relative text-base font-semibold text-[#009379] decoration-[#009379] decoration-2 transition duration-300">Home</a>
                 </li>
                 <li>
-                    <a href="#about" class="nav-link relative text-base font-semibold text-[#009379] hover:underline decoration-[#009379] decoration-2 transition duration-300">Tentang PIPAS</a>
+                    <a href="#about" class="nav-link relative text-base font-semibold text-[#009379] decoration-[#009379] decoration-2 transition duration-300">Tentang PIPAS</a>
                 </li>
                 <li>
-                    <a href="#galeri" class="nav-link relative text-base font-semibold text-[#009379] hover:underline decoration-[#009379] decoration-2 transition duration-300">Galeri</a>
+                    <a href="#galeri" class="nav-link relative text-base font-semibold text-[#009379] decoration-[#009379] decoration-2 transition duration-300">Galeri</a>
                 </li>
                 <li>
-                    <a href="#team" class="nav-link relative text-base font-semibold text-[#009379] hover:underline decoration-[#009379] decoration-2 transition duration-300">Our Team</a>
+                    <a href="#team" class="nav-link relative text-base font-semibold text-[#009379] decoration-[#009379] decoration-2 transition duration-300">Our Team</a>
                 </li>
                 <li>
-                    <a href="#contact-form" class="nav-link relative text-base font-semibold text-[#009379] hover:underline decoration-[#009379] decoration-2 transition duration-300">Contact</a>
+                    <a href="#contact-form" class="nav-link relative text-base font-semibold text-[#009379] decoration-[#009379] decoration-2 transition duration-300">Contact</a>
                 </li>
             </ul>
         </div>
-
-        <script>
-            // Function to handle active class
-            document.addEventListener("DOMContentLoaded", function () {
-                const links = document.querySelectorAll(".nav-link");
-
-                links.forEach(link => {
-                    link.addEventListener("click", function () {
-                        // Remove active class from all links
-                        links.forEach(l => l.classList.remove("active"));
-
-                        // Add active class to clicked link
-                        this.classList.add("active");
-                    });
-                });
-            });
-        </script>
-
-        <style>
-            .nav-link.active {
-                font-weight: bold;
-                color: #009379;
-            }
-        </style>
-        
         @if (Route::has('login'))
             <div class="hidden lg:flex">
                 @auth
-                    <a href="{{ Auth::user()->role->name == 'admin' ? route('admin/dashboard') : (Auth::user()->role->name == 'master' ? route('master/dashboard') : route('dashboard')) }}" class="bg-[#E5F4F2] text-[#009379] font-semibold rounded-full px-12 py-4 transition duration-300 hover:bg-[#009379] hover:text-[#E5F4F2]">
-                        <i class="fas fa-sign-in-alt"></i> {{ Auth::user()->role->name == 'admin' ? __('Admin Dashboard') : (Auth::user()->role->name == 'master' ? __('Master Dashboard') : __('Dashboard')) }}
+                    <a href="{{ Auth::user()->role->name == 'admin' ? route('admin/dashboard') : (Auth::user()->role->name == 'master' ? route('master/dashboard') : route('dashboard')) }}" class="bg-[#E5F4F2] text-[#009379] font-semibold rounded-3xl px-12 py-4 transition duration-300 hover:bg-[#009379] hover:text-[#E5F4F2]">
+                        <i class="fas fa-sign-in-alt"></i> {{ Auth::user()->role->name == 'admin' ? __('Dashboard') : (Auth::user()->role->name == 'master' ? __('Dashboard') : __('Dashboard')) }}
                     </a>
                 @else
                     <a href="{{ route('login') }}" class="bg-[#E5F4F2] text-[#009379] font-semibold rounded-full px-12 py-4 transition duration-300 hover:bg-[#009379] hover:text-[#E5F4F2]">

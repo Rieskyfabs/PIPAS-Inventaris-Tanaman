@@ -8,11 +8,19 @@
             <p class="text-base sm:text-lg font-light mt-4 sm:mt-6 text-[#333333] px-4 sm:px-10 lg:px-16">
                 Ayo Bergabung & Berkontribusi dengan tim PIPAS, Dan Menjadi Pelajar Yang Berani, Jujur & Disiplin.
             </p>
-            <div class="mt-6 sm:mt-8 px-4 sm:px-10 lg:px-16">
-                <a href="{{ route('login') }}" class="inline-block bg-[#009379] text-white font-semibold py-3 px-6 sm:px-8 rounded-lg transition hover:bg-opacity-90">
-                    <i class="fas fa-sign-in-alt mr-2"></i> Login Sekarang
-                </a>
-            </div>
+            @if (Route::has('login'))
+                <div class="mt-6 sm:mt-8 px-4 sm:px-10 lg:px-16">
+                    @auth
+                        <a href="{{ Auth::user()->role->name == 'admin' ? route('admin/dashboard') : (Auth::user()->role->name == 'master' ? route('master/dashboard') : route('dashboard')) }}" class="inline-block bg-[#009379] text-white font-semibold py-3 px-6 sm:px-8 rounded-lg transition hover:bg-opacity-90">
+                            <i class="fas fa-sign-in-alt"></i> {{ Auth::user()->role->name == 'admin' ? __('Dashboard') : (Auth::user()->role->name == 'master' ? __('Dashboard') : __('Dashboard')) }}
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="inline-block bg-[#009379] text-white font-semibold py-3 px-6 sm:px-8 rounded-lg transition hover:bg-opacity-90">
+                            <i class="fas fa-sign-in-alt mr-2"></i> Login Sekarang
+                        </a>
+                    @endauth
+                </div>
+            @endif
         </div>
         <!-- Right Content -->
         <div class="w-full lg:w-1/2 flex justify-center lg:justify-end mt-8 lg:mt-0">
