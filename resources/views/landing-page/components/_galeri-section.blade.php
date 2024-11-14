@@ -3,10 +3,10 @@
         <!-- Row 1 -->
         <div class="mb-16">
             <h1 class="text-4xl font-bold text-black mb-4">
-                Galeri <span class="text-[#009379]">PIPAS</span>
+                Galeri <span class="text-[#009379]">Inventaris Tanaman</span>
             </h1>
             <p class="text-base font-normal text-gray-600">
-                Berbagai kegiatan PIPAS untuk mengembangkan keterampilan dan karakter siswa, mulai dari urban farming hingga pengelolaan sampah.
+                Menampilkan berbagai koleksi tanaman yang terinventarisasi, mulai dari identifikasi jenis hingga dokumentasi kondisi terkini.
             </p>
         </div>
 
@@ -17,10 +17,11 @@
 
         <!-- Row 3 -->
         <div class="mt-48 mb-40 px-8">
-            <h1 class="text-4xl font-bold text-black mb-4">Tidak Hanya Itu</h1>
+            <h1 class="text-4xl font-bold text-black mb-4">Fitur dan Manfaat</h1>
             <p class="text-base font-normal text-gray-600">
-                dalam kegiatan PIPAS juga membuat pengalaman lingkungan hidup yang keren dan berorientasi pada masa depan untuk kehidupan bumi pada masa depan. Berpikir kritis, inovasi, kerja sama, pemecahan masalah, kepedulian, berani, pola hidup, dan rajin.
+                Website ini tidak hanya membantu menginventarisasi tanaman, tetapi juga menyediakan fitur notifikasi untuk mengingatkan waktu panen, memantau pertumbuhan, serta memberikan pengalaman berkebun yang efisien dan terstruktur untuk masa depan yang lebih hijau.
             </p>
         </div>
     </div>
 </section>
+    

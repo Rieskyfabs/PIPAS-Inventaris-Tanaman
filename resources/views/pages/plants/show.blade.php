@@ -122,9 +122,6 @@
                                                         <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#QrCode" tooltip>
                                                             <i class='bx bx-qr-scan'></i>
                                                         </button>
-                                                        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditPlant{{ $plant->id }}">
-                                                            <i class='bx bx-edit'></i>
-                                                        </button>
                                                     </div>
                                                 @endif
                                             </td>

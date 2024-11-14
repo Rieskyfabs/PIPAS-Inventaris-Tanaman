@@ -1,6 +1,6 @@
 <!-- view/landing-page/components/HeaderComponent.blade.php -->
 <meta charset="utf-8">
-<title>{{ $title ?? 'DAMASU' }}</title>
+<title>{{ $title ?? 'DAMASU | SIM - Inventaris Tanaman' }}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 <meta name="description" content="This is meta description">
 <meta name="author" content="Themefisher">

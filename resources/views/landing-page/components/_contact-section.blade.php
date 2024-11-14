@@ -2,22 +2,22 @@
     <div class="container mx-auto flex flex-col lg:flex-row items-center justify-between max-w-6xl bg-white rounded-2xl shadow-lg p-6 sm:p-8">
         <!-- Left Content -->
         <div class="w-full lg:w-1/2 text-center lg:text-left lg:pr-10">
-            <h2 class="text-3xl font-bold text-[#333333]">Hubungi Tim Kami!</h2>
+            <h2 class="text-3xl font-bold text-[#333333]">Hubungi Kami untuk Informasi Lebih Lanjut!</h2>
             <p class="text-lg font-light text-[#333333] mt-4">
-                Memiliki Pertanyaan Seputar Website Ini Atau Tentang PIPAS? Hubungi Kami Dibawah!
+                Punya pertanyaan tentang manajemen inventaris tanaman atau fitur aplikasi? Kami siap membantu!
             </p>
             <div class="flex flex-col space-y-4 mt-4">
                 <a href="https://wa.me/6281310346123" class="w-full text-base sm:text-lg text-[#009379] my-2 py-2 px-4 sm:px-6 bg-[#E5F4F2] rounded-lg inline-flex items-center justify-center sm:whitespace-normal">
                     <i class="fa-solid fa-phone-volume mr-2"></i>
-                    <span class="text-sm sm:text-base">+62 813-1034-6123 (Whatsapp)</span>
+                    <span class="text-sm sm:text-base">+62 851-8367-0015 (Whatsapp)</span>
                 </a>
-                <a href="mailto:kikirizkiromadhoniyah@smkwikrama.sch.id" class="w-full text-base sm:text-lg text-[#009379] my-2 py-2 px-4 sm:px-6 bg-[#E5F4F2] rounded-lg inline-flex items-center justify-center sm:whitespace-normal">
+                <a href="mailto:rieskyfabs@gmail.com" class="w-full text-base sm:text-lg text-[#009379] my-2 py-2 px-4 sm:px-6 bg-[#E5F4F2] rounded-lg inline-flex items-center justify-center sm:whitespace-normal">
                     <i class="fa-solid fa-envelope mr-2"></i>
-                    <span class="text-sm sm:text-base">kikirizkiromadhoniyah@smkwikrama.sch.id</span>
+                    <span class="text-sm sm:text-base">rieskyfabs@gmail.com</span>
                 </a>
             </div>
             <div class="mt-8">
-                <h3 class="text-2xl font-semibold text-[#333333]">Terhubung Dengan Kami</h3>
+                <h3 class="text-2xl font-semibold text-[#333333]">Terhubung di Media Sosial</h3>
                 <div class="flex gap-4 mt-4 justify-center lg:justify-start">
                     <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="flex items-center justify-center w-10 h-10 bg-[#E5F4F2] text-[#333333] rounded-full transition-transform transform hover:scale-110 hover:bg-[#E1306C]">
                         <i class="fab fa-instagram"></i>
