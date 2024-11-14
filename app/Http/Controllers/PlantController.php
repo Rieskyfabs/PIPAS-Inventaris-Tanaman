@@ -6,6 +6,7 @@ use App\Events\PlantCreated;
 use App\Events\PlantHarvested;
 use App\Helpers\ActivityLogger;
 use App\Models\ActivityLog;
+use App\Models\PlantType;
 use App\Models\TanamanKeluar;
 use App\Models\TipeTanaman;
 use Illuminate\Support\Facades\Validator;
@@ -226,7 +227,7 @@ class PlantController extends Controller
             'location_id' => 'required|exists:locations,id',
             'status' => 'required|string|in:sehat,baik,layu,sakit',
             'seeding_date' => 'required|date',
-            'harvest_date' => 'required|date', // Tanggal panen diinput manual
+            'harvest_date' => 'required|date',
         ]);
 
         $plant = Plant::findOrFail($id);
@@ -246,7 +247,7 @@ class PlantController extends Controller
         // Tampilkan pesan sukses
         Alert::success('Data Tanaman DiUpdate', 'Berhasil mengUpdate data Tanaman');
 
-        return redirect()->route('plants');
+        return redirect()->back();
     }
 
 
@@ -280,7 +281,7 @@ class PlantController extends Controller
             ->update(['harvest_status' => 'belum panen']);
 
         // Retrieve plants based on the plant code
-        $plants = Plant::with('category', 'plantType', 'location')
+        $plants = Plant::with('category', 'plantType', 'location', 'plantAttribute')
         ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
             $query->where('plant_code', $plantAttribute);
         })
@@ -288,17 +289,26 @@ class PlantController extends Controller
             ->get();
 
         // Retrieve the specific plant based on the plant code for the detail title
-        $plantDetail = Plant::with('category', 'plantType', 'location')
+        $plantDetail = Plant::with('category', 'plantType', 'location', 'plantAttribute')
         ->whereHas('plantAttribute', function ($query) use ($plantAttribute) {
             $query->where('plant_code', $plantAttribute);
         })->first();
+
+        // Get plant attributes to populate the dropdowns
+        $plantAttributes = PlantAttributes::all(); // Assuming PlantAttribute is the model for plant attributes
+
+        // Get other data for categories, benefits, locations, etc.
+        $categories = Category::all();
+        $benefits = Benefit::all();
+        $locations = Location::all();
+        $types = TipeTanaman::all();
 
         // Confirmation for deletion
         $title = 'Delete Plants!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        return view('admin.pages.plants.show', compact('plants', 'plantDetail'));
+        return view('admin.pages.plants.show', compact('plants', 'plantDetail', 'plantAttributes', 'categories', 'benefits', 'locations', 'types'));
     }
 
     private function generateUniqueKodeTanamanKeluar()
