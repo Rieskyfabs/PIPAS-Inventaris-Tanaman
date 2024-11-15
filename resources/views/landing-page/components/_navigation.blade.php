@@ -16,7 +16,7 @@
                     <a href="#" class="nav-link relative text-base font-semibold text-[#009379] decoration-[#009379] decoration-2 transition duration-300">Home</a>
                 </li>
                 <li>
-                    <a href="#about" class="nav-link relative text-base font-semibold text-[#009379] decoration-[#009379] decoration-2 transition duration-300">Tentang PIPAS</a>
+                    <a href="#about" class="nav-link relative text-base font-semibold text-[#009379] decoration-[#009379] decoration-2 transition duration-300">Tentang</a>
                 </li>
                 <li>
                     <a href="#galeri" class="nav-link relative text-base font-semibold text-[#009379] decoration-[#009379] decoration-2 transition duration-300">Galeri</a>

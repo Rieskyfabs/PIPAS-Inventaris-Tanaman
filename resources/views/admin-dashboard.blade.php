@@ -19,7 +19,7 @@
             <!-- Left side columns -->
             <div class="col-lg-8">
                 <div class="row">
-                <!-- Plant Card -->
+                <!-- Card 1 -->
                 <x-card
                     type="plants"
                     title="Total Tanaman"
@@ -31,35 +31,35 @@
                     :filter="true"
                     :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
                 />
-                <!-- End Plant Card -->
+                <!-- End Card 1 -->
 
-                <!-- Location Card -->
+                <!-- Card 2 -->
                 <x-card
                     type="location"
-                    title="Lokasi Inventaris"
+                    title="Total Tanaman Masuk"
                     period="Hari ini"
-                    icon="ri-map-pin-line"
-                    value="{{ $totalLocations }}"
+                    icon="bx bx-archive-in"
+                    value="{{ $totalTransactionIn }}"
                     changePercent="12"
                     changeType="increase"
                     :filter="true"
                     :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
                 />
-                <!-- End Location Card -->
+                <!-- End Card 2 -->
 
-                <!-- Total Users Card -->
+                <!-- Card 3 -->
                 <x-card
                     type="revenue"
-                    title="Total Staff"
+                    title="Total Tanaman Keluar"
                     period="Hari ini"
-                    icon="ri-group-line"
-                    value="{{ $totalUsers }}"
+                    icon="bx bx-archive-out"
+                    value="{{ $totalTransactionOut }}"
                     changePercent="12"
                     changeType="increase"
                     :filter="true"
                     :filterOptions="['Hari ini', 'Bulan Ini', 'Tahun Ini']"
                 />
-                <!-- End Total Users Card -->
+                <!-- End Card 3 -->
             </div>
 
             <!-- Reports -->
@@ -153,9 +153,9 @@
                                     <th scope="col">{{ __('KODE TANAMAN MASUK') }}</th>
                                     <th scope="col">{{ __('KODE TANAMAN') }}</th>
                                     <th scope="col">{{ __('NAMA TANAMAN') }}</th>
-                                    {{-- <th scope="col">{{ __('TIPE TANAMAN') }}</th> --}}
                                     <th scope="col">{{ __('KATEGORI TANAMAN') }}</th>
                                     <th scope="col">{{ __('LOKASI TANAMAN') }}</th>
+                                    <th scope="col">{{ __('TANGGAL MASUK') }}</th>
                                     <th scope="col">{{ __('STATUS') }}</th>
                                 </tr>
                             </thead>
@@ -172,13 +172,9 @@
                                                 <small>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</small>
                                             </div>
                                         </th>
-                                        {{-- <td>
-                                            <span class="badge badge-soft-green">
-                                                {{ $plant->plantType->name }}
-                                            </span>
-                                        </td> --}}
                                         <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
                                         <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
+                                        <td>{{ $plant->tanamanMasuk->tanggal_masuk }}</td>
                                         <td>
                                             <span class="badge 
                                                 @if ($plant->harvest_status === 'sudah dipanen') badge-soft-green <i class='bi bi-check-circle me-1'></i>

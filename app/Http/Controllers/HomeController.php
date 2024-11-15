@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\ActivityLog;
 use App\Models\Plant;
 use App\Models\Location;
+use App\Models\TanamanKeluar;
+use App\Models\TanamanMasuk;
+use App\Models\TipeTanaman;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -102,11 +105,11 @@ class HomeController extends Controller
         // Hitung total quantity tanaman
         $totalPlantsQuantity = Plant::count();
 
-        // Hitung total lokasi inventaris
-        $totalLocations = Location::count();
+        // Hitung total Tanaman Masuk
+        $totalTransactionIn = TanamanMasuk::count();
 
-        // Hitung total user
-        $totalUsers = User::count();
+        // Hitung total Tanaman Keluar
+        $totalTransactionOut = TanamanKeluar::count();
 
         // Ambil data tanaman dengan pagination
         $plants = Plant::with(['category', 'benefit', 'location', 'plantAttribute', 'tanamanMasuk'])
@@ -165,8 +168,8 @@ class HomeController extends Controller
         return view('admin-dashboard', compact(
             'plants',
             'totalPlantsQuantity',
-            'totalLocations',
-            'totalUsers',
+            'totalTransactionIn',
+            'totalTransactionOut',
             'dataPerLocation',
             'ruangan',
             'dataBelumDipanen',
