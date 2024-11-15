@@ -2,7 +2,7 @@
     <div class="container mx-auto flex flex-wrap justify-between px-8">
         <div class="content-left w-full lg:w-1/2 flex justify-center lg:justify-start">
             <div class="img-wrapper relative lg:left-20 lg:-top-10">
-                <img src="{{ asset('/images/Visuals.png') }}" alt="Gambar Inventaris Tanaman" class="w-full lg:w-[110%] mt-10 lg:mt-56">
+                <img src="{{ asset('/images/Visuals.png') }}" alt="Gambar Inventaris Tanaman" class="w-full sm:w-[120%] mt-10 lg:mt-56">
             </div>
         </div>
         <div class="content-right w-full lg:w-1/2 mt-10 lg:mt-0">

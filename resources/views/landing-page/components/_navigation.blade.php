@@ -1,8 +1,8 @@
 <header class="bg-[#F8F9FF] fixed top-0 left-0 w-full shadow-md z-50">
     <nav class="container mx-auto flex justify-between items-center h-24 px-4 md:px-8">
-        <a href="#" class="text-lg font-bold text-[#009379] flex items-center space-x-2">
-            <i class="fa-solid fa-seedling"></i>
-            <span>DAMASU</span>
+        <a href="#" class="text-lg lg:text-2xl font-bold text-[#009379] flex items-center space-x-2">
+            <img src="/images/wikrama-logo.png" alt="Wikrama Logo" class="w-8 h-8 sm:w-10 sm:h-10 lg:w-16 lg:h-16"> <!-- Ukuran ikon responsif -->
+            <span class="text-lg sm:text-base lg:text-2xl">SIM PIPAS</span>
         </a>
         
         <!-- Mobile Menu Toggle Button -->
@@ -36,7 +36,7 @@
                         <i class="fas fa-sign-in-alt"></i> {{ Auth::user()->role->name == 'admin' ? __('Dashboard') : (Auth::user()->role->name == 'master' ? __('Dashboard') : __('Dashboard')) }}
                     </a>
                 @else
-                    <a href="{{ route('login') }}" class="bg-[#E5F4F2] text-[#009379] font-semibold rounded-full px-12 py-4 transition duration-300 hover:bg-[#009379] hover:text-[#E5F4F2]">
+                    <a href="{{ route('login') }}" class="bg-[#E5F4F2] text-[#009379] font-semibold rounded-2xl px-12 py-4 transition duration-300 hover:bg-[#009379] hover:text-[#E5F4F2] text-center">
                         <i class="fas fa-sign-in-alt"></i> {{ __('Login') }}
                     </a>
                 @endauth
@@ -45,21 +45,14 @@
     </nav>
 
     <!-- Mobile Menu -->
-    <div id="mobileMenu" class="hidden lg:hidden px-4">
+    <div id="mobileMenu" class="hidden lg:hidden px-4 transition-all duration-500 ease-in-out transform opacity-0">
         <div class="flex flex-col items-center bg-[#F8F9FF] space-y-4 mt-4">
-            <a href="#" class="text-base font-semibold text-[#009379] hover:text-[#007F6E] py-2">Home</a>
-            <a href="#about" class="text-base font-semibold text-[#009379] hover:text-[#007F6E] py-2">Tentang PIPAS</a>
-            <a href="#galeri" class="text-base font-semibold text-[#009379] hover:text-[#007F6E] py-2">Galeri</a>
-            <a href="#team" class="text-base font-semibold text-[#009379] hover:text-[#007F6E] py-2">Our Team</a>
-            <a href="#contact-form" class="text-base font-semibold text-[#009379] hover:text-[#007F6E] py-2">Contact</a>
+            <a href="#" class="nav-link text-base font-semibold text-[#009379] hover:text-[#007F6E] py-2">Home</a>
+            <a href="#about" class="nav-link text-base font-semibold text-[#009379] hover:text-[#007F6E] py-2">Tentang PIPAS</a>
+            <a href="#galeri" class="nav-link text-base font-semibold text-[#009379] hover:text-[#007F6E] py-2">Galeri</a>
+            <a href="#team" class="nav-link text-base font-semibold text-[#009379] hover:text-[#007F6E] py-2">Our Team</a>
+            <a href="#contact-form" class="nav-link text-base font-semibold text-[#009379] hover:text-[#007F6E] py-2">Contact</a>
             <hr>
         </div>
     </div>
-
-    <!-- Script to toggle the mobile menu -->
-    <script>
-        document.getElementById('mobileMenuToggle').addEventListener('click', function () {
-            document.getElementById('mobileMenu').classList.toggle('hidden');
-        });
-    </script>
 </header>

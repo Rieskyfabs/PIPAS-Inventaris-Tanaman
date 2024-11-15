@@ -7,9 +7,9 @@
     />
     <!-- End Logo -->
 
-    <x-sidebar-search 
+    {{-- <x-sidebar-search 
         actionUrl="#" 
-    />
+    /> --}}
     <!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">

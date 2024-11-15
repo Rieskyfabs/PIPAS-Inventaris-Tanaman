@@ -1,4 +1,4 @@
-<section class="galeri" id="galeri">
+<section class="galeri py-1 pt-1" id="galeri">
     <div class="container mx-auto mt-52 relative text-center">
         <!-- Row 1 -->
         <div class="mb-16">

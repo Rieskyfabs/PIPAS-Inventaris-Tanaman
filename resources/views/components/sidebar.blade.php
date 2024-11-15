@@ -217,7 +217,9 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+                <!-- End Users Page Nav -->
+
+                {{-- <li class="nav-item">
                     <a class="nav-link {{ Request::is('admin/pengaturan*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#">
                         <i class='bx bx-cog fs-5'></i><span>{{ __('Pengaturan') }}</span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
@@ -233,7 +235,7 @@
                                         <i class="bi bi-circle"></i><span>{{ __('List Pengguna') }}</span>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
+                                <li class="nav-item">
                                     <a class="nav-link {{ Request::is('admin/pengaturan/pengguna/role-permissions*') ? '' : 'collapsed' }}" data-bs-target="#roles-permissions-subnav" data-bs-toggle="collapse" href="#">
                                         <i class="bi bi-circle-fill"></i><span>{{ __('Roles & Permissions') }}</span><i class="bi bi-chevron-down ms-auto me-3 fs-6"></i>
                                     </a>
@@ -249,11 +251,11 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li> --}}
+                                </li>
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="{{ route('logout') }}">

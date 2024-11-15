@@ -130,4 +130,17 @@ section {
     transform: scaleX(1);
 }
 
+
 /* END NAVIGATION */
+
+@media (max-width: 640px) {
+    #home {
+        background-image: none !important;
+    }
+
+    .home .heading,
+    .home .subHeading {
+        text-shadow: none !important;
+    }
+
+}

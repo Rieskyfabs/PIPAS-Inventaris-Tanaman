@@ -57,8 +57,8 @@
                                             <tr>
                                             <th>{{__('GAMBAR')}}</th>
                                             <th>{{__('NAMA')}}</th>
-                                            <th>{{__('KATEGORI')}}</th>
-                                            <th>{{__('MANFAAT')}}</th>
+                                            {{-- <th>{{__('KATEGORI')}}</th>
+                                            <th>{{__('MANFAAT')}}</th> --}}
                                             <th>{{__('LOKASI')}}</th>
                                             <th>{{__('KONDISI')}}</th>
                                             <th>{{__('TANGGAL TANAM')}}</th>
@@ -96,10 +96,10 @@
                                                             </small>
                                                         </div>
                                                     </td>
-                                                    <td>{{ $item->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                                                    <td style="white-space: normal; word-wrap: break-word;">
+                                                    {{-- <td>{{ $item->category->name ?? 'Kategori tidak ditemukan' }}</td> --}}
+                                                    {{-- <td style="white-space: normal; word-wrap: break-word;">
                                                         {{ Str::limit($item->plantAttribute ? $item->plantAttribute->benefit : 'Unknown', 20) }}
-                                                    </td>
+                                                    </td> --}}
                                                     <td>{{ $item->location->name ?? 'Lokasi tidak ditemukan' }}</td>
                                                     <td>
                                                         <span class="badge
@@ -130,12 +130,18 @@
                                                     </td> --}}
                                                     <td>
                                                         @if($item->harvest_status === 'siap panen')
-                                                            <div style="display: flex; align-items: center;">
-                                                                <form action="{{ route('plants.panen', $item->id) }}" method="POST">
+                                                            <div class="d-flex align-items-center gap-2">
+                                                                <form action="{{ route('plants.panen', $item->id) }}" method="POST" class="d-flex align-items-center gap-2">
                                                                     @csrf
                                                                     @method('PUT')
-                                                                    <button type="submit" class="btn btn-success">
-                                                                        {{ __('Panen') }}
+                                                                    <!-- Edit Button -->
+                                                                    <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditPlant{{ $item->id }}">
+                                                                        <i class='bx bx-edit'></i>
+                                                                    </button>
+                                                                    
+                                                                    <!-- Harvest Button -->
+                                                                    <button type="submit" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Tandai tanaman sudah dipanen">
+                                                                        <i class="fas fa-seedling"></i>
                                                                     </button>
                                                                 </form>
                                                             </div>
@@ -162,7 +168,6 @@
                                     </table>
                                     <!-- End Table with stripped rows -->
                                 </div>
-
                             </div>
                         </div>
                     </div>

@@ -336,4 +336,11 @@
         }, 200);
     }
 
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip({
+            animation: true, // enables smooth tooltip display
+            trigger: 'hover' // shows tooltip on hover
+        });
+    });
+
 })();
