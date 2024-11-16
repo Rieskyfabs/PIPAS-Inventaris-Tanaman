@@ -27,7 +27,6 @@
                                 label="TAMBAH" 
                               />
                           </div>
-
                             <div class="table-responsive">
                               <!-- Table with stripped rows -->
                               <table class="table table-bordered table-hover datatable">
