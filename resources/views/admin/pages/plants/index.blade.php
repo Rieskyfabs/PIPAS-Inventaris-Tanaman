@@ -3,19 +3,18 @@
 @section('title', 'Data Tanaman')
 
 @section('contents')
-  <div>
+<div>
     <main id="main" class="main">
-
-      <x-breadcrumbs
-        title="{{ __('Kelola Tanaman')}}"
-        :items="[
-          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
-          ['label' => 'Data Tanaman']
-        ]"
-      />
-
+        <x-breadcrumbs
+            title="{{ __('Kelola Tanaman')}}"
+            :items="[
+            ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
+            ['label' => 'Data Tanaman']
+            ]"
+        />
         <section class="section dashboard">
             <div class="row">
+                
                 <form method="GET" action="{{ route('plants') }}">
                     <div class="mb-3">
                         <label for="period" class="form-label">{{__('Filter Periode')}}</label>
@@ -26,8 +25,8 @@
                         </select>
                     </div>
                 </form>
-                <!-- Summary Card -->
 
+                <!-- Summary Card -->
                 <x-card
                     type="plants"
                     title="Total Tanaman"
@@ -120,7 +119,6 @@
                     </div>
                 </div>
 
-
                 <!-- End Right side columns -->
 
                 <div class="col-lg-12">
@@ -193,5 +191,5 @@
         </section>
 
     </main>
-  </div>
+</div>
 @endsection

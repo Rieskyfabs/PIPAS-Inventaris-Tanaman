@@ -22,11 +22,11 @@ class HomeController extends Controller
         // Hitung total quantity tanaman
         $totalPlantsQuantity = Plant::count();
 
-        // Hitung total lokasi inventaris
-        $totalLocations = Location::count();
+        // Hitung total Tanaman Masuk
+        $totalTransactionIn = TanamanMasuk::count();
 
-        // Hitung total user
-        $totalUsers = User::count();
+        // Hitung total Tanaman Keluar
+        $totalTransactionOut = TanamanKeluar::count();
 
         // Ambil data tanaman dengan pagination
         $plants = Plant::with(['category', 'benefit', 'location', 'plantAttribute', 'tanamanMasuk'])
@@ -88,8 +88,8 @@ class HomeController extends Controller
         return view('dashboard', compact(
             'plants',
             'totalPlantsQuantity',
-            'totalLocations',
-            'totalUsers',
+            'totalTransactionOut',
+            'totalTransactionIn',
             'dataPerLocation',
             'ruangan',
             'dataBelumDipanen',

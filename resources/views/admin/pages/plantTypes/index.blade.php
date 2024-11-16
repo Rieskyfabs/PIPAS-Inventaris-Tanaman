@@ -22,10 +22,10 @@
               <div class="card-body">
                 <h5 class="card-title">{{ __('DATA TIPE TANAMAN') }}</h5>
                 <div class="add-btn-container">
-                    <button type="button" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#PlantTypes">
-                        +
-                        {{ __('TAMBAH') }}
-                    </button>
+                    <x-add-button 
+                      target="#PlantTypes" 
+                      label="TAMBAH" 
+                    />
                 </div>
 
                 <!-- Table with stripped rows -->
@@ -53,13 +53,9 @@
                               <td>{{ $item->created_at->format('d F Y, H:i') }}</td>
                               <td>
                                   <div style="display: flex; align-items: center;">
-                                      <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditPlantTypes{{ $item->id }}">
-                                          <i class='bx bx-edit'></i>
-                                      </button>
-                                      <x-action-buttons
-                                          deleteData="{{ route('plantTypes.destroy', $item->id) }}"
-                                          method="DELETE"
-                                          submit="true"
+                                      <x-action-buttons 
+                                        editModalTarget="#EditPlantTypes{{ $item->id }}"
+                                        deleteRoute="{{ route('plantTypes.destroy', $item->id) }}"
                                       />
                                   </div>
                               </td>

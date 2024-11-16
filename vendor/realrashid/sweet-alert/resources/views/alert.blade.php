@@ -20,21 +20,28 @@
 
                 if (confirmDeleteElement) {
                     event.preventDefault();
-                    Swal.fire({!! Session::pull('alert.delete') !!}).then(function(result) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then(function(result) {
                         if (result.isConfirmed) {
-                            var form = document.createElement('form');
-                            form.action = confirmDeleteElement.href;
-                            form.method = 'POST';
-                            form.innerHTML = `
-                            @csrf
-                            @method('DELETE')
-                        `;
-                            document.body.appendChild(form);
-                            form.submit();
+                            // Find the form that wraps the button
+                            var form = confirmDeleteElement.closest('form');
+                            if (form) {
+                                form.submit();
+                            } else {
+                                console.error("Form not found for delete button!");
+                            }
                         }
                     });
                 }
             });
+
 
             @if (Session::has('alert.config'))
                 Swal.fire({!! Session::pull('alert.config') !!});

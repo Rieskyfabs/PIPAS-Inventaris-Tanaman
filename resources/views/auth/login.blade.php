@@ -19,7 +19,7 @@
 	<main class="w-full max-w-md sm:max-w-screen-sm lg:max-w-screen-lg flex flex-col lg:flex-row bg-white shadow-2xl rounded-xl overflow-hidden mx-4 sm:mx-6 lg:mx-0">
 	  
     <!-- Image Section -->
-    <div class="hidden lg:flex flex-1 bg-cover bg-center relative" style="background-image: url('/images/bg-login-ai.png');">
+    <div class="hidden lg:flex flex-1 bg-cover bg-center relative" style="background-image: url('/images/login-card-img.jpg');">
       <!-- Tombol Home -->
       <a href="{{ route('home') }}" class="absolute top-4 left-4 bg-white bg-opacity-80 hover:bg-opacity-100 transition-all duration-200 px-3 py-2 rounded-md text-gray-800 text-sm font-semibold flex items-center space-x-2 shadow-lg">
         <i class="fas fa-arrow-left"></i><span>Home</span>

@@ -20,21 +20,29 @@
 
                 if (confirmDeleteElement) {
                     event.preventDefault();
-                    Swal.fire({!! Session::pull('alert.delete') !!}).then(function(result) {
+                    Swal.fire({
+                        title: 'Anda Akan Menghapus Data',
+                        text: "Anda tidak akan dapat mengembalikan data yang sudah di hapus.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#AF1740',
+                        cancelButtonColor: '#A6AEBF',
+                        confirmButtonText: 'Iya, Hapus Data Ini!',
+                        cancelButtonText: 'Batalkan',
+                    }).then(function(result) {
                         if (result.isConfirmed) {
-                            var form = document.createElement('form');
-                            form.action = confirmDeleteElement.href;
-                            form.method = 'POST';
-                            form.innerHTML = `
-                            @csrf
-                            @method('DELETE')
-                        `;
-                            document.body.appendChild(form);
-                            form.submit();
+                            // Find the form that wraps the button
+                            var form = confirmDeleteElement.closest('form');
+                            if (form) {
+                                form.submit();
+                            } else {
+                                console.error("Form not found for delete button!");
+                            }
                         }
                     });
                 }
             });
+
 
             @if (Session::has('alert.config'))
                 Swal.fire({!! Session::pull('alert.config') !!});

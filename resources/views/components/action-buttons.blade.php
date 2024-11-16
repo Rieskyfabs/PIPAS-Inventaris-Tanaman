@@ -1,28 +1,38 @@
-<form action="#" method="POST" class="action-buttons">
-    @if(isset($viewData))
-        <a href="{{ $viewData }}" class="icon-button"><i class="bi bi-eye"></i></a>
-    @endif
-    @csrf
-    @method($method ?? 'POST')
+<div class="d-flex align-items-center">
 
-    {{-- Tombol hapus hanya muncul jika submit bernilai true --}}
-    @if($submit)
-        {{-- <button type="submit" class="icon-button" data-confirm-delete="true"><i class="bi bi-trash"></i></button> --}}
-        <a href="{{ $deleteData }}" class="icon-button" data-confirm-delete="true"><i class="bi bi-trash"></i></a>
+    @if(isset($editModalTarget))
+        <!-- Edit Button -->
+        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="{{ $editModalTarget }}">
+            <i class="bx bx-edit"></i>
+        </button>
     @endif
 
-    @if(isset($dropdown))
-        <div class="dropdown">
-            <button class="icon-button dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-three-dots"></i>
+    @if(isset($QrCode))
+        <!-- QR Code Pop Up Button -->
+        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="{{ $editModalTarget }}">
+            <i class="bx bx-edit"></i>
+        </button>
+    @endif
+
+    @if(isset($deleteRoute) && $deleteRoute)
+        <form action="{{ $deleteRoute }}" method="POST" class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="icon-button" data-confirm-delete="true">
+                <i class="bi bi-trash"></i>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                @foreach($dropdown as $item)
-                    <li><a class="dropdown-item" href="{{ $item['href'] }}">{{ $item['label'] }}</a></li>
-                    @csrf
-                    @method($method ?? 'POST')
-                @endforeach
-            </ul>
-        </div>
+        </form>
     @endif
-</form>
+
+    @if(isset($markAsHarvested) && $markAsHarvested)
+        <form action="{{ $markAsHarvested }}" method="POST" class="d-flex align-items-center gap-4">
+            @csrf
+            @method('PUT')
+            <!-- Harvest Button -->
+            <button type="submit" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Tandai tanaman sudah dipanen">
+                <i class="fas fa-seedling"></i>
+            </button>
+        </form>
+    @endif
+
+</div>  

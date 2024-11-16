@@ -22,10 +22,10 @@
                           <h5 class="card-title">{{__('DATA LOKASI PENYIMPANAN')}}</h5>
                           <div class="add-btn-container">
                               <!-- Button to trigger modal -->
-                              <button type="button" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#Location">
-                                  <i class="ri-add-fill"></i>
-                                  {{ __('TAMBAH') }}
-                              </button>
+                              <x-add-button 
+                                target="#Location" 
+                                label="TAMBAH" 
+                              />
                           </div>
 
                             <div class="table-responsive">
@@ -54,13 +54,9 @@
                                             <td>{{ $item->created_at->format('d F Y, H:i') }}</td>
                                             <td>
                                                 <div style="display: flex; align-items: center;">
-                                                    <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditLocation{{ $item->id }}">
-                                                        <i class='bx bx-edit'></i>
-                                                    </button>
-                                                    <x-action-buttons
-                                                        deleteData="{{ route('locations.destroy', $item->id) }}"
-                                                        method="DELETE"
-                                                        submit="true"
+                                                    <x-action-buttons 
+                                                      editModalTarget="#EditLocation{{ $item->id }}"
+                                                      deleteRoute="{{ route('locations.destroy', $item->id) }}"
                                                     />
                                                 </div>
                                             </td>

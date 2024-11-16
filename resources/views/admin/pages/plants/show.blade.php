@@ -7,14 +7,14 @@
         <main id="main" class="main">
 
             @if($plantDetail)
-            <x-breadcrumbs
-                title="{{ __('List Tanaman ') . ($plantDetail->plantAttribute->name ?? '') }}"
-                :items="[ 
-                    ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
-                    ['route' => 'plants', 'label' => 'Data Tanaman'],
-                    ['label' => 'Detail Tanaman']
-                ]"
-            />
+                <x-breadcrumbs
+                    title="{{ __('List Tanaman ') . ($plantDetail->plantAttribute->name ?? '') }}"
+                    :items="[ 
+                        ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
+                        ['route' => 'plants', 'label' => 'Data Tanaman'],
+                        ['label' => 'Detail Tanaman']
+                    ]"
+                />
             @else
                 <x-breadcrumbs
                 title="{{ __('List Tanaman ') . '' }}"
@@ -25,7 +25,7 @@
                 ]"
                 />
             @endif
-
+            
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -35,7 +35,6 @@
                     </ul>
                 </div>
             @endif
-
 
             <section class="section dashboard">
                 <div class="row">
@@ -49,7 +48,6 @@
                                         {{ __('TAMBAH') }}
                                     </a>
                                 </div>
-
                                 <div class="table-responsive">
                                     <!-- Table with stripped rows -->
                                     <table class="table table-bordered table-hover datatable">
@@ -64,7 +62,6 @@
                                             <th>{{__('TANGGAL TANAM')}}</th>
                                             <th>{{__('EST. TANGGAL PANEN')}}</th>
                                             <th>{{__('STATUS')}}</th>
-                                            {{-- <th>{{__('QR CODE')}}</th> --}}
                                             <th>{{__('AKSI')}}</th>
                                             </tr>
                                         </thead>
@@ -83,12 +80,9 @@
                                                     <td>
                                                         <div class="d-flex flex-column">
                                                             <a href="#" class="text-heading text-truncate">
-                                                                <!-- Nama tanaman dibuat bold -->
                                                                 <span class="fw-bold">{{ $item->plantAttribute->name }}</span>
                                                             </a>
-                                                            <!-- Nama ilmiah dibuat pudar dan italic -->
                                                             <small class="text-muted fst-italic">{{ $item->plantAttribute->scientific_name ?? 'Unknown' }}</small>
-                                                            <!-- Tipe tanaman dengan background warna smooth -->
                                                             <small>
                                                                 <span class="badge" style="background-color: #e0f7df; color: #388e3c;">
                                                                     <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $item->plantType->name }}
@@ -125,38 +119,20 @@
                                                             @endif
                                                         </span>
                                                     </td>
-                                                    {{-- <td>
-                                                        <img src="{{ asset('storage/' . $item->qr_code) }}" alt="QR Code for {{ $item->plantAttribute->name ?? 'Unknown' }}">
-                                                    </td> --}}
                                                     <td>
                                                         @if($item->harvest_status === 'siap panen')
                                                             <div class="d-flex align-items-center gap-2">
-                                                                <form action="{{ route('plants.panen', $item->id) }}" method="POST" class="d-flex align-items-center gap-2">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <!-- Edit Button -->
-                                                                    <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditPlant{{ $item->id }}">
-                                                                        <i class='bx bx-edit'></i>
-                                                                    </button>
-                                                                    
-                                                                    <!-- Harvest Button -->
-                                                                    <button type="submit" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Tandai tanaman sudah dipanen">
-                                                                        <i class="fas fa-seedling"></i>
-                                                                    </button>
-                                                                </form>
+                                                                <x-action-buttons 
+                                                                    editModalTarget="#EditPlant{{ $item->id }}"
+                                                                    deleteRoute="{{ route('plants.destroy', $item->id) }}"
+                                                                    markAsHarvested="{{ route('plants.panen', $item->id) }}"
+                                                                />
                                                             </div>
                                                         @else
                                                             <div style="display: flex; align-items: center;">
-                                                                <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#QrCode" tooltip>
-                                                                    <i class='bx bx-qr-scan'></i>
-                                                                </button>
-                                                                <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditPlant{{ $item->id }}">
-                                                                    <i class='bx bx-edit'></i>
-                                                                </button>
-                                                                <x-action-buttons
-                                                                    deleteData="{{ route('plants.destroy', $item->id) }}"
-                                                                    method="DELETE"
-                                                                    submit="true"
+                                                                <x-action-buttons 
+                                                                    editModalTarget="#EditPlant{{ $item->id }}"
+                                                                    deleteRoute="{{ route('plants.destroy', $item->id) }}"
                                                                 />
                                                             </div>
                                                         @endif

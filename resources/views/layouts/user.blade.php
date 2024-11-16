@@ -35,11 +35,11 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <x-header />
+    @include('partials.header')
   <!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-    <x-sidebar />
+    @include('partials.sidebar')
   <!-- End Sidebar-->
 
   <main>
@@ -49,7 +49,7 @@
   </main>
 
   <!-- ======= Footer ======= -->
-    <x-footer />
+    @include('partials.footer')
   <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

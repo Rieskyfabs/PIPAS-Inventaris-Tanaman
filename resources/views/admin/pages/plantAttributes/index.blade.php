@@ -21,10 +21,10 @@
                     <div class="card-body">
                         <h5 class="card-title">{{__('Atribut Tanaman')}}</h5>
                         <div class="add-btn-container">
-                            <button type="button" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#plantAttribute">
-                                +
-                                {{ __('TAMBAH') }}
-                            </button>
+                            <x-add-button 
+                                target="#plantAttribute" 
+                                label="TAMBAH" 
+                            />
                         </div>
 
                         <div class="table-responsive">
@@ -67,15 +67,11 @@
                                             <td>{{ Str::limit($item->benefit ?? 'Manfaat tidak ditemukan', 30)}}</td>
                                             <td>{{ $item->description ?? 'No Description' }}</td>
                                             <td>{{ $item->created_at->format('d F Y, H:i') }}</td>
-                                            <td style="text-align: center;">
-                                                <div style="display: flex; align-items: center; justify-content: center;">
-                                                    <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditPlantAttribute{{ $item->id }}">
-                                                        <i class='bx bx-edit'></i>
-                                                    </button>
-                                                    <x-action-buttons
-                                                        deleteData="{{ route('plantAttributes.destroy', $item->id) }}"
-                                                        method="DELETE"
-                                                        submit="true"
+                                            <td>
+                                                <div style="display: flex; align-items: center;">
+                                                    <x-action-buttons 
+                                                        editModalTarget="#EditPlantAttribute{{ $item->id }}"
+                                                        deleteRoute="{{ route('plantAttributes.destroy', $item->id) }}"
                                                     />
                                                 </div>
                                             </td>
