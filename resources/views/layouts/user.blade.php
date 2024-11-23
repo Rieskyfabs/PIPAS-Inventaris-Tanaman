@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<!-- ======= Head ======= -->
-  <head>
-    @include('partials.head')
-  </head>
-<!-- ======= End Head ======= -->
+  <!-- ======= Head ======= -->
+    <head>
+      @include('partials.head')
+    </head>
+  <!-- ======= End Head ======= -->
 
   <body>
 
@@ -17,9 +17,11 @@
       @include('partials.sidebar')
     <!-- End Sidebar-->
 
-    <main>
-      @include('partials.main')
-    </main>
+    <!-- ======= Main ======= -->
+      <main>
+        @include('partials.main')
+      </main>
+    <!-- ======= End Main ======= -->
 
     <!-- ======= Footer ======= -->
       @include('partials.footer')
@@ -33,8 +35,10 @@
       @include('partials.vendor-js')
     <!-- ======= End Vendor Js ======= -->
     
+    <!-- ======= Sweet Alert ======= -->
     @include('sweetalert::alert')
-
+    <!-- ======= End Sweet Alert ======= -->
+      
   </body>
 
 </html>
