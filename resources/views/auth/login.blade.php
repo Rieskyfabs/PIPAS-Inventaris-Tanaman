@@ -22,7 +22,7 @@
     <div class="hidden lg:flex flex-1 bg-cover bg-center relative" style="background-image: url('/images/login-card-img.jpg');">
       <!-- Tombol Home -->
       <a href="{{ route('home') }}" class="absolute top-4 left-4 bg-white bg-opacity-80 hover:bg-opacity-100 transition-all duration-200 px-3 py-2 rounded-md text-gray-800 text-sm font-semibold flex items-center space-x-2 shadow-lg">
-        <i class="fas fa-arrow-left"></i><span>Home</span>
+        <i class="fas fa-arrow-left"></i><span>Beranda</span>
       </a>
     </div>
 
