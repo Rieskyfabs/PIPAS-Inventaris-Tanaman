@@ -9,8 +9,8 @@
 
     @if(isset($QrCode))
         <!-- QR Code Pop Up Button -->
-        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="{{ $editModalTarget }}">
-            <i class="bx bx-edit"></i>
+        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="{{ $QrCode }}">
+            <i class="bx bx-qr-scan"></i>
         </button>
     @endif
 
@@ -30,7 +30,7 @@
             @method('PUT')
             <!-- Harvest Button -->
             <button type="submit" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Tandai tanaman sudah dipanen">
-                <i class="fas fa-seedling"></i>
+                <i class='bx bx-check-double'></i>
             </button>
         </form>
     @endif

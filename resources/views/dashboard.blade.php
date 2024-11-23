@@ -45,6 +45,10 @@
                         <!-- Total Plant Chart -->
                             @include('partials.dashboard._totalPlantChart')
                         <!-- End Total Plant Chart -->
+
+                        <!-- Plant Condition Chart --> 
+                            @include('partials.dashboard._plantConditionChart')
+                        <!-- End Plant Condition Chart -->
                     </div>
 
                 <!-- End Right side columns -->
