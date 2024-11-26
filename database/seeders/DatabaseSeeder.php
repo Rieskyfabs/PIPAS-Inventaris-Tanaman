@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
             TipeTanamanSeeder::class,
             // BenefitSeeder::class,
             PlantAttributeSeeder::class,
+            RayonSeeder::class,
+            RombelSeeder::class,
+            StudentSeeder::class,
         ]);
 
         // Mengisi tabel plants dengan 20 data dummy

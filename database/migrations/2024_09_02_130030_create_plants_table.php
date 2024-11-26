@@ -14,26 +14,30 @@ return new class extends Migration
         Schema::create('plants', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('image')->nullable();
+            $table->uuid('student_id');
             $table->uuid('plant_code_id'); // Reference to plant_attributes
-            $table->foreign('plant_code_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('plant_name_id'); // Reference to plant_attributes
-            $table->foreign('plant_name_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('plant_scientific_name_id'); // Reference to plant_attributes
-            $table->foreign('plant_scientific_name_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('type_id'); // Reference to tipe_tanaman
-            $table->foreign('type_id')->references('id')->on('tipe_tanaman')->onDelete('cascade')->onUpdate('cascade');
             $table->string('qr_code')->nullable();
             $table->uuid('category_id'); // Reference to categories
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('benefit_id'); // Reference to plant_attributes for benefit
-            $table->foreign('benefit_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
             $table->uuid('location_id'); // Reference to locations
-            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('status', ['sehat', 'baik', 'layu', 'sakit']);
             $table->date('seeding_date')->nullable();
             $table->date('harvest_date')->nullable();
             $table->enum('harvest_status', ['belum panen', 'siap panen', 'sudah dipanen'])->default('belum panen');
             $table->timestamps();
+
+            // Foreign Keys
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('plant_code_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('plant_name_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('plant_scientific_name_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('type_id')->references('id')->on('tipe_tanaman')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('benefit_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

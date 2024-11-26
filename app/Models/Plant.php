@@ -76,6 +76,11 @@ class Plant extends Model
         return $this->hasOne(TanamanMasuk::class, 'plant_id'); // Sesuaikan nama kolom foreign key
     }
 
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'student_id', 'id');
+    }
+
     public function setTypeAttribute($value)
     {
         $this->attributes['type'] = ucfirst(strtolower($value)); // Memastikan format yang konsisten

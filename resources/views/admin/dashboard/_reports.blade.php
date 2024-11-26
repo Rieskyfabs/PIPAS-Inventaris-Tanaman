@@ -3,7 +3,7 @@
         <div class="card-body">
             <h5 class="card-title">{{__('Laporan Status Tanaman')}}</h5>
             @if(empty($dataBelumDipanen) && empty($dataSiapDipanen) && empty($dataSudahDipanen))
-                <p>{{ __('Tidak ada data lokasi yang tersedia.') }}</p>
+                <p>{{ __('Belum ada data lokasi yang tersedia.') }}</p>
             @else
                 <!-- Column Chart -->
                 <div id="columnChart"></div>

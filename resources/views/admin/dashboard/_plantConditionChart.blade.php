@@ -3,7 +3,7 @@
         <h5 class="card-title">Kondisi Tanaman Per Lokasi</h5>
 
         @if(empty($dataPerLocation) || count($dataPerLocation) === 0)
-            <p class="text-center">Belum ada data tersedia</p>
+            <p class="text-center">{{__('Belum ada data tersedia')}}</p>
         @else
             <div id="donutChart" style="min-height: 350px;" class="echart"></div>
 

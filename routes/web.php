@@ -12,8 +12,11 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PlantAttributesController;
 use App\Http\Controllers\PlantController;
 use App\Http\Controllers\PlantTypeController;
+use App\Http\Controllers\RayonController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RombelController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -133,7 +136,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::get('/dashboard', [HomeController::class, 'adminDashboard'])->name('admin/dashboard');
 
         // Tanaman
-        Route::prefix('/inventaris/tanaman')->group(function () {
+        Route::prefix('/master-tanaman')->group(function () {
             Route::get('/list-tanaman', [PlantController::class, 'index'])->name('plants');
             Route::get('/tambah-data-tanaman', [PlantController::class, 'create'])->name('plants.create');
             Route::post('/store-tanaman', [PlantController::class, 'store'])->name('plants.store');
@@ -198,6 +201,37 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
             Route::post('/add-new-category', [PlantAttributesController::class, 'addNewCategory'])->name('addNewCategory');
             Route::post('/add-new-type', [PlantAttributesController::class, 'addNewType'])->name('addNewType');
 
+        });
+
+        // Data Siswa
+        Route::prefix('/master-siswa')->group(function () {
+            Route::get('/list-siswa', [StudentController::class, 'index'])->name('student-data');
+            Route::get('/tambah-data-siswa', [StudentController::class, 'create'])->name('student-data.create');
+            Route::post('/store-siswa', [StudentController::class, 'store'])->name('student-data.store');
+            Route::get('/lihat-detail/{student}', [StudentController::class, 'show'])->name('student-data.show');
+            Route::get('/{id}/edit-data-siswa', [StudentController::class, 'edit'])->name('student-data.edit');
+            Route::put('/{id}/update-data-siswa', [StudentController::class, 'update'])->name('student-data.update');
+            Route::delete('/{id}/hapus-data-siswa', [StudentController::class, 'destroy'])->name('student-data.destroy');
+        });
+
+        // Atribut Siswa: Rombel
+        Route::prefix('/atribut-siswa/rombel')->group(function () {
+            Route::get('/', [RombelController::class, 'index'])->name('rombel');
+            Route::get('/tambah-rombel', [RombelController::class, 'create'])->name('rombel.create');
+            Route::post('/', [RombelController::class, 'store'])->name('rombel.store');
+            Route::get('/{id}/edit-rombel', [RombelController::class, 'edit'])->name('rombel.edit');
+            Route::put('/{id}/update-rombel', [RombelController::class, 'update'])->name('rombel.update');
+            Route::delete('/{id}', [RombelController::class, 'destroy'])->name('rombel.destroy');
+        });
+
+        // Atribut Siswa: Rayon
+        Route::prefix('/atribut-siswa/rayon')->group(function () {
+            Route::get('/', [RayonController::class, 'index'])->name('rayon');
+            Route::get('/tambah-rayon', [RayonController::class, 'create'])->name('rayon.create');
+            Route::post('/', [RayonController::class, 'store'])->name('rayon.store');
+            Route::get('/{id}/edit-rayon', [RayonController::class, 'edit'])->name('rayon.edit');
+            Route::put('/{id}/update-rayon', [RayonController::class, 'update'])->name('rayon.update');
+            Route::delete('/{id}', [RayonController::class, 'destroy'])->name('rayon.destroy');
         });
 
         // Transaksi

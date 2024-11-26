@@ -16,7 +16,7 @@
             @empty
                 <div class="activity-item d-flex">
                     <div class="activity-content">
-                        {{ __('Tidak Ada Aktivitas Terbaru') }}
+                        {{ __('Belum Ada Aktivitas Terbaru') }}
                     </div>
                 </div>
             @endforelse

@@ -310,6 +310,7 @@
     const datatables = select(".datatable", true);
     datatables.forEach((datatable) => {
         const dataTableInstance = new simpleDatatables.DataTable(datatable, {
+            perPage: 5, // Menetapkan nilai default per halaman menjadi 5
             perPageSelect: [5, 10, 15, ["All", -1]],
             scrollable: true,
             responsive: true,

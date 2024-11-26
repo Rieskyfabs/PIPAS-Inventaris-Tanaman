@@ -36,7 +36,7 @@
                 });
             </script>
         @else
-            <p>{{ __('Tidak ada data tersedia untuk lokasi tanaman.') }}</p>
+            <p>{{ __('Belum ada data tersedia untuk lokasi tanaman.') }}</p>
         @endif
     </div>
 </div>

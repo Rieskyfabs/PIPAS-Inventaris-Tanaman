@@ -123,6 +123,7 @@
                                                         @if($item->harvest_status === 'siap panen')
                                                             <div class="d-flex align-items-center gap-2">
                                                                 <x-action-buttons 
+                                                                    QrCode="#QrCode{{ $item->id }}"
                                                                     editModalTarget="#EditPlant{{ $item->id }}"
                                                                     deleteRoute="{{ route('plants.destroy', $item->id) }}"
                                                                     markAsHarvested="{{ route('plants.panen', $item->id) }}"
@@ -131,6 +132,7 @@
                                                         @else
                                                             <div style="display: flex; align-items: center;">
                                                                 <x-action-buttons 
+                                                                    QrCode="#QrCode{{ $item->id }}"
                                                                     editModalTarget="#EditPlant{{ $item->id }}"
                                                                     deleteRoute="{{ route('plants.destroy', $item->id) }}"
                                                                 />
