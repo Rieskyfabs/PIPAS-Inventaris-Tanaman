@@ -13,19 +13,20 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name'); // Nama siswa
-            $table->uuid('rombel_id'); // Foreign key ke rombels
-            $table->uuid('rayon_id'); // Foreign key ke rayons
-            $table->string('nis')->unique(); // Nomor Induk Siswa
-            $table->string('email')->unique(); // Email siswa
-            $table->enum('gender', ['laki-laki', 'perempuan']); // Gender siswa
+            $table->string('name');
+            $table->uuid('rombel_id')->nullable();
+            $table->uuid('rayon_id')->nullable(); 
+            $table->string('nis')->unique(); 
+            $table->string('email')->unique();
+            $table->enum('gender', ['laki-laki', 'perempuan']);
             $table->timestamps();
 
             // Foreign keys
-            $table->foreign('rombel_id')->references('id')->on('rombels')->onDelete('cascade');
-            $table->foreign('rayon_id')->references('id')->on('rayons')->onDelete('cascade');
+            $table->foreign('rombel_id')->references('id')->on('rombels')->onDelete('set null');
+            $table->foreign('rayon_id')->references('id')->on('rayons')->onDelete('set null');
         });
     }
+
 
     /**
      * Reverse the migrations.

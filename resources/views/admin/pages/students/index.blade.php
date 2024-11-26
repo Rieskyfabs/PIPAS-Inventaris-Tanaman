@@ -53,11 +53,11 @@
                                     <small>{{ $item->description ?? 'Tidak Ada Deskripsi' }}</small>
                                 </div>
                               </td>
-                              <td>{{ $item->rombel->name ?? 'Rombel tidak ditemukan' }}</td>
-                              <td>{{ $item->rayon->name ?? 'Rayon tidak ditemukan' }}</td>
-                              <td>{{ $item->nis ?? 'Nis tidak ditemukan' }}</td>
-                              <td>{{ $item->email ?? 'Email tidak ditemukan' }}</td>
-                              <td>{{ $item->gender ?? 'Gender tidak ditemukan' }}</td>
+                              <td>{{ $item->rombel->name ?? 'data Rombel tidak ditemukan' }}</td>
+                              <td>{{ $item->rayon->name ?? 'data Rayon tidak ditemukan' }}</td>
+                              <td>{{ $item->nis ?? 'data Nis tidak ditemukan' }}</td>
+                              <td>{{ $item->email ?? 'data Email tidak ditemukan' }}</td>
+                              <td>{{ $item->gender ?? 'data Gender tidak ditemukan' }}</td>
                               <td>
                                   <div style="display: flex; align-items: center;">
                                       <x-action-buttons 
