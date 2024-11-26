@@ -17,18 +17,18 @@
                 <tbody>
                     @foreach ($plants as $plant)
                         <tr>
-                            <td>{{ $plant->tanamanMasuk->kode_tanaman_masuk }}</td>
-                            <td>{{ $plant->plantAttribute->plant_code }}</td>
+                            <td>{{ $plant->tanamanMasuk->kode_tanaman_masuk ?? 'Data Kode Tanaman Masuk Tidak Tersedia' }}</td>
+                            <td>{{ $plant->plantAttribute->plant_code ?? 'Data Kode Tanaman Tidak Tersedia'}}</td>
                             <td>
                                 <div class="d-flex flex-column">
                                     <a href="{{ route('plants.show', ['plantAttribute' => $plant->plantAttribute->plant_code]) }}">
                                         {{ $plant->plantAttribute->name }}
                                     </a>
-                                    <small>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</small>
+                                    <small>{{ $plant->plantAttribute->scientific_name ?? 'Data Nama Ilmiah Tanaman Tidak Tersedia' }}</small>
                                 </div>
                             </td>
-                            <td>{{ $plant->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                            <td>{{ $plant->location->name ?? 'Lokasi tidak ditemukan' }}</td>
+                            <td>{{ $plant->category->name ?? 'Data Kategori tidak ditemukan' }}</td>
+                            <td>{{ $plant->location->name ?? 'Data Lokasi tidak ditemukan' }}</td>
                             <td>{{ $plant->tanamanMasuk->tanggal_masuk }}</td>
                             <td>
                                 <span class="badge 

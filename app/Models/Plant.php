@@ -17,6 +17,7 @@ class Plant extends Model
 
     protected $fillable = [
         'image',
+        'student_id',
         'plant_code_id',
         'plant_name_id',
         'plant_scientific_name_id',

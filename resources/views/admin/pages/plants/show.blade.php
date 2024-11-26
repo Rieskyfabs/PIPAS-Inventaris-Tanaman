@@ -17,7 +17,7 @@
                 />
             @else
                 <x-breadcrumbs
-                title="{{ __('List Tanaman ') . '' }}"
+                title="{{ __('List Tanaman ') . 'NULL' }}"
                 :items="[ 
                     ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
                     ['route' => 'plants', 'label' => 'Data Tanaman'],
@@ -53,10 +53,9 @@
                                     <table class="table table-bordered table-hover datatable">
                                         <thead>
                                             <tr>
-                                            <th>{{__('GAMBAR')}}</th>
+                                            {{-- <th>{{__('GAMBAR')}}</th> --}}
                                             <th>{{__('NAMA')}}</th>
-                                            {{-- <th>{{__('KATEGORI')}}</th>
-                                            <th>{{__('MANFAAT')}}</th> --}}
+                                            <th>{{__('PEMILIK')}}</th>
                                             <th>{{__('LOKASI')}}</th>
                                             <th>{{__('KONDISI')}}</th>
                                             <th>{{__('TANGGAL TANAM')}}</th>
@@ -68,7 +67,7 @@
                                         <tbody>
                                             @foreach ($plants as $item)
                                                 <tr>
-                                                    <td>
+                                                    {{-- <td>
                                                         @if($item->image)
                                                             <a href="{{ asset('storage/' . $item->image) }}" target="_blank">
                                                                 <img src="{{ asset('storage/' . $item->image) }}" alt="Image of {{ $item->plantAttribute->name ?? 'Unknown' }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
@@ -76,25 +75,17 @@
                                                         @else
                                                             <img src="{{ asset('default-image.png') }}" alt="Default Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
                                                         @endif 
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         <div class="d-flex flex-column">
                                                             <a href="#" class="text-heading text-truncate">
                                                                 <span class="fw-bold">{{ $item->plantAttribute->name }}</span>
                                                             </a>
-                                                            <small class="text-muted fst-italic">{{ $item->plantAttribute->scientific_name ?? 'Unknown' }}</small>
-                                                            <small>
-                                                                <span class="badge" style="background-color: #e0f7df; color: #388e3c;">
-                                                                    <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $item->plantType->name }}
-                                                                </span>
-                                                            </small>
+                                                            <small class="text-muted fst-italic">{{ $item->plantAttribute->scientific_name ?? 'Data nama ilmiah tidak ditemukan' }}</small>
                                                         </div>
                                                     </td>
-                                                    {{-- <td>{{ $item->category->name ?? 'Kategori tidak ditemukan' }}</td> --}}
-                                                    {{-- <td style="white-space: normal; word-wrap: break-word;">
-                                                        {{ Str::limit($item->plantAttribute ? $item->plantAttribute->benefit : 'Unknown', 20) }}
-                                                    </td> --}}
-                                                    <td>{{ $item->location->name ?? 'Lokasi tidak ditemukan' }}</td>
+                                                    <td>{{ $item->student->name ?? 'Data siswa tidak ditemukan' }}</td>
+                                                    <td>{{ $item->location->name ?? 'Data lokasi tidak ditemukan' }}</td>
                                                     <td>
                                                         <span class="badge
                                                             @if ($item->status === 'sehat') badge-soft-green <i class='bi bi-check-circle me-1'></i>

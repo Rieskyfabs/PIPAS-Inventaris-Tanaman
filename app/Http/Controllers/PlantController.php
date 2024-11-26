@@ -7,6 +7,7 @@ use App\Events\PlantHarvested;
 use App\Helpers\ActivityLogger;
 use App\Models\ActivityLog;
 use App\Models\PlantType;
+use App\Models\Student;
 use App\Models\TanamanKeluar;
 use App\Models\TipeTanaman;
 use Illuminate\Support\Facades\Validator;
@@ -137,8 +138,9 @@ class PlantController extends Controller
         $locations = Location::all();
         $plantTypes = TipeTanaman::all();
         $plantAttributes  = PlantAttributes::all();
+        $students = Student::all();
 
-        return view('admin.pages.plants.create', compact('categories', 'plantTypes', 'locations', 'plantAttributes'));
+        return view('admin.pages.plants.create', compact('categories', 'plantTypes', 'locations', 'plantAttributes', 'students'));
     }
 
     // Function to generate unique numeric kode_tanaman_masuk
@@ -160,12 +162,13 @@ class PlantController extends Controller
             'qr_code' => 'nullable|string|unique:plants,qr_code',
             'category_id' => 'required|exists:categories,id',
             'type_id' => 'required|exists:tipe_tanaman,id',
+            'student_id' => 'required|exists:students,id',
             'plant_code_id' => 'required|exists:plant_attributes,id',
             'benefit_id' => 'required|exists:plant_attributes,id',
             'location_id' => 'required|exists:locations,id',
             'status' => 'required|string|in:sehat,baik,layu,sakit',
             'seeding_date' => 'required|date',
-            'harvest_date' => 'required|date', // Tanggal panen diinput manual
+            'harvest_date' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -210,6 +213,7 @@ class PlantController extends Controller
         $plantTypes = TipeTanaman::all();
         $locations = Location::all();
         $plantAttributes = plantAttributes::all();
+        $students = Student::all();
 
         return view('admin.pages.plants.edit', compact('plant', 'categories', 'plantTypes', 'locations', 'plantAttributes'));
     }
@@ -222,6 +226,7 @@ class PlantController extends Controller
             'qr_code' => 'nullable|string|unique:plants,qr_code,' . $id,
             'category_id' => 'required|exists:categories,id',
             'type_id' => 'required|exists:tipe_tanaman,id',
+            'student_id' => 'required|exists:students,id',
             'plant_code_id' => 'required|exists:plant_attributes,id',
             'benefit_id' => 'required|exists:plant_attributes,id',
             'location_id' => 'required|exists:locations,id',

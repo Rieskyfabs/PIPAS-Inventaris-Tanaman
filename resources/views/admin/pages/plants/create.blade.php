@@ -31,11 +31,13 @@
                                 @endif
                                 <form action="{{ route('plants.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
+
+                                    <!-- Plant Code and Attributes Section -->
                                     <div class="mb-3">
                                         <label for="plantAttributes" class="form-label">{{ __('Kode Tanaman') }}</label>
                                         <div class="input-group">
                                             <select name="plant_code_id" class="form-select" id="plantAttributes" required>
-                                                <option value="" disabled selected>Pilih Kode Tanaman</option>
+                                                <option value="" disabled selected>{{ __('Pilih Kode Tanaman') }}</option>
                                                 @foreach ($plantAttributes as $item)
                                                     <option value="{{ $item->id }}" 
                                                             data-name="{{ $item->name }}" 
@@ -52,6 +54,8 @@
                                             </a>
                                         </div>
                                     </div>
+
+                                    <!-- Auto-filled Attributes Section (Hidden Initially) -->
                                     <div id="additionalFields" class="d-none">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
@@ -73,6 +77,7 @@
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="plantType" class="form-label">Tipe Tanaman</label>
@@ -93,6 +98,7 @@
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="plantBenefit" class="form-label">Manfaat Tanaman</label>
@@ -105,11 +111,30 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Plant Owner Section -->
+                                    <div class="row mb-3">
+                                        <div class="">
+                                            <label for="student" class="form-label">{{ __('Pemilik Tanaman') }}</label>
+                                            <div class="input-group">
+                                                <select name="student_id" class="form-select" id="student" required>
+                                                    <option value="" disabled selected>{{ __('Pilih Siswa') }}</option>
+                                                    @foreach ($students as $student)
+                                                        <option value="{{ $student->id }}">{{ $student->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Image Upload Section -->
                                     <div class="mb-3">
                                         <label for="plantImage" class="form-label">Upload Gambar Tanaman (jpeg, png, jpg, gif)</label>
                                         <input type="file" name="image" class="form-control" id="plantImage" accept="image/*" onchange="previewImage(event)">
                                         <img id="imagePreview" src="#" alt="Preview Gambar" style="display: none; width: 100px; height: 100px; object-fit: cover;" class="mt-3"/>
                                     </div>
+
+                                    <!-- Location and Status Section -->
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label for="plantLocations" class="form-label">{{ __('Lokasi Tanaman') }}</label>
@@ -125,6 +150,7 @@
                                                 </button>
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <label for="plantStatus" class="form-label">Kondisi Tanaman</label>
                                             <select name="status" class="form-select" id="plantStatus" required>
@@ -136,125 +162,28 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="seedingDate" class="form-label">Tanggal Penyemaian</label>
-                                        <input type="date" name="seeding_date" class="form-control" id="seedingDate" required>
+
+                                    <!-- Dates Section -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="seedingDate" class="form-label">Tanggal Penyemaian</label>
+                                            <input type="date" name="seeding_date" class="form-control" id="seedingDate" required>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="harvestDate" class="form-label">Estimasi Tanggal Panen</label>
+                                            <input type="date" name="harvest_date" class="form-control" id="harvestDate" required>
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="harvestDate" class="form-label">Estimasi Tanggal Panen</label>
-                                        <input type="date" name="harvest_date" class="form-control" id="harvestDate" required>
-                                    </div>
+
                                     <hr>
+
+                                    <!-- Submit Button -->
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
+
                                 <!-- JavaScript for Auto Fill -->
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        // Auto-fill logic when selecting plant code
-                                        document.getElementById('plantAttributes').addEventListener('change', function () {
-                                            var selectedOption = this.options[this.selectedIndex];
-                                            // Mengambil data dari attribute 'data-*' di option yang dipilih
-                                            var plantName = selectedOption.getAttribute('data-name');
-                                            var scientificName = selectedOption.getAttribute('data-scientific-name');
-                                            var plantTypeId = selectedOption.getAttribute('data-type-id');
-                                            var categoryId = selectedOption.getAttribute('data-category-id');
-                                            var plantBenefit = selectedOption.getAttribute('data-benefit');
-                                            // Pilih option di select 'plantName' sesuai nama tanaman
-                                            var plantNameSelect = document.getElementById('plantName');
-                                            for (var i = 0; i < plantNameSelect.options.length; i++) {
-                                                if (plantNameSelect.options[i].text === plantName) {
-                                                    plantNameSelect.selectedIndex = i;
-                                                    break;
-                                                }
-                                            }
-                                            // Pilih option di select 'scientificName' sesuai nama ilmiah
-                                            var scientificNameSelect = document.getElementById('scientificName');
-                                            for (var i = 0; i < scientificNameSelect.options.length; i++) {
-                                                if (scientificNameSelect.options[i].text === scientificName) {
-                                                    scientificNameSelect.selectedIndex = i;
-                                                    break;
-                                                }
-                                            }
-                                            // Pilih option di select 'benefit' sesuai nama benefit
-                                            var benefitSelect = document.getElementById('plantBenefit');
-                                            for (var i = 0; i < benefitSelect.options.length; i++) {
-                                                if (benefitSelect.options[i].text === plantBenefit) {
-                                                    benefitSelect.selectedIndex = i;
-                                                    break;
-                                                }
-                                            }
-                                            // Isi otomatis field lainnya
-                                            document.getElementById('plantType').value = plantTypeId || '';
-                                            document.getElementById('plantCategories').value = categoryId || '';
-                                            // document.getElementById('plantBenefits').value = benefitId || '';
-                                            // Tampilkan additional fields
-                                            document.getElementById('additionalFields').classList.remove('d-none');
-                                            // Gunakan readonly bukan disabled
-                                            if (plantName && scientificName && plantType) {
-                                                plantNameSelect.setAttribute('readonly', 'readonly');
-                                                scientificNameSelect.setAttribute('readonly', 'readonly');
-                                                benefitSelect.setAttribute('readonly', 'readonly');
-                                                document.getElementById('plantType').setAttribute('readonly', 'readonly');
-                                                document.getElementById('plantCategories').setAttribute('readonly', 'readonly');
-                                            }
-                                        });
-                                    });
-                                    // Preview gambar
-                                    function previewImage(event) {
-                                        var imagePreview = document.getElementById('imagePreview');
-                                        imagePreview.src = URL.createObjectURL(event.target.files[0]);
-                                        imagePreview.style.display = 'block';
-                                    }
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                    // Open modal when "Tambah Lokasi Tanaman Baru" button is clicked
-                                    document.getElementById('plantLocations').addEventListener('change', function() {
-                                        if (this.value === 'add_new_location') {
-                                            // Show the modal for adding a new location
-                                            new bootstrap.Modal(document.getElementById('addNewLocationModal')).show();
-                                            this.value = ''; // Reset dropdown
-                                        }
-                                    });
-                                    // AJAX submission for adding a new location
-                                    document.getElementById('addNewLocationForm').addEventListener('submit', function(event) {
-                                        event.preventDefault();
-                                        let formData = new FormData(this);
-                                        // Check if location name already exists in the select options
-                                        let existingLocationNames = Array.from(document.querySelectorAll('#plantLocations option'))
-                                            .map(option => option.text);
-                                        if (existingLocationNames.includes(formData.get('name'))) {
-                                            alert('Nama lokasi sudah ada. Silakan gunakan nama lain.');
-                                            return; // Stop submission if the location already exists
-                                        }
-                                        fetch("{{ route('addNewLocation') }}", {
-                                            method: "POST",
-                                            headers: {
-                                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-                                            },
-                                            body: formData
-                                        })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            if (data.success) {
-                                                let select = document.getElementById('plantLocations');
-                                                let option = new Option(data.name, data.id);
-                                                select.add(option, select.options[select.options.length - 1]); // Add before 'Add New' option
-                                                // Set the select value to the newly added location
-                                                select.value = data.id; // Automatically select the new location
-                                                // Close the modal after successfully adding the location
-                                                let newLocationModal = bootstrap.Modal.getInstance(document.getElementById('addNewLocationModal'));
-                                                newLocationModal.hide();
-                                                // Show the previous modal again
-                                                new bootstrap.Modal(document.getElementById('plantAttribute')).show();
-                                                // Reset the form for the next entry
-                                                this.reset(); // Reset form fields
-                                            } else {
-                                                alert(data.message || "Error adding location");
-                                            }
-                                        })
-                                        .catch(error => console.error('Error in AJAX request:', error));
-                                    });
-                                });
-                                </script>
+                                <script src="{{ asset('assets/js/plantScript.js') }}"></script>
                             </div>
                         </div>
                     </div>
