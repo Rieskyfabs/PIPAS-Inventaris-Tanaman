@@ -72,7 +72,6 @@ class StudentController extends Controller
 
             return redirect()->route('student-data');
         } catch (QueryException $e) {
-            // Jika terjadi kesalahan query, log kesalahan
             Log::error('Student update failed', [
                 'error' => $e->getMessage(),
                 'request' => $request->all(),
@@ -80,7 +79,6 @@ class StudentController extends Controller
 
             Alert::error('Gagal Memperbarui Data', 'Terjadi kesalahan pada sistem: ' . $e->getMessage());
         } catch (\Exception $e) {
-            // Jika terjadi kesalahan lainnya, log kesalahan
             Log::error('Unexpected error in student update', [
                 'error' => $e->getMessage(),
                 'request' => $request->all(),
@@ -89,13 +87,9 @@ class StudentController extends Controller
             Alert::error('Gagal Memperbarui Data', 'Kesalahan tidak terduga: ' . $e->getMessage());
         }
 
-        // Setelah gagal validasi atau terjadi error, kembalikan dengan error dan modal yang tepat
-        return redirect()->route('student-data')
-        ->withInput() // Untuk mengisi ulang form dengan data sebelumnya
-            ->withErrors($request->errors()) // Menampilkan error validasi
-            ->with('editModal', $id); // Pastikan modal edit yang muncul
-    }
+        return redirect()->route('student-data');
 
+    }
 
     public function destroy($id)
     {

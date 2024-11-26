@@ -50,83 +50,83 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
 
-Route::middleware(['auth', 'user-access:master'])->group(function () {
-    // Dashboard for master
-    Route::get('/master/dashboard', [HomeController::class, 'masterDashboard'])->name('master/dashboard');
+// Route::middleware(['auth', 'user-access:master'])->group(function () {
+//     // Dashboard for master
+//     Route::get('/master/dashboard', [HomeController::class, 'masterDashboard'])->name('master/dashboard');
 
-    // Permissions Management
-    Route::prefix('master/permissions')->group(function () {
-        Route::get('/', [PermissionController::class, 'index'])->name('master.permissions');
-        Route::get('/create', [PermissionController::class, 'create'])->name('master.permissions.create');
-        Route::post('/store', [PermissionController::class, 'store'])->name('master.permissions.store');
-        Route::get('/{id}', [PermissionController::class, 'show'])->name('master.permissions.show');
-        Route::get('/{id}/edit', [PermissionController::class, 'edit'])->name('master.permissions.edit');
-        Route::put('/{id}', [PermissionController::class, 'update'])->name('master.permissions.update');
-        Route::delete('/{id}', [PermissionController::class, 'destroy'])->name('master.permissions.destroy');
-    });
+//     // Permissions Management
+//     Route::prefix('master/permissions')->group(function () {
+//         Route::get('/', [PermissionController::class, 'index'])->name('master.permissions');
+//         Route::get('/create', [PermissionController::class, 'create'])->name('master.permissions.create');
+//         Route::post('/store', [PermissionController::class, 'store'])->name('master.permissions.store');
+//         Route::get('/{id}', [PermissionController::class, 'show'])->name('master.permissions.show');
+//         Route::get('/{id}/edit', [PermissionController::class, 'edit'])->name('master.permissions.edit');
+//         Route::put('/{id}', [PermissionController::class, 'update'])->name('master.permissions.update');
+//         Route::delete('/{id}', [PermissionController::class, 'destroy'])->name('master.permissions.destroy');
+//     });
 
-    // User Management
-    Route::prefix('master/users')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('master.users');
-        Route::get('/create', [UserController::class, 'create'])->name('master.users.create');
-        Route::post('/store', [UserController::class, 'store'])->name('master.users.store');
-        Route::get('/{id}', [UserController::class, 'show'])->name('master.users.show');
-        Route::get('/{id}/edit', [UserController::class, 'edit'])->name('master.users.edit');
-        Route::put('/{id}', [UserController::class, 'update'])->name('master.users.update');
-        Route::delete('/{id}', [UserController::class, 'destroy'])->name('master.users.destroy');
-    });
+//     // User Management
+//     Route::prefix('master/users')->group(function () {
+//         Route::get('/', [UserController::class, 'index'])->name('master.users');
+//         Route::get('/create', [UserController::class, 'create'])->name('master.users.create');
+//         Route::post('/store', [UserController::class, 'store'])->name('master.users.store');
+//         Route::get('/{id}', [UserController::class, 'show'])->name('master.users.show');
+//         Route::get('/{id}/edit', [UserController::class, 'edit'])->name('master.users.edit');
+//         Route::put('/{id}', [UserController::class, 'update'])->name('master.users.update');
+//         Route::delete('/{id}', [UserController::class, 'destroy'])->name('master.users.destroy');
+//     });
 
-    // Plant Inventory Management
-    Route::prefix('master/inventaris/plants')->group(function () {
-        Route::get('/', [PlantController::class, 'index'])->name('master.plants');
-        Route::get('/create', [PlantController::class, 'create'])->name('master.plants.create');
-        Route::post('/store', [PlantController::class, 'store'])->name('master.plants.store');
-        Route::get('/{plantAttribute}', [PlantController::class, 'show'])->name('master.plants.show');
-        Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('master.plants.edit');
-        Route::put('/{id}', [PlantController::class, 'update'])->name('master.plants.update');
-        Route::delete('/{id}', [PlantController::class, 'destroy'])->name('master.plants.destroy');
-    });
+//     // Plant Inventory Management
+//     Route::prefix('master/inventaris/plants')->group(function () {
+//         Route::get('/', [PlantController::class, 'index'])->name('master.plants');
+//         Route::get('/create', [PlantController::class, 'create'])->name('master.plants.create');
+//         Route::post('/store', [PlantController::class, 'store'])->name('master.plants.store');
+//         Route::get('/{plantAttribute}', [PlantController::class, 'show'])->name('master.plants.show');
+//         Route::get('/{id}/edit', [PlantController::class, 'edit'])->name('master.plants.edit');
+//         Route::put('/{id}', [PlantController::class, 'update'])->name('master.plants.update');
+//         Route::delete('/{id}', [PlantController::class, 'destroy'])->name('master.plants.destroy');
+//     });
 
-    // Categories
-    Route::prefix('master/attributes/categories')->group(function () {
-        Route::get('/', [CategoryController::class, 'index'])->name('master.categories');
-        Route::get('/create', [CategoryController::class, 'create'])->name('master.categories.create');
-        Route::post('/store', [CategoryController::class, 'store'])->name('master.categories.store');
-        Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('master.categories.edit');
-        Route::put('/{id}', [CategoryController::class, 'update'])->name('master.categories.update');
-        Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('master.categories.destroy');
-    });
+//     // Categories
+//     Route::prefix('master/attributes/categories')->group(function () {
+//         Route::get('/', [CategoryController::class, 'index'])->name('master.categories');
+//         Route::get('/create', [CategoryController::class, 'create'])->name('master.categories.create');
+//         Route::post('/store', [CategoryController::class, 'store'])->name('master.categories.store');
+//         Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('master.categories.edit');
+//         Route::put('/{id}', [CategoryController::class, 'update'])->name('master.categories.update');
+//         Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('master.categories.destroy');
+//     });
 
-    // Benefits
-    Route::prefix('master/attributes/benefits')->group(function () {
-        Route::get('/', [BenefitController::class, 'index'])->name('master.benefits');
-        Route::get('/create', [BenefitController::class, 'create'])->name('master.benefits.create');
-        Route::post('/store', [BenefitController::class, 'store'])->name('master.benefits.store');
-        Route::get('/{id}/edit', [BenefitController::class, 'edit'])->name('master.benefits.edit');
-        Route::put('/{id}', [BenefitController::class, 'update'])->name('master.benefits.update');
-        Route::delete('/{id}', [BenefitController::class, 'destroy'])->name('master.benefits.destroy');
-    });
+//     // Benefits
+//     Route::prefix('master/attributes/benefits')->group(function () {
+//         Route::get('/', [BenefitController::class, 'index'])->name('master.benefits');
+//         Route::get('/create', [BenefitController::class, 'create'])->name('master.benefits.create');
+//         Route::post('/store', [BenefitController::class, 'store'])->name('master.benefits.store');
+//         Route::get('/{id}/edit', [BenefitController::class, 'edit'])->name('master.benefits.edit');
+//         Route::put('/{id}', [BenefitController::class, 'update'])->name('master.benefits.update');
+//         Route::delete('/{id}', [BenefitController::class, 'destroy'])->name('master.benefits.destroy');
+//     });
 
-    // Locations
-    Route::prefix('master/attributes/locations')->group(function () {
-        Route::get('/', [LocationController::class, 'index'])->name('master.locations');
-        Route::get('/create', [LocationController::class, 'create'])->name('master.locations.create');
-        Route::post('/store', [LocationController::class, 'store'])->name('master.locations.store');
-        Route::get('/{id}/edit', [LocationController::class, 'edit'])->name('master.locations.edit');
-        Route::put('/{id}', [LocationController::class, 'update'])->name('master.locations.update');
-        Route::delete('/{id}', [LocationController::class, 'destroy'])->name('master.locations.destroy');
-    });
+//     // Locations
+//     Route::prefix('master/attributes/locations')->group(function () {
+//         Route::get('/', [LocationController::class, 'index'])->name('master.locations');
+//         Route::get('/create', [LocationController::class, 'create'])->name('master.locations.create');
+//         Route::post('/store', [LocationController::class, 'store'])->name('master.locations.store');
+//         Route::get('/{id}/edit', [LocationController::class, 'edit'])->name('master.locations.edit');
+//         Route::put('/{id}', [LocationController::class, 'update'])->name('master.locations.update');
+//         Route::delete('/{id}', [LocationController::class, 'destroy'])->name('master.locations.destroy');
+//     });
 
-    // Plant Attributes
-    Route::prefix('master/attributes/plant-attributes')->group(function () {
-        Route::get('/', [PlantAttributesController::class, 'index'])->name('master.plantAttributes');
-        Route::get('/create', [PlantAttributesController::class, 'create'])->name('master.plantAttributes.create');
-        Route::post('/store', [PlantAttributesController::class, 'store'])->name('master.plantAttributes.store');
-        Route::get('/{id}/edit', [PlantAttributesController::class, 'edit'])->name('master.plantAttributes.edit');
-        Route::put('/{id}', [PlantAttributesController::class, 'update'])->name('master.plantAttributes.update');
-        Route::delete('/{id}', [PlantAttributesController::class, 'destroy'])->name('master.plantAttributes.destroy');
-    });
-});
+//     // Plant Attributes
+//     Route::prefix('master/attributes/plant-attributes')->group(function () {
+//         Route::get('/', [PlantAttributesController::class, 'index'])->name('master.plantAttributes');
+//         Route::get('/create', [PlantAttributesController::class, 'create'])->name('master.plantAttributes.create');
+//         Route::post('/store', [PlantAttributesController::class, 'store'])->name('master.plantAttributes.store');
+//         Route::get('/{id}/edit', [PlantAttributesController::class, 'edit'])->name('master.plantAttributes.edit');
+//         Route::put('/{id}', [PlantAttributesController::class, 'update'])->name('master.plantAttributes.update');
+//         Route::delete('/{id}', [PlantAttributesController::class, 'destroy'])->name('master.plantAttributes.destroy');
+//     });
+// });
 
 // Middleware untuk admin access
 Route::middleware(['auth', 'user-access:admin'])->group(function () {

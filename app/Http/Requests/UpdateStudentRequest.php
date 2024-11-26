@@ -13,12 +13,14 @@ class UpdateStudentRequest extends FormRequest
 
     public function rules()
     {
+        $id = $this->route('id'); // Ambil ID dari route
+
         return [
             'name' => 'required|string|regex:/^[a-zA-Z\s\-\'\.]+$/|max:255',
-            'nis' => 'required|digits:8|unique:students,nis,' . $this->route('id'),
+            'nis' => 'required|digits:8|unique:students,nis,' . $id, // Abaikan validasi unik jika ID cocok
             'rombel_id' => 'required|uuid|exists:rombels,id',
             'rayon_id' => 'required|uuid|exists:rayons,id',
-            'email' => 'required|email|unique:students,email',
+            'email' => 'required|email|unique:students,email,' . $id, // Abaikan validasi unik jika ID cocok
             'gender' => 'required|in:laki-laki,perempuan',
         ];
     }
@@ -38,7 +40,7 @@ class UpdateStudentRequest extends FormRequest
             // NIS validation
             'nis.required' => 'NIS wajib diisi.',
             'nis.digits' => 'NIS harus terdiri dari 8 angka.',
-            'nis.unique' => 'NIS sudah digunakan oleh siswa lain.',
+            'nis.unique' => 'NIS sudah digunakan oleh siswa lain, masukkan NIS lain.',
 
             // Rombel validation
             'rombel_id.required' => 'Rombel wajib dipilih.',
@@ -57,10 +59,7 @@ class UpdateStudentRequest extends FormRequest
 
             // Gender validation
             'gender.required' => 'Jenis kelamin wajib dipilih.',
-            'gender.in' => 'Jenis kelamin harus salah satu dari: male, female, other.',
-
-            // Catch-all error
-            'default' => 'Terjadi error yang tidak terduga. Silakan coba lagi.',
+            'gender.in' => 'Jenis kelamin harus salah satu dari: laki-laki, perempuan.',
         ];
     }
 }

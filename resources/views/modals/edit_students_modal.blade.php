@@ -1,6 +1,5 @@
 <!-- Edit Student Modal -->
-<div class="modal fade @if ($errors->any() && session('editModal', false)) show @endif" id="EditStudents{{ $item->id }}" tabindex="-1" 
-    aria-labelledby="editStudentLabel" aria-hidden="true" @if ($errors->any() && session('editModal', false)) style="display: block;" @endif>
+<div class="modal fade" id="EditStudents{{ $item->id }}" tabindex="-1" aria-labelledby="EditStudentLabel{{ $item->id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,21 +7,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @if ($errors->any() && session('editModal', false))
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <form action="{{ route('student-data.update', $item->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-floating mb-3">
                         <input type="text" name="name" class="form-control" id="editStudentName" 
-                            placeholder="Nama Siswa" value="{{ old('name', $item->name) }}" required>
+                            placeholder="Nama Siswa" value="{{ $item->name }}" required>
                         <label for="editStudentName">{{ __('Nama Siswa') }}</label>
                     </div>
 
@@ -31,7 +21,7 @@
                             <option value="" disabled>{{ __('Pilih Rombel') }}</option>
                             @foreach ($rombels as $rombel)
                                 <option value="{{ $rombel->id }}" 
-                                    {{ old('rombel_id', $item->rombel_id) == $rombel->id ? 'selected' : '' }}>{{ $rombel->name }}
+                                    {{ $item->rombel_id == $rombel->id ? 'selected' : '' }}>{{ $rombel->name }}
                                 </option>
                             @endforeach
                         </select>
@@ -43,7 +33,7 @@
                             <option value="" disabled>{{ __('Pilih Rayon') }}</option>
                             @foreach ($rayons as $rayon)
                                 <option value="{{ $rayon->id }}" 
-                                    {{ old('rayon_id', $item->rayon_id) == $rayon->id ? 'selected' : '' }}>{{ $rayon->name }}
+                                    {{ $item->rayon_id == $rayon->id ? 'selected' : '' }}>{{ $rayon->name }}
                                 </option>
                             @endforeach
                         </select>
@@ -52,7 +42,7 @@
 
                     <div class="form-floating mb-3">
                         <input type="text" name="nis" class="form-control" id="editStudentNIS" 
-                            placeholder="NIS" value="{{ old('nis', $item->nis) }}" required>
+                            placeholder="NIS" value="{{ $item->nis }}" required>
                         <label for="editStudentNIS">{{ __('NIS') }}</label>
                     </div>
 
@@ -60,9 +50,8 @@
                     <div class="form-floating mb-3">
                         <select class="form-select" name="gender" id="editStudentGender" required>
                             <option value="" disabled>{{ __('Pilih Gender') }}</option>
-                            <option value="laki-laki" {{ old('gender', $item->gender) == 'laki-laki' ? 'selected' : '' }}>{{ __('Laki-laki') }}</option>
-                            <option value="perempuan" {{ old('gender', $item->gender) == 'perempuan' ? 'selected' : '' }}>{{ __('Perempuan') }}</option>
-                            <option value="other" {{ old('gender', $item->gender) == 'other' ? 'selected' : '' }}>{{ __('Other') }}</option>
+                            <option value="laki-laki" {{ $item->gender == 'laki-laki' ? 'selected' : '' }}>{{ __('Laki-laki') }}</option>
+                            <option value="perempuan" {{ $item->gender == 'perempuan' ? 'selected' : '' }}>{{ __('Perempuan') }}</option>
                         </select>
                         <label for="editStudentGender">{{ __('Gender') }}</label>
                     </div>
@@ -70,7 +59,7 @@
                     <!-- Email Input -->
                     <div class="form-floating mb-3">
                         <input type="email" name="email" class="form-control" id="editStudentEmail" 
-                            placeholder="Email" value="{{ old('email', $item->email) }}" required>
+                            placeholder="Email" value="{{ $item->email }}" required>
                         <label for="editStudentEmail">{{ __('Email') }}</label>
                     </div>
 
@@ -81,15 +70,3 @@
     </div>
 </div>
 <!-- End Edit Student Modal -->
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Show modal only for edit form if there are errors
-        @if ($errors->any() && session('editModal', false))
-        var editModal = new bootstrap.Modal(document.getElementById('EditStudents{{ $item->id }}'), {
-            keyboard: false,
-        });
-        editModal.show();
-        @endif
-    });
-</script>

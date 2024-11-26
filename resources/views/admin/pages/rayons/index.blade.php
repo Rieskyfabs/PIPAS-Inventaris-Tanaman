@@ -20,6 +20,7 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">{{ __('Data Rayon Siswa') }}</h5>
+                <x-error-alert />
                 <div class="add-btn-container">
                     <x-add-button 
                       target="#Rayons" 
