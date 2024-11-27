@@ -36,7 +36,7 @@
                                     @elseif ($plant->harvest_status === 'siap panen') badge-soft-primary 
                                     @elseif ($plant->harvest_status === 'belum panen') badge-soft-warning 
                                     @else bg-secondary @endif">
-                                    {{ $plant->harvest_status }}
+                                    {{ Str::upper($plant->harvest_status) }}
                                 </span>
                             </td>
                         </tr>

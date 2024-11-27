@@ -54,12 +54,13 @@
                                         <thead>
                                             <tr>
                                             {{-- <th>{{__('GAMBAR')}}</th> --}}
+                                            <th>{{__('NO')}}</th>
                                             <th>{{__('NAMA')}}</th>
                                             <th>{{__('PEMILIK')}}</th>
                                             <th>{{__('LOKASI')}}</th>
                                             <th>{{__('KONDISI')}}</th>
                                             <th>{{__('TANGGAL TANAM')}}</th>
-                                            <th>{{__('EST. TANGGAL PANEN')}}</th>
+                                            <th>{{__('EST. PANEN')}}</th>
                                             <th>{{__('STATUS')}}</th>
                                             <th>{{__('AKSI')}}</th>
                                             </tr>
@@ -76,16 +77,32 @@
                                                             <img src="{{ asset('default-image.png') }}" alt="Default Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
                                                         @endif 
                                                     </td> --}}
+                                                    <td>{{ $loop->iteration }}</td>
                                                     <td>
                                                         <div class="d-flex flex-column">
-                                                            <a href="#" class="text-heading text-truncate">
-                                                                <span class="fw-bold">{{ $item->plantAttribute->name }}</span>
-                                                            </a>
-                                                            <small class="text-muted fst-italic">{{ $item->plantAttribute->scientific_name ?? 'Data nama ilmiah tidak ditemukan' }}</small>
+                                                            <div class="text-heading text-truncate">
+                                                                <span class="fw-medium">{{ $item->plantAttribute->name }}</span>
+                                                            </div>
+                                                            <small class="text-muted">{{ $item->plantAttribute->scientific_name ?? 'Data nama ilmiah tidak ditemukan' }}</small>
                                                         </div>
                                                     </td>
-                                                    <td>{{ $item->student->name ?? 'Data siswa tidak ditemukan' }}</td>
-                                                    <td>{{ $item->location->name ?? 'Data lokasi tidak ditemukan' }}</td>
+                                                    <td>
+                                                        <div class="d-flex flex-column">
+                                                            <div class="text-heading text-truncate">
+                                                                <span class="fw-medium">{{ $item->student->name ?? 'Data siswa tidak ditemukan' }}</span>
+                                                            </div>
+                                                            <small class="text-muted">
+                                                                {{ $item->student->rombel->name ?? 'Data nis tidak ditemukan' }} |
+                                                                {{ $item->student->nis ?? 'Data nis tidak ditemukan' }} |
+                                                                {{ $item->student->rayon->name ?? 'Data nis tidak ditemukan' }}
+                                                            </small>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="text-heading text-truncate">
+                                                            <span class="fw-medium">{{ $item->location->name ?? 'Data lokasi tidak ditemukan' }}</span>
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <span class="badge
                                                             @if ($item->status === 'sehat') badge-soft-green <i class='bi bi-check-circle me-1'></i>

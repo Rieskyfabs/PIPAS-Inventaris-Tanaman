@@ -307,13 +307,15 @@ class PlantController extends Controller
         $benefits = Benefit::all();
         $locations = Location::all();
         $types = TipeTanaman::all();
+        $students = Student::all();
+
 
         // Confirmation for deletion
         $title = 'Delete Plants!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        return view('admin.pages.plants.show', compact('plants', 'plantDetail', 'plantAttributes', 'categories', 'benefits', 'locations', 'types'));
+        return view('admin.pages.plants.show', compact('plants', 'plantDetail', 'plantAttributes', 'categories', 'benefits', 'locations', 'types', 'students'));
     }
 
     private function generateUniqueKodeTanamanKeluar()

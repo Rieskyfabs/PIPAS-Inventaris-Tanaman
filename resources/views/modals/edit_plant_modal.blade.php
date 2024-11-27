@@ -10,6 +10,18 @@
                     @csrf
                     @method('PUT')
 
+                    <!-- Plant Owner Section -->
+                    <div class="form-floating mb-3">
+                        <select name="student_id" class="form-select" id="studentForm">
+                            @foreach ($students as $student)
+                                <option value="{{ $student->id }}" {{ $student->id == $item->student_id ? 'selected' : '' }}>
+                                    {{ $student->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <label for="studentForm">{{ __('NAMA PEMILIK') }}</label>
+                    </div>
+
                     <!-- Plant Name (readonly) -->
                     <div class="form-floating mb-3">
                         <select name="plant_name_id" class="form-select" id="plantName" readonly>
