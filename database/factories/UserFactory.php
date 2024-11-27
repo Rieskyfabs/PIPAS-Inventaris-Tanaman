@@ -72,8 +72,8 @@ class UserFactory extends Factory
             );
 
             return [
-                'username' => 'admin',
-                'email' => 'admin@gmail.com',
+                'username' => 'Staff Pipas',
+                'email' => 'staffpipas@smkwikrama.sch.id',
                 'password' => Hash::make('password'),
                 'role_id' => $adminRole->id,
                 'status' => 'active',
@@ -95,11 +95,11 @@ class UserFactory extends Factory
             );
 
             return [
-                'username' => $this->faker->unique()->userName(),
-                'email' => $this->faker->unique()->safeEmail(),
+                'username' => 'Riesky Fabiansyah',
+                'email' => 'rieskyfabiansyah@smkwikrama.sch.id',
                 'password' => Hash::make('password'),
                 'role_id' => $userRole->id,
-                'status' => $this->faker->randomElement(['active', 'inactive']),
+                'status' => 'active',
             ];
         });
     }

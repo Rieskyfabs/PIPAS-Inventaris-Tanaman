@@ -12,12 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tanaman_keluar', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('plant_id')->constrained('plants')->onDelete('cascade')->onUpdate('cascade');  // Foreign key ke tabel plants
-            $table->string('kode_tanaman_keluar'); // Kode unik untuk tanaman keluar
+            $table->uuid('id')->primary(); // Menggunakan UUID sebagai primary key
+            $table->uuid('plant_id'); // Menggunakan UUID untuk foreign key plant_id
+
+            $table->foreign('plant_id')->references('id')->on('plants')->onDelete('cascade')->onUpdate('cascade'); // Foreign key ke tabel plants
+
+            $table->string('kode_tanaman_keluar')->unique(); // Kode unik untuk tanaman keluar
             $table->date('tanggal_keluar');  // Tanggal tanaman keluar
             $table->integer('jumlah_keluar');
-            $table->string('tujuan');
+            $table->string('tujuan')->nullable();
             $table->timestamps();
         });
     }

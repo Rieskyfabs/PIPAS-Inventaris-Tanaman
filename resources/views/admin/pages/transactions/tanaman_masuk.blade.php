@@ -20,7 +20,7 @@
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">{{__('TANAMAN MASUK')}}</h5>
+                <h5 class="card-title">{{__('TRANSAKSI TANAMAN MASUK')}}</h5>
                 <div class="add-btn-container">
                   
                 </div>
@@ -38,7 +38,6 @@
                           <th>{{__('KONDISI TANAMAN')}}</th>
                           <th>{{__('TANGGAL MASUK')}}</th>
                           <th>{{__('JUMLAH MASUK')}}</th>
-                          <th>{{__('CREATED AT')}}</th>
                           {{-- <th>{{__('ACTIONS')}}</th> --}}
                         </tr>
                     </thead>
@@ -71,7 +70,6 @@
                               </td>
                               <td>{{ $item->tanggal_masuk }}</td>
                               <td>{{ $item->jumlah_masuk }}</td>
-                              <td>{{ $item->created_at->translatedFormat('d F Y, H:i') }}</td>
                             </tr>
                         @endforeach
                     </tbody>

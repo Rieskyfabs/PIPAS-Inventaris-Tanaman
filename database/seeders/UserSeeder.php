@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         User::factory()->master()->create();
 
         // Membuat user
-        User::factory()->normalUser()->count(1)->create();
+        User::factory()->normalUser()->create();
 
 
     }

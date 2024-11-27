@@ -13,64 +13,81 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::all();
+        $locations = Location::orderBy('created_at', 'desc')->get();
 
         $title = 'Apakah anda yakin ingin menghapus lokasi ini?';
-        $text = "semua data tanaman dengan lokasi ini akan terhapus juga";
+        $text = "Semua data tanaman dengan lokasi ini akan terhapus juga";
         confirmDelete($title, $text);
 
         return view('admin.pages.locations.index', compact('locations'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.pages.locations.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255|unique:locations',
+            ]);
+
+            Location::create($request->all());
+
+            Alert::success('Data Ditambahkan', 'Berhasil menambahkan lokasi baru!');
+            return redirect()->back();
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Jika validasi gagal, ambil pesan error
+            $errors = $e->validator->errors();
+            Alert::error('Error', $errors->first('name')); 
+
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Location $location)
+    public function show($id)
     {
-        //
+        $location = Location::findOrFail($id);
+
+        return view('admin.pages.locations.show', compact('location'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Location $location)
+    public function edit($id)
     {
-        //
+        $location = Location::findOrFail($id);
+
+        return view('admin.pages.locations.edit', compact('location'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Location $location)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255|unique:locations,name,' . $id,
+            ]);
+
+            $location = Location::findOrFail($id);
+            $location->update($request->all());
+
+            Alert::success('Data Diupdate', 'Berhasil memperbarui lokasi!');
+            return redirect()->route('locations');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Jika validasi gagal, ambil pesan error
+            $errors = $e->validator->errors();
+            Alert::error('Error', $errors->first('name')); // Tampilkan pesan error
+
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $location = Location::findOrFail($id);
         $location->delete();
 
-        Alert::success('Hapus Data locations', 'Berhasil mengHapus data locations');
+        Alert::success('Hapus Data Lokasi', 'Berhasil menghapus data lokasi!');
         return redirect()->route('locations');
     }
 }

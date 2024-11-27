@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Plant;
+use App\Observers\PlantObserver;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,15 +34,22 @@ class AppServiceProvider extends ServiceProvider
 
             $notifications = [];
             foreach ($siapPanenPlants as $plant) {
+                // Cek role pengguna
+                if (Auth::check() && Auth::user()->role->name == 'user') {
+                    $notificationUrl = route('users.plants.show', $plant->plantAttribute->plant_code);
+                } else {
+                    $notificationUrl = route('plants.show', $plant->plantAttribute->plant_code);
+                }
+
                 $notifications[] = [
                     'icon' => 'bi-exclamation-circle',
                     'iconColor' => 'text-warning',
-                    'title' => 'Tanaman Siap Panen',
-                    'message' => 'Tanaman dengan kode ' . $plant->plantAttribute->plant_code . ' siap panen.',
+                    'title' => 'Ada tanaman siap panen nih!',
+                    'message' => 'Tanaman ' . $plant->plantAttribute->name . ' siap untuk dipanen!',
                     'subMessage' => 'Nama tanaman : ' . $plant->plantAttribute->name,
                     'location' => 'Lokasi tanaman : ' . $plant->location->name,
                     'timeAgo' => $plant->created_at->diffForHumans(),
-                    'url' => route('plants.show', $plant->plantAttribute->plant_code),
+                    'url' => $notificationUrl, // Sesuaikan URL berdasarkan role
                 ];
             }
 
@@ -54,5 +63,7 @@ class AppServiceProvider extends ServiceProvider
             $readyToHarvestCount = Plant::where('harvest_status', 'siap panen')->count();
             $view->with('readyToHarvestCount', $readyToHarvestCount);
         });
+
+        Plant::observe(PlantObserver::class);
     }
 }

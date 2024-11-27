@@ -6,72 +6,73 @@
   <div>
     <main id="main" class="main">
 
-      <x-breadcrumbs 
-        title="Locations" 
+      <x-breadcrumbs
+        title="Lokasi Penyimpanan"
         :items="[
-          ['route' => 'home', 'label' => 'Home'],
-          ['label' => 'Locations']
-        ]" 
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
+          ['label' => 'Lokasi Penyimpanan']
+        ]"
       />
 
-      <section class="section dashboard"> 
+      <section class="section dashboard">
           <div class="row">
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                          <h5 class="card-title">{{__('Locations Data')}}</h5>
+                          <h5 class="card-title">{{__('DATA LOKASI PENYIMPANAN')}}</h5>
                           <div class="add-btn-container">
-                              <a href="{{ route('locations.create') }}" class="btn-add-item">
-                                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier"> 
-                                      <path d="M12 13V7M15 10.0008L9 10M19 10.2C19 14.1764 15.5 17.4 12 21C8.5 17.4 5 14.1764 5 10.2C5 6.22355 8.13401 3 12 3C15.866 3 19 6.22355 19 10.2Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
-                                    </g>
-                                  </svg>
-                                  {{ __('Add Locations') }}
-                              </a>
+                              <!-- Button to trigger modal -->
+                              <x-add-button 
+                                target="#Location" 
+                                label="TAMBAH" 
+                              />
                           </div>
-                          
-                          <div class="table-responsive">
+                            <div class="table-responsive">
                               <!-- Table with stripped rows -->
                               <table class="table table-bordered table-hover datatable">
                                   <thead>
                                       <tr>
                                           <th>NO</th>
-                                          <th>{{__('NAA LOKASI')}}</th>
-                                          <th>{{__('CREATED AT')}}</th>
-                                          <th>{{__('ACTIONS')}}</th>
+                                          <th>{{__('NAMA LOKASI')}}</th>
+                                          <th>{{__('DIBUAT PADA')}}</th>
+                                          <th>{{__('AKSI')}}</th>
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      @foreach ($locations as $location)
+                                      @foreach ($locations as $item)
                                           <tr>
-                                              <td>{{ $loop->iteration }}</td>
-                                              <td>{{ $location->name }}</td>
-                                              <td>{{ $location->created_at->format('d F Y, H:i') }}</td>
-                                              <td>
-                                                  <x-action-buttons
-                                                        deleteData="{{ route('locations.destroy', $location->id) }}"
-                                                        method="DELETE"
-                                                        submit="true"
-                                                        :dropdown="[ 
-                                                            ['href' => route('locations.edit', $location->id), 'label' => 'Edit'], 
-                                                        ]"
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-heading text-truncate">
+                                                      <span class="fw-medium">{{ $item->name }}</span>
+                                                    </div>
+                                                    <small>{{ $item->description ?? 'Tidak Ada Deskripsi' }}</small>
+                                                </div>
+                                            </td>
+                                            <td>{{ $item->created_at->format('d F Y, H:i') }}</td>
+                                            <td>
+                                                <div style="display: flex; align-items: center;">
+                                                    <x-action-buttons 
+                                                      editModalTarget="#EditLocation{{ $item->id }}"
+                                                      deleteRoute="{{ route('locations.destroy', $item->id) }}"
                                                     />
-                                              </td>
+                                                </div>
+                                            </td>
                                           </tr>
+                                            @include('modals.edit_location_modal')
                                       @endforeach
                                   </tbody>
                               </table>
                               <!-- End Table with stripped rows -->
                           </div>
+                        @include('modals.create_location_modal')
                       </div>
                   </div>
               </div>
           </div>
       </section>
-      
+
     </main>
   </div>
 @endsection

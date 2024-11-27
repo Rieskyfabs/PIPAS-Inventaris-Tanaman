@@ -1,4 +1,16 @@
 <?php return array (
+  'barryvdh/laravel-dompdf' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Barryvdh\\DomPDF\\ServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Pdf' => 'Barryvdh\\DomPDF\\Facade\\Pdf',
+      'PDF' => 'Barryvdh\\DomPDF\\Facade\\Pdf',
+    ),
+  ),
   'intervention/image' => 
   array (
     'providers' => 
@@ -8,6 +20,17 @@
     'aliases' => 
     array (
       'Image' => 'Intervention\\Image\\Facades\\Image',
+    ),
+  ),
+  'kevincobain2000/laravel-erd' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Kevincobain2000\\LaravelERD\\LaravelERDServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'LaravelERD' => 'Kevincobain2000\\LaravelERD\\LaravelERDFacade',
     ),
   ),
   'laravel/sail' => 
@@ -40,6 +63,17 @@
     'aliases' => 
     array (
       'Avatar' => 'Laravolt\\Avatar\\Facade',
+    ),
+  ),
+  'maatwebsite/excel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
     ),
   ),
   'nesbot/carbon' => 

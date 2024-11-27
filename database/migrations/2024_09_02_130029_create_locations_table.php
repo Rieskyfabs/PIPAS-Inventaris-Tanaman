@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->enum('status', ['active', 'inactive'])
-                ->default('active');
+            $table->uuid('id')->primary(); // Menggunakan UUID sebagai Primary Key
+            $table->string('name')->unique();
+            // $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

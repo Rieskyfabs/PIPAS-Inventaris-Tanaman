@@ -3,35 +3,28 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
-
 class ActionButtons extends Component
 {
-    public $action;
-    public $viewData;
-    public $deleteData;
-    public $method;
-    public $submit;
-    public $dropdown;
+    public $editModalTarget;
+    public $deleteRoute;
+    public $markAsHarvested;
+    public $QrCode;
 
     /**
      * Create a new component instance.
      *
-     * @param  string|null  $action
-     * @param  string|null  $viewData
-     * @param  string|null  $deleteData
-     * @param  string|null  $method
-     * @param  bool  $submit
-     * @param  array|null  $dropdown
+     * @param  string|null  $editModalTarget
+     * @param  string|null  $deleteRoute
+     * @param  string|null  $markAsHarvested
+     * @param  string|null  $QrCode
      * @return void
      */
-    public function __construct($action = null, $viewData = null, $deleteData = null, $method = 'POST', $submit = false, $dropdown = null)
+    public function __construct($editModalTarget = null, $QrCode = null, $deleteRoute = null, $extraButtons = [], $markAsHarvested = null)
     {
-        $this->action = $action;
-        $this->viewData = $viewData;
-        $this->deleteData = $deleteData;
-        $this->method = $method;
-        $this->submit = $submit;
-        $this->dropdown = $dropdown;
+        $this->editModalTarget = $editModalTarget;
+        $this->deleteRoute = $deleteRoute;
+        $this->markAsHarvested = $markAsHarvested;
+        $this->QrCode = $QrCode;
     }
 
     /**
@@ -44,3 +37,4 @@ class ActionButtons extends Component
         return view('components.action-buttons');
     }
 }
+

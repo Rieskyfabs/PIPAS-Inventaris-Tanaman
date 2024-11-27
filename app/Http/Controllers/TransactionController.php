@@ -21,7 +21,9 @@ class TransactionController extends Controller
         $tanamanKeluar = TanamanKeluar::with(['plant.plantAttribute'])
             ->whereHas('plant', function ($query) {
                 $query->where('harvest_status', 'sudah dipanen');
-            })->get();
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('admin.pages.transactions.tanaman_keluar', compact('tanamanKeluar'));
     }

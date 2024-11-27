@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --main-color: #009379;
+    --second-color: #2D2D2D;
+    --body-color: #F8F9FF;
+
+    --main-font: 'Poppins', sans-serif;
+    --heading-font: 'Poppins', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--body-color);
+    font-family: var(--main-font);
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+section {
+    margin-top: 100px;
+}
+
+/* HOME, HERO SECTION */
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.home-wrapper {
+    padding-bottom: 100px;
+}
+
+@media (min-width: 992px) {
+    .heading {
+        margin-top: 10rem;
+    }
+}
+
+/* Ensure image shifts as specified */
+@media (min-width: 992px) {
+    .img-wrapper {
+        position: relative;
+        left: 200px;
+    }
+}
+
+/* Custom colors and button styles */
+.btn-login {
+    font-family: var(--heading-font);
+    color: #F8F9FF;
+    font-weight: 600;
+    background-color: #009379;
+    padding: 15px 50px;
+    border-radius: 20px;
+}
+
+.btn-about {
+    font-family: var(--heading-font);
+    color: #009379;
+    font-weight: 600;
+    background-color: #F8F9FF;
+    padding: 15px 50px;
+    border-radius: 20px;
+    border: 2px solid #009379;
+}
+
+/* END HERO SECTION /*
+
+
+/* NAVIGATION */
+
+/* Basic nav-link styling */
+.nav-link {
+    color: #333;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+/* Hover effect with color change and slight scaling */
+.nav-link:hover {
+    color: #009379;
+    transform: scale(1.05);
+}
+
+/* Active state with bold font and color */
+.nav-link.active {
+    font-weight: bold;
+    color: #009379;
+    position: relative;
+}
+
+/* Underline animation for the active link */
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 2px;
+    background-color: #009379;
+    transform: scaleX(1);
+    transition: transform 0.3s ease;
+}
+
+/* Hover underline effect */
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
+/* END NAVIGATION */

@@ -3,43 +3,58 @@
 @section('title', 'Dashboard')
 
 @section('contents')
-  <div>
+<div>
     <main id="main" class="main">
 
-      <x-breadcrumbs 
-        title="User Dashboard" 
-        :items="[
-            ['route' => 'home', 'label' => 'Home'],
-            ['label' => 'Dashboard']
-        ]" 
-      />
+        <x-breadcrumbs 
+            title="Halo, {{Auth::user()->username}}!" 
+            :items="[
+                ['route' => 'home', 'label' => 'Home'],
+                ['label' => 'Dashboard']
+            ]" 
+        />
 
-      <section class="section">
-        <div class="row">
-          <div class="col-lg-6">
+        <section class="section dashboard">
+            <div class="row">
 
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Example Card</h5>
-                <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-              </div>
+                <!-- Left side columns -->
+
+                    <div class="col-lg-8">
+                        <!-- Cards -->
+                            @include('partials.dashboard._cards')
+                        <!-- End Cards -->
+
+                        <!-- Reports -->
+                            @include('partials.dashboard._reports')
+                        <!-- End Reports -->
+
+                        <!-- Recent Plants -->
+                            @include('partials.dashboard._recentPlants')
+                        <!-- End Recent Sales -->
+                    </div>
+
+                <!-- End Left side columns -->
+
+                <!-- Right side columns -->
+
+                    <div class="col-lg-4">
+                        <!-- Plant Gallery -->
+                            @include('partials.dashboard._plantGallery')
+                        <!-- End Plant Gallery -->
+                        
+                        <!-- Total Plant Chart -->
+                            @include('partials.dashboard._totalPlantChart')
+                        <!-- End Total Plant Chart -->
+
+                        <!-- Plant Condition Chart --> 
+                            @include('partials.dashboard._plantConditionChart')
+                        <!-- End Plant Condition Chart -->
+                    </div>
+
+                <!-- End Right side columns -->
+                
             </div>
-
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Example Card</h5>
-                <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
+        </section>
     </main>
-  </div>
+</div>
 @endsection

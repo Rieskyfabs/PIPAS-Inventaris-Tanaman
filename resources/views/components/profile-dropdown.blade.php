@@ -24,7 +24,8 @@
       <!-- User Info -->
       <div class="custom-user-info">
         <h6 class="custom-username">{{ $username }}</h6>
-        <span class="custom-role">{{ $role }}</span>
+        <span class="custom-role">{{ $email }}</span>
+        {{-- <span class="custom-role">{{ $role }}</span> --}}
       </div>
     </li>
     <li><hr class="dropdown-divider"></li>
@@ -33,34 +34,16 @@
     <li>
       <a class="dropdown-item d-flex align-items-center" href="{{ $profileUrl }}">
         <i class="bi bi-person"></i>
-        <span>{{ __('My Profile') }}</span>
+        <span>{{ __('Profile Saya') }}</span>
       </a>
     </li>
-
-    {{-- <li>
-      <a class="dropdown-item d-flex align-items-center" href="#">
-        <i class="bi bi-credit-card"></i>
-        <span>{{ __('Billing Plan') }}</span>
-        <span class="badge bg-danger text-white ms-auto">4</span>
-      </a>
-    </li> --}}
-
-    {{-- <li>
-      <a class="dropdown-item d-flex align-items-center" href="#">
-        <i class="bi bi-currency-dollar"></i>
-        <span>{{ __('Pricing') }}</span>
-      </a>
-    </li> --}}
-
     <li>
       <a class="dropdown-item d-flex align-items-center" href="#">
         <i class="bi bi-question-circle"></i>
         <span>{{ __('FAQ') }}</span>
       </a>
     </li>
-
     <li><hr class="dropdown-divider"></li>
-
     <!-- Logout -->
     <li>
       <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">

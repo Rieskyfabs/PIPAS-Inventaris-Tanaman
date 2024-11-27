@@ -10,32 +10,27 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
-
     public function index()
     {
         $users = User::all();
-
         $activeUsersCount = User::where('status', 'active')->count();
         $inactiveUsersCount = User::where('status', 'inactive')->count();
 
         $title = 'Delete User!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-        
-        // Kirim data user ke view
+
         return view('admin.pages.users.index', compact('users', 'activeUsersCount', 'inactiveUsersCount'));
     }
 
     public function create()
     {
         $roles = Role::all();
-
         return view('admin.pages.users.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'username' => 'required|unique:users,username',
             'email' => 'required|email|unique:users,email',
@@ -52,17 +47,13 @@ class UserController extends Controller
             'status' => $request->status,
         ]);
 
-        // Tampilkan pesan sukses
         Alert::success('User Ditambahkan', 'Berhasil menambahkan data User');
-
         ActivityLogger::log('create', 'Created a new User Data with name: ' . $request->username);
 
-        // Redirect ke halaman users
         return redirect()->route('users');
     }
 
-
-    public function edit($id)
+    public function edit(string $id)
     {
         $user = User::findOrFail($id);
         $roles = Role::all();
@@ -70,8 +61,7 @@ class UserController extends Controller
         return view('admin.pages.users.edit', compact('user', 'roles'));
     }
 
-
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
         $user = User::findOrFail($id);
 
@@ -95,30 +85,25 @@ class UserController extends Controller
         $user->save();
 
         ActivityLogger::log('update', 'Updated User Data with ID: ' . $user->id);
-
         Alert::success('Edit Data User', 'Berhasil mengupdate data User');
 
         return redirect()->route('users');
     }
 
-
-    public function destroy($id)
+    public function destroy(string $id)
     {
         $user = User::findOrFail($id);
         $user->delete();
 
         ActivityLogger::log('delete', 'Deleted User Data with ID: ' . $user->id);
-
         Alert::success('Hapus Data User', 'Berhasil mengHapus data User');
 
         return redirect()->route('users');
     }
 
-    public function show($id)
+    public function show(string $id)
     {
         $user = User::findOrFail($id);
-
         return view('admin.pages.users.show', compact('user'));
     }
-
 }

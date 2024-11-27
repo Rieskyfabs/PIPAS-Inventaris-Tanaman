@@ -7,10 +7,10 @@
     <main id="main" class="main">
 
       <x-breadcrumbs 
-        title="Manfaat" 
+        title="Manfaat Tanaman" 
         :items="[
-          ['route' => 'home', 'label' => 'Home'],
-          ['label' => 'Manfaat']
+          ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
+          ['label' => 'Manfaat Tanaman']
         ]" 
       />
 
@@ -20,18 +20,12 @@
 
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">{{__('BENEFITS')}}</h5>
+                <h5 class="card-title">{{__('DATA MANFAAT TANAMAN')}}</h5>
                 <div class="add-btn-container">
-                    <a href="{{ route('benefits.create') }}" class="btn-add-item">
-                        <svg fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                          <g id="SVGRepo_iconCarrier">
-                            <path d="M18,22a1,1,0,0,0,1-1V8L12,2,5,8V21a1,1,0,0,0,1,1ZM12,7a2,2,0,1,1-2,2A2,2,0,0,1,12,7ZM9,16h2V14h2v2h2v2H13v2H11V18H9Z"></path>
-                          </g>
-                        </svg>
-                        {{ __('Add Benefits') }}
-                    </a>
+                    <button type="button" class="btn-add-item" data-bs-toggle="modal" data-bs-target="#Benefit">
+                        +
+                        {{ __('TAMBAH') }}
+                    </button>
                 </div>
 
                 <!-- Table with stripped rows -->
@@ -40,8 +34,8 @@
                         <tr>
                           <th>{{__('NO')}}</th>
                           <th>{{__('NAMA MANFAAT')}}</th>
-                          <th>{{__('CREATED AT')}}</th>
-                          <th>{{__('ACTIONS')}}</th>
+                          <th>{{__('DIBUAT PADA')}}</th>
+                          <th>{{__('AKSI')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,21 +45,24 @@
                               <td>{{ $benefit->name }}</td>
                               <td>{{ $benefit->created_at->format('d F Y, H:i') }}</td>
                               <td>
-                                  <x-action-buttons
-                                      deleteData="{{ route('benefits.destroy', $benefit->id) }}"
-                                      method="DELETE"
-                                      submit="true" {{-- Tombol hapus akan muncul --}}
-                                      :dropdown="[ 
-                                          ['href' => route('benefits.edit', $benefit->id), 'label' => 'Edit'], 
-                                      ]"
-                                  />
+                                  <div style="display: flex; align-items: center;">
+                                      <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#EditBenefit{{ $benefit->id }}">
+                                          <i class='bx bx-edit'></i>
+                                      </button>
+                                      <x-action-buttons
+                                          deleteData="{{ route('benefits.destroy', $benefit->id) }}"
+                                          method="DELETE"
+                                          submit="true"
+                                      />
+                                  </div>
                               </td>
+                              @include('modals.edit_benefit_modal')
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <!-- End Table with stripped rows -->
-
+                @include('modals.create_benefit_modal')
               </div>
             </div>
           </div>
