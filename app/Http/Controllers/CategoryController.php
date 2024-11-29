@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ActivityLogger;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
@@ -70,6 +71,16 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
+        // Cek apakah kategori masih digunakan di tabel lain
+        $isUsed = DB::table('plant_attributes')->where('category_id', $id)->exists();
+
+        if ($isUsed) {
+            // Tampilkan pesan error jika kategori masih digunakan
+            Alert::error('Gagal menghapus kategori', 'Kategori ini masih digunakan oleh data lain');
+            return redirect()->back();
+        }
+
+        // Jika kategori tidak digunakan, hapus data
         $category = Category::findOrFail($id);
         $category->delete();
 
@@ -81,4 +92,5 @@ class CategoryController extends Controller
 
         return redirect()->back();
     }
+
 }

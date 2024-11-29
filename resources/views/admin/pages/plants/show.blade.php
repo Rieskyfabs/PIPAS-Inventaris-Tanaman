@@ -89,8 +89,10 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="text-heading text-truncate">
-                                                            <span class="fw-medium">{{ $item->location->name ?? 'Data lokasi tidak ditemukan' }}</span>
+                                                        <div class="d-flex flex-column">
+                                                            <div class="text-heading text-truncate">
+                                                                <span class="fw-medium">{{ $item->location->name ?? 'Data lokasi tidak ditemukan' }}</span>
+                                                            </div>
                                                         </div>
                                                     </td>
                                                     <td>

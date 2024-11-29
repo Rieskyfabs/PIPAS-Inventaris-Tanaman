@@ -15,14 +15,14 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('image')->nullable();
             $table->uuid('student_id');
-            $table->uuid('plant_code_id'); // Reference to plant_attributes
-            $table->uuid('plant_name_id'); // Reference to plant_attributes
-            $table->uuid('plant_scientific_name_id'); // Reference to plant_attributes
-            $table->uuid('type_id'); // Reference to tipe_tanaman
+            $table->uuid('plant_code_id'); 
+            $table->uuid('plant_name_id'); 
+            $table->uuid('plant_scientific_name_id'); 
+            $table->uuid('type_id');
             $table->string('qr_code')->nullable();
-            $table->uuid('category_id'); // Reference to categories
-            $table->uuid('benefit_id'); // Reference to plant_attributes for benefit
-            $table->uuid('location_id'); // Reference to locations
+            $table->uuid('category_id');
+            $table->uuid('benefit_id');
+            $table->uuid('location_id');
             $table->enum('status', ['sehat', 'baik', 'layu', 'sakit']);
             $table->date('seeding_date')->nullable();
             $table->date('harvest_date')->nullable();
@@ -30,14 +30,14 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign Keys
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->foreign('plant_code_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('plant_name_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('plant_scientific_name_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('type_id')->references('id')->on('tipe_tanaman')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('benefit_id')->references('id')->on('plant_attributes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('restrict');
+            $table->foreign('plant_code_id')->references('id')->on('plant_attributes')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('plant_name_id')->references('id')->on('plant_attributes')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('plant_scientific_name_id')->references('id')->on('plant_attributes')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('type_id')->references('id')->on('tipe_tanaman')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('benefit_id')->references('id')->on('plant_attributes')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('restrict')->onUpdate('cascade');
         });
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ActivityLogger;
 use App\Models\TipeTanaman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PlantTypeController extends Controller
@@ -72,6 +73,16 @@ class PlantTypeController extends Controller
 
     public function destroy($id)
     {
+        // Cek apakah tipe tanaman masih digunakan di tabel plants
+        $isUsed = DB::table('plant_attributes')->where('type_id', $id)->exists();
+
+        if ($isUsed) {
+            // Tampilkan pesan error jika tipe tanaman masih digunakan
+            Alert::error('Gagal menghapus tipe tanaman', 'Tipe tanaman ini masih digunakan oleh data lain');
+            return redirect()->back();
+        }
+
+        // Jika tipe tanaman tidak digunakan, lanjutkan penghapusan
         $plantType = TipeTanaman::findOrFail($id);
         $plantType->delete();
 
@@ -83,4 +94,5 @@ class PlantTypeController extends Controller
 
         return redirect()->back();
     }
+
 }

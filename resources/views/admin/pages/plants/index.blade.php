@@ -56,20 +56,16 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">{{ __('Total Tanaman Berdasarkan Status') }}</h5>
-
                             <!-- Plant Status Chart -->
                             <div id="plantStatus"></div>
-
                             <script>
                                 document.addEventListener("DOMContentLoaded", () => {
                                     const chartData = @json($chartData);
-
                                     // Check if there's no data
                                     if (chartData.labels.length === 0 || chartData.series.length === 0) {
                                         document.querySelector("#plantStatus").innerHTML = "<p class='text-center'>Tidak ada data</p>";
                                         return; // Exit the script to avoid rendering the chart
                                     }
-
                                     // Define a mapping of status to colors
                                     const colorMapping = {
                                         "sehat": '#28a745',  // Green
@@ -77,16 +73,13 @@
                                         "layu": '#ffc107',   // Yellow
                                         "sakit": '#dc3545'   // Red
                                     };
-
                                     // Create an array for series and corresponding colors
                                     const seriesData = [];
                                     const colors = [];
-
                                     chartData.labels.forEach(label => {
                                         seriesData.push(chartData.series[chartData.labels.indexOf(label)]);
                                         colors.push(colorMapping[label]);
                                     });
-
                                     // Initialize ApexCharts with the fetched data
                                     new ApexCharts(document.querySelector("#plantStatus"), {
                                         series: seriesData, // Values of plant counts based on status
@@ -114,13 +107,11 @@
                                 });
                             </script>
                             <!-- End Pie Chart -->
-
                         </div>
                     </div>
                 </div>
 
                 <!-- End Right side columns -->
-
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
@@ -151,7 +142,13 @@
                                         @foreach ($plants as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->plantAttribute ? $item->plantAttribute->plant_code : 'Unknown' }}</td>
+                                                <td>
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-heading text-truncate">
+                                                            <span class="fw-medium">{{ $item->plantAttribute ? $item->plantAttribute->plant_code : 'Data kode tanaman tidak ditemukan' }}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <div class="d-flex flex-column">
                                                         <div class="text-heading text-truncate">
@@ -160,12 +157,27 @@
                                                         <small class="text-muted">{{ $item->plantAttribute->scientific_name ?? 'Data nama ilmiah tidak ditemukan' }}</small>
                                                     </div>
                                                 </td>
-                                                <td>{{ $item->plantType->name }}</td>
-                                                <td>{{ $item->category ? $item->category->name : 'Unknown' }}</td>
-                                                <td style="white-space: normal; word-wrap: break-word;">
-                                                    {{ Str::limit($item->plantAttribute ? $item->plantAttribute->benefit : 'Unknown', 20) }}
+                                                <td>
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-heading text-truncate">
+                                                            <span class="fw-medium">{{ $item->plantType->name ?? 'Data tipe tanaman tidak tersedia' }}</span>
+                                                        </div>
+                                                    </div>
                                                 </td>
-                                                {{-- <td>{{ $item->total_quantity }}</td> --}}
+                                                <td>
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-heading text-truncate">
+                                                            <span class="fw-medium">{{ $item->category->name ?? 'Data tipe kategori tidak tersedia' }}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="white-space: normal; word-wrap: break-word;">
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-heading text-truncate">
+                                                            <span class="text-muted">{{ Str::limit($item->plantAttribute->benefit ?? 'Data manfaat tanaman tidak ditemukan', 20) }}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <span class="badge bg-primary badge-number">{{ $item->total_quantity }}
                                                         @if($item->ready_to_harvest_count > 0)
@@ -175,9 +187,6 @@
                                                 </td>
                                                 <td>
                                                     <div style="display: flex; align-items: center; gap: 10px;">
-                                                        {{-- <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#ShowPlant{{ $item->id }}">
-                                                            <i class="ri-eye-line"></i>
-                                                        </button> --}}
                                                         <a href="{{ route('plants.show', $item->plantAttribute->plant_code) }}" class="btn btn-primary">
                                                             {{__('Lihat')}} 
                                                         </a>

@@ -22,8 +22,8 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign keys
-            $table->foreign('rombel_id')->references('id')->on('rombels')->onDelete('set null');
-            $table->foreign('rayon_id')->references('id')->on('rayons')->onDelete('set null');
+            $table->foreign('rombel_id')->references('id')->on('rombels')->onDelete('restrict');
+            $table->foreign('rayon_id')->references('id')->on('rayons')->onDelete('restrict');
         });
     }
 

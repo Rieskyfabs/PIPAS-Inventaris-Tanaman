@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ActivityLogger;
 use App\Models\Rombel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class RombelController extends Controller
@@ -64,13 +65,26 @@ class RombelController extends Controller
 
     public function destroy($id)
     {
+        // Cek apakah rombel masih digunakan di tabel lain, misalnya tabel students
+        $isUsed = DB::table('students')->where('rombel_id', $id)->exists();
+
+        if ($isUsed) {
+            // Tampilkan pesan error jika rombel masih digunakan
+            Alert::error('Gagal menghapus rombel', 'Rombel ini masih digunakan oleh data siswa.');
+            return redirect()->route('rombel');
+        }
+
+        // Jika tidak digunakan, lanjutkan penghapusan
         $rombel = Rombel::findOrFail($id);
         $rombel->delete();
 
+        // Mencatat aktivitas
         ActivityLogger::log('delete', 'Menghapus data rombel dengan ID: ' . $id);
 
-        Alert::success('Hapus data rombel', 'Berhasil menghapus data rombel');
+        // Tampilkan pesan sukses
+        Alert::success('Hapus data rombel', 'Berhasil menghapus data rombel.');
 
         return redirect()->route('rombel');
     }
+
 }

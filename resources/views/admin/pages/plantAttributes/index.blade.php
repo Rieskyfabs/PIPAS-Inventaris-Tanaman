@@ -46,26 +46,45 @@
                                     @foreach ($plantAttributes as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->plant_code }}</td>
                                             <td>
                                                 <div class="d-flex flex-column">
-                                                    <a href="#" class="text-heading text-truncate">
-                                                        <!-- Nama tanaman dibuat bold -->
-                                                        <span class="fw-bold">{{ $item->name }}</span>
-                                                    </a>
-                                                    <!-- Nama ilmiah dibuat pudar dan italic -->
-                                                    <small class="text-muted fst-italic">{{ $item->scientific_name ?? 'Unknown' }}</small>
-                                                    <!-- Tipe tanaman dengan background warna smooth -->
-                                                    <small>
-                                                        <span class="badge" style="background-color: #e0f7df; color: #388e3c;">
-                                                            <i class="fa fa-leaf" aria-hidden="true" style="font-size: 1.2em; margin-right: 0.5em;"></i> {{ $item->plantType->name }}
-                                                        </span>
-                                                    </small>
+                                                    <div class="text-heading text-truncate">
+                                                        <span class="fw-medium">{{ $item->plant_code ?? 'Data kode tanaman tidak tersedia' }}</span>
+                                                    </div>
                                                 </div>
                                             </td>
-                                            <td>{{ $item->category->name ?? 'Kategori tidak ditemukan' }}</td>
-                                            <td>{{ Str::limit($item->benefit ?? 'Manfaat tidak ditemukan', 30)}}</td>
-                                            <td>{{ $item->description ?? 'No Description' }}</td>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-heading text-truncate">
+                                                        <span class="fw-medium">{{ $item->name ?? 'Nama tanaman tidak ditemukan' }}</span>
+                                                    </div>
+                                                    <small class="text-muted">{{ $item->scientific_name ?? 'Unknown' }}</small>
+                                                    {{-- <small>
+                                                        <span class="badge" style="background-color: #e0f7df; color: #388e3c;">
+                                                            {{ $item->plantType->name }}
+                                                        </span>
+                                                    </small> --}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-heading text-truncate">
+                                                        <span class="fw-medium">{{ $item->category->name ?? 'Data Kategori tidak ditemukan' }}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <div class="text-heading text-truncate">
+                                                        <span class="text-muted">{{ Str::limit($item->benefit ?? 'Data Manfaat tidak ditemukan', 30)}}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted">
+                                                    {{ $item->description ?? 'Tidak ada deskripsi' }}
+                                                </span>
+                                            </td>
                                             <td>{{ $item->created_at->format('d F Y, H:i') }}</td>
                                             <td>
                                                 <div style="display: flex; align-items: center;">

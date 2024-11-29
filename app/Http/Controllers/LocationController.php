@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class LocationController extends Controller
@@ -84,10 +85,22 @@ class LocationController extends Controller
 
     public function destroy($id)
     {
+        // Cek apakah lokasi masih digunakan di tabel plants
+        $isUsed = DB::table('plants')->where('location_id', $id)->exists();
+
+        if ($isUsed) {
+            // Tampilkan pesan error jika lokasi masih digunakan
+            Alert::error('Gagal menghapus lokasi', 'Lokasi ini masih digunakan oleh data lain');
+            return redirect()->route('locations');
+        }
+
+        // Jika lokasi tidak digunakan, lanjutkan penghapusan
         $location = Location::findOrFail($id);
         $location->delete();
 
+        // Tampilkan pesan sukses
         Alert::success('Hapus Data Lokasi', 'Berhasil menghapus data lokasi!');
         return redirect()->route('locations');
     }
+
 }

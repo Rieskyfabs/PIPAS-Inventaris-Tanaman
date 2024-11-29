@@ -16,14 +16,16 @@ return new class extends Migration
             $table->string('plant_code')->unique();
             $table->string('name')->unique();
             $table->string('scientific_name')->unique();
-            $table->uuid('type_id'); // Reference to tipe_tanaman
-            $table->foreign('type_id')->references('id')->on('tipe_tanaman')->onDelete('cascade')->onUpdate('cascade');
-            $table->uuid('category_id'); // Reference to categories
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->text('benefit'); // Storing benefit directly here
+            $table->uuid('type_id');
+            $table->uuid('category_id');
+            $table->text('benefit');
             $table->text('description');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
+
+            //Foreign
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('type_id')->references('id')->on('tipe_tanaman')->onDelete('restrict')->onUpdate('cascade');
         });
     }
 

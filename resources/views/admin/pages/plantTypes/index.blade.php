@@ -45,7 +45,7 @@
                                       <div class="text-heading text-truncate">
                                         <span class="fw-medium">{{ $item->name }}</span>
                                       </div>
-                                      <small>{{ $item->description ?? 'Tidak Ada Deskripsi' }}</small>
+                                      <small class="text-muted">{{ $item->description ?? 'Tidak Ada Deskripsi' }}</small>
                                   </div>
                               </td>
                               <td>{{ $item->created_at->format('d F Y, H:i') }}</td>

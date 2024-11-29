@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ActivityLogger;
 use App\Models\Rayon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class RayonController extends Controller
@@ -59,13 +60,26 @@ class RayonController extends Controller
 
     public function destroy($id)
     {
+        // Cek apakah rayon masih digunakan di tabel lain, misalnya tabel students
+        $isUsed = DB::table('students')->where('rayon_id', $id)->exists();
+
+        if ($isUsed) {
+            // Tampilkan pesan error jika rayon masih digunakan
+            Alert::error('Gagal menghapus rayon', 'Rayon ini masih digunakan oleh data siswa.');
+            return redirect()->route('rayon');
+        }
+
+        // Jika tidak digunakan, lanjutkan penghapusan
         $rayon = Rayon::findOrFail($id);
         $rayon->delete();
 
+        // Mencatat aktivitas
         ActivityLogger::log('delete', 'Menghapus data rayon dengan ID: ' . $id);
 
-        Alert::success('Hapus data rayon', 'Berhasil menghapus data rayon');
+        // Tampilkan pesan sukses
+        Alert::success('Hapus data rayon', 'Berhasil menghapus data rayon.');
 
         return redirect()->route('rayon');
     }
+
 }
