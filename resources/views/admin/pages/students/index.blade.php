@@ -50,16 +50,54 @@
                                     <div class="text-heading text-truncate">
                                       <span class="fw-medium">{{ $item->name }}</span>
                                     </div>
-                                    <small>{{ $item->description ?? 'Tidak Ada Deskripsi' }}</small>
+                                    <small class="text-muted">{{ $item->description ?? 'Tidak Ada Deskripsi' }}</small>
                                 </div>
                               </td>
-                              <td>{{ $item->rombel->name ?? 'data Rombel tidak ditemukan' }}</td>
-                              <td>{{ $item->rayon->name ?? 'data Rayon tidak ditemukan' }}</td>
-                              <td>{{ $item->nis ?? 'data Nis tidak ditemukan' }}</td>
-                              <td>{{ $item->email ?? 'data Email tidak ditemukan' }}</td>
-                              <td>{{ $item->gender ?? 'data Gender tidak ditemukan' }}</td>
                               <td>
-                                  <div style="display: flex; align-items: center;">
+                                  <div class="d-flex flex-column">
+                                      <div class="text-heading text-truncate">
+                                          <span class="fw-medium">{{ $item->rombel->name ?? 'data Rombel tidak ditemukan' }}</span>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="d-flex flex-column">
+                                      <div class="text-heading text-truncate">
+                                          <span class="fw-medium">{{ $item->rayon->name ?? 'data Rayon tidak ditemukan' }}</span>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="d-flex flex-column">
+                                      <div class="text-heading text-truncate">
+                                          <span class="fw-medium">{{ $item->nis ?? 'data Nis tidak ditemukan' }}</span>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="d-flex flex-column">
+                                      <div class="text-heading text-truncate">
+                                          <span class="text-muted">
+                                              <i class="ri-mail-line me-2"></i>{{ $item->email ?? 'data Email tidak ditemukan' }}
+                                          </span>
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="d-flex flex-column">
+                                      <div class="text-heading text-truncate">
+                                          @if ($item->gender === 'laki-laki')
+                                              <span class="fw-medium badge" style="background-color: #d9edf7; color: #5a738e;">{{ ucfirst($item->gender) }}</span>
+                                          @elseif ($item->gender === 'perempuan')
+                                              <span class="fw-medium badge" style="background-color: #fde8e8; color: #a94442;">{{ ucfirst($item->gender) }}</span>
+                                          @else
+                                              <span class="fw-medium text-muted">{{__('Data Gender tidak ditemukan')}}</span>
+                                          @endif
+                                      </div>
+                                  </div>
+                              </td>
+                              <td>
+                                  <div class="d-flex align-items-center">
                                       <x-action-buttons 
                                         editModalTarget="#EditStudents{{ $item->id }}"
                                         deleteRoute="{{ route('student-data.destroy', $item->id) }}"

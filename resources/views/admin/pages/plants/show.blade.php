@@ -131,7 +131,7 @@
                                                                 />
                                                             </div>
                                                         @else
-                                                            <div style="display: flex; align-items: center;">
+                                                            <div class="d-flex align-items-center">
                                                                 <x-action-buttons 
                                                                     showDetailModal="#showDetailModal{{ $item->id }}"
                                                                     {{-- QrCode="#QrCode{{ $item->id }}" --}}
