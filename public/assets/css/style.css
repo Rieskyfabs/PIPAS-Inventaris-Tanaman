@@ -20,7 +20,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 a {
@@ -1699,3 +1699,18 @@ select[readonly]:focus {
   /* Optional: Add some padding for better readability */
 }
 
+/* Label dan Value Styling */
+.item-label {
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.item-value {
+    text-align: left;
+    padding-left: 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 14px;
+}

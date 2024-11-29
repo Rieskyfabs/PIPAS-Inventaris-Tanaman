@@ -53,39 +53,21 @@
                                     <table class="table table-bordered table-hover datatable">
                                         <thead>
                                             <tr>
-                                            {{-- <th>{{__('GAMBAR')}}</th> --}}
-                                            <th>{{__('NO')}}</th>
-                                            <th>{{__('NAMA')}}</th>
-                                            <th>{{__('PEMILIK')}}</th>
-                                            <th>{{__('LOKASI')}}</th>
-                                            <th>{{__('KONDISI')}}</th>
-                                            <th>{{__('TANGGAL TANAM')}}</th>
-                                            <th>{{__('EST. PANEN')}}</th>
-                                            <th>{{__('STATUS')}}</th>
-                                            <th>{{__('AKSI')}}</th>
+                                                <th>{{__('NO')}}</th>
+                                                <th>{{__('PEMILIK')}}</th>
+                                                <th>{{__('NAMA')}}</th>
+                                                <th>{{__('LOKASI')}}</th>
+                                                <th>{{__('KONDISI')}}</th>
+                                                <th>{{__('TANGGAL TANAM')}}</th>
+                                                <th>{{__('EST. PANEN')}}</th>
+                                                <th>{{__('STATUS')}}</th>
+                                                <th>{{__('AKSI')}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($plants as $item)
                                                 <tr>
-                                                    {{-- <td>
-                                                        @if($item->image)
-                                                            <a href="{{ asset('storage/' . $item->image) }}" target="_blank">
-                                                                <img src="{{ asset('storage/' . $item->image) }}" alt="Image of {{ $item->plantAttribute->name ?? 'Unknown' }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
-                                                            </a>
-                                                        @else
-                                                            <img src="{{ asset('default-image.png') }}" alt="Default Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
-                                                        @endif 
-                                                    </td> --}}
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>
-                                                        <div class="d-flex flex-column">
-                                                            <div class="text-heading text-truncate">
-                                                                <span class="fw-medium">{{ $item->plantAttribute->name }}</span>
-                                                            </div>
-                                                            <small class="text-muted">{{ $item->plantAttribute->scientific_name ?? 'Data nama ilmiah tidak ditemukan' }}</small>
-                                                        </div>
-                                                    </td>
                                                     <td>
                                                         <div class="d-flex flex-column">
                                                             <div class="text-heading text-truncate">
@@ -99,16 +81,24 @@
                                                         </div>
                                                     </td>
                                                     <td>
+                                                        <div class="d-flex flex-column">
+                                                            <div class="text-heading text-truncate">
+                                                                <span class="fw-medium">{{ $item->plantAttribute->name }}</span>
+                                                            </div>
+                                                            <small class="text-muted">{{ $item->plantAttribute->scientific_name ?? 'Data nama ilmiah tidak ditemukan' }}</small>
+                                                        </div>
+                                                    </td>
+                                                    <td>
                                                         <div class="text-heading text-truncate">
                                                             <span class="fw-medium">{{ $item->location->name ?? 'Data lokasi tidak ditemukan' }}</span>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <span class="badge
-                                                            @if ($item->status === 'sehat') badge-soft-green <i class='bi bi-check-circle me-1'></i>
-                                                            @elseif ($item->status === 'baik') badge-soft-primary <i class='bi bi-star me-1'></i>
-                                                            @elseif ($item->status === 'layu') badge-soft-warning <i class='bi bi-exclamation-triangle me-1'></i>
-                                                            @elseif ($item->status === 'sakit') badge-soft-danger <i class='bi bi-exclamation-octagon me-1'></i>
+                                                            @if ($item->status === 'sehat') badge-soft-green
+                                                            @elseif ($item->status === 'baik') badge-soft-primary
+                                                            @elseif ($item->status === 'layu') badge-soft-warning
+                                                            @elseif ($item->status === 'sakit') badge-soft-danger
                                                             @else bg-secondary @endif">
                                                             {{ ucfirst($item->status) }}
                                                         </span>
@@ -129,25 +119,28 @@
                                                     </td>
                                                     <td>
                                                         @if($item->harvest_status === 'siap panen')
-                                                            <div class="d-flex align-items-center gap-2">
+                                                            <div class="d-flex align-items-center">
                                                                 <x-action-buttons 
-                                                                    QrCode="#QrCode{{ $item->id }}"
+                                                                    showDetailModal="#showDetailModal{{ $item->id }}"
+                                                                    {{-- QrCode="#QrCode{{ $item->id }}" --}}
                                                                     editModalTarget="#EditPlant{{ $item->id }}"
-                                                                    deleteRoute="{{ route('plants.destroy', $item->id) }}"
-                                                                    markAsHarvested="{{ route('plants.panen', $item->id) }}"
+                                                                    {{-- deleteRoute="{{ route('plants.destroy', $item->id) }}" --}}
+                                                                    {{-- markAsHarvested="{{ route('plants.panen', $item->id) }}" --}}
                                                                 />
                                                             </div>
                                                         @else
                                                             <div style="display: flex; align-items: center;">
                                                                 <x-action-buttons 
-                                                                    QrCode="#QrCode{{ $item->id }}"
+                                                                    showDetailModal="#showDetailModal{{ $item->id }}"
+                                                                    {{-- QrCode="#QrCode{{ $item->id }}" --}}
                                                                     editModalTarget="#EditPlant{{ $item->id }}"
-                                                                    deleteRoute="{{ route('plants.destroy', $item->id) }}"
+                                                                    {{-- deleteRoute="{{ route('plants.destroy', $item->id) }}" --}}
                                                                 />
                                                             </div>
                                                         @endif
                                                     </td>
                                                 </tr>
+                                                @include('modals.showDetailModal')
                                                 @include('modals.edit_plant_modal')
                                             @endforeach
                                         </tbody>

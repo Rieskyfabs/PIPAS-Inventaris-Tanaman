@@ -21,13 +21,14 @@
                 if (confirmDeleteElement) {
                     event.preventDefault();
                     Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
+                        title: 'Anda Akan Menghapus Data',
+                        text: "Anda tidak akan dapat mengembalikan data yang sudah di hapus.",
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
+                        confirmButtonColor: '#AF1740',
+                        cancelButtonColor: '#A6AEBF',
+                        confirmButtonText: 'Iya, Hapus Data Ini!',
+                        cancelButtonText: 'Batalkan',
                     }).then(function(result) {
                         if (result.isConfirmed) {
                             // Find the form that wraps the button

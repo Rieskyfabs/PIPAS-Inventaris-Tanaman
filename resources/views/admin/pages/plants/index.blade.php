@@ -140,7 +140,6 @@
                                             <th>NO</th>
                                             <th>{{__('KODE TANAMAN')}}</th>
                                             <th>{{__('NAMA TANAMAN')}}</th>
-                                            <th>{{__('NAMA ILMIAH')}}</th>
                                             <th>{{__('TIPE TANAMAN')}}</th>
                                             <th>{{__('KATEGORI TANAMAN')}}</th>
                                             <th>{{__('MANFAAT TANAMAN')}}</th>
@@ -149,32 +148,38 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($plants as $plant)
+                                        @foreach ($plants as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $plant->plantAttribute ? $plant->plantAttribute->plant_code : 'Unknown' }}</td>
-                                                <td>{{ $plant->plantAttribute->name }}</td>
-                                                <td>{{ $plant->plantAttribute->scientific_name ?? 'Unknown' }}</td>
-                                                <td>{{ $plant->plantType->name }}</td>
-                                                <td>{{ $plant->category ? $plant->category->name : 'Unknown' }}</td>
-                                                <td style="white-space: normal; word-wrap: break-word;">
-                                                    {{ Str::limit($plant->plantAttribute ? $plant->plantAttribute->benefit : 'Unknown', 20) }}
-                                                </td>
-                                                {{-- <td>{{ $plant->total_quantity }}</td> --}}
+                                                <td>{{ $item->plantAttribute ? $item->plantAttribute->plant_code : 'Unknown' }}</td>
                                                 <td>
-                                                    <span class="badge bg-primary badge-number">{{ $plant->total_quantity }}
-                                                        @if($plant->ready_to_harvest_count > 0)
+                                                    <div class="d-flex flex-column">
+                                                        <div class="text-heading text-truncate">
+                                                            <span class="fw-medium">{{ $item->plantAttribute->name }}</span>
+                                                        </div>
+                                                        <small class="text-muted">{{ $item->plantAttribute->scientific_name ?? 'Data nama ilmiah tidak ditemukan' }}</small>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $item->plantType->name }}</td>
+                                                <td>{{ $item->category ? $item->category->name : 'Unknown' }}</td>
+                                                <td style="white-space: normal; word-wrap: break-word;">
+                                                    {{ Str::limit($item->plantAttribute ? $item->plantAttribute->benefit : 'Unknown', 20) }}
+                                                </td>
+                                                {{-- <td>{{ $item->total_quantity }}</td> --}}
+                                                <td>
+                                                    <span class="badge bg-primary badge-number">{{ $item->total_quantity }}
+                                                        @if($item->ready_to_harvest_count > 0)
                                                             <span class="notification-bubble"></span>
                                                         @endif
                                                     </span>
                                                 </td>
                                                 <td>
                                                     <div style="display: flex; align-items: center; gap: 10px;">
-                                                        {{-- <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#ShowPlant{{ $plant->id }}">
+                                                        {{-- <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="#ShowPlant{{ $item->id }}">
                                                             <i class="ri-eye-line"></i>
                                                         </button> --}}
-                                                        <a href="{{ route('plants.show', $plant->plantAttribute->plant_code) }}" class="btn btn-primary">
-                                                            {{__('Lihat')}}
+                                                        <a href="{{ route('plants.show', $item->plantAttribute->plant_code) }}" class="btn btn-primary">
+                                                            {{__('Lihat')}} 
                                                         </a>
                                                     </div>
                                                 </td>

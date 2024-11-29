@@ -52,7 +52,7 @@
             <!-- Eye Icon -->
             <span class="p-4 pl-2 mt-1 text-xl cursor-pointer text-gray-400 hover:text-gray-600 transition duration-200" onclick="togglePassword()">
               <i class="fas fa-eye" id="eye-icon"></i>
-            </span>
+            </span> 
           </div>
         </div>
 

@@ -4,8 +4,8 @@
 
 :root {
     --main-color: #009379;
-    --second-color: #2D2D2D;
-    --body-color: #F8F9FF;
+    --second-color: #2d2d2d;
+    --body-color: #f8f9ff;
 
     --main-font: 'Poppins', sans-serif;
     --heading-font: 'Poppins', sans-serif;
@@ -21,6 +21,10 @@ body {
     overflow-x: hidden;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -33,7 +37,7 @@ section {
     margin-top: 100px;
 }
 
-/* HOME, HERO SECTION */
+/* Utility for text shadow (since neither Bootstrap nor Tailwind has an exact equivalent) */
 .text-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
@@ -59,7 +63,7 @@ section {
 /* Custom colors and button styles */
 .btn-login {
     font-family: var(--heading-font);
-    color: #F8F9FF;
+    color: #f8f9ff;
     font-weight: 600;
     background-color: #009379;
     padding: 15px 50px;
@@ -70,14 +74,22 @@ section {
     font-family: var(--heading-font);
     color: #009379;
     font-weight: 600;
-    background-color: #F8F9FF;
+    background-color: #f8f9ff;
     padding: 15px 50px;
     border-radius: 20px;
     border: 2px solid #009379;
 }
 
-/* END HERO SECTION /*
+/* HERO SECTION */
 
+.home .heading {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+.home .subHeading {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* END HERO SECTION */
 
 /* NAVIGATION */
 
@@ -122,3 +134,14 @@ section {
 }
 
 /* END NAVIGATION */
+
+@media (max-width: 640px) {
+    #home {
+        background-image: none !important;
+    }
+
+    .home .heading,
+    .home .subHeading {
+        text-shadow: none !important;
+    }
+}

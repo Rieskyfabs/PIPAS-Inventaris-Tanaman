@@ -1,5 +1,12 @@
 <div class="d-flex align-items-center">
 
+    @if(isset($showDetailModal))
+        <!-- show detail Button -->
+        <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="{{ $showDetailModal }}">
+            <i class="ri-eye-line"></i>
+        </button>
+    @endif
+
     @if(isset($editModalTarget))
         <!-- Edit Button -->
         <button type="button" class="icon-button" data-bs-toggle="modal" data-bs-target="{{ $editModalTarget }}">
@@ -22,7 +29,7 @@
                 <i class="bi bi-trash"></i>
             </button>
         </form>
-    @endif
+    @endif  
 
     @if(isset($markAsHarvested) && $markAsHarvested)
         <form action="{{ $markAsHarvested }}" method="POST" class="d-flex align-items-center gap-4">

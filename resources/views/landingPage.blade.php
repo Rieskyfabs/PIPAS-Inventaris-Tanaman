@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<head>
-    @include('landing-page.partials._header')
-</head>
+    <head>
+        @include('landing-page.partials._header')
+    </head>
 
     <body>
-        
         <!-- navigation -->
             @include('landing-page.partials._navigation')
         <!-- /navigation -->
-
         <main>
             <!-- Hero, Home Page Section -->
                 @include('landing-page.partials._hero-section')
@@ -36,7 +34,7 @@
                 @include('landing-page.partials._contact-section')
             <!-- END Contact Form -->
         </main>
-
+        
         <!-- Footer -->
             @include('landing-page.partials._footer')
         <!-- END Footer -->

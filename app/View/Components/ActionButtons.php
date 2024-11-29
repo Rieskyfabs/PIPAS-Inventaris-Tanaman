@@ -5,6 +5,7 @@ namespace App\View\Components;
 use Illuminate\View\Component;
 class ActionButtons extends Component
 {
+    public $showDetailModal;
     public $editModalTarget;
     public $deleteRoute;
     public $markAsHarvested;
@@ -12,15 +13,16 @@ class ActionButtons extends Component
 
     /**
      * Create a new component instance.
-     *
+     * @param  string|null  $showDetailModal
      * @param  string|null  $editModalTarget
      * @param  string|null  $deleteRoute
      * @param  string|null  $markAsHarvested
      * @param  string|null  $QrCode
      * @return void
      */
-    public function __construct($editModalTarget = null, $QrCode = null, $deleteRoute = null, $extraButtons = [], $markAsHarvested = null)
+    public function __construct($showDetailModal = null, $editModalTarget = null, $QrCode = null, $deleteRoute = null, $extraButtons = [], $markAsHarvested = null)
     {
+        $this->showDetailModal = $showDetailModal;
         $this->editModalTarget = $editModalTarget;
         $this->deleteRoute = $deleteRoute;
         $this->markAsHarvested = $markAsHarvested;
