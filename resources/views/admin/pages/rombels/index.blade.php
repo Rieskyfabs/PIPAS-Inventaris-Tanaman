@@ -5,7 +5,6 @@
 @section('contents')
   <div>
     <main id="main" class="main">
-
       <x-breadcrumbs 
         title="List Data Rombel" 
         :items="[
@@ -13,64 +12,35 @@
           ['label' => 'List Data Rombel']
         ]" 
       />
-
       <section class="section">
         <div class="row">
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">{{ __('Data Rombel Siswa') }}</h5>
-                <x-error-alert />
+                <h5 class="card-title">{{ __('Data Rombel') }}</h5>
+                <x-atoms.table.error-alert />
                 <div class="add-btn-container">
-                    <x-add-button 
-                      target="#Rombels" 
-                      label="TAMBAH" 
-                    />
+                  <x-atoms.table.add-button 
+                    target="#Rombels" 
+                    label="TAMBAH" 
+                  />
                 </div>
-                <!-- Table with stripped rows -->
-                <table class="table table-bordered table-hover datatable">
-                    <thead>
-                        <tr>
-                          <th>{{__('NO')}}</th>
-                          <th>{{__('NAMA')}}</th>
-                          <th>{{__('DIBUAT PADA')}}</th>
-                          <th>{{__('AKSI')}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($rombels as $item)
-                            <tr>
-                              <td>{{ $loop->iteration }}</td>
-                              <td>
-                                  <div class="d-flex flex-column">
-                                      <div class="text-heading text-truncate">
-                                        <span class="fw-medium">{{ $item->name }}</span>
-                                      </div>
-                                      <small class="text-muted">{{ $item->description ?? 'Tidak Ada Deskripsi' }}</small>
-                                  </div>
-                              </td>
-                              <td>{{ $item->created_at->format('d F Y, H:i') }}</td>
-                              <td>
-                                  <div style="display: flex; align-items: center;">
-                                      <x-action-buttons 
-                                        editModalTarget="#EditRombels{{ $item->id }}"
-                                        deleteRoute="{{ route('rombel.destroy', $item->id) }}"
-                                      />
-                                  </div>
-                              </td>
-                            </tr>
-                            @include('modals.edit_rombels_modal')
-                        @endforeach
-                    </tbody>
-                </table>
-                <!-- End Table with stripped rows -->
+                <x-organisms.table.universal-table 
+                    :columns="[
+                        ['key' => 'iteration', 'label' => 'NO'],
+                        ['key' => 'name', 'label' => 'Nama'],
+                        ['key' => 'created_at', 'label' => 'Dibuat Pada'],
+                        ['key' => 'actions_buttons_column', 'label' => 'Aksi'],
+                    ]"
+                    :data="$rombels"
+                />
+                @include('modals.edit_rombels_modal')
                 @include('modals.create_rombels_modal')
               </div>
             </div>
           </div>
         </div>
       </section>
-      
     </main>
   </div>
 @endsection

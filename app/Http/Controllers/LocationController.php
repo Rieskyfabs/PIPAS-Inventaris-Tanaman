@@ -14,7 +14,25 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::orderBy('created_at', 'desc')->get();
+        $locations = Location::orderBy('created_at', 'desc')
+        ->get()
+        ->map(function ($item, $key) {
+            // Menambahkan iteration (nomor urut)
+            $item->iteration = $key + 1;
+
+            // Menambahkan render untuk kolom created_at
+            $item->created_at_column = $item->created_at->format('d-m-Y H:i');
+
+            // Menambahkan render untuk kolom actions
+            $item->actions_buttons_column = view('components.atoms.table.action-buttons-column', [
+                'editModalTarget' => '#EditLocation' . $item->id,
+                'deleteRoute' => route('locations.destroy', $item->id),
+            ])->render();
+
+            $item->subtext = $item->description;
+
+            return $item;
+        });
 
         $title = 'Apakah anda yakin ingin menghapus lokasi ini?';
         $text = "Semua data tanaman dengan lokasi ini akan terhapus juga";

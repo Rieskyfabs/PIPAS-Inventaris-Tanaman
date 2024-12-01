@@ -9,7 +9,7 @@ use App\Models\Rayon;
 use App\Models\Rombel;
 use App\Models\Student;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Log; // Tambahkan ini
+use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class StudentController extends Controller
@@ -18,17 +18,40 @@ class StudentController extends Controller
     {
         $students = Student::with(['rombel', 'rayon'])
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->get()
+            ->map(function ($item, $key) {
+                // Menambahkan iteration (nomor urut)
+                $item->iteration = $key + 1;
 
-        $rombels = Rombel::all();
-        $rayons = Rayon::all();
+                // Menambahkan render untuk kolom email
+                $item->email_column = view('components.atoms.table.email-column', ['email' => $item->email])->render();
 
-        $title = 'Apakah anda yakin?';
-        $text = "Aksi anda tidak akan bisa dikembalikan.";
-        confirmDelete($title, $text);
+                // Menambahkan render untuk kolom gender
+                $item->gender_column = view('components.atoms.badge.gender-badge', [
+                    'gender' => $item->gender,
+                    'class' => $item->gender === 'laki-laki' ? 'badge-soft-blue' : 'badge-soft-pink',
+                ])->render();
 
+                // Menambahkan render untuk kolom actions
+                $item->actions_buttons_column = view('components.atoms.table.action-buttons-column', [
+                    'editModalTarget' => '#EditStudents' . $item->id,
+                    'deleteRoute' => route('student-data.destroy', $item->id),
+                ])->render();
+
+                return $item;
+            });
+        
+            $rombels = Rombel::all();
+            $rayons = Rayon::all();
+
+            $title = 'Apakah anda yakin?';
+            $text = "Aksi anda tidak akan bisa dikembalikan.";
+            confirmDelete($title, $text);
+
+        // Passing data ke view
         return view('admin.pages.students.index', compact('students', 'rombels', 'rayons'));
     }
+
 
     public function store(StoreStudentRequest $request)
     {

@@ -12,7 +12,25 @@ class PlantTypeController extends Controller
 {
     public function index()
     {
-        $plantTypes = TipeTanaman::orderBy('created_at', 'desc')->get();
+        $plantTypes = TipeTanaman::orderBy('created_at', 'desc')
+        ->get()
+        ->map(function ($item, $key) {
+            // Menambahkan iteration (nomor urut)
+            $item->iteration = $key + 1;
+
+            // Menambahkan render untuk kolom created_at
+            $item->created_at_column = $item->created_at->format('d-m-Y H:i');
+
+            // Menambahkan render untuk kolom actions
+            $item->actions_buttons_column = view('components.atoms.table.action-buttons-column', [
+                'editModalTarget' => '#EditPlantTypes' . $item->id,
+                'deleteRoute' => route('plantTypes.destroy', $item->id),
+            ])->render();
+
+            $item->subtext = $item->description;
+
+            return $item;
+        });
 
         $title = 'Apakah anda yakin?';
         $text = "semua data tanaman dengan tipe ini akan terhapus juga";

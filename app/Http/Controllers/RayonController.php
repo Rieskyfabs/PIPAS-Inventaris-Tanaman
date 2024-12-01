@@ -12,7 +12,25 @@ class RayonController extends Controller
 {
     public function index()
     {
-        $rayons = Rayon::orderBy('created_at', 'desc')->get();
+        $rayons = Rayon::orderBy('created_at', 'desc')
+        ->get()
+        ->map(function ($item, $key) {
+            // Menambahkan iteration (nomor urut)
+            $item->iteration = $key + 1;
+
+            // Menambahkan render untuk kolom created_at
+            $item->created_at_column = $item->created_at->format('d-m-Y H:i');
+
+            // Menambahkan render untuk kolom actions
+            $item->actions_buttons_column = view('components.atoms.table.action-buttons-column', [
+                'editModalTarget' => '#EditRayons' . $item->id,
+                'deleteRoute' => route('rayon.destroy', $item->id),
+            ])->render();
+
+            $item->subtext = $item->description;
+
+            return $item;
+        });
 
         $title = 'Apakah anda yakin?';
         $text = "semua data siswa dengan rayon ini akan terhapus juga";

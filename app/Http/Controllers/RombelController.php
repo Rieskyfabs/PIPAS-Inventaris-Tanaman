@@ -12,7 +12,25 @@ class RombelController extends Controller
 {
     public function index()
     {
-        $rombels = Rombel::orderBy('created_at', 'desc')->get();
+        $rombels = Rombel::orderBy('created_at', 'desc')
+        ->get()
+        ->map(function ($item, $key) {
+            // Menambahkan iteration (nomor urut)
+            $item->iteration = $key + 1;
+
+            // Menambahkan render untuk kolom created_at
+            $item->created_at_column = $item->created_at->format('d-m-Y H:i');
+
+            // Menambahkan render untuk kolom actions
+            $item->actions_buttons_column = view('components.atoms.table.action-buttons-column', [
+                'editModalTarget' => '#EditRombels' . $item->id,
+                'deleteRoute' => route('rombel.destroy', $item->id),
+            ])->render();
+
+            $item->subtext = $item->description;
+
+            return $item;
+        });
 
         $title = 'Apakah anda yakin?';
         $text = "semua data siswa dengan rombel ini akan terhapus juga";

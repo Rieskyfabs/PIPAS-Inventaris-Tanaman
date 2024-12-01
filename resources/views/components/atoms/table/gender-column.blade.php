@@ -1,0 +1,1 @@
+<x-atoms.badge.gender-badge :class="genderBadgeClass($gender)" :gender="$gender" />

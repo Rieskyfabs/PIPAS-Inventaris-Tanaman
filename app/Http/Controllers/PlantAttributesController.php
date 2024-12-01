@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\TipeTanaman; // Use this for plant types
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PlantAttributesController extends Controller
@@ -17,11 +18,37 @@ class PlantAttributesController extends Controller
      */
     public function index()
     {
-        $plantAttributes = PlantAttributes::with(['category', 'plantType']) // Ensure you're fetching the type too
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $plantAttributes = PlantAttributes::with(['category', 'plantType'])
+        ->orderBy('created_at', 'desc')
+        ->get()
+        ->map(function ($item, $key) {
+            // Menambahkan iteration (nomor urut)
+            $item->iteration = $key + 1;
+
+            // Menambahkan render untuk kolom actions
+            $item->actions_buttons_column = view('components.atoms.table.action-buttons-column', [
+                'editModalTarget' => '#EditPlantAttribute' . $item->id,
+                'deleteRoute' => route('plantAttributes.destroy', $item->id),
+            ])->render();
+
+            // Menambahkan benefit dengan Str::limit dan muted text
+            $item->benefit = Str::limit($item->benefit ?? 'Data tidak tersedia', 24);
+            $item->benefit_column = "<span class='text-muted'>{$item->benefit}</span>";
+
+            // Menambahkan subtext untuk Pemilik tanaman
+            // $item->owner_info = implode(' | ', [
+            //     $item->owner->nis ?? 'NIS tidak tersedia',
+            //     $item->owner->rayon ?? 'Rayon tidak tersedia',
+            //     $item->owner->rombel ?? 'Rombel tidak tersedia'
+            // ]);
+
+            $item->subtext = $item->scientific_name;
+
+            return $item;
+        });
+
         $categories = Category::all();
-        $plantTypes = TipeTanaman::all(); // Fetch plant types for the view
+        $plantTypes = TipeTanaman::all();
 
         $title = 'Apakah anda yakin?';
         $text = "semua data tanaman dengan kategori ini akan terhapus juga";
@@ -29,6 +56,7 @@ class PlantAttributesController extends Controller
 
         return view('admin.pages.plantAttributes.index', compact('plantAttributes', 'categories', 'plantTypes'));
     }
+
 
     /**
      * Show the form for creating a new resource.

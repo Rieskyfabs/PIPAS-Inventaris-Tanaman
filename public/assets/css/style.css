@@ -1369,6 +1369,21 @@ h6 {
   color: #28a745;
 }
 
+.badge-soft-green {
+    background-color: #e0f9e0;
+    color: #28a745;
+}
+
+.badge-soft-blue {
+    background-color: #d9edf7;
+    color: #5a738e;
+}
+
+.badge-soft-pink {
+    background-color: #fde8e8;
+    color: #a94442;
+}
+
 /* Badge for warning */
 .badge-soft-warning {
   background-color: #fff3cd;

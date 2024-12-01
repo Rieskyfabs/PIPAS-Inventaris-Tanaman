@@ -86,6 +86,17 @@ class Plant extends Model
     {
         $this->attributes['type'] = ucfirst(strtolower($value)); // Memastikan format yang konsisten
     }
+
+    public function getFormattedSeedingDateAttribute()
+    {
+        return Carbon::parse($this->seeding_date)->format('d M Y');
+    }
+
+    public function getFormattedHarvestDateAttribute()
+    {
+        return Carbon::parse($this->harvest_date)->format('d M Y');
+    }
+
 }
 
 

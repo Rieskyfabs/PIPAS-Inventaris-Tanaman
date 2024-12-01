@@ -6,35 +6,16 @@
     <div>
         <main id="main" class="main">
 
-            @if($plantDetail)
-                <x-breadcrumbs
-                    title="{{ __('List Tanaman ') . ($plantDetail->plantAttribute->name ?? '') }}"
-                    :items="[ 
-                        ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
-                        ['route' => 'plants', 'label' => 'Data Tanaman'],
-                        ['label' => 'Detail Tanaman']
-                    ]"
-                />
-            @else
-                <x-breadcrumbs
-                title="{{ __('List Tanaman ') . 'NULL' }}"
+            <x-breadcrumbs
+                title="{{ __('List Tanaman ') . ($plantDetail->plantAttribute->name ?? 'NULL') }}"
                 :items="[ 
                     ['route' => 'admin/dashboard', 'label' => 'Dashboard'],
                     ['route' => 'plants', 'label' => 'Data Tanaman'],
                     ['label' => 'Detail Tanaman']
                 ]"
-                />
-            @endif
+            />
             
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            <x-atoms.table.error-alert />
 
             <section class="section dashboard">
                 <div class="row">
@@ -96,23 +77,14 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <span class="badge
-                                                            @if ($item->status === 'sehat') badge-soft-green
-                                                            @elseif ($item->status === 'baik') badge-soft-primary
-                                                            @elseif ($item->status === 'layu') badge-soft-warning
-                                                            @elseif ($item->status === 'sakit') badge-soft-danger
-                                                            @else bg-secondary @endif">
+                                                        <span class="badge {{ ConditionBadgeClass($item->status) }}">
                                                             {{ ucfirst($item->status) }}
                                                         </span>
                                                     </td>
-                                                    <td>{{ \Carbon\Carbon::parse($item->seeding_date)->format('d M Y') }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($item->harvest_date)->format('d M Y') }}</td>
+                                                    <td>{{ $item->formatted_seeding_date }}</td>
+                                                    <td>{{ $item->formatted_harvest_date }}</td>
                                                     <td>
-                                                        <span class="badge
-                                                            @if ($item->harvest_status === 'belum panen') badge-soft-warning
-                                                            @elseif ($item->harvest_status === 'siap panen') badge-soft-primary
-                                                            @elseif ($item->harvest_status === 'sudah dipanen') badge-soft-green
-                                                            @endif">
+                                                        <span class="badge {{ harvestBadgeClass($item->harvest_status) }}">
                                                             {{ Str::upper($item->harvest_status) }}
                                                             @if($item->harvest_status === 'siap panen')
                                                                 <span class="notification-bubble"></span>
