@@ -2,14 +2,14 @@
     <nav class="container mx-auto flex justify-between items-center h-24 px-4 md:px-8">
         <a href="#" class="text-lg lg:text-2xl font-bold text-[#009379] flex items-center space-x-2">
             <img src="/images/wikrama-logo.png" alt="Wikrama Logo" class="w-8 h-8 sm:w-10 sm:h-10 lg:w-16 lg:h-16"> <!-- Ukuran ikon responsif -->
-            <span class="text-lg sm:text-base lg:text-2xl">SIM PIPAS</span>
+            <span class="text-lg sm:text-base lg:text-2xl">SIM PANTAU TANAMAN</span>
         </a>
-        
+
         <!-- Mobile Menu Toggle Button -->
         <button id="mobileMenuToggle" class="text-[#009379] focus:outline-none lg:hidden ml-auto">
             <i class="fas fa-bars text-2xl"></i>
         </button>
-        
+
         <div class="hidden lg:flex gap-8">
             <ul class="flex items-center space-x-8" id="navbar">
                 <li>
@@ -55,5 +55,5 @@
             <hr>
         </div>
     </div>
-    
+
 </header>
